@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en"
+    dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="csrf-token" content="7eMO3FDk7fDcsRSyWQayCgpWdptnjGAjcQF0WPmp">
+    <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+ <link href="http://127.0.0.1:8000/material/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="http://127.0.0.1:8000/material/demo/demo.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
+            <link href="http://127.0.0.1:8000/css/colors/danger.css" rel="stylesheet"/>
+            <!-- Livewire assets -->
+<style>
+    [wire\:loading] {
+        display: none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+</style>
+<script>
+    document.addEventListener('livewire:available', function () {
+        window.livewire = new Livewire();
+        window.livewire.start();
+        window.livewire_app_url = '';
+        window.livewire_token = '7eMO3FDk7fDcsRSyWQayCgpWdptnjGAjcQF0WPmp';
+    });
+</script>
+
+<script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
+</head>
+
+<body class="">
+        <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
+        <input type="hidden" name="_token" value="7eMO3FDk7fDcsRSyWQayCgpWdptnjGAjcQF0WPmp">    </form>
+    <div class="wrapper ">
+  <div class="sidebar" data-color="danger" data-background-color="white"
+    data-image="http://127.0.0.1:8000/material/img/sidebar-2.jpg">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <a href="https://creative-tim.com/" class="simple-text logo-normal">
+            Creative Tim
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/dashboard">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-itemcollapsed list-group" >
+                <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    Marketplace<span class="caret"></span></a>
+            </li>
+            <li class="collapse list-group-level1 " id="sub-menu">
+                <a href="http://127.0.0.1:8000/en/admin/seller" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Sellers</a>
+                <a href="http://127.0.0.1:8000/en/admin/seller/products" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/fullcalendar">
+                    <i class="material-icons">
+                        calendar_today
+                    </i>
+                    <p>Events</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/currencies">
+                    <i class="material-icons">
+                        attach_money
+                    </i>
+                    <p>Currencies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/log-viewer">
+                    <i class="material-icons">
+                        error
+                    </i>
+                    <p>Logs</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/user">
+                    <i class="material-icons">
+                        perm_identity
+                    </i>
+                    <p>Users</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/discounts">
+                    <i class="material-icons">
+                        local_offer
+                    </i>
+                    <p>Discounts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/orders">
+                    <i class="material-icons">
+                        library_books
+                    </i>
+                    <p>Orders</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/categories">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Categories</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/tradmarks">
+                    <i class="material-icons">
+                        assignment
+                    </i>
+                    <p>Trademarks</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/attribute_families">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>Attribute Families</p>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/products">
+                    <i class="material-icons">
+                        shopping_cart
+                    </i>
+                    <p>Products</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/malls">
+                    <i class="material-icons">
+                        local_mall
+                    </i>
+                    <p>Malls</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/countries">
+                    <i class="material-icons">
+                        emoji_flags
+                    </i>
+                    <p>Countries</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/cities">
+                    <i class="material-icons">
+                        account_balance
+                    </i>
+                    <p>Cities</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/shippingcompanies">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>shipping companies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/zones">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Shipping Zones</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/methods">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>shipping method</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/posts">
+                    <i class="material-icons">
+                        rate_review
+                    </i>
+                    <p>Posts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/manufacturers">
+                    <i class="material-icons">
+                        local_taxi
+                    </i>
+                    <p>Manufacturers</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/settings">
+                    <i class="material-icons">
+                        build
+                    </i>
+                    <p>Settings</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/languages">
+                    <i class="material-icons">
+                        language
+                    </i>
+                    <p>Languages</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/table-list">
+                    <i class="material-icons">content_paste</i>
+                    <p>Table List</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/typography">
+                    <i class="material-icons">library_books</i>
+                    <p>Typography</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/icons">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/map">
+                    <i class="material-icons">location_ons</i>
+                    <p>Maps</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/notifications">
+                    <i class="material-icons">notifications</i>
+                    <p>NewNotification</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/rtl-support">
+                    <i class="material-icons">language</i>
+                    <p>RTL Support</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+  <div class="main-panel">
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <a class="navbar-brand" href="#">Add accessories</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="navbar-toggler-icon icon-bar"></span>
+    <span class="navbar-toggler-icon icon-bar"></span>
+    <span class="navbar-toggler-icon icon-bar"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end">
+        <form id="searchForm" class="navbar-form" action="http://127.0.0.1:8000/admin/result" method="GET">
+        <div class="search_container">
+            <input type="text" name="q" id="speechText" class="form-control" placeholder="Search..." />
+            <img style="margin-left: -10px; cursor: pointer;" onclick="startRecording()" src="//i.imgur.com/cHidSVu.gif" />
+            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                <i class="material-icons">search</i>
+            </button>
+            <div class="ripple-container"></div>
+        </div>
+        </form>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/en">
+            <i class="material-icons">dashboard</i>
+            <p class="d-lg-none d-md-block">
+              Stats
+            </p>
+          </a>
+        </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdownProducts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons" style="color:red;">
+                      warning
+                  </i>
+                  <span id="ProductNotificationCounter" class="notification">0</span>
+                  <p class="d-lg-none d-md-block">
+                      Some Actions
+                  </p>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right"  aria-labelledby="navbarDropdownProducts">
+                                    <div id="markallasread" href="http://127.0.0.1:8000/admin/markallasread" class="text-center"><a style="color: blue; background: transparent; box-shadow: none; cursor:pointer;">Mark all as read</a></div>
+              </div>
+          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons">notifications</i>
+            <span class="notification" id="NotificationCounter">0</span>
+            <p class="d-lg-none d-md-block">
+              Some Actions
+            </p>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" id="notificationMenu" aria-labelledby="navbarDropdownMenuLink">
+                        </div>
+        </li>
+        <li class="nav-item dropdown">
+                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-language fa-2x"></i>
+                    <p class="d-lg-none d-md-block">
+                    Some Actions
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" rel="alternate" hreflang="en" href="http://127.0.0.1:8000/en/admin/products/accessories/2">
+                            English
+                        </a>
+                                                <a class="dropdown-item" rel="alternate" hreflang="ar" href="http://127.0.0.1:8000/ar/admin/products/accessories/2">
+                            العربية
+                        </a>
+                                        </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons">person</i>
+            <p class="d-lg-none d-md-block">
+              Account
+            </p>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+            <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/profile">Profile</a>
+            <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/settings">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="http://127.0.0.1:8000/en/logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="container-fluid pt-8">
+    <div class="col-md-12">
+                <div class="widget-extra body-req card light bordered">
+            <div class="card-header">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark">Add accessories</span>
+                </div>
+                <div class="actions">
+                    <a href="http://127.0.0.1:8000/admin/products" class="btn btn-circle btn-icon-only btn-default"
+                        tooltip="Show All" title="Show All">
+                        <i class="fa fa-list"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body form" id="element">
+                <div wire:initial-data="{&quot;id&quot;:&quot;CoL1F7bEPmQCeEGyI64t&quot;,&quot;name&quot;:&quot;products.add-accessories&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:2,&quot;relations&quot;:[],&quot;connection&quot;:&quot;mysql&quot;},&quot;search&quot;:&quot;&quot;,&quot;searchHas&quot;:&quot;&quot;,&quot;result&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;f689bbef29af2d708861667850db69323c0a79126dd983a2a59344b5cc25c138&quot;,&quot;redirectTo&quot;:false}" wire:id="CoL1F7bEPmQCeEGyI64t" class="row">
+    <div class="col-md-6">
+        <div class="mb-2">
+            <h4>
+                Accessories            </h4>
+        </div>
+        <div class="card">
+            <div class="cart-header">
+                <!-- Search form -->
+                <input type="text" id="myInput" wire:model='searchHas'  placeholder="Search for names..">
+            </div>
+            <div class="card-body">
+                <table id="myTable">
+                    <tr class="header">
+                        <th>remove</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                                    </table>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-2">
+            <h4>
+                Accessories            </h4>
+        </div>
+        <div class="card">
+            <div class="cart-header">
+                <!-- Search form -->
+                <input type="text" id="myInput" wire:model='search'  placeholder="Search for names..">
+            </div>
+            <div class="card-body">
+                <table id="myTable">
+                    <tr class="header">
+                        <th>Add</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(3)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>3</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/3/edit">Aspernatur explicabo blanditiis id quia.</a></td>
+                        <td>8.89</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(4)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>4</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/4/edit">Quasi sed sint repellat minus.</a></td>
+                        <td>8.72</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(5)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>5</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/5/edit">Velit asperiores corrupti voluptate.</a></td>
+                        <td>7.91</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(6)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>6</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/6/edit">Ducimus voluptatibus ut repudiandae sed.</a></td>
+                        <td>2.6</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(7)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>7</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/7/edit">Iure rerum quia soluta delectus eligendi.</a></td>
+                        <td>8.94</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(8)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>8</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/8/edit">Ex nam neque ea.</a></td>
+                        <td>8.13</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(9)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>9</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/9/edit">Officia et ut dolorem.</a></td>
+                        <td>9.7</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(10)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>10</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/10/edit">Repellat rerum odit quia.</a></td>
+                        <td>8.19</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(11)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>11</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/11/edit">Est id et quia.</a></td>
+                        <td>6.85</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(12)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>12</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/12/edit">Voluptatum laboriosam dignissimos non ratione.</a></td>
+                        <td>6.77</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(13)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>13</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/13/edit">Aliquam provident labore ut aperiam dignissimos.</a></td>
+                        <td>5.21</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(14)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>14</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/14/edit">Fugit sequi et deleniti.</a></td>
+                        <td>7.01</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(15)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>15</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/15/edit">Voluptatibus eum ea tempora.</a></td>
+                        <td>1.02</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(16)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>16</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/16/edit">Explicabo tempora doloribus eum.</a></td>
+                        <td>3.85</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(17)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>17</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/17/edit">Dolor aut magni beatae alias.</a></td>
+                        <td>8.19</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(18)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>18</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/18/edit">Omnis veniam repellendus doloribus porro id.</a></td>
+                        <td>7.09</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(19)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>19</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/19/edit">Architecto delectus est et.</a></td>
+                        <td>8.93</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(20)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>20</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/20/edit">Est cum quia non.</a></td>
+                        <td>2.43</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(21)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>21</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/21/edit">Saepe iure distinctio.</a></td>
+                        <td>8.47</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(22)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>22</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/22/edit">Sunt quo ipsam facilis debitis rerum.</a></td>
+                        <td>2.06</td>
+                    </tr>
+                                    </table>
+                <ul class="pagination" role="navigation">
+        
+                    <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; Previous">
+                <span class="page-link" aria-hidden="true">&lsaquo;</span>
+            </li>
+        
+        
+                    
+            
+            
+                                                                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(2)">2</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(3)">3</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(4)">4</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(5)">5</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(6)">6</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(7)">7</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(8)">8</button></li>
+                                                                    
+                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+            
+            
+                                
+            
+            
+                                                                        <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(18)">18</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(19)">19</button></li>
+                                                        
+        
+                    <li class="page-item">
+                <button type="button" class="page-link" wire:click="nextPage" rel="next" aria-label="Next &raquo;">&rsaquo;</button>
+            </li>
+            </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        /* Add a search icon to input */
+        background-position: 10px 12px;
+        /* Position the search icon */
+        background-repeat: no-repeat;
+        /* Do not repeat the icon image */
+        width: 100%;
+        /* Full-width */
+        font-size: 16px;
+        /* Increase font-size */
+        padding: 12px 20px 12px 40px;
+        /* Add some padding */
+        border: 1px solid #ddd;
+        /* Add a grey border */
+        margin-bottom: 12px;
+        /* Add some space below the input */
+    }
+
+    #myTable {
+        border-collapse: collapse;
+        /* Collapse borders */
+        width: 100%;
+        /* Full-width */
+        border: 1px solid #ddd;
+        /* Add a grey border */
+        font-size: 18px;
+        /* Increase font-size */
+    }
+
+    #myTable th,
+    #myTable td {
+        text-align: left;
+        /* Left-align text */
+        padding: 12px;
+        /* Add padding */
+    }
+
+    #myTable tr {
+        /* Add a bottom border to all table rows */
+        border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header,
+    #myTable tr:hover {
+        /* Add a grey background color to the table header and on hover */
+        background-color: #f1f1f1;
+    }
+
+</style>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <footer class="footer">
+  <div class="container-fluid">
+    <nav class="float-left">
+      <ul>
+        <li>
+          <a href="https://www.creative-tim.com">
+              Creative Tim
+          </a>
+        </li>
+        <li>
+          <a href="https://creative-tim.com/presentation">
+              About Us
+          </a>
+        </li>
+        <li>
+          <a href="http://blog.creative-tim.com">
+              Blog
+          </a>
+        </li>
+        <li>
+          <a href="https://www.creative-tim.com/license">
+              Licenses
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="copyright float-right">
+      &copy;
+      <script>
+        document.write(new Date().getFullYear())
+      </script>, made with <i class="material-icons">favorite</i> by
+      <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and <a href="https://www.updivision.com" target="_blank">UPDIVISION</a> for a better web.
+    </div>
+  </div>
+</footer>  </div>
+</div>        
+
+
+    <div class="fixed-plugin" style="top:174px;">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fas fa-cloud fa-3x" style="color: #fff;"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Weather</li>
+                <div class="adjustments-line d-block">
+                    <div  id="app">
+                        <weather></weather>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Filters</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger active-color">
+                        <div class="badge-colors ml-auto mr-auto">
+                            <span class="badge filter badge-purple" data-color="purple" onclick="changeColor('purple')"></span>
+                            <span class="badge filter badge-azure" data-color="azure" onclick="changeColor('azure')"></span>
+                            <span class="badge filter badge-green" data-color="green" onclick="changeColor('green')"></span>
+                            <span class="badge filter badge-warning active" data-color="orange" onclick="changeColor('orange')"></span>
+                            <span class="badge filter badge-danger" data-color="danger" onclick="changeColor('danger')"></span>
+                            <span class="badge filter badge-rose" data-color="rose" onclick="changeColor('rose')"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+                <li class="header-title">Images</li>
+                <li class="active">
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-1.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-1.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-2.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-2.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-3.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-3.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-4.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-4.jpg" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <!-- 2. AddChat widget -->
+        <div id="addchat_app"
+        data-baseurl="http://127.0.0.1:8000"
+        data-csrfname="X-CSRF-Token"
+        data-csrftoken="7eMO3FDk7fDcsRSyWQayCgpWdptnjGAjcQF0WPmp"
+    ></div>
+    <div id="app">
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="http://127.0.0.1:8000/js/app.js"></script>
+    <script>
+        Echo.channel('home')
+            .listen('notificationEvent', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+
+    </script>
+    <script src="http://127.0.0.1:8000/material/js/core/jquery.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/popper.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/bootstrap-material-design.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin for the momentJs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/arrive.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
+    <!-- Chartist JS -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/chartist.min.js"></script>
+    <!--  NewNotification Plugin    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="http://127.0.0.1:8000/material/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="http://127.0.0.1:8000/material/demo/demo.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/settings.js"></script>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/dataTables.buttons.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/buttons.server-side.js"></script>
+    <!-- 3. AddChat JS -->
+    <!-- Modern browsers -->
+    <script type="module" src="http://127.0.0.1:8000/assets/addchat/js/addchat.min.js"></script>
+    <!-- Fallback support for Older browsers -->
+    <script nomodule src="http://127.0.0.1:8000/assets/addchat/js/addchat-legacy.min.js"></script>
+    <script>
+        function check_all() {
+            $('input[class="item_checkbox"]:checkbox').each(function () {
+                if ($('input[class="check_all"]:checkbox:checked').length == 0) {
+                    $(this).prop('checked', false);
+                } else {
+                    $(this).prop('checked', true);
+                }
+            });
+        }
+
+        function delete_all() {
+            $(document).on('click', '.del_all', function () {
+                $('#form_data').submit();
+            });
+            $(document).on('click', '.delBtn', function () {
+                var item_checked = $('input[class="item_checkbox"]:checkbox').filter(':checked').length;
+                if (item_checked > 0) {
+                    $('.record_count').text(item_checked);
+                    $('.not_empty_record').removeClass('hidden');
+                    $('.empty_record').addClass('hidden');
+                } else {
+                    $('.record_count').text('');
+                    $('.not_empty_record').addClass('hidden');
+                    $('.empty_record').removeClass('hidden');
+                }
+                $('#mutlipleDelete').modal('show');
+            });
+        }
+        $('#datetimepicker1').datetimepicker();
+
+        /* change color (sidebar) */
+        function changeColor(color) {
+            $url = "http://127.0.0.1:8000/en/admin/changecolor";
+            $.post({
+            url: $url,
+            data: {
+                _token: '7eMO3FDk7fDcsRSyWQayCgpWdptnjGAjcQF0WPmp',
+                color: color
+            }
+            });
+        }
+
+    /* change image (sidebar) */
+        function changeImage(image) {
+            $url = "http://127.0.0.1:8000/en/admin/changeimage";
+            $.post({
+            url: $url,
+            data: {
+                _token: '7eMO3FDk7fDcsRSyWQayCgpWdptnjGAjcQF0WPmp',
+                image: image
+            }
+            });
+        }
+
+
+        var recognition = new webkitSpeechRecognition();
+
+        recognition.onresult = function(event) {
+            var saidText = "";
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    saidText = event.results[i][0].transcript;
+                } else {
+                    saidText += event.results[i][0].transcript;
+                }
+            }
+            // Update Textbox value
+            document.getElementById('speechText').value = saidText;
+
+            // Search Posts
+            searchPosts(saidText);
+        }
+
+        function startRecording(){
+            recognition.start();
+        }
+
+        // Search Posts
+        function searchPosts(saidText){
+            $('#searchForm').trigger('submit');
+        }
+
+            $('#wiconCopy').each(function () {
+                $(this).attr('src', $('#wicon').attr('src')).delay(10000);
+            });
+                </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+        //var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        $('#navbarDropdownMenuLink').on('click',function() {
+            axios.get('/admin/markasread')
+            .then(res=> {
+                $('#NotificationCounter').text(0);
+            });
+        });
+
+        $('.product-dropdown-item').on('click',function(e) {
+            e.preventDefault();
+            var href = $(this).attr('href');
+            var thi = $(this);
+            axios.get(href)
+                .then(res=> {
+                    $('#ProductNotificationCounter').text($('#ProductNotificationCounter').text() - 1);
+                    $(thi).remove();
+                });
+        });
+        $('#markallasread').on('click',function(e) {
+            e.preventDefault();
+            var href = $(this).attr('href');
+            var thi = $(this);
+            axios.get(href)
+                .then(res=> {
+                    $('#ProductNotificationCounter').text(0);
+                    $('.product-dropdown-item').remove();
+                    $(thi).remove();
+                });
+        });
+    </script>
+    
+</body>
+
+</html>

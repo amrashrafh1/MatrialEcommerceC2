@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en"
+    dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="csrf-token" content="V4ZHBhojD0nJLczxXyCdx8y17XFkmUYGeohX4aLu">
+    <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+ <link href="http://127.0.0.1:8000/material/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="http://127.0.0.1:8000/material/demo/demo.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
+            <link href="http://127.0.0.1:8000/css/colors/danger.css" rel="stylesheet"/>
+        </head>
+
+<body class="">
+        <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
+        <input type="hidden" name="_token" value="V4ZHBhojD0nJLczxXyCdx8y17XFkmUYGeohX4aLu">    </form>
+    <div class="wrapper ">
+  <div class="sidebar" data-color="danger" data-background-color="white"
+    data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <a href="https://creative-tim.com/" class="simple-text logo-normal">
+            Creative Tim
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/dashboard">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-itemcollapsed list-group" >
+                <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    Marketplace<span class="caret"></span></a>
+            </li>
+            <li class="collapse list-group-level1 " id="sub-menu">
+                <a href="http://127.0.0.1:8000/en/admin/seller" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Sellers</a>
+                <a href="http://127.0.0.1:8000/en/admin/seller/products" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/fullcalendar">
+                    <i class="material-icons">
+                        calendar_today
+                    </i>
+                    <p>Events</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/currencies">
+                    <i class="material-icons">
+                        attach_money
+                    </i>
+                    <p>Currencies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/log-viewer">
+                    <i class="material-icons">
+                        error
+                    </i>
+                    <p>Logs</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/user">
+                    <i class="material-icons">
+                        perm_identity
+                    </i>
+                    <p>Users</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/discounts">
+                    <i class="material-icons">
+                        local_offer
+                    </i>
+                    <p>Discounts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/orders">
+                    <i class="material-icons">
+                        library_books
+                    </i>
+                    <p>Orders</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/categories">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Categories</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/tradmarks">
+                    <i class="material-icons">
+                        assignment
+                    </i>
+                    <p>Trademarks</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/attribute_families">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>Attribute Families</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/products">
+                    <i class="material-icons">
+                        shopping_cart
+                    </i>
+                    <p>Products</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/malls">
+                    <i class="material-icons">
+                        local_mall
+                    </i>
+                    <p>Malls</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/countries">
+                    <i class="material-icons">
+                        emoji_flags
+                    </i>
+                    <p>Countries</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/cities">
+                    <i class="material-icons">
+                        account_balance
+                    </i>
+                    <p>Cities</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/shippingcompanies">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>shipping companies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/zones">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Shipping Zones</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/methods">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>shipping method</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/posts">
+                    <i class="material-icons">
+                        rate_review
+                    </i>
+                    <p>Posts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/manufacturers">
+                    <i class="material-icons">
+                        local_taxi
+                    </i>
+                    <p>Manufacturers</p>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/settings">
+                    <i class="material-icons">
+                        build
+                    </i>
+                    <p>Settings</p>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/languages">
+                    <i class="material-icons">
+                        language
+                    </i>
+                    <p>Languages</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/table-list">
+                    <i class="material-icons">content_paste</i>
+                    <p>Table List</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/typography">
+                    <i class="material-icons">library_books</i>
+                    <p>Typography</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/icons">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/map">
+                    <i class="material-icons">location_ons</i>
+                    <p>Maps</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/notifications">
+                    <i class="material-icons">notifications</i>
+                    <p>NewNotification</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/rtl-support">
+                    <i class="material-icons">language</i>
+                    <p>RTL Support</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+  <div class="main-panel">
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="#">Settings</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <form id="searchForm" class="navbar-form" action="http://127.0.0.1:8000/admin/result" method="GET">
+                <div class="search_container">
+                    <input type="text" name="q" id="speechText" class="form-control"
+                        placeholder="Search..." />
+                    <img style="margin-left: -10px; cursor: pointer;" onclick="startRecording()"
+                        src="//i.imgur.com/cHidSVu.gif" />
+                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                    </button>
+                    <div class="ripple-container"></div>
+                </div>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/en">
+                        <i class="material-icons">dashboard</i>
+                        <p class="d-lg-none d-md-block">
+                            Stats
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownProducts" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="material-icons" style="color:red;">
+                            warning
+                        </i>
+                        <span id="ProductNotificationCounter"
+                            class="notification">0</span>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProducts">
+                                                <div id="markallasread" href="http://127.0.0.1:8000/admin/markallasread" class="text-center"><a
+                                style="color: blue; background: transparent; box-shadow: none; cursor:pointer;">Mark all as read</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="material-icons">notifications</i>
+                        <span class="notification"
+                            id="NotificationCounter">0</span>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" id="notificationMenu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                                            </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-language fa-2x"></i>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" rel="alternate" hreflang="en"
+                            href="http://127.0.0.1:8000/en/admin/settings">
+                            English
+                        </a>
+                                                <a class="dropdown-item" rel="alternate" hreflang="ar"
+                            href="http://127.0.0.1:8000/ar/admin/settings">
+                            العربية
+                        </a>
+                                            </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">person</i>
+                        <p class="d-lg-none d-md-block">
+                            Account
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/profile">Profile</a>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/settings">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/logout"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container-fluid mt-6 pt-8">
+    <div class="col-md-12">
+                <div class="widget-extra body-req card light bordered">
+            <div class="card-header">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark">Setting</span>
+                </div>
+                <div class="actions">
+                    <a href="http://127.0.0.1:8000/admin/dashboard" class="btn btn-circle btn-icon-only btn-default"
+                        tooltip="Show All" title="Show All">
+                        <i class="fa fa-list"></i>
+                    </a>
+                    <a href="http://127.0.0.1:8000/admin/coupons" class="btn btn-circle btn-icon-only btn-primary"
+                        tooltip="Show All" title="Show All">
+                        <i class="fa fa-plus"></i>
+                         add coupons                    </a>
+                    <a href="http://127.0.0.1:8000/en/admin/cmss" class="btn btn-circle btn-icon-only btn-primary"
+                        tooltip="Show All" title="Show All">
+                        <i class="fa fa-plus"></i>
+                         add event                    </a>
+                                    </div>
+            </div>
+            <div class="card-body form">
+                <div class="col-md-12">
+                    <form method="POST" action="http://127.0.0.1:8000/en/admin/settings" accept-charset="UTF-8" id="users" class="form-horizontal
+                    form-row-seperated" enctype="multipart/form-data"><input name="_method" type="hidden" value="PATCH"><input name="_token" type="hidden" value="V4ZHBhojD0nJLczxXyCdx8y17XFkmUYGeohX4aLu">
+                                        <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="sitename" class=" control-label">sitename in English</label>
+                        </div>
+                        <div class="col-md-10">
+
+                            <input type="text"
+                                name="sitename_en" class="form-control"
+                                placeholder="sitename in English"
+                                value=""
+                                required>
+                        </div>
+                    </div>
+                                        <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="sitename" class=" control-label">sitename in Arabic</label>
+                        </div>
+                        <div class="col-md-10">
+
+                            <input type="text"
+                                name="sitename_ar" class="form-control"
+                                placeholder="sitename in Arabic"
+                                value=""
+                                >
+                        </div>
+                    </div>
+                                        <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="logo" class="control-label">Logo</label>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="custom-file" style="border: 1px solid #e6e6e6;">
+                                <input type="file" class="custom-file-input" id="customFile" name="logo">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="icon" class="control-label">icon</label>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="custom-file" style="border: 1px solid #e6e6e6;">
+                                <input type="file" class="custom-file-input" id="customFile2" name="icon">
+                                <label class="custom-file-label" for="customFile2">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="email" control-label>E-mail</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" placeholder="E-mail" name="email" type="email" id="email">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="mobile" control-label>Mobile</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" placeholder="Mobile" name="mobile" type="text" id="mobile">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="location" control-label>Address</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" placeholder="Address" name="location" type="text" id="location">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="fees" control-label>Fees percentage %</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" placeholder="Fees percentage %" name="fees" type="number" id="fees">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="seller_countries" control-label>sellers only from:</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select multiple="multiple" name="country_id[]" class="form-control" style="height:100px;">
+                                                                    <option value="1" >Afghanistan</option>
+                                                                    <option value="2" >Åland Islands</option>
+                                                                    <option value="3" >Albania</option>
+                                                                    <option value="4" >Algeria</option>
+                                                                    <option value="5" >American Samoa</option>
+                                                                    <option value="6" >Andorra</option>
+                                                                    <option value="7" >Angola</option>
+                                                                    <option value="8" >Anguilla</option>
+                                                                    <option value="9" >Antarctica</option>
+                                                                    <option value="10" >Antigua and Barbuda</option>
+                                                                    <option value="11" >Argentina</option>
+                                                                    <option value="12" >Armenia</option>
+                                                                    <option value="13" >Aruba</option>
+                                                                    <option value="14" >Australia</option>
+                                                                    <option value="15" >Austria</option>
+                                                                    <option value="16" >Azerbaijan</option>
+                                                                    <option value="17" >Bahamas</option>
+                                                                    <option value="18" >Bahrain</option>
+                                                                    <option value="19" >Bangladesh</option>
+                                                                    <option value="20" >Barbados</option>
+                                                                    <option value="21" >Belarus</option>
+                                                                    <option value="22" >Belgium</option>
+                                                                    <option value="23" >Belize</option>
+                                                                    <option value="24" >Benin</option>
+                                                                    <option value="25" >Bermuda</option>
+                                                                    <option value="26" >Bhutan</option>
+                                                                    <option value="27" >Bolivia (Plurinational State of)</option>
+                                                                    <option value="28" >Bonaire, Sint Eustatius and Saba</option>
+                                                                    <option value="29" >Bosnia and Herzegovina</option>
+                                                                    <option value="30" >Botswana</option>
+                                                                    <option value="31" >Bouvet Island</option>
+                                                                    <option value="32" >Brazil</option>
+                                                                    <option value="33" >British Indian Ocean Territory</option>
+                                                                    <option value="34" >United States Minor Outlying Islands</option>
+                                                                    <option value="35" >Virgin Islands (British)</option>
+                                                                    <option value="36" >Virgin Islands (U.S.)</option>
+                                                                    <option value="37" >Brunei Darussalam</option>
+                                                                    <option value="38" >Bulgaria</option>
+                                                                    <option value="39" >Burkina Faso</option>
+                                                                    <option value="40" >Burundi</option>
+                                                                    <option value="41" >Cambodia</option>
+                                                                    <option value="42" >Cameroon</option>
+                                                                    <option value="43" >Canada</option>
+                                                                    <option value="44" >Cabo Verde</option>
+                                                                    <option value="45" >Cayman Islands</option>
+                                                                    <option value="46" >Central African Republic</option>
+                                                                    <option value="47" >Chad</option>
+                                                                    <option value="48" >Chile</option>
+                                                                    <option value="49" >China</option>
+                                                                    <option value="50" >Christmas Island</option>
+                                                                    <option value="51" >Cocos (Keeling) Islands</option>
+                                                                    <option value="52" >Colombia</option>
+                                                                    <option value="53" >Comoros</option>
+                                                                    <option value="54" >Congo</option>
+                                                                    <option value="55" >Congo (Democratic Republic of the)</option>
+                                                                    <option value="56" >Cook Islands</option>
+                                                                    <option value="57" >Costa Rica</option>
+                                                                    <option value="58" >Croatia</option>
+                                                                    <option value="59" >Cuba</option>
+                                                                    <option value="60" >Curaçao</option>
+                                                                    <option value="61" >Cyprus</option>
+                                                                    <option value="62" >Czech Republic</option>
+                                                                    <option value="63" >Denmark</option>
+                                                                    <option value="64" >Djibouti</option>
+                                                                    <option value="65" >Dominica</option>
+                                                                    <option value="66" >Dominican Republic</option>
+                                                                    <option value="67" >Ecuador</option>
+                                                                    <option value="68" >Egypt</option>
+                                                                    <option value="69" >El Salvador</option>
+                                                                    <option value="70" >Equatorial Guinea</option>
+                                                                    <option value="71" >Eritrea</option>
+                                                                    <option value="72" >Estonia</option>
+                                                                    <option value="73" >Ethiopia</option>
+                                                                    <option value="74" >Falkland Islands (Malvinas)</option>
+                                                                    <option value="75" >Faroe Islands</option>
+                                                                    <option value="76" >Fiji</option>
+                                                                    <option value="77" >Finland</option>
+                                                                    <option value="78" >France</option>
+                                                                    <option value="79" >French Guiana</option>
+                                                                    <option value="80" >French Polynesia</option>
+                                                                    <option value="81" >French Southern Territories</option>
+                                                                    <option value="82" >Gabon</option>
+                                                                    <option value="83" >Gambia</option>
+                                                                    <option value="84" >Georgia</option>
+                                                                    <option value="85" >Germany</option>
+                                                                    <option value="86" >Ghana</option>
+                                                                    <option value="87" >Gibraltar</option>
+                                                                    <option value="88" >Greece</option>
+                                                                    <option value="89" >Greenland</option>
+                                                                    <option value="90" >Grenada</option>
+                                                                    <option value="91" >Guadeloupe</option>
+                                                                    <option value="92" >Guam</option>
+                                                                    <option value="93" >Guatemala</option>
+                                                                    <option value="94" >Guernsey</option>
+                                                                    <option value="95" >Guinea</option>
+                                                                    <option value="96" >Guinea-Bissau</option>
+                                                                    <option value="97" >Guyana</option>
+                                                                    <option value="98" >Haiti</option>
+                                                                    <option value="99" >Heard Island and McDonald Islands</option>
+                                                                    <option value="100" >Holy See</option>
+                                                                    <option value="101" >Honduras</option>
+                                                                    <option value="102" >Hong Kong</option>
+                                                                    <option value="103" >Hungary</option>
+                                                                    <option value="104" >Iceland</option>
+                                                                    <option value="105" >India</option>
+                                                                    <option value="106" >Indonesia</option>
+                                                                    <option value="107" >Côte d&#039;Ivoire</option>
+                                                                    <option value="108" >Iran (Islamic Republic of)</option>
+                                                                    <option value="109" >Iraq</option>
+                                                                    <option value="110" >Ireland</option>
+                                                                    <option value="111" >Isle of Man</option>
+                                                                    <option value="112" >Israel</option>
+                                                                    <option value="113" >Italy</option>
+                                                                    <option value="114" >Jamaica</option>
+                                                                    <option value="115" >Japan</option>
+                                                                    <option value="116" >Jersey</option>
+                                                                    <option value="117" >Jordan</option>
+                                                                    <option value="118" >Kazakhstan</option>
+                                                                    <option value="119" >Kenya</option>
+                                                                    <option value="120" >Kiribati</option>
+                                                                    <option value="121" >Kuwait</option>
+                                                                    <option value="122" >Kyrgyzstan</option>
+                                                                    <option value="123" >Lao People&#039;s Democratic Republic</option>
+                                                                    <option value="124" >Latvia</option>
+                                                                    <option value="125" >Lebanon</option>
+                                                                    <option value="126" >Lesotho</option>
+                                                                    <option value="127" >Liberia</option>
+                                                                    <option value="128" >Libya</option>
+                                                                    <option value="129" >Liechtenstein</option>
+                                                                    <option value="130" >Lithuania</option>
+                                                                    <option value="131" >Luxembourg</option>
+                                                                    <option value="132" >Macao</option>
+                                                                    <option value="133" >Macedonia (the former Yugoslav Republic of)</option>
+                                                                    <option value="134" >Madagascar</option>
+                                                                    <option value="135" >Malawi</option>
+                                                                    <option value="136" >Malaysia</option>
+                                                                    <option value="137" >Maldives</option>
+                                                                    <option value="138" >Mali</option>
+                                                                    <option value="139" >Malta</option>
+                                                                    <option value="140" >Marshall Islands</option>
+                                                                    <option value="141" >Martinique</option>
+                                                                    <option value="142" >Mauritania</option>
+                                                                    <option value="143" >Mauritius</option>
+                                                                    <option value="144" >Mayotte</option>
+                                                                    <option value="145" >Mexico</option>
+                                                                    <option value="146" >Micronesia (Federated States of)</option>
+                                                                    <option value="147" >Moldova (Republic of)</option>
+                                                                    <option value="148" >Monaco</option>
+                                                                    <option value="149" >Mongolia</option>
+                                                                    <option value="150" >Montenegro</option>
+                                                                    <option value="151" >Montserrat</option>
+                                                                    <option value="152" >Morocco</option>
+                                                                    <option value="153" >Mozambique</option>
+                                                                    <option value="154" >Myanmar</option>
+                                                                    <option value="155" >Namibia</option>
+                                                                    <option value="156" >Nauru</option>
+                                                                    <option value="157" >Nepal</option>
+                                                                    <option value="158" >Netherlands</option>
+                                                                    <option value="159" >New Caledonia</option>
+                                                                    <option value="160" >New Zealand</option>
+                                                                    <option value="161" >Nicaragua</option>
+                                                                    <option value="162" >Niger</option>
+                                                                    <option value="163" >Nigeria</option>
+                                                                    <option value="164" >Niue</option>
+                                                                    <option value="165" >Norfolk Island</option>
+                                                                    <option value="166" >Korea (Democratic People&#039;s Republic of)</option>
+                                                                    <option value="167" >Northern Mariana Islands</option>
+                                                                    <option value="168" >Norway</option>
+                                                                    <option value="169" >Oman</option>
+                                                                    <option value="170" >Pakistan</option>
+                                                                    <option value="171" >Palau</option>
+                                                                    <option value="172" >Palestine, State of</option>
+                                                                    <option value="173" >Panama</option>
+                                                                    <option value="174" >Papua New Guinea</option>
+                                                                    <option value="175" >Paraguay</option>
+                                                                    <option value="176" >Peru</option>
+                                                                    <option value="177" >Philippines</option>
+                                                                    <option value="178" >Pitcairn</option>
+                                                                    <option value="179" >Poland</option>
+                                                                    <option value="180" >Portugal</option>
+                                                                    <option value="181" >Puerto Rico</option>
+                                                                    <option value="182" >Qatar</option>
+                                                                    <option value="183" >Republic of Kosovo</option>
+                                                                    <option value="184" >Réunion</option>
+                                                                    <option value="185" >Romania</option>
+                                                                    <option value="186" >Russian Federation</option>
+                                                                    <option value="187" >Rwanda</option>
+                                                                    <option value="188" >Saint Barthélemy</option>
+                                                                    <option value="189" >Saint Helena, Ascension and Tristan da Cunha</option>
+                                                                    <option value="190" >Saint Kitts and Nevis</option>
+                                                                    <option value="191" >Saint Lucia</option>
+                                                                    <option value="192" >Saint Martin (French part)</option>
+                                                                    <option value="193" >Saint Pierre and Miquelon</option>
+                                                                    <option value="194" >Saint Vincent and the Grenadines</option>
+                                                                    <option value="195" >Samoa</option>
+                                                                    <option value="196" >San Marino</option>
+                                                                    <option value="197" >Sao Tome and Principe</option>
+                                                                    <option value="198" >Saudi Arabia</option>
+                                                                    <option value="199" >Senegal</option>
+                                                                    <option value="200" >Serbia</option>
+                                                                    <option value="201" >Seychelles</option>
+                                                                    <option value="202" >Sierra Leone</option>
+                                                                    <option value="203" >Singapore</option>
+                                                                    <option value="204" >Sint Maarten (Dutch part)</option>
+                                                                    <option value="205" >Slovakia</option>
+                                                                    <option value="206" >Slovenia</option>
+                                                                    <option value="207" >Solomon Islands</option>
+                                                                    <option value="208" >Somalia</option>
+                                                                    <option value="209" >South Africa</option>
+                                                                    <option value="210" >South Georgia and the South Sandwich Islands</option>
+                                                                    <option value="211" >Korea (Republic of)</option>
+                                                                    <option value="212" >South Sudan</option>
+                                                                    <option value="213" >Spain</option>
+                                                                    <option value="214" >Sri Lanka</option>
+                                                                    <option value="215" >Sudan</option>
+                                                                    <option value="216" >Suriname</option>
+                                                                    <option value="217" >Svalbard and Jan Mayen</option>
+                                                                    <option value="218" >Swaziland</option>
+                                                                    <option value="219" >Sweden</option>
+                                                                    <option value="220" >Switzerland</option>
+                                                                    <option value="221" >Syrian Arab Republic</option>
+                                                                    <option value="222" >Taiwan</option>
+                                                                    <option value="223" >Tajikistan</option>
+                                                                    <option value="224" >Tanzania, United Republic of</option>
+                                                                    <option value="225" >Thailand</option>
+                                                                    <option value="226" >Timor-Leste</option>
+                                                                    <option value="227" >Togo</option>
+                                                                    <option value="228" >Tokelau</option>
+                                                                    <option value="229" >Tonga</option>
+                                                                    <option value="230" >Trinidad and Tobago</option>
+                                                                    <option value="231" >Tunisia</option>
+                                                                    <option value="232" >Turkey</option>
+                                                                    <option value="233" >Turkmenistan</option>
+                                                                    <option value="234" >Turks and Caicos Islands</option>
+                                                                    <option value="235" >Tuvalu</option>
+                                                                    <option value="236" >Uganda</option>
+                                                                    <option value="237" >Ukraine</option>
+                                                                    <option value="238" >United Arab Emirates</option>
+                                                                    <option value="239" >United Kingdom of Great Britain and Northern Ireland</option>
+                                                                    <option value="240" >United States of America</option>
+                                                                    <option value="241" >Uruguay</option>
+                                                                    <option value="242" >Uzbekistan</option>
+                                                                    <option value="243" >Vanuatu</option>
+                                                                    <option value="244" >Venezuela (Bolivarian Republic of)</option>
+                                                                    <option value="245" >Viet Nam</option>
+                                                                    <option value="246" >Wallis and Futuna</option>
+                                                                    <option value="247" >Western Sahara</option>
+                                                                    <option value="248" >Yemen</option>
+                                                                    <option value="249" >Zambia</option>
+                                                                    <option value="250" >Zimbabwe</option>
+                                                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="default_shipping" control-label>Default shipping</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="default_shipping" name="default_shipping"><option selected="selected" value="">Default shipping</option><option value="1">yes</option><option value="0">no</option></select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="shipping_method" control-label>Shipping method</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="shipping_method" name="shipping_method"><option selected="selected" value="">Shipping method</option><option value="1">TechMarket standard shipping</option></select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="paypal" control-label>Paypal</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="paypal" name="paypal"><option selected="selected" value="">Paypal</option><option value="1">On</option><option value="0">Off</option></select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="stripe" control-label>Stripe</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="stripe" name="stripe"><option selected="selected" value="">Stripe</option><option value="1">On</option><option value="0">Off</option></select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        <label for="system_status" control-label>WebSite Status</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="system_status" name="system_status"><option value="">WebSite Status</option><option value="open" selected="selected">open</option><option value="close">close</option></select>
+                        </div>
+                    </div>
+                    <br>
+                                            <div class="form-group row">
+                            <div class="col-md-2">
+                                <label for="system_message" class=" control-label">Maintenance Message in
+                                    English</label>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea name="system_message_en" class="form-control"
+                                    placeholder="short description in  English"
+                                    id="system_message_en"></textarea>
+                            </div>
+                        </div>
+                                            <div class="form-group row">
+                            <div class="col-md-2">
+                                <label for="system_message" class=" control-label">Maintenance Message in
+                                    Arabic</label>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea name="system_message_ar" class="form-control"
+                                    placeholder="short description in  Arabic"
+                                    id="system_message_ar"></textarea>
+                            </div>
+                        </div>
+                                        <br>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-10">
+                                        <input class="btn btn-success" type="submit" value="Save">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <footer class="footer">
+  <div class="container-fluid">
+    <nav class="float-left">
+      <ul>
+        <li>
+          <a href="https://www.creative-tim.com">
+              Creative Tim
+          </a>
+        </li>
+        <li>
+          <a href="https://creative-tim.com/presentation">
+              About Us
+          </a>
+        </li>
+        <li>
+          <a href="http://blog.creative-tim.com">
+              Blog
+          </a>
+        </li>
+        <li>
+          <a href="https://www.creative-tim.com/license">
+              Licenses
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="copyright float-right">
+      &copy;
+      <script>
+        document.write(new Date().getFullYear())
+      </script>, made with <i class="material-icons">favorite</i> by
+      <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and <a href="https://www.updivision.com" target="_blank">UPDIVISION</a> for a better web.
+    </div>
+  </div>
+</footer>  </div>
+</div>        
+
+
+    <div class="fixed-plugin" style="top:174px;">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fas fa-cloud fa-3x" style="color: #fff;"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Weather</li>
+                <div class="adjustments-line d-block">
+                    <div  id="app">
+                        <weather></weather>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Filters</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger active-color">
+                        <div class="badge-colors ml-auto mr-auto">
+                            <span class="badge filter badge-purple" data-color="purple" onclick="changeColor('purple')"></span>
+                            <span class="badge filter badge-azure" data-color="azure" onclick="changeColor('azure')"></span>
+                            <span class="badge filter badge-green" data-color="green" onclick="changeColor('green')"></span>
+                            <span class="badge filter badge-warning active" data-color="orange" onclick="changeColor('orange')"></span>
+                            <span class="badge filter badge-danger" data-color="danger" onclick="changeColor('danger')"></span>
+                            <span class="badge filter badge-rose" data-color="rose" onclick="changeColor('rose')"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+                <li class="header-title">Images</li>
+                <li class="active">
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-1.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-1.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-2.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-2.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-3.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-3.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-4.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-4.jpg" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <!-- 2. AddChat widget -->
+        <div id="addchat_app"
+        data-baseurl="http://127.0.0.1:8000"
+        data-csrfname="X-CSRF-Token"
+        data-csrftoken="V4ZHBhojD0nJLczxXyCdx8y17XFkmUYGeohX4aLu"
+    ></div>
+    <div id="app">
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="http://127.0.0.1:8000/js/app.js"></script>
+    <script>
+        Echo.channel('home')
+            .listen('notificationEvent', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+
+
+        Echo.channel('new-seller')
+            .listen('NewSeller', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+        Echo.channel('new-order')
+            .listen('NewOrder', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+    </script>
+    <script src="http://127.0.0.1:8000/material/js/core/jquery.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/popper.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/bootstrap-material-design.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin for the momentJs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/arrive.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
+    <!-- Chartist JS -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/chartist.min.js"></script>
+    <!--  NewNotification Plugin    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="http://127.0.0.1:8000/material/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="http://127.0.0.1:8000/material/demo/demo.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/settings.js"></script>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/dataTables.buttons.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/buttons.server-side.js"></script>
+    <!-- 3. AddChat JS -->
+    <!-- Modern browsers -->
+    <script type="module" src="http://127.0.0.1:8000/assets/addchat/js/addchat.min.js"></script>
+    <!-- Fallback support for Older browsers -->
+    <script nomodule src="http://127.0.0.1:8000/assets/addchat/js/addchat-legacy.min.js"></script>
+    <script>
+        function check_all() {
+            $('input[class="item_checkbox"]:checkbox').each(function () {
+                if ($('input[class="check_all"]:checkbox:checked').length == 0) {
+                    $(this).prop('checked', false);
+                } else {
+                    $(this).prop('checked', true);
+                }
+            });
+        }
+
+        function delete_all() {
+            $(document).on('click', '.del_all', function () {
+                $('#form_data').submit();
+            });
+            $(document).on('click', '.delBtn', function () {
+                var item_checked = $('input[class="item_checkbox"]:checkbox').filter(':checked').length;
+                if (item_checked > 0) {
+                    $('.record_count').text(item_checked);
+                    $('.not_empty_record').removeClass('hidden');
+                    $('.empty_record').addClass('hidden');
+                } else {
+                    $('.record_count').text('');
+                    $('.not_empty_record').addClass('hidden');
+                    $('.empty_record').removeClass('hidden');
+                }
+                $('#mutlipleDelete').modal('show');
+            });
+        }
+        $('#datetimepicker1').datetimepicker();
+
+        /* change color (sidebar) */
+        function changeColor(color) {
+            $url = "http://127.0.0.1:8000/en/admin/changecolor";
+            $.post({
+            url: $url,
+            data: {
+                _token: 'V4ZHBhojD0nJLczxXyCdx8y17XFkmUYGeohX4aLu',
+                color: color
+            }
+            });
+        }
+
+    /* change image (sidebar) */
+        function changeImage(image) {
+            $url = "http://127.0.0.1:8000/en/admin/changeimage";
+            $.post({
+            url: $url,
+            data: {
+                _token: 'V4ZHBhojD0nJLczxXyCdx8y17XFkmUYGeohX4aLu',
+                image: image
+            }
+            });
+        }
+
+
+        var recognition = new webkitSpeechRecognition();
+
+        recognition.onresult = function(event) {
+            var saidText = "";
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    saidText = event.results[i][0].transcript;
+                } else {
+                    saidText += event.results[i][0].transcript;
+                }
+            }
+            // Update Textbox value
+            document.getElementById('speechText').value = saidText;
+
+            // Search Posts
+            searchPosts(saidText);
+        }
+
+        function startRecording(){
+            recognition.start();
+        }
+
+        // Search Posts
+        function searchPosts(saidText){
+            $('#searchForm').trigger('submit');
+        }
+
+            $('#wiconCopy').each(function () {
+                $(this).attr('src', $('#wicon').attr('src')).delay(10000);
+            });
+                        document.addEventListener("livewire:load", function(event) {
+        window.livewire.beforeDomUpdate(() => {
+            // Add your custom JavaScript here.
+        });
+
+        window.livewire.afterDomUpdate(() => {
+                        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Successfully updated',
+            showConfirmButton: true,
+            timer: 1500
+            });
+
+            
+
+        });
+    });
+        </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+
+<script>
+                ClassicEditor
+            .create( document.querySelector( '#system_message_en' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+                ClassicEditor
+            .create( document.querySelector( '#system_message_ar' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+        </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script>
+    //var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    $('#navbarDropdownMenuLink').on('click', function () {
+        axios.get('/admin/markasread')
+            .then(res => {
+                $('#NotificationCounter').text(0);
+            });
+    });
+
+    $('.product-dropdown-item').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var thi = $(this);
+        axios.get(href)
+            .then(res => {
+                $('#ProductNotificationCounter').text($('#ProductNotificationCounter').text() - 1);
+                $(thi).remove();
+            });
+    });
+    $('#markallasread').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var thi = $(this);
+        axios.get(href)
+            .then(res => {
+                $('#ProductNotificationCounter').text(0);
+                $('.product-dropdown-item').remove();
+                $(thi).remove();
+            });
+    });
+
+</script>
+
+</body>
+
+</html>

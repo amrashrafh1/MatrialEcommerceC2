@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en"
+    dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="csrf-token" content="6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq">
+    <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+ <link href="http://127.0.0.1:8000/material/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="http://127.0.0.1:8000/material/demo/demo.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
+        </head>
+
+<body class="">
+        <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
+        <input type="hidden" name="_token" value="6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq">    </form>
+    <div class="wrapper ">
+  <div class="sidebar" data-color="orange" data-background-color="white"
+    data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <a href="https://creative-tim.com/" class="simple-text logo-normal">
+            Creative Tim
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/dashboard">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-itemcollapsed list-group" >
+                <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    Marketplace<span class="caret"></span></a>
+            </li>
+            <li class="collapse list-group-level1 " id="sub-menu">
+                <a href="http://127.0.0.1:8000/en/admin/seller" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Sellers</a>
+                <a href="http://127.0.0.1:8000/en/admin/seller/products" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/fullcalendar">
+                    <i class="material-icons">
+                        calendar_today
+                    </i>
+                    <p>Events</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/currencies">
+                    <i class="material-icons">
+                        attach_money
+                    </i>
+                    <p>Currencies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/log-viewer">
+                    <i class="material-icons">
+                        error
+                    </i>
+                    <p>Logs</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/user">
+                    <i class="material-icons">
+                        perm_identity
+                    </i>
+                    <p>Users</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/discounts">
+                    <i class="material-icons">
+                        local_offer
+                    </i>
+                    <p>Discounts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/orders">
+                    <i class="material-icons">
+                        library_books
+                    </i>
+                    <p>Orders</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/categories">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Categories</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/tradmarks">
+                    <i class="material-icons">
+                        assignment
+                    </i>
+                    <p>Trademarks</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/attribute_families">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>Attribute Families</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/products">
+                    <i class="material-icons">
+                        shopping_cart
+                    </i>
+                    <p>Products</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/malls">
+                    <i class="material-icons">
+                        local_mall
+                    </i>
+                    <p>Malls</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/countries">
+                    <i class="material-icons">
+                        emoji_flags
+                    </i>
+                    <p>Countries</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/cities">
+                    <i class="material-icons">
+                        account_balance
+                    </i>
+                    <p>Cities</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/shippingcompanies">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>shipping companies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/zones">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Shipping Zones</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/methods">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>shipping method</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/posts">
+                    <i class="material-icons">
+                        rate_review
+                    </i>
+                    <p>Posts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/manufacturers">
+                    <i class="material-icons">
+                        local_taxi
+                    </i>
+                    <p>Manufacturers</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/settings">
+                    <i class="material-icons">
+                        build
+                    </i>
+                    <p>Settings</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/languages">
+                    <i class="material-icons">
+                        language
+                    </i>
+                    <p>Languages</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/table-list">
+                    <i class="material-icons">content_paste</i>
+                    <p>Table List</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/typography">
+                    <i class="material-icons">library_books</i>
+                    <p>Typography</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/icons">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/map">
+                    <i class="material-icons">location_ons</i>
+                    <p>Maps</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/notifications">
+                    <i class="material-icons">notifications</i>
+                    <p>NewNotification</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/rtl-support">
+                    <i class="material-icons">language</i>
+                    <p>RTL Support</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+  <div class="main-panel">
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="#">Dashboard</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <form id="searchForm" class="navbar-form" action="http://127.0.0.1:8000/admin/result" method="GET">
+                <div class="search_container">
+                    <input type="text" name="q" id="speechText" class="form-control"
+                        placeholder="Search..." />
+                    <img style="margin-left: -10px; cursor: pointer;" onclick="startRecording()"
+                        src="//i.imgur.com/cHidSVu.gif" />
+                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                    </button>
+                    <div class="ripple-container"></div>
+                </div>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/en">
+                        <i class="material-icons">dashboard</i>
+                        <p class="d-lg-none d-md-block">
+                            Stats
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownProducts" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="material-icons" style="color:red;">
+                            warning
+                        </i>
+                        <span id="ProductNotificationCounter"
+                            class="notification">0</span>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProducts">
+                                                <div id="markallasread" href="http://127.0.0.1:8000/admin/markallasread" class="text-center"><a
+                                style="color: blue; background: transparent; box-shadow: none; cursor:pointer;">Mark all as read</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="material-icons">notifications</i>
+                        <span class="notification"
+                            id="NotificationCounter">0</span>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" id="notificationMenu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                                            </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-language fa-2x"></i>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" rel="alternate" hreflang="en"
+                            href="http://127.0.0.1:8000/en/admin/dashboard">
+                            English
+                        </a>
+                                                <a class="dropdown-item" rel="alternate" hreflang="ar"
+                            href="http://127.0.0.1:8000/ar/admin/dashboard">
+                            العربية
+                        </a>
+                                            </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">person</i>
+                        <p class="d-lg-none d-md-block">
+                            Account
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/profile">Profile</a>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/settings">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/logout"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    
+  <div class="content">
+    <div class="container-fluid">
+        <div class="card-chart">
+            <canvas style="display: none;" id="pyieaxnfdjmvskztcoqgurbhw"  height='400' ></canvas>
+<div id="pyieaxnfdjmvskztcoqgurbhw_loader" style="
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    align-items: center;
+    height: 400px;
+    
+">
+    <svg width="50" height="50" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
+                <stop stop-color="#22292F" stop-opacity="0" offset="0%"/>
+                <stop stop-color="#22292F" stop-opacity=".631" offset="63.146%"/>
+                <stop stop-color="#22292F" offset="100%"/>
+            </linearGradient>
+        </defs>
+        <g fill="none" fill-rule="evenodd">
+            <g transform="translate(1 1)">
+                <path d="M36 18c0-9.94-8.06-18-18-18" id="Oval-2" stroke="url(#a)" stroke-width="2">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 18 18"
+                        to="360 18 18"
+                        dur="0.9s"
+                        repeatCount="indefinite" />
+                </path>
+                <circle fill="#22292F" cx="36" cy="18" r="1">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 18 18"
+                        to="360 18 18"
+                        dur="0.9s"
+                        repeatCount="indefinite" />
+                </circle>
+            </g>
+        </g>
+    </svg>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-transparent">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">Chart</h6>
+                                <h2 class="mb-0">Profit chart</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="Chart" class="chartjs-render-monitor" style="height: 300px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 row">
+        <div class="col-md-6 col-sm-12">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">content_copy</i>
+              </div>
+              <p class="card-category">Used Space</p>
+              <h4 class="card-title"><span>330.11 GiB</span><br/>/<span>383.48 GiB</span>
+              </h4>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-danger">warning</i>
+                <a href="#pablo">Get More Space...</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">store</i>
+              </div>
+              <p class="card-category">Revenue</p>
+              <h3 class="card-title">$34,245</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">date_range</i> Last 24 Hours
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">info_outline</i>
+              </div>
+              <p class="card-category">admin.error</p>
+              <h3 class="card-title">75</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">local_offer</i> Tracked from Github
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <i class="fa fa-twitter"></i>
+              </div>
+              <p class="card-category">Followers</p>
+              <h3 class="card-title">+245</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">update</i> Just Updated
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-success">
+              <div class="ct-chart" id="dailySalesChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Daily Sales</h4>
+              <p class="card-category">
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> updated 4 minutes ago
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-warning">
+              <div class="ct-chart" id="websiteViewsChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Email Subscriptions</h4>
+              <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> campaign sent 2 days ago
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-danger">
+              <div class="ct-chart" id="completedTasksChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Completed Tasks</h4>
+              <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> campaign sent 2 days ago
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-tabs card-header-primary">
+              <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                  <span class="nav-tabs-title">Tasks:</span>
+                  <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#profile" data-toggle="tab">
+                        <i class="material-icons">bug_report</i> Bugs
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#messages" data-toggle="tab">
+                        <i class="material-icons">code</i> Website
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#settings" data-toggle="tab">
+                        <i class="material-icons">cloud</i> Server
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="profile">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" checked>
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Sign contract for "What are conference organizers afraid of?"</td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                        </td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" checked>
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Create 4 Invisible User Experiences you Never Knew About</td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane" id="messages">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" checked>
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                        </td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Sign contract for "What are conference organizers afraid of?"</td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane" id="settings">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" checked>
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                        </td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" checked>
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>Sign contract for "What are conference organizers afraid of?"</td>
+                        <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title">Employees Stats</h4>
+              <p class="card-category">New employees on 15th September, 2016</p>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="table table-hover">
+                <thead class="text-warning">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Salary</th>
+                  <th>Country</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Dakota Rice</td>
+                    <td>$36,738</td>
+                    <td>Niger</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Minerva Hooper</td>
+                    <td>$23,789</td>
+                    <td>Curaçao</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Sage Rodriguez</td>
+                    <td>$56,142</td>
+                    <td>Netherlands</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Philip Chaney</td>
+                    <td>$38,735</td>
+                    <td>Korea, South</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <footer class="footer">
+  <div class="container-fluid">
+    <nav class="float-left">
+      <ul>
+        <li>
+          <a href="https://www.creative-tim.com">
+              Creative Tim
+          </a>
+        </li>
+        <li>
+          <a href="https://creative-tim.com/presentation">
+              About Us
+          </a>
+        </li>
+        <li>
+          <a href="http://blog.creative-tim.com">
+              Blog
+          </a>
+        </li>
+        <li>
+          <a href="https://www.creative-tim.com/license">
+              Licenses
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="copyright float-right">
+      &copy;
+      <script>
+        document.write(new Date().getFullYear())
+      </script>, made with <i class="material-icons">favorite</i> by
+      <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and <a href="https://www.updivision.com" target="_blank">UPDIVISION</a> for a better web.
+    </div>
+  </div>
+</footer>  </div>
+</div>        
+
+
+    <div class="fixed-plugin" style="top:174px;">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fas fa-cloud fa-3x" style="color: #fff;"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Weather</li>
+                <div class="adjustments-line d-block">
+                    <div  id="app">
+                        <weather></weather>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Filters</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger active-color">
+                        <div class="badge-colors ml-auto mr-auto">
+                            <span class="badge filter badge-purple" data-color="purple" onclick="changeColor('purple')"></span>
+                            <span class="badge filter badge-azure" data-color="azure" onclick="changeColor('azure')"></span>
+                            <span class="badge filter badge-green" data-color="green" onclick="changeColor('green')"></span>
+                            <span class="badge filter badge-warning active" data-color="orange" onclick="changeColor('orange')"></span>
+                            <span class="badge filter badge-danger" data-color="danger" onclick="changeColor('danger')"></span>
+                            <span class="badge filter badge-rose" data-color="rose" onclick="changeColor('rose')"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+                <li class="header-title">Images</li>
+                <li class="active">
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-1.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-1.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-2.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-2.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-3.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-3.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-4.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-4.jpg" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <!-- 2. AddChat widget -->
+        <div id="addchat_app"
+        data-baseurl="http://127.0.0.1:8000"
+        data-csrfname="X-CSRF-Token"
+        data-csrftoken="6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq"
+    ></div>
+    <div id="app">
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="http://127.0.0.1:8000/js/app.js"></script>
+    <script>
+        Echo.channel('home')
+            .listen('notificationEvent', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+
+
+        Echo.channel('new-seller')
+            .listen('NewSeller', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+        Echo.channel('new-order')
+            .listen('NewOrder', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+    </script>
+    <script src="http://127.0.0.1:8000/material/js/core/jquery.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/popper.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/bootstrap-material-design.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin for the momentJs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/arrive.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
+    <!-- Chartist JS -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/chartist.min.js"></script>
+    <!--  NewNotification Plugin    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="http://127.0.0.1:8000/material/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="http://127.0.0.1:8000/material/demo/demo.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/settings.js"></script>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/dataTables.buttons.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/buttons.server-side.js"></script>
+    <!-- 3. AddChat JS -->
+    <!-- Modern browsers -->
+    <script type="module" src="http://127.0.0.1:8000/assets/addchat/js/addchat.min.js"></script>
+    <!-- Fallback support for Older browsers -->
+    <script nomodule src="http://127.0.0.1:8000/assets/addchat/js/addchat-legacy.min.js"></script>
+    <script>
+        function check_all() {
+            $('input[class="item_checkbox"]:checkbox').each(function () {
+                if ($('input[class="check_all"]:checkbox:checked').length == 0) {
+                    $(this).prop('checked', false);
+                } else {
+                    $(this).prop('checked', true);
+                }
+            });
+        }
+
+        function delete_all() {
+            $(document).on('click', '.del_all', function () {
+                $('#form_data').submit();
+            });
+            $(document).on('click', '.delBtn', function () {
+                var item_checked = $('input[class="item_checkbox"]:checkbox').filter(':checked').length;
+                if (item_checked > 0) {
+                    $('.record_count').text(item_checked);
+                    $('.not_empty_record').removeClass('hidden');
+                    $('.empty_record').addClass('hidden');
+                } else {
+                    $('.record_count').text('');
+                    $('.not_empty_record').addClass('hidden');
+                    $('.empty_record').removeClass('hidden');
+                }
+                $('#mutlipleDelete').modal('show');
+            });
+        }
+        $('#datetimepicker1').datetimepicker();
+
+        /* change color (sidebar) */
+        function changeColor(color) {
+            $url = "http://127.0.0.1:8000/en/admin/changecolor";
+            $.post({
+            url: $url,
+            data: {
+                _token: '6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq',
+                color: color
+            }
+            });
+        }
+
+    /* change image (sidebar) */
+        function changeImage(image) {
+            $url = "http://127.0.0.1:8000/en/admin/changeimage";
+            $.post({
+            url: $url,
+            data: {
+                _token: '6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq',
+                image: image
+            }
+            });
+        }
+
+
+        var recognition = new webkitSpeechRecognition();
+
+        recognition.onresult = function(event) {
+            var saidText = "";
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    saidText = event.results[i][0].transcript;
+                } else {
+                    saidText += event.results[i][0].transcript;
+                }
+            }
+            // Update Textbox value
+            document.getElementById('speechText').value = saidText;
+
+            // Search Posts
+            searchPosts(saidText);
+        }
+
+        function startRecording(){
+            recognition.start();
+        }
+
+        // Search Posts
+        function searchPosts(saidText){
+            $('#searchForm').trigger('submit');
+        }
+
+            $('#wiconCopy').each(function () {
+                $(this).attr('src', $('#wicon').attr('src')).delay(10000);
+            });
+                        document.addEventListener("livewire:load", function(event) {
+            window.livewire.beforeDomUpdate(() => {
+                // Add your custom JavaScript here.
+            });
+
+        window.livewire.afterDomUpdate(() => {
+                        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Successfully updated',
+            showConfirmButton: true,
+            timer: 1500
+            });
+
+            
+
+        });
+    });
+        </script>
+        <script src="http://127.0.0.1:8000/js/chart.js/dist/Chart.min.js"></script>
+    <script  type="text/javascript">
+    var ctvChart = document.getElementById('pyieaxnfdjmvskztcoqgurbhw').getContext('2d');
+    function pyieaxnfdjmvskztcoqgurbhw_create(data) {
+        pyieaxnfdjmvskztcoqgurbhw_rendered = true;
+        document.getElementById("pyieaxnfdjmvskztcoqgurbhw_loader").style.display = 'none';
+        document.getElementById("pyieaxnfdjmvskztcoqgurbhw").style.display = 'block';
+        window.pyieaxnfdjmvskztcoqgurbhw = new Chart(document.getElementById("pyieaxnfdjmvskztcoqgurbhw").getContext("2d"), {
+            type: data[0].type,
+            data: {
+                labels: ["Today","Yesterday","2 days ago","3 days ago","4 days ago","5 days ago","6 days ago","7 days ago"],
+                datasets: data
+            },
+            options: {"maintainAspectRatio":false,"scales":{"xAxes":[],"yAxes":[{"ticks":{"beginAtZero":true}}]}},
+            plugins: []
+        });
+    }
+    let pyieaxnfdjmvskztcoqgurbhw_rendered = false;
+let pyieaxnfdjmvskztcoqgurbhw_load = function () {
+    if (document.getElementById("pyieaxnfdjmvskztcoqgurbhw") && !pyieaxnfdjmvskztcoqgurbhw_rendered) {
+                    pyieaxnfdjmvskztcoqgurbhw_create([{"borderWidth":2,"borderColor":"#9F51B0","backgroundColor":"rgba(233, 30, 99, 0.1)","data":[4,0,0,0,0,0,0,0],"label":"Users","type":"line"}])
+            }
+};
+window.addEventListener("load", pyieaxnfdjmvskztcoqgurbhw_load);
+document.addEventListener("turbolinks:load", pyieaxnfdjmvskztcoqgurbhw_load);
+
+</script>
+
+    <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+    });
+    var ctx = document.getElementById("Chart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Today", "admin.yesterday", "2 Days ago", "admin.3days_ago",
+             "4 Days ago", "admin.5days_ago", "admin.6days_ago","7 Days ago"],
+            datasets: [{
+                label: 'Profits',
+                data: [
+, , , , , , ,],
+                borderWidth: 2,
+                backgroundColor: 'transparent',
+                borderColor: '#00c3ed',
+                borderWidth: 4,
+                pointBackgroundColor: '#ffffff',
+                pointRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: true
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 150
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        display: true
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+        }
+    });
+
+        if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
+      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+
+      dataDailySalesChart = {
+        labels: ["Tod", "1d", "2d", "3d",
+             "4d", "5d", "6d","7d"],
+        series: [
+            [0
+, 0, 0, 0, 0, 0, 0,0],
+        ]
+      };
+
+      optionsDailySalesChart = {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+        }),
+        low: 0,
+        high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        },
+      }
+
+      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+
+      var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
+    }
+  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script>
+    //var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    $('#navbarDropdownMenuLink').on('click', function () {
+        axios.get('/admin/markasread')
+            .then(res => {
+                $('#NotificationCounter').text(0);
+            });
+    });
+
+    $('.product-dropdown-item').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var thi = $(this);
+        axios.get(href)
+            .then(res => {
+                $('#ProductNotificationCounter').text($('#ProductNotificationCounter').text() - 1);
+                $(thi).remove();
+            });
+    });
+    $('#markallasread').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var thi = $(this);
+        axios.get(href)
+            .then(res => {
+                $('#ProductNotificationCounter').text(0);
+                $('.product-dropdown-item').remove();
+                $(thi).remove();
+            });
+    });
+
+</script>
+
+</body>
+
+</html>
