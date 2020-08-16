@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="W2QpOiYcfQUG51gFGAoSHMfpeetgz6bVpUlfJXxK">
+    <meta name="csrf-token" content="eY8XMNAFvPaYbrjJf8Kqadoeyikrwtr8J9RBj8GL">
     <title>It's Over 9000!</title>
 <meta name="description" content="For those who helped create the Genki Dama">
 <meta property="og:title" content="Over 9000 Thousand!" />
@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/slick-style.css" media="all" />
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/animate.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/style.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/colors/blue.css" media="all" />
+                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/colors/blue.css" media="all" />
 
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,900" rel="stylesheet">
     <link rel="shortcut icon" href="http://127.0.0.1:8000/FrontEnd/images/fav-icon.png">
@@ -44,7 +44,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'W2QpOiYcfQUG51gFGAoSHMfpeetgz6bVpUlfJXxK';
+        window.livewire_token = 'eY8XMNAFvPaYbrjJf8Kqadoeyikrwtr8J9RBj8GL';
     });
 </script>
 
@@ -65,19 +65,41 @@
                 <a title="Fast returnings program" href="track-your-order.html">Fast returnings program</a>
             </li>
             <li class="menu-item animate-dropdown">
-                <a title="No additional fees" href="contact-v2.html">No additional fees</a>
+                <a href="http://127.0.0.1:8000/en/chat" class='notification'>
+                    <i class="fa fa-envelope fa-2x" style='color:#3265B0'></i>
+                    <span class="badge"> 0</span>
+                </a>
             </li>
         </ul>
         <!-- .nav -->
     </div>
     <!-- .col-full -->
 </div>
+
+
+<style>
+
+.notification{
+    position: relative;
+}
+
+.notification .badge {
+  position     : absolute;
+  top          : 1px;
+  right        : -10px;
+  padding      : 5px;
+  border-radius: 50%;
+  font-size    : 11px;
+  background   : red;
+  color        : white;
+}
+</style>
 <header id="masthead" class="site-header header-v1" style="background-image: none; ">
     <div class="col-full desktop-only">
         <div class="techmarket-sticky-wrap">
             <div class="row">
                 <div class="site-branding">
-                    <a href="home-v1.html" class="custom-logo-link" rel="home">
+                    <a href="http://127.0.0.1:8000/en" class="custom-logo-link" rel="home">
                         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
                             <defs>
                                 <style>
@@ -121,228 +143,34 @@
                 <nav id="primary-navigation" class="primary-navigation" aria-label="Primary Navigation" data-nav="flex-menu">
                     <ul id="menu-primary-menu" class="nav yamm">
                         <li class="sale-clr yamm-fw menu-item animate-dropdown">
-                            <a title="Super deals" href="product-category.html">Super deals</a>
+                            <a title="Super deals" href="http://127.0.0.1:8000/en/super-deal" style="font-size:13px">Super deals</a>
                         </li>
-                                                                                                <li class="menu-item menu-item-has-children animate-dropdown dropdown">
-                            <a title="Mother`s Day" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Mother`s Day <span class="caret"></span></a>
+                                                                        <li class="yamm-fw menu-item animate-dropdown">
+                            <a title="Sell on" href="http://127.0.0.1:8000/en/seller/app" style="font-size:13px">Sell on Barbara Haynes</a>
+                        </li>
+                                                                                                                                                <li class="menu-item menu-item-has-children animate-dropdown dropdown">
+                            <a title="pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">Pages <span class="caret"></span></a>
                             <ul role="menu" class=" dropdown-menu">
-                                <li class="menu-item animate-dropdown">
-                                    <a title="Wishlist" href="wishlist.html">Wishlist</a>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="about_us" href="http://127.0.0.1:8000/en/about_us">About us</a>
                                 </li>
-                                <li class="menu-item animate-dropdown">
-                                    <a title="Add to compare" href="compare.html">Add to compare</a>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="contact_us" href="http://127.0.0.1:8000/en/contact_us">Contact us</a>
                                 </li>
-                                <li class="menu-item animate-dropdown">
-                                    <a title="About Us" href="about.html">About Us</a>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="show_wishlists" href="http://127.0.0.1:8000/en/wishlists">Wishlists</a>
                                 </li>
-                                <li class="menu-item animate-dropdown">
-                                    <a title="Track Order" href="track-your-order.html">Track Order</a>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="show_compare" href="http://127.0.0.1:8000/en/compare">Compare</a>
                                 </li>
-                            </ul>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="terms-and-conditions" href="http://127.0.0.1:8000/en/terms-and-conditions">Terms and conditions</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="services" href="http://127.0.0.1:8000/en/services">Services</a>
+                                </li>
+                                                            </ul>
                             <!-- .dropdown-menu -->
-                        </li>
-                        <li class="yamm-fw menu-item menu-item-has-children animate-dropdown dropdown">
-                            <a title="Pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Pages <span class="caret"></span></a>
-                            <ul role="menu" class=" dropdown-menu">
-                                <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                    <div class="yamm-content">
-                                        <div class="tm-mega-menu">
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Home Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v1.html">Home v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v2.html">Home v2</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v3.html">Home v3</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v4.html">Home v4</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v5.html">Home v5</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v6.html">Home v6</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v7.html">Home v7</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v8.html">Home v8</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v9.html">Home v9</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v10.html">Home v10</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v11.html">Home v11</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v12.html">Home v12</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v13.html">Home v13</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v14.html">Home v14</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Landing Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="landing-page-v1.html">Landing v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="landing-page-v2.html">Landing v2</a>
-                                                    </li>
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Shop Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop.html">Shop</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-extended.html">Shop Extended</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-listing.html">Shop Listing</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-listing-large.html">Shop Listing Large</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-listing-with-product-sidebar.html">Shop Listing with Product Sidebar</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="product-category.html">Categories</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-right-sidebar.html">Shop Right Sidebar</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-fullwidth.html">Shop Full Width</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Single Product Pages</a>
-                                                    </li>
-                                                    <li class="menu-item menu-item-object-product">
-                                                        <a href="single-product-sidebar.html">Single Product Sidebar</a>
-                                                    </li>
-                                                    <li class="menu-item menu-item-object-product">
-                                                        <a href="single-product-fullwidth.html">Single Product Fullwidth</a>
-                                                    </li>
-                                                    <li class="menu-item menu-item-object-product">
-                                                        <a href="single-product-extended.html">Single Product Extended</a>
-                                                    </li>
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Ecommerce Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="cart.html">Cart</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="checkout.html">Checkout</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="login-and-register.html">My Account</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="compare.html">Compare</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="wishlist.html">Wishlist</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="track-your-order.html">Track Order</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="terms-and-conditions.html">Terms and Conditions</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Blog Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-v1.html">Blog v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-v2.html">Blog v2</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-v3.html">Blog v3</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-fullwidth.html">Blog Full Width</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-single.html">Single Blog Post</a>
-                                                    </li>
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Other Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="about.html">About Us</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="contact-v1.html">Contact v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="contact-v2.html">Contact v2</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="faq.html">FAQ</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="404.html">404</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                        </div>
-                                        <!-- .tm-mega-menu -->
-                                    </div>
-                                    <!-- .yamm-content -->
-                                </li>
-                                <!-- .menu-item -->
-                            </ul>
-                            <!-- .dropdown-menu -->
-                        </li>
-                        <li class="menu-item animate-dropdown">
-                            <a title="Logitech Sale" href="product-category.html">Logitech Sale</a>
-                        </li>
-                        <li class="menu-item animate-dropdown">
-                            <a title="Headphones Sale" href="product-category.html">Headphones Sale</a>
-                        </li>
-                        <li class="techmarket-flex-more-menu-item dropdown">
-                            <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
-                            <ul class="overflow-items dropdown-menu"></ul>
-                            <!-- . -->
                         </li>
                     </ul>
                     <!-- .nav -->
@@ -360,6 +188,30 @@
                                 <span class="caret"></span>
                             </a>
                             <ul role="menu" class=" dropdown-menu">
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="USD" href="http://127.0.0.1:8000/en/compare?currency=USD">USD</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="GBP" href="http://127.0.0.1:8000/en/compare?currency=GBP">GBP</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="CAD" href="http://127.0.0.1:8000/en/compare?currency=CAD">CAD</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="AUD" href="http://127.0.0.1:8000/en/compare?currency=AUD">AUD</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="SEK" href="http://127.0.0.1:8000/en/compare?currency=SEK">SEK</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="INR" href="http://127.0.0.1:8000/en/compare?currency=INR">INR</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="CNY" href="http://127.0.0.1:8000/en/compare?currency=CNY">CNY</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="EUR" href="http://127.0.0.1:8000/en/compare?currency=EUR">EUR</a>
+                                </li>
                                                             </ul>
                             <!-- .dropdown-menu -->
                         </li>
@@ -377,7 +229,7 @@
                             </ul>
                             <!-- .dropdown-menu -->
                             <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-                                <input type="hidden" name="_token" value="W2QpOiYcfQUG51gFGAoSHMfpeetgz6bVpUlfJXxK">                            </form>
+                                <input type="hidden" name="_token" value="eY8XMNAFvPaYbrjJf8Kqadoeyikrwtr8J9RBj8GL">                            </form>
                         </li>
                                                 <li class="techmarket-flex-more-menu-item dropdown">
                             <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
@@ -399,35 +251,105 @@
                 </button>
                 <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown ">
                                                             <li class="highlight menu-item animate-dropdown">
-                        <a title="GNnzhJn15D" href="http://127.0.0.1:8000/en/category/LMPmo4VZFD">GNnzhJn15D</a>
+                        <a title="dgS71Qzh3r" href="http://127.0.0.1:8000/en/category/xzLENqHYew">dgS71Qzh3r</a>
                     </li>
                                                         </ul>
             </div>
             <!-- .departments-menu -->
-        <form class="navbar-search" method="get" action="http://127.0.0.1:8000/en/search">
-                <label class="sr-only screen-reader-text" for="search">Search for:</label>
-                <div class="input-group">
-                    <input type="text" id="search" name="search" required class="form-control search-field product-search-field" dir="ltr" value="" placeholder="Search for products" />
-                    <div class="input-group-addon search-categories popover-header">
-                        <select name='product_cat' id='product_cat' class='postform resizeselect'>
-                            <option value='0' selected='selected'>All Categories</option>
-                                                        <option class="level-0" value="1">GNnzhJn15D</option>
-                                                    </select>
-                    </div>
-                    <!-- .input-group-addon -->
-                    <div class="input-group-btn input-group-append">
-                        <input type="hidden" id="search-param" name="post_type" value="product" />
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-search"></i>
-                            <span class="search-btn">Search</span>
-                        </button>
-                    </div>
-                    <!-- .input-group-btn -->
-                </div>
-                <!-- .input-group -->
-            </form>
+            <form wire:initial-data="{&quot;id&quot;:&quot;FInjMfmCfqEgxvyb1g3K&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;f31acafe26b48be08842beadc8c6e782e386d06b7c340559d6a55990184a4384&quot;,&quot;redirectTo&quot;:false}" wire:id="FInjMfmCfqEgxvyb1g3K" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
+    <label class="sr-only screen-reader-text" for="search">Search for:</label>
+    <div class="input-group">
+        <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
+            class="form-control search-field product-search-field" dir="ltr" value=""
+            placeholder="Search for products" />
+        <div class="input-group-addon search-categories popover-header">
+            <select name='product_cat' id='product_cat' class='postform resizeselect' wire:model='product_cat'>
+                <option value='0' selected='selected'>All Categories</option>
+                                    <option class="level-0" value="1">dgS71Qzh3r</option>
+                            </select>
+        </div>
+        <!-- .input-group-addon -->
+        <div class="input-group-btn input-group-append">
+            <input type="hidden" id="search-param" name="post_type" value="product" />
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i>
+                <span class="search-btn">user.search</span>
+            </button>
+
+
+        </div>
+        <!-- .input-group-btn -->
+    </div>
+    <!-- .input-group -->
+    <div style="position: absolute; height:auto; width:100%; z-index:10000;background:#f6f6f6; overflow:auto;"
+        id="search-result">
+        <div id="loading" wire:loading>
+            <div class="loader" ></div>
+        </div>
+            </div>
+</form>
+<style>
+    .search-pagination {
+        width: 100%;
+    }
+
+    .search-pagination .pagination .page-item button {
+        position: relative !important;
+        display: block !important;
+        padding: .5rem .75rem !important;
+        margin-left: -1px !important;
+        line-height: 1.25 !important;
+        color: #007bff !important;
+        background-color: #fff !important;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .search-product:hover {
+        background: #0063d14d;
+    }
+
+
+    #loading {
+        position         : absolute;
+        width            : 100%;
+        height           : 100%;
+        background       : #999;
+        opacity          : 0.8;
+        top              : 0;
+        left             : 0;
+        right            : 0;
+        bottom           : 0;
+        /* -ms-transform    : translateX(-50%)
+        -webkit-transform: translateX(-50%);
+        transform        : translateX(-50%) */
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width        : 120px;
+        height       : 120px;
+        animation    : spin 2s linear infinite;
+        margin       : 20% auto;
+
+    }
+
+    @keyframes  spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+</style>
             <!-- .navbar-search -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;xcB1mgzkAIjUj1C1Fyc9&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;dcbb9fa9d5e829bc43da9ba3b20d234a9da6f27590071ccd8c52b39f3197a02d&quot;,&quot;redirectTo&quot;:false}" wire:id="xcB1mgzkAIjUj1C1Fyc9" class="header-compare nav navbar-nav">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;iYZFFMjoptIydNrH7qtX&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;084dfdb9fac1fa74bd84c497b2dd639397e78eeb77a1d89ebad624a8f44501d2&quot;,&quot;redirectTo&quot;:false}" wire:id="iYZFFMjoptIydNrH7qtX" class="header-compare nav navbar-nav">
     <li class="nav-item">
         <a href="http://127.0.0.1:8000/en/compare" class="nav-link">
             <i class="tm tm-compare"></i>
@@ -447,7 +369,7 @@
                 </li>
             </ul>
             <!-- .header-wishlist -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;vFIOtJlnYWkQqXpQIAi1&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;7693fb448f6e996a604e623d4a2ac5365116897c339f16b47eda31a3ac2632d2&quot;,&quot;redirectTo&quot;:false}" wire:id="vFIOtJlnYWkQqXpQIAi1" id="site-header-cart" class="site-header-cart menu">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;WYoUQx8PGZAjJfEt54Hb&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;0da292c14f4a039656b58728f21010a6df9ed37a2b2042f9a138826983967b96&quot;,&quot;redirectTo&quot;:false}" wire:id="WYoUQx8PGZAjJfEt54Hb" id="site-header-cart" class="site-header-cart menu">
     <li class="animate-dropdown dropdown ">
         <a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
             <i class="tm tm-shopping-bag"></i>
@@ -1059,7 +981,7 @@
     <!-- .handheld-only -->
 </header>
 <!-- .header-v1 -->
-<div wire:initial-data="{&quot;id&quot;:&quot;Ch9qdwta6AdkbEv5LY8j&quot;,&quot;name&quot;:&quot;compare-page&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:[],&quot;children&quot;:[],&quot;checksum&quot;:&quot;75679b4a597375328cb5bf9a53316fa4625a0124e166fe4017ad6b401ed4a6ca&quot;,&quot;redirectTo&quot;:false}" wire:id="Ch9qdwta6AdkbEv5LY8j" id="content" class="site-content">
+<div wire:initial-data="{&quot;id&quot;:&quot;8rRguFfYuzs42S9BcagS&quot;,&quot;name&quot;:&quot;compare-page&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:[],&quot;children&quot;:[],&quot;checksum&quot;:&quot;0ae78090f9c927cd81d55f0ca5cf55c71871c564e1e2e6d624acec1004917f7e&quot;,&quot;redirectTo&quot;:false}" wire:id="8rRguFfYuzs42S9BcagS" id="content" class="site-content">
     <div class="col-full">
         <div class="row">
             <nav class="woocommerce-breadcrumb">
@@ -1080,7 +1002,7 @@
                                             <th>Product</th>
                                                                                     </tr>
                                         <tr>
-                                            <th>user.price</th>
+                                            <th>price</th>
                                                                                     </tr>
                                         <tr>
                                             <th>Availability</th>
@@ -1416,6 +1338,12 @@
 <!-- .site-footer -->
 </div>
 <div id="app"></div>
+        <!-- 2. AddChat widget -->
+        <div id="addchat_app"
+        data-baseurl="http://127.0.0.1:8000"
+        data-csrfname="X-CSRF-Token"
+        data-csrftoken="eY8XMNAFvPaYbrjJf8Kqadoeyikrwtr8J9RBj8GL"
+    ></div>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/jquery.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/tether.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/bootstrap.min.js"></script>
@@ -1441,10 +1369,10 @@
         bubbleBackground: '#0063D1'
     };
 </script>
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 <script>
 
-    Echo.private(`cartupdate`)
+    /* Echo.private(`cartupdate`)
     .listen('cartEvent', (e) => {
         Swal.fire({
             position: 'top-end',
@@ -1453,7 +1381,22 @@
             showConfirmButton: true,
             timer: 1500
             });
+    }); */
+</script>
+<script>
+    $(document).mouseup(function (e) {
+        var container = $("#search-result");
+
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.hide();
+        }
     });
+    $("#search").click(function () {
+        var container = $("#search-result");
+        container.show();
+    });
+
 </script>
 </body>
 </html>

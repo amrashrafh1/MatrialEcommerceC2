@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\DataTables\OrderDatatable;
 use Alert;
 use Illuminate\Support\Str;
+use Mail;
+use App\Mail\OrderIdMail;
 class OrderController extends Controller
 {
     protected $model = '';
@@ -48,17 +50,11 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $validatorCategoryForm = \JsValidator::make([
-            'name_en' => 'sometimes|nullable|string|max:191',
-            'slug' => 'required|string|max:191|unique:categories,slug,'.$id,
-            'cat_id'  => 'sometimes|nullable|numeric',
-        ]);
         $rows = $this->model::findOrFail($id);
         return view('Admin.'.$this->path.'.edit',
             [
-                'title' => trans('admin.edit'),
-                'rows'=>$rows,
-                'validatorCategoryForm' => $validatorCategoryForm
+                'title'                 => trans('admin.edit'),
+                'rows'                  => $rows,
             ]);
     }
 
@@ -69,20 +65,24 @@ class OrderController extends Controller
      * @param  \App\User  $row
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        if(request()->has('item') && $request->item != '') {
-            if(is_array($request->item)) {
-                foreach($request->item as $d) {
-                    $row = $this->model::where('id', $d)->first();
-                    $row->update(['status' => $request->status]);
-                }
-            } else {
-                $row = $this->model::where('id',$request->item)->first();
-                $row->update(['status' => $request->status]);
-            }
+        $data = $this->validate(request(), [
+            'order_id' => 'sometimes|nullable|string',
+            'status'   => 'required|string',
+        ], [], [
+            'order_id' => trans('admin.order_id'),
+            'status'   => trans('admin.status')
+        ]);
+        $rows = $this->model::findOrFail($id);
+        $orderid = $rows->order_id;
+
+        $rows->update($data);
+
+        if($data['order_id'] != $orderid) {
+            Mail::to($rows->billing_email)->send(new OrderIdMail($rows->order_id));
         }
-        Alert::success(trans('admin.deleted'), trans('admin.deleted'));
+        Alert::success(trans('admin.updated'), trans('admin.success_record'));
         return redirect()->route($this->path . '.index');
     }
 

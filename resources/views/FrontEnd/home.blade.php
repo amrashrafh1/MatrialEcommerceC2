@@ -4,6 +4,10 @@
 <div class="alert alert-success"> {{session()->get('success')}}</div>
 @endif
 @include('sweetalert::alert')
+@php
+    $last_adz = $advertizments->skip(3)->take(1)->first();
+    $first_adz = $advertizments->take(1)->first();
+@endphp
    <div id="content" class="site-content" tabindex="-1">
         <div class="col-full">
             <div class="row">
@@ -12,13 +16,15 @@
                         <div class="slider-with-banners row">
                             <div class="slider-block column-1-slider-block ">
                                 <div class="home-v2-slider home-slider">
-                                    @foreach(\App\CMS::isExpired() as $cms)
-                                    <div class="slider-1" style="background-image: url({{ url('/') }}/FrontEnd/images/slider/background-cement-concrete-paint-242236.jpg);">
-                                        <img src="{{Storage::url($cms->image)}}" alt="">
+                                    @foreach(\App\Slider::isActive()->get() as $index => $slider)
+
+                                    <div class="slider-1" style="background-image: url({{url('/')}}/FrontEnd/images/slider/home-v2-background.jpg);">
+                                        <img src="{{Storage::url($slider->image)}}" alt="" style='left:46.4%;bottom:0'>
                                         <div class="caption">
-                                        <div class="title">{{$cms->menuTitle}}</div>
-                                            <div class="sub-title">{{$cms->title}}</div>
-                                        <a class="button" href="{{route('cms_show',$cms->slug)}}">Browse now
+                                            <div class="title">{{$slider->header}}
+                                            </div>
+                                            <div class="sub-title">{{$slider->body}}</div>
+                                            <a href='{{$slider->link}}' class="button">@lang('user.Browse_now')
                                                 <i class="tm tm-long-arrow-right"></i>
                                             </a>
                                         </div>
@@ -27,17 +33,14 @@
                                 </div>
                             </div>
                             <div class="banners-block column-2-banners-block">
+                                @if($first_adz)
                                 <div class="banner text-in-left">
                                     <a href="shop.html">
-                                        <div style="background-size: cover; background-position: center center; background-image: url( {{ url('/') }}/FrontEnd/images/banner/2-1.jpg ); height: 256px;" class="banner-bg">
+                                        <div style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($first_adz->image)}} ); height: 256px;" class="banner-bg">
                                             <div class="caption">
                                                 <div class="banner-info">
                                                     <h3 class="title">
-                                                        <strong>20% Off Tech</strong>
-                                                        <br> at Ultrabooks,
-                                                        <br> Laptops, Tablets
-                                                        <br>Notebooks &amp;
-                                                        <br>More</h3>
+                                                    {{$first_adz->header}}</h3>
                                                 </div>
                                                 <!-- .banner-info -->
                                             </div>
@@ -46,28 +49,31 @@
                                         <!-- .banner-bg -->
                                     </a>
                                 </div>
+                                @endif
                                 <!-- .banner -->
                                 <div class="banner text-in-left">
-                                    <a href="shop.html">
-                                        <div style="background-size: cover; background-position: center center; background-image: url( {{ url('/') }}/FrontEnd/images/banner/2-2.jpg ); height: 256px;" class="banner-bg">
+                                    <a href="{{route('show_product', $randomProduct->slug)}}">
+                                        <div style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($randomProduct->image)}} ); height: 256px;" class="banner-bg">
                                             <div class="caption">
                                                 <div class="banner-info">
-                                                    <h4 class="pretitle">Best Gift Idea</h4>
-                                                    <h3 class="title">Mini Two Wheel
-                                                        <br>
-                                                        <strong>Self Balancing</strong>
-                                                        <br> Scooter</h3>
+                                                    <h3 class="title">
+                                                        {{$randomProduct->name}}
+                                                    </h3>
                                                 </div>
                                                 <!-- .banner-info -->
                                                 <span class="price">
-                                                            <ins>
-                                                                <span class="woocommerce-Price-amount amount">
-                                                                    <span class="woocommerce-Price-currencySymbol">£</span>339.99</span>
-                                                            </ins>
-                                                            <del>
-                                                                <span class="woocommerce-Price-amount amount">
-                                                                    <span class="woocommerce-Price-currencySymbol">£</span>689</span>
-                                                            </del>
+                                                    @if(isset($randomProduct->discount))
+                                                    <ins>
+                                                        <span class="amount">{!! curr($randomProduct->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">{!! curr($randomProduct->sale_price) !!}</span>
+                                                    </del>
+                                                    @else
+                                                    <ins>
+                                                        <span class="amount">{!! curr($randomProduct->sale_price) !!}</span>
+                                                    </ins>
+                                                    @endif
                                                         </span>
                                             </div>
                                             <!-- .caption -->
@@ -114,27 +120,27 @@
                         <!-- .fullwidth-notice -->
                         <div class="banners">
                             <div class="row">
-                                @php
-                                    $adz =\App\Product::where('visible', 'visible')->latest()->first();
-                                @endphp
-                                <div class="banner small-banner text-in-left">
+                                @if($advertizments->count() >= 1)
+                                @foreach($advertizments->skip(1)->take(3) as $index => $adz)
+                                <div class="banner @if($index == 0 || $index == 2) small-banner text-in-left @else large-banner text-in-right @endif">
                                     <a href="#">
-                                        <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( {{ url('/') }}/FrontEnd/img/megamenu-1.jpg ); height: 259px;">
+                                        <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($adz->image)}} ); height: 259px;">
                                             <div class="caption">
                                                 <div class="banner-info">
-                                                    <h3 class="title">@lang('user.New_Arrivals')
-                                                        <br> @lang('user.in')
-                                                        <strong>@lang('user.Accessories')</strong>
-                                                        <br> @lang('user.at_Best_Prices.')</h3>
+                                                    <h3 class="title">
+                                                        {{$adz->header}}
+                                                    </h3>
                                                 </div>
-                                            <a href="{{route('shop')}}" class="banner-action button">@lang('user.View_all')</a>
+                                            <a href="{{$adz->link}}" class="banner-action button">@lang('user.View_all')</a>
                                             </div>
                                             <!-- /.caption -->
                                         </div>
                                     </a>
                                 </div>
+                                @endforeach
+                                @endif
                                 <!-- /.banner -->
-                                <div class="banner large-banner text-in-right">
+                                {{-- <div class="banner large-banner text-in-right">
                                     <a href="#">
                                         <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( {{ url('/') }}/FrontEnd/images/banner/3-4.jpg ); height: 259px;">
                                             <div class="caption">
@@ -178,7 +184,7 @@
                                         </div>
                                     </a>
                                     @endif
-                                </div>
+                                </div> --}}
                                 <!-- /.banner -->
                             </div>
                             <!-- /.row -->
@@ -190,19 +196,18 @@
 
                         @livewire('trending-now')
                         <!-- .section-products-carousel -->
+                        @if($last_adz)
                         <div class="banner full-width-banner">
                             <a href="shop.html">
-                                <div style="background-size: cover; background-position: center center; background-image: url( {{ url('/') }}/FrontEnd/images/banner/full-width.png ); height: 236px;" class="banner-bg">
+                                <div style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($last_adz->image)}} ); height: 236px;" class="banner-bg">
                                     <div class="caption">
                                         <div class="banner-info">
                                             <h3 class="title">
-                                                <strong>Extremely Portable</strong>, learn
-                                                <br> to ride in just 3 minutes</h3>
-                                            <h4 class="subtitle">Travel up to 22km in a single charge</h4>
+                                                {{$last_adz->header}}
                                         </div>
-                                        <span class="banner-action button">Browse now
+                                        <a href='{{$last_adz->link}}' class="banner-action button">@lang('user.Browse_now')
                                                     <i class="feature-icon d-flex ml-4 tm tm-long-arrow-right"></i>
-                                                </span>
+                                        </a>
                                     </div>
                                     <!-- /.caption -->
                                 </div>
@@ -210,6 +215,7 @@
                             </a>
                             <!-- /.section-header -->
                         </div>
+                        @endif
                         <!-- /.banner -->
                         @livewire('dreams')
                         <!-- .section-products-carousel-with-bg -->

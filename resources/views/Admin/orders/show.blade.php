@@ -88,6 +88,7 @@
                                 <tr>
                                     <td><strong>@lang('admin.item')</strong></td>
                                     <td class="text-center"><strong>@lang('admin.price')</strong></td>
+                                    <td class="text-center"><strong>@lang('admin.discount')</strong></td>
                                     <td class="text-center"><strong>@lang('admin.quantity')</strong></td>
                                     <td class="text-right"><strong>@lang('admin.totals')</strong></td>
                                 </tr>
@@ -102,9 +103,10 @@
                                 @foreach($rows->order_lines as $item)
                                 <tr>
                                     <td>{{$item->product}}</td>
-                                    <td class="text-center">${{$item->price}}</td>
+                                    <td class="text-center">${{$item->price + $item->discount}}</td>
+                                    <td class="text-center">-(${{$item->discount}})</td>
                                     <td class="text-center">{{$item->quantity}}</td>
-                                    <td class="text-right">{{$item->price * $item->quantity}}</td>
+                                    <td class="text-right">{{($item->price * $item->quantity) - $item->tax}}</td>
                                 </tr>
                                     @php
                                         $total    += floatval($item->price * $item->quantity);
@@ -114,10 +116,12 @@
                                 <tr>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
                                     <td class="thick-line text-center"><strong>@lang('admin.Subtotal')</strong></td>
-                                    <td class="thick-line text-right">${{$total}}</td>
+                                    <td class="thick-line text-right">${{$rows->sub_total - $tax}}</td>
                                 </tr>
                                 <tr>
+                                    <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>Shipping</strong></td>
@@ -126,16 +130,19 @@
                                 <tr>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
+                                    <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>Coupon</strong></td>
                                     <td class="no-line text-right">${{$rows->coupon}}</td>
                                 </tr>
                                 <tr>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
+                                    <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>Tax</strong></td>
                                     <td class="no-line text-right">${{$tax}}</td>
                                 </tr>
                                 <tr>
+                                    <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>Total</strong></td>

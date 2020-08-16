@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
+use App\Adz;
 use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOTools;
+
 
 class HomeController extends Controller
 {
@@ -20,6 +22,9 @@ class HomeController extends Controller
         ->where('status', 1)->where('cat_id', NULL)->take(12)
         ->with('children:name,slug,cat_id')->get();
         $catalog = visits('\App\Category')->top(20);
+
+        $adzs = Adz::available()->inRandomOrder('id')->get();
+        $randomProduct = Product::isApproved()->inRandomOrder('id')->first();
         /* Category::select('name','id', 'slug','image')
         ->where('status', 1)->where('cat_id', NULL)->take(12)
         ->with('children:name,slug,cat_id')->get(); */
@@ -42,7 +47,11 @@ class HomeController extends Controller
         SEOTools::twitter()->setSite('@LuizVinicius73');
         SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
 
-        return view('FrontEnd.home', ['categories' => $categories,'catalog' => $catalog]);
+        return view('FrontEnd.home', [
+        'categories'    => $categories,
+        'catalog'       => $catalog,
+        'advertizments' => $adzs,
+        'randomProduct' => $randomProduct]);
     }
 
 

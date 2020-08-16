@@ -63,10 +63,10 @@ class SettingController extends Controller
             'stripe'           => trans('admin.stripe'),
         ]);
         if(!empty($data['icon'])) {
-            $data['icon'] = upload($data['icon'], 'settings');
+            $data['icon'] = upload($data['icon'], 'settings', 32,32);
         }
             if(!empty($data['logo'])) {
-            $data['logo'] = upload($data['logo'], 'settings');
+            $data['logo'] = upload($data['logo'], 'settings', 200, 70);
         }
         $item = $this->model::latest('id')->first();
         if(isset($item->sitename_en) && $item->sitename_en != '') {

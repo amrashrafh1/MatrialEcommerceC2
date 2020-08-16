@@ -209,6 +209,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $row = $this->model::findOrFail($id);
+        \Storage::delete($row->image);
         $row->delete();
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
         return redirect()->route($this->route.'.index');
@@ -219,10 +220,12 @@ class PostController extends Controller
             if(is_array($request->item)) {
                 foreach($request->item as $d) {
                     $row = $this->model::findOrFail($d);
+                    \Storage::delete($row->image);
                     $row->delete();
                 }
             } else {
                 $row = $this->model::findOrFail($request->item);
+                \Storage::delete($row->image);
                 $row->delete();
             }
         }

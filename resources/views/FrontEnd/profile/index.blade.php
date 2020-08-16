@@ -26,6 +26,8 @@
                                 role="tab" aria-controls="v-pills-coupons" aria-selected="false">@lang('user.coupons')</a>
                             <a class="nav-link" id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders"
                                 role="tab" aria-controls="v-pills-orders" aria-selected="false">@lang('user.orders')</a>
+                            <a class="nav-link" id="v-pills-my_followed-tab" data-toggle="pill" href="#v-pills-my_followed"
+                                role="tab" aria-controls="v-pills-my_followed" aria-selected="false">@lang('user.my_followed')</a>
 
                         </div>
                         <div class="tab-content col-md-9" id="v-pills-tabContent">
@@ -40,6 +42,10 @@
                             <div class="tab-pane fade" id="v-pills-orders" role="tabpanel"
                                 aria-labelledby="v-pills-orders-tab">
                                 @livewire('front-end.profile.orders')
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-my_followed" role="tabpanel"
+                                aria-labelledby="v-pills-my_followed-tab">
+                                @livewire('front-end.profile.my-followed')
                             </div>
 
                         </div>

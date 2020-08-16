@@ -19,7 +19,7 @@ class Deals extends Component
             ->with('product:name,slug,product_type,id,sale_price,image')->paginate(12);
 
         $random = Discount::where('daily', 'daily_deals')->discountAvailable()
-            ->with('product:name,slug,product_type,id,sale_price,image')->first();
+            ->with('product:name,slug,product_type,id,sale_price,image,stock')->first();
 
         return view('livewire.deals', ['discountProducts' => $discountProducts, 'random' => $random]);
     }

@@ -3,7 +3,9 @@
 <body class="woocommerce-active page-template-template-homepage-v2 can-uppercase">
 @elseif(Route::current()->getName() == 'show_product')
 <body class="woocommerce-active single-product full-width extended">
-@elseif(Route::current()->getName() == 'show_cart')
+@elseif(Route::current()->getName() == 'show_cart' || Route::current()->getName() == 'contact_us'
+ || Route::current()->getName() == 'about_us' || Route::current()->getName() == 'terms-and-conditions'
+ || Route::current()->getName() == 'track-your-order')
 <body class="page home page-template-default">
 @elseif(Route::current()->getName() == 'show_wishlists')
 <body class="page-template-default page woocommerce-wishlist can-uppercase">

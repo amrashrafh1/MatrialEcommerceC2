@@ -55,8 +55,8 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade " id="tabs-icons-text-1" role="tabpanel"
                             aria-labelledby="tabs-icons-text-1-tab">
-                            <h2>@lang('user.About_Me')</h2>
-                            <p class="description">{{$seller->seller_info->description}}</p>
+                            <h2>@lang('user.about_me')</h2>
+                            <p class="description">{{($seller->seller_info)?$seller->seller_info->description:''}}</p>
                             <div class="table-responsive border ">
                                 <table class="table row table-borderless w-100 m-0 ">
                                     <tbody class="col-lg-4 p-0">
@@ -68,10 +68,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><strong>@lang('user.business_type') :</strong> {{$seller->seller_info->business_type}}</td>
+                                            <td><strong>@lang('user.business_type') :</strong> {{($seller->seller_info)?$seller->seller_info->business_type:''}}</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>@lang('user.Location') :</strong> {{$seller->country->country_name}}</td>
+                                            <td><strong>@lang('user.Location') :</strong> {{($seller->country)?$seller->country->country_name:''}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>@lang('user.This_store_has_been_open_since') :</strong> {{$seller->created_at->diffForHumans()}}</td>
@@ -82,24 +82,24 @@
                                             <td><strong>@lang('user.Occupation') :</strong> @lang('user.seller')</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>@lang('user.address1') :</strong> {{$seller->seller_info->address1}}</td>
+                                            <td><strong>@lang('user.address1') :</strong> {{($seller->seller_info)?$seller->seller_info->address1:''}}</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>@lang('user.address2') :</strong> {{$seller->seller_info->address2}}</td>
+                                            <td><strong>@lang('user.address2') :</strong> {{($seller->seller_info)?$seller->seller_info->address2:''}}</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>@lang('user.address3') :</strong> {{$seller->seller_info->address3}}</td>
+                                            <td><strong>@lang('user.address3') :</strong> {{($seller->seller_info)?$seller->seller_info->address3:''}}</td>
                                         </tr>
                                     </tbody>
                                     <tbody class="col-lg-4 p-0">
                                         <tr>
-                                            <td><strong>@lang('user.phone1') :</strong> {{$seller->seller_info->phone1}}</td>
+                                            <td><strong>@lang('user.phone1') :</strong> {{($seller->seller_info)?$seller->seller_info->phone1:''}}</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>@lang('user.phone2') :</strong> {{$seller->seller_info->phone2}}</td>
+                                            <td><strong>@lang('user.phone2') :</strong> {{($seller->seller_info)?$seller->seller_info->phone2:''}}</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>@lang('user.phone3') :</strong> {{$seller->seller_info->phone3}}</td>
+                                            <td><strong>@lang('user.phone3') :</strong> {{($seller->seller_info)?$seller->seller_info->phone3:''}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

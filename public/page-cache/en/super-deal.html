@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="xr6m4BvJUHfYpPMaF5uA7wuiLCmjQc5urgw9biLc">
+    <meta name="csrf-token" content="6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv">
     <title>It's Over 9000!</title>
 <meta name="description" content="For those who helped create the Genki Dama">
 <meta property="og:title" content="Over 9000 Thousand!" />
@@ -44,7 +44,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'xr6m4BvJUHfYpPMaF5uA7wuiLCmjQc5urgw9biLc';
+        window.livewire_token = '6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv';
     });
 </script>
 
@@ -146,7 +146,7 @@
                             <a title="Super deals" href="http://127.0.0.1:8000/en/super-deal" style="font-size:13px">Super deals</a>
                         </li>
                                                                         <li class="yamm-fw menu-item animate-dropdown">
-                            <a title="Sell on" href="http://127.0.0.1:8000/en/seller/app" style="font-size:13px">Sell on Callum Moore</a>
+                            <a title="Sell on" href="http://127.0.0.1:8000/en/seller/app" style="font-size:13px">Sell on Barbara Haynes</a>
                         </li>
                                                                                                                         
                         <li class="techmarket-flex-more-menu-item dropdown">
@@ -211,7 +211,7 @@
                             </ul>
                             <!-- .dropdown-menu -->
                             <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-                                <input type="hidden" name="_token" value="xr6m4BvJUHfYpPMaF5uA7wuiLCmjQc5urgw9biLc">                            </form>
+                                <input type="hidden" name="_token" value="6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv">                            </form>
                         </li>
                                                 <li class="techmarket-flex-more-menu-item dropdown">
                             <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
@@ -233,12 +233,12 @@
                 </button>
                 <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown  show">
                                                             <li class="highlight menu-item animate-dropdown">
-                        <a title="G84hXSqc9L" href="http://127.0.0.1:8000/en/category/TX95iPL6BM">G84hXSqc9L</a>
+                        <a title="dgS71Qzh3r" href="http://127.0.0.1:8000/en/category/xzLENqHYew">dgS71Qzh3r</a>
                     </li>
                                                         </ul>
             </div>
             <!-- .departments-menu -->
-            <form wire:initial-data="{&quot;id&quot;:&quot;2Ph02fSDmnMDRrdxgeVN&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;563a3a57e09a497ac13d39b9efedcb30ae7880b2bfd2c5da54639718ba7c1ece&quot;,&quot;redirectTo&quot;:false}" wire:id="2Ph02fSDmnMDRrdxgeVN" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
+            <form wire:initial-data="{&quot;id&quot;:&quot;WwQU8txwuHiDko1epUvy&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;7d98f5ff172bbc6c038cef8f27f9c92aa6bdf3fcad01f04cbd4922cdbd99d214&quot;,&quot;redirectTo&quot;:false}" wire:id="WwQU8txwuHiDko1epUvy" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
     <label class="sr-only screen-reader-text" for="search">Search for:</label>
     <div class="input-group">
         <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
@@ -247,7 +247,7 @@
         <div class="input-group-addon search-categories popover-header">
             <select name='product_cat' id='product_cat' class='postform resizeselect' wire:model='product_cat'>
                 <option value='0' selected='selected'>All Categories</option>
-                                <option class="level-0" value="1">G84hXSqc9L</option>
+                                    <option class="level-0" value="1">dgS71Qzh3r</option>
                             </select>
         </div>
         <!-- .input-group-addon -->
@@ -255,14 +255,19 @@
             <input type="hidden" id="search-param" name="post_type" value="product" />
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-search"></i>
-                <span class="search-btn">Search</span>
+                <span class="search-btn">user.search</span>
             </button>
+
+
         </div>
         <!-- .input-group-btn -->
     </div>
     <!-- .input-group -->
     <div style="position: absolute; height:auto; width:100%; z-index:10000;background:#f6f6f6; overflow:auto;"
         id="search-result">
+        <div id="loading" wire:loading>
+            <div class="loader" ></div>
+        </div>
             </div>
 </form>
 <style>
@@ -284,11 +289,49 @@
     .search-product:hover {
         background: #0063d14d;
     }
+
+
+    #loading {
+        position         : absolute;
+        width            : 100%;
+        height           : 100%;
+        background       : #999;
+        opacity          : 0.8;
+        top              : 0;
+        left             : 0;
+        right            : 0;
+        bottom           : 0;
+        /* -ms-transform    : translateX(-50%)
+        -webkit-transform: translateX(-50%);
+        transform        : translateX(-50%) */
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width        : 120px;
+        height       : 120px;
+        animation    : spin 2s linear infinite;
+        margin       : 20% auto;
+
+    }
+
+    @keyframes  spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
 </style>
             <!-- .navbar-search -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;XN8Z634tpdlHCJLdlHSZ&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;cb98ce6d0560c878786085a21065cb5c1081d3b4a8888cc64c7f010925a8c8ed&quot;,&quot;redirectTo&quot;:false}" wire:id="XN8Z634tpdlHCJLdlHSZ" class="header-compare nav navbar-nav">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;mOtDFD6RwC5dNE4mSNRM&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;c539bdfa7df8c30e9c43f686bad892b13599baf787596f3c477941dd2c0557f5&quot;,&quot;redirectTo&quot;:false}" wire:id="mOtDFD6RwC5dNE4mSNRM" class="header-compare nav navbar-nav">
     <li class="nav-item">
         <a href="http://127.0.0.1:8000/en/compare" class="nav-link">
             <i class="tm tm-compare"></i>
@@ -308,65 +351,25 @@
                 </li>
             </ul>
             <!-- .header-wishlist -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;Cx0SLOGL0xDtAGVg9IsS&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;c56d46614be5f610e3aa3593187ad114d5c52f8e46d4256aff348948ff022ddd&quot;,&quot;redirectTo&quot;:false}" wire:id="Cx0SLOGL0xDtAGVg9IsS" id="site-header-cart" class="site-header-cart menu">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;Sz0GEMQgY7GSThyB3OGx&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;5fe4832e864176a5d846d764ff8a2068f44797cbfa022762cc30aa1ebfa66304&quot;,&quot;redirectTo&quot;:false}" wire:id="Sz0GEMQgY7GSThyB3OGx" id="site-header-cart" class="site-header-cart menu">
     <li class="animate-dropdown dropdown ">
         <a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
             <i class="tm tm-shopping-bag"></i>
-            <span class="count">4</span>
+            <span class="count">0</span>
             <span class="amount">
-                            <span class="price-label">Your Cart</span>$36.20</span>
+                            <span class="price-label">Your Cart</span>$0.00</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-mini-cart">
             <li>
                 <div class="widget woocommerce widget_shopping_cart">
                     <div class="widget_shopping_cart_content">
                         <ul class="woocommerce-mini-cart cart_list product_list_widget">
-                                                                                                <li class="woocommerce-mini-cart-item mini_cart_item">
-                                        <a href="#" class="remove" wire:click='removeCart(4)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-                                        <a href="http://127.0.0.1:8000/en/product/repudiandae-dolorum-qui-provident-ut">
-                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Iste eligendi facere nostrum.&nbsp;
-                                        </a>
-                                        <span class="quantity">1 ×
-                                            <span class="woocommerce-Price-amount amount">
-                                                $15.78</span>
-                                        </span>
-                                    </li>
-                                                                                                                                <li class="woocommerce-mini-cart-item mini_cart_item">
-                                        <a href="#" class="remove" wire:click='removeCart(5)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-                                        <a href="http://127.0.0.1:8000/en/product/ab-aut-iure-minima">
-                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Harum quo nesciunt architecto quasi.&nbsp;
-                                        </a>
-                                        <span class="quantity">1 ×
-                                            <span class="woocommerce-Price-amount amount">
-                                                $5.12</span>
-                                        </span>
-                                    </li>
-                                                                                                                                <li class="woocommerce-mini-cart-item mini_cart_item">
-                                        <a href="#" class="remove" wire:click='removeCart(6)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-                                        <a href="http://127.0.0.1:8000/en/product/est-eos-possimus-cumque-ut-laboriosam">
-                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Tempore recusandae molestias et ad.&nbsp;
-                                        </a>
-                                        <span class="quantity">1 ×
-                                            <span class="woocommerce-Price-amount amount">
-                                                $8.95</span>
-                                        </span>
-                                    </li>
-                                                                                                                                <li class="woocommerce-mini-cart-item mini_cart_item">
-                                        <a href="#" class="remove" wire:click='removeCart(7)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-                                        <a href="http://127.0.0.1:8000/en/product/et-totam-sint-suscipit-ab-unde-dolore">
-                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Est sapiente sed.&nbsp;
-                                        </a>
-                                        <span class="quantity">1 ×
-                                            <span class="woocommerce-Price-amount amount">
-                                                $6.35</span>
-                                        </span>
-                                    </li>
-                                                                                    </ul>
+                                                    </ul>
                         <!-- .cart_list -->
                         <p class="woocommerce-mini-cart__total total">
                             <strong>Subtotal:</strong>
                             <span class="woocommerce-Price-amount amount">
-                                $36.20</span>
+                                $0.00</span>
                         </p>
                         <p class="woocommerce-mini-cart__buttons buttons">
                             <a href="http://127.0.0.1:8000/en/cart" class="button wc-forward">View cart</a>
@@ -960,7 +963,7 @@
     <!-- .handheld-only -->
 </header>
 <!-- .header-v1 -->
-<div wire:initial-data="{&quot;id&quot;:&quot;texMLdCDFREfnbPsLZHM&quot;,&quot;name&quot;:&quot;front-end.super-deal-page&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;PerPage&quot;:20,&quot;sortBy&quot;:&quot;newness&quot;,&quot;assId&quot;:null,&quot;category&quot;:[],&quot;ass_attrs&quot;:[],&quot;PageNumber&quot;:1,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;ddfe30252555b24883b75682d9ff5d5c62d4690fa734829393783d6bf9005daf&quot;,&quot;redirectTo&quot;:false}" wire:id="texMLdCDFREfnbPsLZHM" id="content" class="site-content" tabindex="-1">
+<div wire:initial-data="{&quot;id&quot;:&quot;WeePlU1aHp6xCw6x2HwK&quot;,&quot;name&quot;:&quot;front-end.super-deal-page&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;PerPage&quot;:20,&quot;sortBy&quot;:&quot;newness&quot;,&quot;assId&quot;:null,&quot;category&quot;:[],&quot;ass_attrs&quot;:[],&quot;PageNumber&quot;:1,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;19e1fb54f689d0fdc2a75e1f9480e37bf80a0248e0920454cc9130a8949de180&quot;,&quot;redirectTo&quot;:false}" wire:id="WeePlU1aHp6xCw6x2HwK" id="content" class="site-content" tabindex="-1">
     <div class="col-full">
         <div class="row">
             <nav class="woocommerce-breadcrumb">
@@ -971,7 +974,8 @@
                 <a href="http://127.0.0.1:8000/en/shop">Shop</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
-                </span>                1
+                </span>
+                                    1
                             </nav>
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area">
@@ -1054,17 +1058,17 @@
                                             <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
                                         </div>
                                         <!-- .yith-wcwl-add-to-wishlist -->
-                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="http://127.0.0.1:8000/en/product/recusandae-aliquid-quaerat-nam-aliquid-natus-impedit">
+                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="http://127.0.0.1:8000/en/product/expedita-sunt-eaque-voluptatem-voluptate-corporis-aperiam">
                                             <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="/storage/no image">
                                             <span class="price">
                                                                                                 <ins>
-                                                    <span class="amount">$3.97</span>
+                                                    <span class="amount">$1.62</span>
                                                 </ins>
                                                 <del>
-                                                    <span class="amount">$8.83</span>
+                                                    <span class="amount">$6.23</span>
                                                 </del>
                                                                                             </span>
-                                            <h2 class="woocommerce-loop-product__title">Fugiat modi non modi magni vel.</h2>
+                                            <h2 class="woocommerce-loop-product__title">Ipsam quis inventore dolorem sapiente.</h2>
                                         </a>
                                         <!-- .woocommerce-LoopProduct-link -->
                                         <div class="techmarket-product-rating">
@@ -1075,13 +1079,13 @@
                                             <span class="review-count">(0)</span>
                                         </div>
                                         <!-- .techmarket-product-rating -->
-                                        <span class="sku_wrapper">SKU:                                            <span class="sku">eE14asuZHw</span>
+                                        <span class="sku_wrapper">SKU:                                            <span class="sku">x5itJBvMH1</span>
                                         </span>
                                         <div class="woocommerce-product-details__short-description">
-                                            Impedit nostrum laboriosam incidunt autem vero. Labore omnis qui atque. Repudiandae et dolorem consectetur. Doloribus quis ab exercitationem expedita non ut.
+                                            Maiores delectus vitae quia ut totam. Accusantium sunt nihil est eum porro numquam laboriosam. Aliquam et at voluptas quia voluptatum autem.
                                         </div>
                                         <!-- .woocommerce-product-details__short-description -->
-                                                                                    <a class="button product_type_simple add_to_cart_button" wire:click='addCart(264)'
+                                                                                    <a class="button product_type_simple add_to_cart_button" wire:click='addCart(4)'
                                                 rel="nofollow">Add to cart</a>
                                             <a class="add-to-compare-link" href="compare.html">Add to compare</a>
                                                                                 </div>
@@ -2279,8 +2283,8 @@
                             <span>Browse Categories</span>
                             <ul>
                                                                 <li class="cat-item">
-                                    <a href="http://127.0.0.1:8000/en/category/TX95iPL6BM">
-                                        <span class="no-child"></span>G84hXSqc9L</a>
+                                    <a href="http://127.0.0.1:8000/en/category/xzLENqHYew">
+                                        <span class="no-child"></span>dgS71Qzh3r</a>
                                 </li>
                                                             </ul>
                         </li>
@@ -2296,7 +2300,7 @@
                                 <input type="radio" class="custom-control-input"
                                 wire:model='assId' value="1" id="customRadio1">
                             <label class="custom-control-label" for="customRadio1">
-                                Ray Battle (1)
+                                Jordan Sherman (1)
                             </label>
                             </div>
                                                     </ul>
@@ -2318,17 +2322,17 @@
                                 <div class="woocommerce columns-1">
                                     <div class="products">
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/excepturi-delectus-laudantium-sapiente-molestiae-aliquid-eaque">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/dolorum-qui-amet-aliquam-ut-nihil">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$3.44</span>
+                                                                <span class="amount">$1.51</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Ipsum harum eius maiores maxime.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Occaecati quis doloribus est aut delectus.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2345,17 +2349,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/optio-eveniet-ut-qui-sit-veniam-sint">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/tempore-rerum-sunt-qui-consectetur-dicta-est">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$4.80</span>
+                                                                <span class="amount">$2.17</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Quis sapiente voluptatibus iste quam qui.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Sint accusantium necessitatibus libero.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2372,17 +2376,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/dolorum-rerum-accusantium-illo-unde-velit-blanditiis-ad">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/distinctio-dolor-minima-voluptatem-veritatis-qui-sunt">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$3.39</span>
+                                                                <span class="amount">$9.08</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Omnis perspiciatis modi molestias praesentium.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Nesciunt harum minus.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2399,17 +2403,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/dolore-quo-aperiam-cum-dolores-ut-unde-officia-autem">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/nobis-adipisci-doloribus-laborum-sed-dignissimos">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$8.98</span>
+                                                                <span class="amount">$2.03</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Unde enim culpa qui.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Odio nihil eaque provident.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2426,17 +2430,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/eos-sapiente-eaque-debitis-ullam-facilis-iure-labore-repudiandae">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/et-voluptas-ipsam-earum-repellat-fugiat-sit">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$1.85</span>
+                                                                <span class="amount">$9.96</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Aspernatur consequatur non consectetur suscipit.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Explicabo voluptatum exercitationem.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2453,17 +2457,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/repudiandae-dolorum-qui-provident-ut">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/odit-autem-vel-veniam-ab-et">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$9.68</span>
+                                                                <span class="amount">$3.24</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Iste eligendi facere nostrum.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Quia voluptas laudantium sapiente.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2480,17 +2484,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/ab-aut-iure-minima">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/inventore-voluptatem-eos-iure-unde-ipsum-in-quae">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$3.22</span>
+                                                                <span class="amount">$4.34</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Harum quo nesciunt architecto quasi.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Accusantium voluptatem ipsum.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2507,17 +2511,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/et-totam-sint-suscipit-ab-unde-dolore">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/eos-quia-eum-voluptatem-recusandae-expedita">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$5.93</span>
+                                                                <span class="amount">$7.32</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Est sapiente sed.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Asperiores tenetur tenetur dolorem corrupti veniam.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2534,17 +2538,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/est-ipsa-illum-eum-pariatur-nulla-incidunt-quia">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/sunt-sed-voluptatem-impedit-vel-et-impedit-non-ut">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$3.92</span>
+                                                                <span class="amount">$1.42</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Iste deleniti ut.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">Delectus fugiat non.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2561,17 +2565,17 @@
                                             <!-- .woocommerce-LoopProduct-link -->
                                         </div>
                                                                                 <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/vel-maiores-sed-tempora-eaque-dolores-qui">
+                                            <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/laudantium-cum-consequatur-iusto-velit-voluptates-rerum-minima-possimus">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="/storage/no image" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
                                                                                                                         <ins>
-                                                                <span class="amount">$3.71</span>
+                                                                <span class="amount">$2.30</span>
                                                             </ins>
                                                                                                                     </span>
                                                         <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">Beatae odit occaecati aspernatur perferendis.</h2>
+                                                        <h2 class="woocommerce-loop-product__title">In esse molestiae.</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">
                                                                 <span style="width:0%">
@@ -2905,7 +2909,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="xr6m4BvJUHfYpPMaF5uA7wuiLCmjQc5urgw9biLc"
+        data-csrftoken="6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv"
     ></div>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/jquery.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/tether.min.js"></script>

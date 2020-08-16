@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en"
+    dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="csrf-token" content="ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF">
+    <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+ <link href="http://127.0.0.1:8000/material/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="http://127.0.0.1:8000/material/demo/demo.css" rel="stylesheet" />
+    <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
+            <link href="http://127.0.0.1:8000/css/colors/azure.css" rel="stylesheet"/>
+            <!-- Livewire assets -->
+<style>
+    [wire\:loading] {
+        display: none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+</style>
+<script>
+    document.addEventListener('livewire:available', function () {
+        window.livewire = new Livewire();
+        window.livewire.start();
+        window.livewire_app_url = '';
+        window.livewire_token = 'ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF';
+    });
+</script>
+
+<script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
+    </head>
+
+<body class="">
+        <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
+        <input type="hidden" name="_token" value="ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF">    </form>
+    <div class="wrapper ">
+  <div class="sidebar" data-color="azure" data-background-color="white"
+    data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <a href="https://creative-tim.com/" class="simple-text logo-normal">
+            Creative Tim
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/dashboard">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-itemcollapsed list-group" >
+                <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    Marketplace<span class="caret"></span></a>
+            </li>
+            <li class="collapse list-group-level1 " id="sub-menu">
+                <a href="http://127.0.0.1:8000/en/admin/seller" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Sellers</a>
+                <a href="http://127.0.0.1:8000/en/admin/seller/products" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Products</a>
+            </li>
+            <li class="nav-itemcollapsed list-group" >
+                <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    CMS<span class="caret"></span></a>
+            </li>
+                        <li class="collapse list-group-level1 " id="sub-menu1">
+                <a href="http://127.0.0.1:8000/en/admin/teams" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Teams</a>
+                <a href="http://127.0.0.1:8000/en/admin/contact_us" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Contact us</a>
+                <a href="http://127.0.0.1:8000/en/admin/testimonials" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Testimonials</a>
+                <a href="http://127.0.0.1:8000/en/admin/services" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Services</a>
+                <a href="http://127.0.0.1:8000/en/admin/ourworks" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Ourworks</a>
+                <a href="http://127.0.0.1:8000/en/admin/sliders" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Sliders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/fullcalendar">
+                    <i class="material-icons">
+                        calendar_today
+                    </i>
+                    <p>Calendar</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/currencies">
+                    <i class="material-icons">
+                        attach_money
+                    </i>
+                    <p>Currencies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/log-viewer">
+                    <i class="material-icons">
+                        error
+                    </i>
+                    <p>Logs</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/user">
+                    <i class="material-icons">
+                        perm_identity
+                    </i>
+                    <p>Users</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/discounts">
+                    <i class="material-icons">
+                        local_offer
+                    </i>
+                    <p>Discounts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/orders">
+                    <i class="material-icons">
+                        library_books
+                    </i>
+                    <p>Orders</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/categories">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Categories</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/tradmarks">
+                    <i class="material-icons">
+                        assignment
+                    </i>
+                    <p>Trademarks</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/attribute_families">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>Attribute Families</p>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/products">
+                    <i class="material-icons">
+                        shopping_cart
+                    </i>
+                    <p>Products</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/malls">
+                    <i class="material-icons">
+                        local_mall
+                    </i>
+                    <p>Malls</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/countries">
+                    <i class="material-icons">
+                        emoji_flags
+                    </i>
+                    <p>Countries</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/cities">
+                    <i class="material-icons">
+                        account_balance
+                    </i>
+                    <p>Cities</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/shippingcompanies">
+                    <i class="material-icons">
+                        local_shipping
+                    </i>
+                    <p>shipping companies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/zones">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>Shipping Zones</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/methods">
+                    <i class="material-icons">
+                        category
+                    </i>
+                    <p>shipping method</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/posts">
+                    <i class="material-icons">
+                        rate_review
+                    </i>
+                    <p>Posts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/manufacturers">
+                    <i class="material-icons">
+                        local_taxi
+                    </i>
+                    <p>Manufacturers</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/settings">
+                    <i class="material-icons">
+                        build
+                    </i>
+                    <p>Settings</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/languages">
+                    <i class="material-icons">
+                        language
+                    </i>
+                    <p>Languages</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/table-list">
+                    <i class="material-icons">content_paste</i>
+                    <p>Table List</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/typography">
+                    <i class="material-icons">library_books</i>
+                    <p>Typography</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/icons">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/map">
+                    <i class="material-icons">location_ons</i>
+                    <p>Maps</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/notifications">
+                    <i class="material-icons">notifications</i>
+                    <p>NewNotification</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/en/admin/rtl-support">
+                    <i class="material-icons">language</i>
+                    <p>RTL Support</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+  <div class="main-panel">
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="#">Products</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <form id="searchForm" class="navbar-form" action="http://127.0.0.1:8000/admin/result" method="GET">
+                <div class="search_container">
+                    <input type="text" name="q" id="speechText" class="form-control"
+                        placeholder="Search..." />
+                    <img style="margin-left: -10px; cursor: pointer;" onclick="startRecording()"
+                        src="//i.imgur.com/cHidSVu.gif" />
+                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                    </button>
+                    <div class="ripple-container"></div>
+                </div>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/en">
+                        <i class="material-icons">dashboard</i>
+                        <p class="d-lg-none d-md-block">
+                            Stats
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownProducts" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="material-icons" style="color:red;">
+                            warning
+                        </i>
+                        <span id="ProductNotificationCounter"
+                            class="notification">0</span>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProducts">
+                                                <div id="markallasread" href="http://127.0.0.1:8000/admin/markallasread" class="text-center"><a
+                                style="color: blue; background: transparent; box-shadow: none; cursor:pointer;">Mark all as read</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="material-icons">notifications</i>
+                        <span class="notification"
+                            id="NotificationCounter">0</span>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" id="notificationMenu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                                            </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-language fa-2x"></i>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" rel="alternate" hreflang="en"
+                            href="http://127.0.0.1:8000/en/admin/products/976/edit">
+                            English
+                        </a>
+                                                <a class="dropdown-item" rel="alternate" hreflang="ar"
+                            href="http://127.0.0.1:8000/ar/admin/products/976/edit">
+                            العربية
+                        </a>
+                                            </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">person</i>
+                        <p class="d-lg-none d-md-block">
+                            Account
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/profile">Profile</a>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/admin/settings">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/en/logout"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container-fluid pt-8">
+    <div class="col-md-12">
+                        <div class="alert alert-danger"> The shippings field is required.</div>
+                        <div class="widget-extra body-req card light bordered">
+            <div class="card-header">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark">Edit products</span>
+                </div>
+                <div class="actions">
+                    <a href="http://127.0.0.1:8000/admin/products" class="btn btn-circle btn-icon-only btn-default"
+                        tooltip="Show All" title="Show All">
+                        <i class="fa fa-list"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body form">
+            <div wire:initial-data="{&quot;id&quot;:&quot;nI1ZjVGQyAECdNio1uT5&quot;,&quot;name&quot;:&quot;edit-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;rows&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:976,&quot;relations&quot;:[&quot;gallery&quot;,&quot;tags&quot;,&quot;methods&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;c430cef4f4b945a29213b73226797d2e4f83854215ff692e81f0c13b8a6b314f&quot;,&quot;redirectTo&quot;:false}" wire:id="nI1ZjVGQyAECdNio1uT5" class="col-md-12">
+    <form method="POST" action="http://127.0.0.1:8000/en/admin/products/976" accept-charset="UTF-8" id="edit-product" enctype="multipart/form-data" class="form-horizontal form-row-seperated"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF">
+    <div class="card card-nav-tabs card-plain">
+        <div class="card-header card-header-primary">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" data-tabs="tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab"
+                                aria-controls="general" aria-selected="true">General</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="Inventory-tab" data-toggle="tab" href="#Inventory" role="tab"
+                                aria-controls="Inventory" aria-selected="false"><i class="material-icons">
+                                    store
+                                </i>Inventory</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab"
+                                aria-controls="shipping" aria-selected="false"><i class="material-icons">
+                                    local_shipping
+                                </i>Shipping</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" v-show="variant == 'simple'" id="attributes-tab" data-toggle="tab"
+                                href="#attributes" role="tab" aria-controls="attributes" aria-selected="false"><i
+                                    class="material-icons">
+                                    edit_attributes
+                                </i>attributes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" v-show="variant == 'variable'" id="variable-tab" data-toggle="tab"
+                                href="#variable" role="tab" aria-controls="variable" aria-selected="false">
+                                <i class="material-icons">
+                                    category
+                                </i>variable</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="Dimensions-tab" data-toggle="tab" href="#Dimensions" role="tab"
+                                aria-controls="Dimensions" aria-selected="false"><i class="material-icons">
+                                    height
+                                </i>Dimensions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                                aria-controls="settings" aria-selected="false">
+                                <i class="material-icons">build</i>
+                                Settings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="seo-tab" data-toggle="tab" href="#seo" role="tab"
+                                aria-controls="seo" aria-selected="false">
+                                <i class="material-icons">
+                                    search
+                                </i>
+                                SEO</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+            <div class="col-md-12 p-3">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="product_type" class=" control-label">Product type</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select name="product_type" v-model="variant" @change="variations" class="form-control">
+                            <option disabled value="">product_type</option>
+                            <option value="simple">Simple</option>
+                            <option value="variable">Variable</option>
+                        </select> </div>
+                </div>
+                                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="name" class=" control-label">Name in English</label>
+                    </div>
+                    <div class="col-md-9">
+
+                        <input type="text"  @keyup="changeSlug"                             name="name_en" class="form-control"
+                            placeholder="Name in English"
+                            value="Occaecati quis doloribus est aut delectus."
+                            required>
+                    </div>
+                </div>
+                                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="name" class=" control-label">Name in Arabic</label>
+                    </div>
+                    <div class="col-md-9">
+
+                        <input type="text"                             name="name_ar" class="form-control"
+                            placeholder="Name in Arabic"
+                            value="Occaecati quis doloribus est aut delectus."
+                            >
+                    </div>
+                </div>
+                                <br />
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="name" class="control-label">Slug</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" name="slug" class="form-control" placeholder="Slug" v-model="slug">
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="sku" class=" control-label">Sku</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" name="sku" class="form-control" value="T3t3stZsJ5"
+                            placeholder="Sku">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="owner" class=" control-label">Product Owner</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select name="owner" class="form-control" v-model="owner" required>
+                            <option value="for_seller">For Seller</option>
+                            <option value="for_site_owner">Owner</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row" v-show="owner == 'for_seller'">
+                    <div class="col-md-3">
+                        <label for="user_id" class="control-label">Seller</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select class="form-control" name="user_id"><option value="4" selected="selected">seller@app.com</option></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="Section" class=" control-label">Product Section in Homepage</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select name="section" class="form-control" v-model='section' required>
+                            <option value="none">None</option>
+                            <option value="hot_new_arrivals">Hot New arrivals section</option>
+                            <option value="trending_now">Trending Now</option>
+                            <option value="make_dreams_your_reality">Make dreams your reality</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="has_accessories" class=" control-label">admin.has_accessories</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select name="has_accessories" class="form-control" v-model="has_accessories" required>
+                            <option value="yes">yes</option>
+                            <option value="no">no</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div>
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h2 class="mb-0">Main image (single file)</h2>
+                                </div>
+                                <div class="card-body">
+                                    <input name="image" type="file" class="dropify-single"
+                                        data-default-file="/storage/no image" data-height="300" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div>
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h2 class="mb-0 d-inline">Gallery (multiple file)</h2>
+                                </div>
+                                <div class="card-body">
+                                                                        <input name="gallery[]" type="file" data-default-file="empty" class="dropify-multi"
+                                        data-height="300" multiple />
+                                                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="overflow:scroll;">
+                        <div class="row">
+                                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Inventory" role="tabpanel" aria-labelledby="Inventory-tab">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="stock" class=" control-label">Stock quantity</label>
+                </div>
+                <div class="col-md-9">
+                    <input name="stock" value="728658" type="number" class="form-control"
+                        placeholder="Stock quantity">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="purchase_price" class=" control-label">Purchase price</label>
+                </div>
+                <div class="col-md-9">
+                    <input name="purchase_price" type="number" class="form-control" step="0.00"
+                        placeholder="Purchase price" value="1.8">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="sale_price" class=" control-label">Regular price</label>
+                </div>
+                <div class="col-md-9">
+                    <input name="sale_price" type="number" class="form-control" step="0.00" placeholder="Regular price"
+                        value="1.51">
+                </div>
+            </div>
+                        <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="short_description" class=" control-label">Short Description in
+                        English</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea name="short_description_en" class="form-control"
+                        placeholder="short description in  English"
+                        id="short_description_en">Neque id ullam odio ullam. Suscipit incidunt debitis possimus qui. Perspiciatis est et exercitationem facilis ea. Voluptatem laborum voluptas eos quidem culpa.</textarea>
+                </div>
+            </div>
+                        <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="short_description" class=" control-label">Short Description in
+                        Arabic</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea name="short_description_ar" class="form-control"
+                        placeholder="short description in  Arabic"
+                        id="short_description_ar">Neque id ullam odio ullam. Suscipit incidunt debitis possimus qui. Perspiciatis est et exercitationem facilis ea. Voluptatem laborum voluptas eos quidem culpa.</textarea>
+                </div>
+            </div>
+                        
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="description" class=" control-label">Description in
+                        English</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea name="description_en" class="form-control"
+                        placeholder="description in  English"
+                        id="description_en">In a incidunt temporibus rerum. Velit inventore dolorum dolores sit consectetur non. Iusto omnis ullam fugit aut ullam nostrum omnis.</textarea>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="description" class=" control-label">Description in
+                        Arabic</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea name="description_ar" class="form-control"
+                        placeholder="description in  Arabic"
+                        id="description_ar">In a incidunt temporibus rerum. Velit inventore dolorum dolores sit consectetur non. Iusto omnis ullam fugit aut ullam nostrum omnis.</textarea>
+                </div>
+            </div>
+                                    <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="description" class=" control-label">Tags in
+                        English</label>
+                </div>
+                                <div class="col-md-9">
+                    <input type="text" name="tags_en" placeholder="Tags in English"
+                        value='' data-role="tagsinput">
+                </div>
+            </div>
+                        <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="description" class=" control-label">Tags in
+                        Arabic</label>
+                </div>
+                                <div class="col-md-9">
+                    <input type="text" name="tags_ar" placeholder="Tags in Arabic"
+                        value='' data-role="tagsinput">
+                </div>
+            </div>
+                        <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="category_id" class=" control-label">Category</label>
+                </div>
+                <div class="col-md-9">
+                    <select class="form-control" name="category_id"><option value="1" selected="selected">dgS71Qzh3r</option></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="tradmark_id" class=" control-label">Brands</label>
+                </div>
+                <div class="col-md-9">
+                    <select class="form-control" name="tradmark_id"><option value="1" selected="selected">Jordan Sherman</option></select>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="tax" class=" control-label">Tax</label>
+                </div>
+                <div class="col-md-9">
+                    <input name="tax" value="48" type="number" class="form-control" step="0.00"
+                        placeholder="tax">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="shippings" class=" control-label">shipping</label>
+                </div>
+                <div class="col-md-9">
+                    <select class="js-example-basic-multiple" style="width:100%;" name="shippings[]"
+                        multiple="multiple">
+                                                                                                                        <option value="1">
+                            Europe / TechMarket for shipping / TechMarket standard shipping
+                        </option>
+                                                                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="attributes" v-show="variant == 'simple'" role="tabpanel"
+            aria-labelledby="attributes-tab">
+                        <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="size_en" class=" control-label">size in English</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="size_en" class="form-control"
+                        placeholder="size in English" value="7FDm9g">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="color_en" class=" control-label">color</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="color_en" class="form-control"
+                        placeholder="color in English" value="ZTIFDt">
+                </div>
+            </div>
+                        <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="size_ar" class=" control-label">size in Arabic</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="size_ar" class="form-control"
+                        placeholder="size in Arabic" value="7FDm9g">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="color_ar" class=" control-label">color</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="color_ar" class="form-control"
+                        placeholder="color in Arabic" value="ZTIFDt">
+                </div>
+            </div>
+                    </div>
+        <div class="tab-pane fade" id="variable" v-show="variant == 'variable'" role="tabpanel"
+            aria-labelledby="variable-tab">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="attributes" class="control-label">Attributes</label>
+                </div>
+                <div class="col-md-9">
+                    <select class="js-example-basic-multiple" style="width:100%;" name="attributes[]"
+                        multiple="multiple">
+
+                                                                                            </select>
+                </div>
+            </div>
+            <br />
+        </div>
+        <div class="tab-pane fade" id="Dimensions" role="tabpanel" aria-labelledby="Dimensions-tab">
+            <div>
+                <div class="col-md-12">
+                    <h3 class="h3">Dimensions</h3>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="attributes" class="control-label">length</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="number" name="length" class="form-control mb-4" placeholder="length"
+                            value="87">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="attributes" class="control-label">width</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="number" name="width" class="form-control mb-4" placeholder="width"
+                            value="87">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="attributes" class="control-label">height</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="number" name="height" class="form-control mb-4" placeholder="height"
+                            value="57">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="attributes" class="control-label">weight</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="number" name="weight" class="form-control mb-4" placeholder="weight"
+                            value="40">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="in_stock" class=" control-label">Status</label>
+                </div>
+                <div class="col-md-9">
+                    <select name="in_stock" class="form-control" v-model="in_stock">
+                        <option disabled value="" selected>Status</option>
+                        <option value="in_stock"> In Stock</option>
+                        <option value="out_stock"> Out Stock</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label for="stock" class=" control-label">Visible</label>
+                </div>
+                <div class="col-md-9">
+                    <select name="visible" class="form-control" v-model="visible">
+                        <option disabled value="" selected>visible</option>
+                        <option value="visible">Visible</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+                        <div class="form-group row required">
+                <div class="col-md-3">
+                    <label for="meta_title_en" class=" control-label">Meta title                        English</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="meta_title_en" class="form-control mb-4"
+                        placeholder="Meta title"
+                        value="">
+                </div>
+            </div>
+            <div class="form-group row required">
+                <div class="col-md-3">
+                    <label for="meta_description_en" class=" control-label">Meta description                        English</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="meta_description" class="form-control mb-4"
+                        placeholder="Meta description"
+                        value="">
+                </div>
+            </div>
+            <div class="form-group row required">
+                <div class="col-md-3">
+                    <label for="keywords_en" class=" control-label">Meta keywords                        English</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="keywords"
+                        value=""
+                        data-role="tagsinput">
+                </div>
+            </div>
+                        <div class="form-group row ">
+                <div class="col-md-3">
+                    <label for="meta_title_ar" class=" control-label">Meta title                        Arabic</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="meta_title_ar" class="form-control mb-4"
+                        placeholder="Meta title"
+                        value="">
+                </div>
+            </div>
+            <div class="form-group row ">
+                <div class="col-md-3">
+                    <label for="meta_description_ar" class=" control-label">Meta description                        Arabic</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="meta_description" class="form-control mb-4"
+                        placeholder="Meta description"
+                        value="">
+                </div>
+            </div>
+            <div class="form-group row ">
+                <div class="col-md-3">
+                    <label for="keywords_ar" class=" control-label">Meta keywords                        Arabic</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" name="keywords"
+                        value=""
+                        data-role="tagsinput">
+                </div>
+            </div>
+                    </div>
+    </div>
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-9">
+                        <input type="submit" class="btn btn-success" value="Save">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <footer class="footer">
+  <div class="container-fluid">
+    <nav class="float-left">
+      <ul>
+        <li>
+          <a href="https://www.creative-tim.com">
+              Creative Tim
+          </a>
+        </li>
+        <li>
+          <a href="https://creative-tim.com/presentation">
+              About Us
+          </a>
+        </li>
+        <li>
+          <a href="http://blog.creative-tim.com">
+              Blog
+          </a>
+        </li>
+        <li>
+          <a href="https://www.creative-tim.com/license">
+              Licenses
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="copyright float-right">
+      &copy;
+      <script>
+        document.write(new Date().getFullYear())
+      </script>, made with <i class="material-icons">favorite</i> by
+      <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and <a href="https://www.updivision.com" target="_blank">UPDIVISION</a> for a better web.
+    </div>
+  </div>
+</footer>  </div>
+</div>        
+
+
+    <div class="fixed-plugin" style="top:174px;">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fas fa-cloud fa-3x" style="color: #fff;"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Weather</li>
+                <div class="adjustments-line d-block">
+                    <div  id="app">
+                        <weather></weather>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Filters</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger active-color">
+                        <div class="badge-colors ml-auto mr-auto">
+                            <span class="badge filter badge-purple" data-color="purple" onclick="changeColor('purple')"></span>
+                            <span class="badge filter badge-azure" data-color="azure" onclick="changeColor('azure')"></span>
+                            <span class="badge filter badge-green" data-color="green" onclick="changeColor('green')"></span>
+                            <span class="badge filter badge-warning active" data-color="orange" onclick="changeColor('orange')"></span>
+                            <span class="badge filter badge-danger" data-color="danger" onclick="changeColor('danger')"></span>
+                            <span class="badge filter badge-rose" data-color="rose" onclick="changeColor('rose')"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+                <li class="header-title">Images</li>
+                <li class="active">
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-1.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-1.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-2.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-2.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-3.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-3.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)" onclick="changeImage('http://127.0.0.1:8000/material/img/sidebar-4.jpg')">
+                        <img src="http://127.0.0.1:8000/material/img/sidebar-4.jpg" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <!-- 2. AddChat widget -->
+        <div id="addchat_app"
+        data-baseurl="http://127.0.0.1:8000"
+        data-csrfname="X-CSRF-Token"
+        data-csrftoken="ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF"
+    ></div>
+    <div id="app">
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="http://127.0.0.1:8000/js/app.js"></script>
+    <script>
+        Echo.channel('home')
+            .listen('notificationEvent', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+
+
+        Echo.channel('new-seller')
+            .listen('NewSeller', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+        Echo.channel('new-order')
+            .listen('NewOrder', (e) => {
+                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: e.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        });
+    </script>
+    <script src="http://127.0.0.1:8000/material/js/core/jquery.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/popper.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/core/bootstrap-material-design.min.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin for the momentJs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/arrive.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
+    <!-- Chartist JS -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/chartist.min.js"></script>
+    <!--  NewNotification Plugin    -->
+    <script src="http://127.0.0.1:8000/material/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="http://127.0.0.1:8000/material/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="http://127.0.0.1:8000/material/demo/demo.js"></script>
+    <script src="http://127.0.0.1:8000/material/js/settings.js"></script>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/dataTables.buttons.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/buttons.server-side.js"></script>
+    <!-- 3. AddChat JS -->
+    <!-- Modern browsers -->
+    <script type="module" src="http://127.0.0.1:8000/assets/addchat/js/addchat.min.js"></script>
+    <!-- Fallback support for Older browsers -->
+    <script nomodule src="http://127.0.0.1:8000/assets/addchat/js/addchat-legacy.min.js"></script>
+    <script>
+        function check_all() {
+            $('input[class="item_checkbox"]:checkbox').each(function () {
+                if ($('input[class="check_all"]:checkbox:checked').length == 0) {
+                    $(this).prop('checked', false);
+                } else {
+                    $(this).prop('checked', true);
+                }
+            });
+        }
+
+        function delete_all() {
+            $(document).on('click', '.del_all', function () {
+                $('#form_data').submit();
+            });
+            $(document).on('click', '.delBtn', function () {
+                var item_checked = $('input[class="item_checkbox"]:checkbox').filter(':checked').length;
+                if (item_checked > 0) {
+                    $('.record_count').text(item_checked);
+                    $('.not_empty_record').removeClass('hidden');
+                    $('.empty_record').addClass('hidden');
+                } else {
+                    $('.record_count').text('');
+                    $('.not_empty_record').addClass('hidden');
+                    $('.empty_record').removeClass('hidden');
+                }
+                $('#mutlipleDelete').modal('show');
+            });
+        }
+        $('#datetimepicker1').datetimepicker();
+
+        /* change color (sidebar) */
+        function changeColor(color) {
+            $url = "http://127.0.0.1:8000/en/admin/changecolor";
+            $.post({
+            url: $url,
+            data: {
+                _token: 'ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF',
+                color: color
+            }
+            });
+        }
+
+    /* change image (sidebar) */
+        function changeImage(image) {
+            $url = "http://127.0.0.1:8000/en/admin/changeimage";
+            $.post({
+            url: $url,
+            data: {
+                _token: 'ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF',
+                image: image
+            }
+            });
+        }
+
+
+        var recognition = new webkitSpeechRecognition();
+
+        recognition.onresult = function(event) {
+            var saidText = "";
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    saidText = event.results[i][0].transcript;
+                } else {
+                    saidText += event.results[i][0].transcript;
+                }
+            }
+            // Update Textbox value
+            document.getElementById('speechText').value = saidText;
+
+            // Search Posts
+            searchPosts(saidText);
+        }
+
+        function startRecording(){
+            recognition.start();
+        }
+
+        // Search Posts
+        function searchPosts(saidText){
+            $('#searchForm').trigger('submit');
+        }
+
+            $('#wiconCopy').each(function () {
+                $(this).attr('src', $('#wicon').attr('src')).delay(10000);
+            });
+                        document.addEventListener("livewire:load", function(event) {
+            window.livewire.beforeDomUpdate(() => {
+                // Add your custom JavaScript here.
+            });
+
+        window.livewire.afterDomUpdate(() => {
+                        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Successfully updated',
+            showConfirmButton: true,
+            timer: 1500
+            });
+
+            
+
+        });
+    });
+        </script>
+    <link href="http://127.0.0.1:8000/css/dropify.css" rel="stylesheet" type="text/css" />
+<link href="http://127.0.0.1:8000/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<script src="http://127.0.0.1:8000/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="http://127.0.0.1:8000/js/dropify.min.js"></script>
+<script>
+    var edit = new Vue({
+        el: '#edit-product',
+        data: {
+            variant: 'simple',
+            variables: 'custom',
+            chractersVariable: [],
+            Variables: [],
+            attributesFamily: '',
+            selectedTags: [],
+            selectedValue: [],
+            slug: 'dolorum-qui-amet-aliquam-ut-nihil',
+            owner: 'for_seller',
+            section: 'hot_new_arrivals',
+            visible: 'visible',
+            in_stock: 'in_stock',
+            has_accessories: 'no',
+        },
+        computed: {
+
+        },
+        methods: {
+            variations({
+                target
+            }) {
+                this.variant = target.value;
+            },
+            deleteVariableRow(e, index) {
+                e.preventDefault();
+                this.Variables.splice(index, 1)
+                this.chractersVariable.splice(index, 1)
+            },
+            countVariableChracter({
+                target
+            }, index) {
+                this.chractersVariable[index]['count'] = 191 - target.value.length;
+            },
+            SaveAttributes(e) {
+                e.preventDefault();
+
+            },
+            addRow(e) {
+                e.preventDefault();
+                this.inputs.push({
+                    one: ''
+                });
+            },
+            deleteRow(e, index) {
+                e.preventDefault();
+                this.inputs.splice(index, 1)
+            },
+            filterTags({
+                target
+            }, index) {
+                this.selectedTags.push({
+                    [index]: target.value
+                });
+            },
+            changeSlug({
+                target
+            }) {
+                this.slug = target.value.split(' ').join('-')
+            }
+        }
+    });
+
+</script>
+<script>
+    $('.dropify-single').dropify({
+        messages: {
+            'default': 'Drag and drop a file here or click',
+            'replace': 'Drag and drop or click to replace',
+            'remove': 'Remove',
+            'error': 'Ooops, something wrong appended.'
+        },
+        error: {
+            'fileSize': 'The file size is too big (2M max).'
+        }
+    });
+    $('.dropify-multi').dropify({
+        messages: {
+            'default': 'Drag and drop a file here or click',
+            'replace': 'Drag and drop or click to replace',
+            'remove': 'Remove',
+            'error': 'Ooops, something wrong appended.'
+        },
+        error: {
+            'fileSize': 'The file size is too big (2M max).'
+        }
+    });
+    $(".mcs-horizontal-example").mCustomScrollbar({
+        axis: "x",
+        theme: "dark-3",
+        advanced: {
+            autoExpandHorizontalScroll: true
+        }
+    });
+    document.addEventListener("livewire:load", function (event) {
+        window.livewire.beforeDomUpdate(() => {
+            // Add your custom JavaScript here.
+        });
+
+        window.livewire.afterDomUpdate(() => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'The data is Updated successfully',
+                showConfirmButton: true,
+                timer: 1500
+            });
+        });
+    });
+
+</script>
+<!-- Livewire assets -->
+<style>
+    [wire\:loading] {
+        display: none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+</style>
+<script>
+    document.addEventListener('livewire:available', function () {
+        window.livewire = new Livewire();
+        window.livewire.start();
+        window.livewire_app_url = '';
+        window.livewire_token = 'ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF';
+    });
+</script>
+
+<script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
+<script type="text/javascript" src="http://127.0.0.1:8000/vendor/jsvalidation/js/jsvalidation.js"></script>
+<script>
+    jQuery(document).ready(function(){
+
+        $("#edit-product").each(function() {
+            $(this).validate({
+                errorElement: 'span',
+                errorClass: 'invalid-feedback',
+
+                errorPlacement: function (error, element) {
+                    if (element.parent('.input-group').length ||
+                        element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+                        error.insertAfter(element.parent());
+                        // else just place the validation message immediately after the input
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function (element) {
+                    $(element).closest('.form-control').removeClass('is-valid').addClass('is-invalid'); // add the Bootstrap error class to the control group
+                },
+
+                
+                
+                unhighlight: function(element) {
+                    $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid');
+                },
+                
+                success: function (element) {
+                    $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid'); // remove the Boostrap error class from the control group
+                },
+
+                focusInvalid: false, // do not focus the last invalid input
+                
+                rules: {"sku":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Required",[],"The sku field is required.",true],["String",[],"The sku must be a string.",false],["Max",["191"],"The sku may not be greater than 191 characters.",false]],"laravelValidationRemote":[["Unique",["sku","eyJpdiI6ImJvOU8wY1dKYVRsU29ORTBrQTdLamc9PSIsInZhbHVlIjoiTkZRcDJRTzRxM2NGUnNtY2VzSmZUNjdXcEhEZGNFZ3dcL3d5MHFtM05vK1l0NHNyeXZkNkZGd0dOZ05QU0NKSGdBK0ZkYmtjOFVUbWtTTHNVME9WdzRBPT0iLCJtYWMiOiJmNzdlNDQ4ODA1NmMwY2IxZGRmNjg1M2IyYWNjZTAzN2YwNTZkOTQ2ODAyYjI3MWZmMzg4M2ZlNDcxMzFiMGNhIn0=",false],"The sku has already been taken.",false]]},"slug":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Required",[],"The slug field is required.",true],["String",[],"The slug must be a string.",false],["Max",["191"],"The slug may not be greater than 191 characters.",false]],"laravelValidationRemote":[["Unique",["slug","eyJpdiI6ImJvOU8wY1dKYVRsU29ORTBrQTdLamc9PSIsInZhbHVlIjoiTkZRcDJRTzRxM2NGUnNtY2VzSmZUNjdXcEhEZGNFZ3dcL3d5MHFtM05vK1l0NHNyeXZkNkZGd0dOZ05QU0NKSGdBK0ZkYmtjOFVUbWtTTHNVME9WdzRBPT0iLCJtYWMiOiJmNzdlNDQ4ODA1NmMwY2IxZGRmNjg1M2IyYWNjZTAzN2YwNTZkOTQ2ODAyYjI3MWZmMzg4M2ZlNDcxMzFiMGNhIn0=",false],"The slug has already been taken.",false]]},"product_type":{"laravelValidation":[["Required",[],"The product type field is required.",true],["String",[],"The product type must be a string.",false]]},"purchase_price":{"laravelValidation":[["Required",[],"The purchase price field is required.",true],["Numeric",[],"The purchase price must be a number.",false]]},"sale_price":{"laravelValidation":[["Required",[],"The sale price field is required.",true],["Numeric",[],"The sale price must be a number.",false]]},"in_stock":{"laravelValidation":[["Required",[],"The in stock field is required.",true],["String",[],"The in stock must be a string.",false]]},"tradmark_id":{"laravelValidation":[["Required",[],"The tradmark id field is required.",true],["Numeric",[],"The tradmark id must be a number.",false]]},"stock":{"laravelValidation":[["Required",[],"The stock field is required.",true],["Numeric",[],"The stock must be a number.",false]]},"visible":{"laravelValidation":[["Required",[],"The visible field is required.",true],["String",[],"The visible must be a string.",false],["Max",["191"],"The visible may not be greater than 191 characters.",false]]},"tax":{"laravelValidation":[["Required",[],"The tax field is required.",true],["Numeric",[],"The tax must be a number.",false]]},"category_id":{"laravelValidation":[["Required",[],"The category id field is required.",true],["Numeric",[],"The category id must be a number.",false]]},"image":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Image",[],"The image must be an image.",false],["Mimes",["jpg","jpeg","png","gif","bmp"],"The image must be a file of type: jpg, jpeg, png, gif, bmp.",false],["Max",["10000"],"The image may not be greater than 10000 kilobytes.",false]],"laravelValidationRemote":[["Unique",["image","eyJpdiI6ImJvOU8wY1dKYVRsU29ORTBrQTdLamc9PSIsInZhbHVlIjoiTkZRcDJRTzRxM2NGUnNtY2VzSmZUNjdXcEhEZGNFZ3dcL3d5MHFtM05vK1l0NHNyeXZkNkZGd0dOZ05QU0NKSGdBK0ZkYmtjOFVUbWtTTHNVME9WdzRBPT0iLCJtYWMiOiJmNzdlNDQ4ODA1NmMwY2IxZGRmNjg1M2IyYWNjZTAzN2YwNTZkOTQ2ODAyYjI3MWZmMzg4M2ZlNDcxMzFiMGNhIn0=",false],"The image has already been taken.",false]]},"description_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The description en must be a string.",false]]},"length_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The length en may not be greater than 191 characters.",false]]},"width_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The width en may not be greater than 191 characters.",false]]},"height_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The height en may not be greater than 191 characters.",false]]},"weight_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The weight en may not be greater than 191 characters.",false]]},"name_en":{"laravelValidation":[["Required",[],"The name en field is required.",true],["String",[],"The name en must be a string.",false],["Max",["191"],"The name en may not be greater than 191 characters.",false]]},"size_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The size en must be a string.",false]]},"color_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The color en must be a string.",false]]},"shippings":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false]]}}            });
+        });
+    });
+</script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+<link rel="stylesheet" href="http://127.0.0.1:8000/css/bootstrap-tagsinput.css">
+<script src="http://127.0.0.1:8000/js/bootstrap-tagsinput.min.js"></script>
+
+<script>
+    $('.delete').on('click', function(e) {
+        e.preventDefault();
+    });
+    $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
+    <script>
+                       ClassicEditor
+                .create( document.querySelector( '#short_description_en' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+            ClassicEditor
+                .create( document.querySelector( '#description_en' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+                    ClassicEditor
+                .create( document.querySelector( '#short_description_ar' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+            ClassicEditor
+                .create( document.querySelector( '#description_ar' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+                $('form').keypress(function(e){
+        if(e.keyCode==13)
+        //$('#linkadd').click();
+        e.preventDefault();
+        });
+        </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script>
+    //var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    $('#navbarDropdownMenuLink').on('click', function () {
+        axios.get('/admin/markasread')
+            .then(res => {
+                $('#NotificationCounter').text(0);
+            });
+    });
+
+    $('.product-dropdown-item').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var thi = $(this);
+        axios.get(href)
+            .then(res => {
+                $('#ProductNotificationCounter').text($('#ProductNotificationCounter').text() - 1);
+                $(thi).remove();
+            });
+    });
+    $('#markallasread').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var thi = $(this);
+        axios.get(href)
+            .then(res => {
+                $('#ProductNotificationCounter').text(0);
+                $('.product-dropdown-item').remove();
+                $(thi).remove();
+            });
+    });
+
+</script>
+
+</body>
+
+</html>

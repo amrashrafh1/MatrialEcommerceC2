@@ -3,6 +3,5 @@
 @elseif($status == 'completed')
     <span class="bg-success p-2" style="color:#fff;  border-radius: 5px;">@lang('admin.completed')</span>
 @else
-    <span class="bg-danger p-2" style="color:#fff;  border-radius: 5px;">@lang('admin.canceled')</span>
-
+    <span class="bg-info p-2" style="color:#fff;  border-radius: 5px;">{{$status}}</span>
 @endif

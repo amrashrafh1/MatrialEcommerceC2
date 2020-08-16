@@ -51,10 +51,10 @@
                                             <div class="deal-progress">
                                                 <div class="deal-stock">
                                                     <div class="stock-sold">Already Sold:
-                                                        <strong>0</strong>
+                                                        <strong>{{$random->product->already_sold()}}</strong>
                                                     </div>
                                                     <div class="stock-available">Available:
-                                                        <strong>1000</strong>
+                                                        <strong>{{$random->product->stock}}</strong>
                                                     </div>
                                                 </div>
                                                 <!-- /.deal-stock -->

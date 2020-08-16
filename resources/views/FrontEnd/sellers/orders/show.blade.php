@@ -89,6 +89,7 @@
                                     <td><strong>@lang('admin.item')</strong></td>
                                     <td><strong>@lang('admin.options')</strong></td>
                                     <td class="text-center"><strong>@lang('admin.price')</strong></td>
+                                    <td class="text-center"><strong>@lang('admin.discount')</strong></td>
                                     <td class="text-center"><strong>@lang('admin.quantity')</strong></td>
                                     <td class="text-right"><strong>@lang('admin.totals')</strong></td>
                                 </tr>
@@ -98,7 +99,7 @@
                                     $total    = 0;
                                     $shipping = 0;
                                     $tax      = 0;
-                                    @endphp
+                                @endphp
                                 @foreach($rows->order_lines_seller as $item)
                                 <tr>
                                     <td>{{$item->product}}</td>
@@ -112,11 +113,12 @@
                                         @endif
                                     </td>
                                     <td class="text-center">${{$item->price}}</td>
+                                    <td class="text-center">${{-($item->discount)}}</td>
                                     <td class="text-center">{{$item->quantity}}</td>
-                                    <td class="text-right">{{$item->total}}</td>
+                                    <td class="text-right">{{$item->total - $item->tax}}</td>
                                 </tr>
                                     @php
-                                        $total    += floatval($item->total);
+                                        $total    += floatval($item->total) - $item->tax;
                                         $tax      += floatval($item->tax);
                                         $shipping += floatval($item->shipping);
                                     @endphp
@@ -126,10 +128,12 @@
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
                                     <td class="thick-line text-center"><strong>@lang('admin.Subtotal')</strong></td>
                                     <td class="thick-line text-right">${{$total}}</td>
                                 </tr>
                                 <tr>
+                                    <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
@@ -143,6 +147,7 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
+                                    <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>Coupon</strong></td>
                                     <td class="no-line text-right">${{$coupon}}</td>
                                 </tr>
@@ -150,10 +155,12 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
+                                    <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>Tax</strong></td>
                                     <td class="no-line text-right">${{$tax}}</td>
                                 </tr>
                                 <tr>
+                                    <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>

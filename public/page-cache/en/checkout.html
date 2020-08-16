@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="xv7JCbHho0xgzvt9CBjFCdWNUx8Uj6MqnWqOisFo">
+    <meta name="csrf-token" content="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR">
     <title>It's Over 9000!</title>
 <meta name="description" content="For those who helped create the Genki Dama">
 <meta property="og:title" content="Over 9000 Thousand!" />
@@ -44,7 +44,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'xv7JCbHho0xgzvt9CBjFCdWNUx8Uj6MqnWqOisFo';
+        window.livewire_token = 'gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR';
     });
 </script>
 
@@ -101,13 +101,35 @@
                 <a title="Fast returnings program" href="track-your-order.html">Fast returnings program</a>
             </li>
             <li class="menu-item animate-dropdown">
-                <a title="No additional fees" href="contact-v2.html">No additional fees</a>
+                <a href="http://127.0.0.1:8000/en/chat" class='notification'>
+                    <i class="fa fa-envelope fa-2x" style='color:#3265B0'></i>
+                    <span class="badge"> 0</span>
+                </a>
             </li>
         </ul>
         <!-- .nav -->
     </div>
     <!-- .col-full -->
 </div>
+
+
+<style>
+
+.notification{
+    position: relative;
+}
+
+.notification .badge {
+  position     : absolute;
+  top          : 1px;
+  right        : -10px;
+  padding      : 5px;
+  border-radius: 50%;
+  font-size    : 11px;
+  background   : red;
+  color        : white;
+}
+</style>
 <header id="masthead" class="site-header header-v1" style="background-image: none; ">
     <div class="col-full desktop-only">
         <div class="techmarket-sticky-wrap">
@@ -157,16 +179,34 @@
                 <nav id="primary-navigation" class="primary-navigation" aria-label="Primary Navigation" data-nav="flex-menu">
                     <ul id="menu-primary-menu" class="nav yamm">
                         <li class="sale-clr yamm-fw menu-item animate-dropdown">
-                            <a title="Super deals" href="product-category.html" style="font-size:13px">Super deals</a>
+                            <a title="Super deals" href="http://127.0.0.1:8000/en/super-deal" style="font-size:13px">Super deals</a>
                         </li>
-                                                                        <li class="yamm-fw menu-item animate-dropdown">
-                            <a title="Sell on" href="http://127.0.0.1:8000/en/seller/app" style="font-size:13px">Sell on Pascale Alston</a>
-                        </li>
-                                                                                                                        
-                        <li class="techmarket-flex-more-menu-item dropdown">
-                            <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
-                            <ul class="overflow-items dropdown-menu"></ul>
-                            <!-- . -->
+                                                                                                                                                                        <li class="menu-item menu-item-has-children animate-dropdown dropdown">
+                            <a title="pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">Pages <span class="caret"></span></a>
+                            <ul role="menu" class=" dropdown-menu">
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="about_us" href="http://127.0.0.1:8000/en/about_us">About us</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="contact_us" href="http://127.0.0.1:8000/en/contact_us">Contact us</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="show_wishlists" href="http://127.0.0.1:8000/en/wishlists">Wishlists</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="show_compare" href="http://127.0.0.1:8000/en/compare">Compare</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="track-your-order" href="http://127.0.0.1:8000/en/track-your-order">Track your order</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="terms-and-conditions" href="http://127.0.0.1:8000/en/terms-and-conditions">Terms and conditions</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="services" href="http://127.0.0.1:8000/en/services">Services</a>
+                                </li>
+                                                            </ul>
+                            <!-- .dropdown-menu -->
                         </li>
                     </ul>
                     <!-- .nav -->
@@ -184,6 +224,30 @@
                                 <span class="caret"></span>
                             </a>
                             <ul role="menu" class=" dropdown-menu">
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="USD" href="http://127.0.0.1:8000/en/checkout?currency=USD">USD</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="GBP" href="http://127.0.0.1:8000/en/checkout?currency=GBP">GBP</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="CAD" href="http://127.0.0.1:8000/en/checkout?currency=CAD">CAD</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="AUD" href="http://127.0.0.1:8000/en/checkout?currency=AUD">AUD</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="SEK" href="http://127.0.0.1:8000/en/checkout?currency=SEK">SEK</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="INR" href="http://127.0.0.1:8000/en/checkout?currency=INR">INR</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="CNY" href="http://127.0.0.1:8000/en/checkout?currency=CNY">CNY</a>
+                                </li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <a title="EUR" href="http://127.0.0.1:8000/en/checkout?currency=EUR">EUR</a>
+                                </li>
                                                             </ul>
                             <!-- .dropdown-menu -->
                         </li>
@@ -201,7 +265,7 @@
                             </ul>
                             <!-- .dropdown-menu -->
                             <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-                                <input type="hidden" name="_token" value="xv7JCbHho0xgzvt9CBjFCdWNUx8Uj6MqnWqOisFo">                            </form>
+                                <input type="hidden" name="_token" value="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR">                            </form>
                         </li>
                                                 <li class="techmarket-flex-more-menu-item dropdown">
                             <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
@@ -223,12 +287,12 @@
                 </button>
                 <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown ">
                                                             <li class="highlight menu-item animate-dropdown">
-                        <a title="wRRSbxeUZ3" href="http://127.0.0.1:8000/en/category/dzrgj8oYcG">wRRSbxeUZ3</a>
+                        <a title="dgS71Qzh3r" href="http://127.0.0.1:8000/en/category/xzLENqHYew">dgS71Qzh3r</a>
                     </li>
                                                         </ul>
             </div>
             <!-- .departments-menu -->
-            <form wire:initial-data="{&quot;id&quot;:&quot;kEQ2dGokoqMhUASv19g3&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;764353aba665d6b2d23e74ca2e7543b206846ec3cbd8edd0ba6963d4f53835f0&quot;,&quot;redirectTo&quot;:false}" wire:id="kEQ2dGokoqMhUASv19g3" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
+            <form wire:initial-data="{&quot;id&quot;:&quot;ImbjQXA3VRvsaWYaljqN&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;3baeb171110c22911d962220e0c32298b23809b8e6d86cbb5cc025162ffd4201&quot;,&quot;redirectTo&quot;:false}" wire:id="ImbjQXA3VRvsaWYaljqN" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
     <label class="sr-only screen-reader-text" for="search">Search for:</label>
     <div class="input-group">
         <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
@@ -237,7 +301,7 @@
         <div class="input-group-addon search-categories popover-header">
             <select name='product_cat' id='product_cat' class='postform resizeselect' wire:model='product_cat'>
                 <option value='0' selected='selected'>All Categories</option>
-                                <option class="level-0" value="1">wRRSbxeUZ3</option>
+                                    <option class="level-0" value="1">dgS71Qzh3r</option>
                             </select>
         </div>
         <!-- .input-group-addon -->
@@ -245,14 +309,19 @@
             <input type="hidden" id="search-param" name="post_type" value="product" />
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-search"></i>
-                <span class="search-btn">Search</span>
+                <span class="search-btn">user.search</span>
             </button>
+
+
         </div>
         <!-- .input-group-btn -->
     </div>
     <!-- .input-group -->
     <div style="position: absolute; height:auto; width:100%; z-index:10000;background:#f6f6f6; overflow:auto;"
         id="search-result">
+        <div id="loading" wire:loading>
+            <div class="loader" ></div>
+        </div>
             </div>
 </form>
 <style>
@@ -274,11 +343,49 @@
     .search-product:hover {
         background: #0063d14d;
     }
+
+
+    #loading {
+        position         : absolute;
+        width            : 100%;
+        height           : 100%;
+        background       : #999;
+        opacity          : 0.8;
+        top              : 0;
+        left             : 0;
+        right            : 0;
+        bottom           : 0;
+        /* -ms-transform    : translateX(-50%)
+        -webkit-transform: translateX(-50%);
+        transform        : translateX(-50%) */
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width        : 120px;
+        height       : 120px;
+        animation    : spin 2s linear infinite;
+        margin       : 20% auto;
+
+    }
+
+    @keyframes  spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
 </style>
             <!-- .navbar-search -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;KeOCaZbChrigRZwi9h3o&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;2820e8d6e11e8ba6229554d63cefb1da8da532584b1323de8551d4721a2623c5&quot;,&quot;redirectTo&quot;:false}" wire:id="KeOCaZbChrigRZwi9h3o" class="header-compare nav navbar-nav">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;OiPd2rmneZAfawzPPSPU&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;e617dd4249ffd349c23564c14768d7bb9254c13bad15282741742fead172e835&quot;,&quot;redirectTo&quot;:false}" wire:id="OiPd2rmneZAfawzPPSPU" class="header-compare nav navbar-nav">
     <li class="nav-item">
         <a href="http://127.0.0.1:8000/en/compare" class="nav-link">
             <i class="tm tm-compare"></i>
@@ -298,27 +405,50 @@
                 </li>
             </ul>
             <!-- .header-wishlist -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;Wa2VXc5e6iRrjqbB7tXh&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;ee1a936c9eabb79aa9d7eb3d74db34ac670df800fc78b8a2815d0d6da311b072&quot;,&quot;redirectTo&quot;:false}" wire:id="Wa2VXc5e6iRrjqbB7tXh" id="site-header-cart" class="site-header-cart menu">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;cAy1mcwHszFjEUuAa09T&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;92836221b022e2016b09b7a7ff639c58fede9ba36dce6cd89331f08b2a5a0ded&quot;,&quot;redirectTo&quot;:false}" wire:id="cAy1mcwHszFjEUuAa09T" id="site-header-cart" class="site-header-cart menu">
     <li class="animate-dropdown dropdown ">
         <a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
             <i class="tm tm-shopping-bag"></i>
-            <span class="count">1</span>
+            <span class="count">3</span>
             <span class="amount">
-                            <span class="price-label">Your Cart</span>$12.16</span>
+                            <span class="price-label">Your Cart</span>$14.16</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-mini-cart">
             <li>
                 <div class="widget woocommerce widget_shopping_cart">
                     <div class="widget_shopping_cart_content">
                         <ul class="woocommerce-mini-cart cart_list product_list_widget">
-                                                                                                <li class="woocommerce-mini-cart-item mini_cart_item">
-                                        <a href="#" class="remove" wire:click='removeCart(1)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-                                        <a href="http://127.0.0.1:8000/en/product/soluta-maxime-voluptas-hic-necessitatibus-sunt-et-unde-dolorem">
-                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Laudantium ab maiores.&nbsp;
+                            
+                                                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <a href="#" class="remove" wire:click='removeCart(50)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+                                        <a href="http://127.0.0.1:8000/en/product/possimus-ipsam-praesentium-ad-consectetur-aliquid-sit-nemo">
+                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Blanditiis quia ducimus fugiat animi a.&nbsp;
                                         </a>
                                         <span class="quantity">1 ×
                                             <span class="woocommerce-Price-amount amount">
-                                                $12.16</span>
+                                                $9.00</span>
+                                        </span>
+                                    </li>
+                                                            
+                                                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <a href="#" class="remove" wire:click='removeCart(51)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+                                        <a href="http://127.0.0.1:8000/en/product/expedita-sunt-eaque-voluptatem-voluptate-corporis-aperiam">
+                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Ipsam quis inventore dolorem sapiente.&nbsp;
+                                        </a>
+                                        <span class="quantity">1 ×
+                                            <span class="woocommerce-Price-amount amount">
+                                                $2.93</span>
+                                        </span>
+                                    </li>
+                                                            
+                                                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <a href="#" class="remove" wire:click='removeCart(52)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+                                        <a href="http://127.0.0.1:8000/en/product/dolorum-qui-amet-aliquam-ut-nihil">
+                                            <img src="/storage/no image" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Occaecati quis doloribus est aut delectus.&nbsp;
+                                        </a>
+                                        <span class="quantity">1 ×
+                                            <span class="woocommerce-Price-amount amount">
+                                                $2.23</span>
                                         </span>
                                     </li>
                                                                                     </ul>
@@ -326,7 +456,7 @@
                         <p class="woocommerce-mini-cart__total total">
                             <strong>Subtotal:</strong>
                             <span class="woocommerce-Price-amount amount">
-                                $12.16</span>
+                                $14.16</span>
                         </p>
                         <p class="woocommerce-mini-cart__buttons buttons">
                             <a href="http://127.0.0.1:8000/en/cart" class="button wc-forward">View cart</a>
@@ -920,7 +1050,7 @@
     <!-- .handheld-only -->
 </header>
 <!-- .header-v1 -->
-<div wire:initial-data="{&quot;id&quot;:&quot;o6wDSSZ67hX2RC8LrI7Q&quot;,&quot;name&quot;:&quot;checkout-page&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;coupon&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;success&quot;:&quot;&quot;,&quot;shippings&quot;:20,&quot;total&quot;:0,&quot;subtotal&quot;:12.1589},&quot;children&quot;:[],&quot;checksum&quot;:&quot;ab65a3b3c63baf8ef1d0498e71cfb91a5369826ed1de2bd001978363b2be5454&quot;,&quot;redirectTo&quot;:false}" wire:id="o6wDSSZ67hX2RC8LrI7Q" id="content" class="site-content">
+<div wire:initial-data="{&quot;id&quot;:&quot;nWpVNScrOmcgiCSN9YAU&quot;,&quot;name&quot;:&quot;checkout-page&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;coupon&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;success&quot;:&quot;&quot;,&quot;shippings&quot;:60,&quot;total&quot;:0,&quot;subtotal&quot;:14.165,&quot;coupons&quot;:0},&quot;children&quot;:[],&quot;checksum&quot;:&quot;be59b0d45d08d3bcd7882ac952065b2d3ff88dccad6f8ff8de5a6f7513746725&quot;,&quot;redirectTo&quot;:false}" wire:id="nWpVNScrOmcgiCSN9YAU" id="content" class="site-content">
     <div class="col-full">
         <div class="row">
             <nav class="woocommerce-breadcrumb">
@@ -955,8 +1085,9 @@
                                     </div>
                                                                                                         </div>
                                                                 <!-- .collapse -->
-                                <form method="POST" action="http://127.0.0.1:8000/en/checkout/store" accept-charset="UTF-8" class="checkout
-                                woocommerce-checkout" id="payment-form"><input name="_token" type="hidden" value="xv7JCbHho0xgzvt9CBjFCdWNUx8Uj6MqnWqOisFo">
+
+                                <form method="POST" action="http://127.0.0.1:8000/en/payment" accept-charset="UTF-8" class="checkout
+                                woocommerce-checkout" id="payment-form"><input name="_token" type="hidden" value="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR">
                                 <div id="customer_details" class="col2-set">
                                     <div class="col-1">
                                         <div class="woocommerce-billing-fields">
@@ -969,7 +1100,7 @@
                                                             for="billing_first_name">First Name                                                            <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value="Superadministrator"
+                                                            value="superadministrator"
                                                             placeholder="First Name"
                                                             id="billing_first_name" name="billing_first_name"
                                                             class="input-text ">
@@ -979,7 +1110,7 @@
                                                         <label class="" for="billing_last_name">Last Name                                                            <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value=""
+                                                            value="Ashraf"
                                                             placeholder="Last Name" id="billing_last_name"
                                                             name="billing_last_name" class="input-text ">
                                                     </p>
@@ -1194,7 +1325,7 @@
                                                                 >
                                                                 Ecuador</option>
                                                                                                                         <option value="68"
-                                                                >
+                                                                selected>
                                                                 Egypt</option>
                                                                                                                         <option value="69"
                                                                 >
@@ -1751,7 +1882,7 @@
                                                             for="billing_address_1">Street address                                                            <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value=""
+                                                            value="Elzaher"
                                                             placeholder="Street address"
                                                             id="billing_address_1" name="billing_address_1"
                                                             class="input-text ">
@@ -1769,7 +1900,7 @@
                                                         <label class="" for="billing_city">Town / City                                                            <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value=""
+                                                            value="Elzaher"
                                                             placeholder="" id="billing_city" name="billing_city"
                                                             class="input-text ">
                                                     </p>
@@ -1779,7 +1910,7 @@
                                                         <label class="" for="shipping_state">State                                                            <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text" autocomplete="address-level2"
-                                                            value=""
+                                                            value="A dolorem repellendu"
                                                             placeholder="State" id="states"
                                                             name="billing_state" class="input-text ">
                                                     </p>
@@ -2469,12 +2600,34 @@
                                                                                                                                                                                                 <tr class="cart_item">
                                                     <td class="product-name">
                                                         <strong class="product-quantity">1
-                                                            ×</strong> $12.16"
-                                                        Laudantium ab maiores.
+                                                            ×</strong> $9.00"
+                                                        Blanditiis quia ducimus fugiat animi a.
                                                     </td>
                                                     <td class="product-total">
                                                         <span class="woocommerce-Price-amount amount">
-                                                            $12.16</span>
+                                                            $9.00</span>
+                                                    </td>
+                                                </tr>
+                                                                                                                                                <tr class="cart_item">
+                                                    <td class="product-name">
+                                                        <strong class="product-quantity">1
+                                                            ×</strong> $2.93"
+                                                        Ipsam quis inventore dolorem sapiente.
+                                                    </td>
+                                                    <td class="product-total">
+                                                        <span class="woocommerce-Price-amount amount">
+                                                            $2.93</span>
+                                                    </td>
+                                                </tr>
+                                                                                                                                                <tr class="cart_item">
+                                                    <td class="product-name">
+                                                        <strong class="product-quantity">1
+                                                            ×</strong> $2.23"
+                                                        Occaecati quis doloribus est aut delectus.
+                                                    </td>
+                                                    <td class="product-total">
+                                                        <span class="woocommerce-Price-amount amount">
+                                                            $2.23</span>
                                                     </td>
                                                 </tr>
                                                                                                                                             </tbody>
@@ -2483,17 +2636,17 @@
                                                     <th>Subtotal</th>
                                                     <td>
                                                         <span class="woocommerce-Price-amount amount">
-                                                            $12.16</span>
+                                                            $14.17</span>
                                                     </td>
                                                 </tr>
                                                 <tr class="cart-subtotal">
                                                     <th>Shippings</th>
                                                     <td>
                                                         <span class="woocommerce-Price-amount amount">
-                                                            $20.00</span>
+                                                            $60.00</span>
                                                     </td>
                                                 </tr>
-                                                <tr class="cart-subtotal">
+                                                                                                <tr class="cart-subtotal">
                                                     <th>Coupon</th>
                                                     <td>
                                                         <span class="woocommerce-Price-amount amount">
@@ -2505,7 +2658,7 @@
                                                     <td>
                                                         <strong>
                                                             <span class="woocommerce-Price-amount amount">
-                                                                $32.16</span>
+                                                                $74.17</span>
                                                         </strong>
                                                     </td>
                                                 </tr>
@@ -2535,7 +2688,7 @@
                                                     <label
                                                         class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
                                                         <input type="checkbox" id="terms" name="terms"
-                                                            class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox">
+                                                            class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" required>
                                                         <span>I’ve read and accept the <a
                                                                 class="woocommerce-terms-and-conditions-link"
                                                                 href="terms-and-conditions.html">terms &amp;
@@ -2560,7 +2713,7 @@
                                                 </ul>
                                                 <div class="form-row" id="stripePayment" wire:ignore>
                                                     <label for="card-element">
-                                                      Credit_or_debit_card                                                    </label>
+                                                      Credit or debit card                                                    </label>
                                                     <div id="card-element">
                                                       <!-- A Stripe Element will be inserted here. -->
                                                     </div>
@@ -2894,7 +3047,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="xv7JCbHho0xgzvt9CBjFCdWNUx8Uj6MqnWqOisFo"
+        data-csrftoken="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR"
     ></div>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/jquery.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/tether.min.js"></script>
@@ -2924,7 +3077,7 @@
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 <script>
 
-    Echo.private(`cartupdate`)
+    /* Echo.private(`cartupdate`)
     .listen('cartEvent', (e) => {
         Swal.fire({
             position: 'top-end',
@@ -2933,7 +3086,7 @@
             showConfirmButton: true,
             timer: 1500
             });
-    });
+    }); */
 </script>
   <script src="https://js.stripe.com/v3/"></script>
   <script>

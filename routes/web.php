@@ -42,6 +42,11 @@ Route::get('/checkout', function () {
 
 Route::post('/checkout/store','FrontEnd\BillingController@store')->name('checkout_store');
 
+Route::get('/contact_us','FrontEnd\ContactUsController@index')->name('contact_us');
+Route::post('/contact_us','FrontEnd\ContactUsController@store')->name('contact_us_store');
+
+Route::post('/payment','FrontEnd\payment\BillingController@payment')->name('payment');
+
 Route::get('/compare', function () {
     return view('FrontEnd.compare');
 })->name('show_compare');
@@ -64,9 +69,10 @@ Route::get('/shop', function () {
  *                                          |___/
  *
  */
+Route::get('/tag/{slug}','FrontEnd\TagController@index')->name('tags')
+;
 Route::get('/seller/app', 'FrontEnd\SellerAppController@index')->name('seller_app');
 Route::post('/seller/app', 'FrontEnd\SellerAppController@store')->name('store_app');
-Route::get('/tag/{slug}','FrontEnd\TagController@index')->name('tags');
 Route::get('/seller/dashboard','FrontEnd\SellerController@index')->name('seller_dashboard');
 Route::get('/seller/products','FrontEnd\SellerController@products')->name('seller_frontend_products');
 Route::get('/seller/products/create','FrontEnd\SellerController@create')->name('seller_frontend_products_create');
@@ -130,7 +136,7 @@ Route::put('/profile/password','FrontEnd\ProfileController@password')->name('use
 Route::get('/profile/order/{id}','FrontEnd\ProfileController@order')->name('profile.order.show');
 
 Route::get('cancel', 'FrontEnd\BillingController@cancel')->name('payment.cancel');
-Route::get('payment/success', 'FrontEnd\BillingController@success')->name('payment.success');
+Route::get('payment/success', 'FrontEnd\payment\BillingController@success')->name('payment.success');
 Route::get('payment/successfully/', function () {
     if(session()->get('order') !== null) {
         return view('FrontEnd.success_page',['order' => session()->get('order')[0]]);
@@ -141,7 +147,15 @@ Route::get('payment/successfully/', function () {
 
 
 
-
+// Start Pages
+Route::get('teams', 'FrontEnd\TeamsController@index')->name('teams');
+Route::get('contact_us', 'FrontEnd\ContactUsController@index')->name('contact_us');
+Route::get('services', 'FrontEnd\ServicesController@index')->name('services');
+Route::get('terms-and-conditions', 'FrontEnd\TermsAndConditionController')->name('terms-and-conditions');
+Route::get('about_us', 'FrontEnd\AboutUsController')->name('about_us');
+Route::get('track-your-order', 'FrontEnd\TrackYourOrderController@index')->name('track-your-order');
+Route::post('track-your-order-send', 'FrontEnd\TrackYourOrderController@send')->name('track-your-order-send');
+// End Pages
 
 /* Admin Route */
 
@@ -202,6 +216,34 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadministrator|adm
         Route::get('cmss/products/{id}', 'Admin\EventCategoryController@create_products')->name('cmss_create_products');
         Route::get('cmss/category/{id}', 'Admin\EventCategoryController@create_category')->name('cmss_create_category');
 
+    /* Start CMS */
+        // Team
+        Route::resource('teams', 'Admin\cms\TeamController');
+        Route::post('/teams/multi_delete', 'Admin\cms\TeamController@destory_all')->name('teams_destroy_all');
+
+        // Testimonials
+        Route::resource('testimonials', 'Admin\cms\TestimonialController');
+        Route::post('/testimonials/multi_delete', 'Admin\cms\TestimonialController@destory_all')->name('testimonials_destroy_all');
+
+        // services
+        Route::resource('services', 'Admin\cms\ServiceController');
+        Route::post('/services/multi_delete', 'Admin\cms\ServiceController@destory_all')->name('services_destroy_all');
+
+        // ourworks
+        Route::resource('ourworks', 'Admin\cms\OurworkController');
+        Route::post('/ourworks/multi_delete', 'Admin\cms\OurworkController@destory_all')->name('ourworks_destroy_all');
+
+        // ContactUs
+        Route::resource('contact_us', 'Admin\cms\ContactUsController');
+        Route::post('/contact_us/multi_delete', 'Admin\cms\ContactUsController@destory_all')->name('contact_us_destroy_all');
+
+        Route::resource('sliders', 'Admin\cms\SliderController');
+        Route::post('/sliders/multi_delete', 'Admin\cms\SliderController@destory_all')->name('sliders_destroy_all');
+
+        /* End CMS */
+        // Adz
+        Route::resource('adzs', 'Admin\AdzController');
+        Route::post('/adzs/multi_delete', 'Admin\AdzController@destory_all')->name('adzs_destroy_all');
 
         Route::resource('manufacturers', 'Admin\ManufacturerController');
         Route::post('/manufacturers/multi_delete', 'Admin\ManufacturerController@destory_all')->name('manufacturers_destroy_all');
@@ -319,7 +361,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadministrator|adm
     Route::post('/seller/multi_delete', 'Admin\SellerController@destory_all')->name('seller_destroy_all');
 
 
-    Route::resource('orders', 'Admin\OrderController',['except' => ['create', 'store','destroy','edit']]);
+    Route::resource('orders', 'Admin\OrderController',['except' => ['create', 'store','destroy']]);
     Route::post('/orders/edit_delete', 'Admin\OrderController@update')->name('orders_edit_all');
 
 

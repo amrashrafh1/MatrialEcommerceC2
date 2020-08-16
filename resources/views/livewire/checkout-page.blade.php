@@ -105,7 +105,8 @@
                                 @endforeach
                                 @endif
                                 <!-- .collapse -->
-                                {!! Form::open(['url' => route('checkout_store'), 'class' => 'checkout
+
+                                {!! Form::open(['url' => route('payment'), 'class' => 'checkout
                                 woocommerce-checkout',
                                 'method' => 'post', 'id' => 'payment-form']) !!}
                                 <div id="customer_details" class="col2-set">

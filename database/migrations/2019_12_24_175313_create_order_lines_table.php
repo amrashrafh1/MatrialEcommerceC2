@@ -20,6 +20,7 @@ class CreateOrderLinesTable extends Migration
             $table->integer('quantity');
             $table->double('total', 10, 2);
             $table->double('price', 10, 2);
+            $table->double('discount', 10, 2)->nullable();
             $table->double('tax', 8, 2)->nullable();
             $table->double('shipping', 8, 2)->nullable();
             $table->string('sku')->index();

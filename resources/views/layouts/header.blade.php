@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('')}}/FrontEnd/css/colors/blue.css" media="all" />
 
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,900" rel="stylesheet">
-    <link rel="shortcut icon" href="{{url('')}}/FrontEnd/images/fav-icon.png">
+    <link rel="shortcut icon" href="{{\App\Setting::latest('id')->first()?Storage::url(\App\Setting::latest('id')->first()->icon):''}}">
     @livewireAssets
 @stack('css')
 </head>

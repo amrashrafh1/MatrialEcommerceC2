@@ -239,7 +239,7 @@
 
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="description" class=" control-label">Tags in
+                        <label for="tags" class=" control-label">Tags in
                             {{$properties['name']}}</label>
                     </div>
                     <div class="col-md-9">

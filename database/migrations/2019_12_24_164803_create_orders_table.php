@@ -44,6 +44,10 @@ class CreateOrdersTable extends Migration
             $table->string('shipping_country')->nullable();
             $table->string('shipping_zip')->nullable();
 
+
+
+            $table->string('order_id')->nullable();
+
             $table->decimal('shipping_total', 10, 2);
             $table->string('shipping_method')->nullable();
             $table->enum('payment_method',['paypal', 'card'])->nullable();

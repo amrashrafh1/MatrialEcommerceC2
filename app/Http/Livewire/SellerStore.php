@@ -28,7 +28,7 @@ class SellerStore extends Component
     }
     public function render()
     {
-        $products = $this->seller->products()->disableCache()->where('visible', 'visible')->paginate(20);
+        $products = $this->seller->products()->isApproved()->disableCache()->paginate(20);
         return view('livewire.seller-store', ['seller' => $this->seller, 'products' => $products]);
     }
 

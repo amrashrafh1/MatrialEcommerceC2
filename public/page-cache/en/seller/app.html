@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="XIUkzcus7x49aRb447Aue73hRTpMHbxyy8onEmva">
+    <meta name="csrf-token" content="8SkkbZsmvcK9mj4q6OSTG1w7tu2OijND09Sp1GOS">
     <title>It's Over 9000!</title>
 <meta name="description" content="For those who helped create the Genki Dama">
 <meta property="og:title" content="Over 9000 Thousand!" />
@@ -21,10 +21,7 @@
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/slick-style.css" media="all" />
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/animate.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/style.css" media="all" />
-                <!-- 3. AddChat JS -->
-    <!-- Modern browsers -->
-    <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
-            <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/colors/blue.css" media="all" />
+                    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/colors/blue.css" media="all" />
 
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,900" rel="stylesheet">
     <link rel="shortcut icon" href="http://127.0.0.1:8000/FrontEnd/images/fav-icon.png">
@@ -47,7 +44,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'XIUkzcus7x49aRb447Aue73hRTpMHbxyy8onEmva';
+        window.livewire_token = '8SkkbZsmvcK9mj4q6OSTG1w7tu2OijND09Sp1GOS';
     });
 </script>
 
@@ -149,13 +146,34 @@
                             <a title="Super deals" href="http://127.0.0.1:8000/en/super-deal" style="font-size:13px">Super deals</a>
                         </li>
                                                                         <li class="yamm-fw menu-item animate-dropdown">
-                            <a title="Sell on" href="http://127.0.0.1:8000/en/seller/app" style="font-size:13px">Sell on Callum Moore</a>
+                            <a title="Sell on" href="http://127.0.0.1:8000/en/seller/app" style="font-size:13px">Sell on Techmarket</a>
                         </li>
-                                                                                                                        
-                        <li class="techmarket-flex-more-menu-item dropdown">
-                            <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
-                            <ul class="overflow-items dropdown-menu"></ul>
-                            <!-- . -->
+                                                                                                                                                <li class="menu-item menu-item-has-children animate-dropdown dropdown">
+                            <a title="pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">Pages <span class="caret"></span></a>
+                            <ul role="menu" class=" dropdown-menu">
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="about_us" href="http://127.0.0.1:8000/en/about_us">About us</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="contact_us" href="http://127.0.0.1:8000/en/contact_us">Contact us</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="show_wishlists" href="http://127.0.0.1:8000/en/wishlists">Wishlists</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="show_compare" href="http://127.0.0.1:8000/en/compare">Compare</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="track-your-order" href="http://127.0.0.1:8000/en/track-your-order">Track your order</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="terms-and-conditions" href="http://127.0.0.1:8000/en/terms-and-conditions">Terms and conditions</a>
+                                </li>
+                                                                <li class="menu-item animate-dropdown">
+                                    <a title="services" href="http://127.0.0.1:8000/en/services">Services</a>
+                                </li>
+                                                            </ul>
+                            <!-- .dropdown-menu -->
                         </li>
                     </ul>
                     <!-- .nav -->
@@ -164,8 +182,8 @@
                 <nav id="secondary-navigation" class="secondary-navigation" aria-label="Secondary Navigation" data-nav="flex-menu">
                     <ul id="menu-secondary-menu" class="nav">
                                                 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
-                            <a title="Track Your Order" href="http://127.0.0.1:8000/en/seller/dashboard">
-                                <i class="tm tm-order-tracking"></i>Seller Dashboard</a>
+                            <a title="Track Your Order" href="http://127.0.0.1:8000/en/track-your-order">
+                                <i class="tm tm-order-tracking"></i>Track Your Order</a>
                         </li>
                                                                         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
                             <a title="USD" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">
@@ -173,30 +191,6 @@
                                 <span class="caret"></span>
                             </a>
                             <ul role="menu" class=" dropdown-menu">
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="USD" href="http://127.0.0.1:8000/en/seller/app?currency=USD">USD</a>
-                                </li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="GBP" href="http://127.0.0.1:8000/en/seller/app?currency=GBP">GBP</a>
-                                </li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="CAD" href="http://127.0.0.1:8000/en/seller/app?currency=CAD">CAD</a>
-                                </li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="AUD" href="http://127.0.0.1:8000/en/seller/app?currency=AUD">AUD</a>
-                                </li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="SEK" href="http://127.0.0.1:8000/en/seller/app?currency=SEK">SEK</a>
-                                </li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="INR" href="http://127.0.0.1:8000/en/seller/app?currency=INR">INR</a>
-                                </li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="CNY" href="http://127.0.0.1:8000/en/seller/app?currency=CNY">CNY</a>
-                                </li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="EUR" href="http://127.0.0.1:8000/en/seller/app?currency=EUR">EUR</a>
-                                </li>
                                                             </ul>
                             <!-- .dropdown-menu -->
                         </li>
@@ -214,7 +208,7 @@
                             </ul>
                             <!-- .dropdown-menu -->
                             <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-                                <input type="hidden" name="_token" value="XIUkzcus7x49aRb447Aue73hRTpMHbxyy8onEmva">                            </form>
+                                <input type="hidden" name="_token" value="8SkkbZsmvcK9mj4q6OSTG1w7tu2OijND09Sp1GOS">                            </form>
                         </li>
                                                 <li class="techmarket-flex-more-menu-item dropdown">
                             <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
@@ -236,12 +230,12 @@
                 </button>
                 <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown  show">
                                                             <li class="highlight menu-item animate-dropdown">
-                        <a title="G84hXSqc9L" href="http://127.0.0.1:8000/en/category/TX95iPL6BM">G84hXSqc9L</a>
+                        <a title="XStedvUD9Q" href="http://127.0.0.1:8000/en/category/H4kJg5QiEQ">XStedvUD9Q</a>
                     </li>
                                                         </ul>
             </div>
             <!-- .departments-menu -->
-            <form wire:initial-data="{&quot;id&quot;:&quot;Rp7Cu5S3GKw1p23hR1Pb&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;bbd50227f0b6fe16702d63fc5a34073b1c47e29b0222198321d41e9e3a61702b&quot;,&quot;redirectTo&quot;:false}" wire:id="Rp7Cu5S3GKw1p23hR1Pb" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
+            <form wire:initial-data="{&quot;id&quot;:&quot;0SiySEGdjHV6uGD1mLVy&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;de2bf6325af6e0bba3f251f702161f119cd87c35db6c78e52aad3e7dc6457c4e&quot;,&quot;redirectTo&quot;:false}" wire:id="0SiySEGdjHV6uGD1mLVy" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
     <label class="sr-only screen-reader-text" for="search">Search for:</label>
     <div class="input-group">
         <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
@@ -250,7 +244,7 @@
         <div class="input-group-addon search-categories popover-header">
             <select name='product_cat' id='product_cat' class='postform resizeselect' wire:model='product_cat'>
                 <option value='0' selected='selected'>All Categories</option>
-                                <option class="level-0" value="1">G84hXSqc9L</option>
+                                    <option class="level-0" value="1">XStedvUD9Q</option>
                             </select>
         </div>
         <!-- .input-group-addon -->
@@ -258,14 +252,19 @@
             <input type="hidden" id="search-param" name="post_type" value="product" />
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-search"></i>
-                <span class="search-btn">Search</span>
+                <span class="search-btn">user.search</span>
             </button>
+
+
         </div>
         <!-- .input-group-btn -->
     </div>
     <!-- .input-group -->
     <div style="position: absolute; height:auto; width:100%; z-index:10000;background:#f6f6f6; overflow:auto;"
         id="search-result">
+        <div id="loading" wire:loading>
+            <div class="loader" ></div>
+        </div>
             </div>
 </form>
 <style>
@@ -287,11 +286,49 @@
     .search-product:hover {
         background: #0063d14d;
     }
+
+
+    #loading {
+        position         : absolute;
+        width            : 100%;
+        height           : 100%;
+        background       : #999;
+        opacity          : 0.8;
+        top              : 0;
+        left             : 0;
+        right            : 0;
+        bottom           : 0;
+        /* -ms-transform    : translateX(-50%)
+        -webkit-transform: translateX(-50%);
+        transform        : translateX(-50%) */
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width        : 120px;
+        height       : 120px;
+        animation    : spin 2s linear infinite;
+        margin       : 20% auto;
+
+    }
+
+    @keyframes  spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
 </style>
             <!-- .navbar-search -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;bRHZddDXVayPveLhpRBk&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;053623dad2cf786147b32415540a82b0aba5e377e82a4f45c79e19454d85fb6c&quot;,&quot;redirectTo&quot;:false}" wire:id="bRHZddDXVayPveLhpRBk" class="header-compare nav navbar-nav">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;7jVTomYle63MyrIky7gE&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;a473a651e71457abaf08c29e28c9e436d2948ac8485818ceabcfd8e8db0f2496&quot;,&quot;redirectTo&quot;:false}" wire:id="7jVTomYle63MyrIky7gE" class="header-compare nav navbar-nav">
     <li class="nav-item">
         <a href="http://127.0.0.1:8000/en/compare" class="nav-link">
             <i class="tm tm-compare"></i>
@@ -311,13 +348,13 @@
                 </li>
             </ul>
             <!-- .header-wishlist -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;6xB0Bfd6KYUqmicRj0E2&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;e9275ddfafdfe5b3542b724b3e453279cc67e89c24752f573e8b41d658e4bcb0&quot;,&quot;redirectTo&quot;:false}" wire:id="6xB0Bfd6KYUqmicRj0E2" id="site-header-cart" class="site-header-cart menu">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;xphyFSM78QkcY5GzCHjE&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;a86c20bcc6cce73454f4732b288364e9b423a4ddb4415a6d62de0c91b46c781d&quot;,&quot;redirectTo&quot;:false}" wire:id="xphyFSM78QkcY5GzCHjE" id="site-header-cart" class="site-header-cart menu">
     <li class="animate-dropdown dropdown ">
         <a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
             <i class="tm tm-shopping-bag"></i>
             <span class="count">0</span>
             <span class="amount">
-                            <span class="price-label">Your Cart</span>$0.00</span>
+                            <span class="price-label">Your Cart</span></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-mini-cart">
             <li>
@@ -329,7 +366,7 @@
                         <p class="woocommerce-mini-cart__total total">
                             <strong>Subtotal:</strong>
                             <span class="woocommerce-Price-amount amount">
-                                $0.00</span>
+                                </span>
                         </p>
                         <p class="woocommerce-mini-cart__buttons buttons">
                             <a href="http://127.0.0.1:8000/en/cart" class="button wc-forward">View cart</a>
@@ -931,7 +968,7 @@
                 <a href="http://127.0.0.1:8000/en">Home</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
-                </span>Seller Dashboard            </nav>
+                </span>Superadministrator Dashboard            </nav>
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area" style="flex: 0 0 100%;
             max-width: 100%;
@@ -943,17 +980,17 @@
                             <div class="col-xl-12">
                                 <div class="card m-b-20">
                                     <div class="card-header">
-                                        <h2 class="mb-0"> Wizard With Progress Bar</h2>
+                                        <h2 class="mb-0"> Store application</h2>
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST" action="http://127.0.0.1:8000/en/seller/app" accept-charset="UTF-8" id="seller-app" enctype="multipart/form-data"><input name="_token" type="hidden" value="XIUkzcus7x49aRb447Aue73hRTpMHbxyy8onEmva">
+                                        <form method="POST" action="http://127.0.0.1:8000/en/seller/app" accept-charset="UTF-8" id="seller-app" enctype="multipart/form-data"><input name="_token" type="hidden" value="8SkkbZsmvcK9mj4q6OSTG1w7tu2OijND09Sp1GOS">
                                         <div class="form-group row">
                                             <div class="col-md-2">
                                                 <label for="name" control-label>Store name</label>
                                             </div>
                                             <div class="col-md-10">
                                                 <input class="form-control
-                                                required" placeholder="Store name" name="name" type="text" value="Seller" id="name">
+                                                required" placeholder="Store name" name="name" type="text" value="Superadministrator" id="name">
                                             </div>
                                         </div>
                                         <br>
@@ -962,7 +999,7 @@
                                                 <label for="email" control-label>Email</label>
                                             </div>
                                             <div class="col-md-10">
-                                                <input class="form-control" placeholder="Email" name="email" type="email" value="seller@app.com" id="email">
+                                                <input class="form-control" placeholder="Email" name="email" type="email" value="superadministrator@app.com" id="email">
                                             </div>
                                         </div>
                                         <br>
@@ -971,7 +1008,7 @@
                                                 <label for="country_id" control-label>Country</label>
                                             </div>
                                             <div class="col-md-10">
-                                                <select id="country_id" name="country_id"><option value="2">Åland Islands</option><option value="4">Algeria</option><option value="8">Anguilla</option><option value="11">Argentina</option><option value="12">Armenia</option><option value="13">Aruba</option><option value="15">Austria</option><option value="17">Bahamas</option><option value="19">Bangladesh</option><option value="21">Belarus</option><option value="22">Belgium</option><option value="23">Belize</option><option value="24">Benin</option><option value="25">Bermuda</option><option value="27">Bolivia (Plurinational State of)</option><option value="32">Brazil</option><option value="33">British Indian Ocean Territory</option><option value="35">Virgin Islands (British)</option><option value="36">Virgin Islands (U.S.)</option><option value="37">Brunei Darussalam</option><option value="39">Burkina Faso</option><option value="42">Cameroon</option><option value="46">Central African Republic</option><option value="49">China</option><option value="50">Christmas Island</option><option value="52">Colombia</option><option value="53">Comoros</option><option value="56">Cook Islands</option><option value="58">Croatia</option><option value="63">Denmark</option><option value="64">Djibouti</option><option value="65">Dominica</option><option value="67">Ecuador</option><option value="72">Estonia</option><option value="73">Ethiopia</option><option value="76">Fiji</option><option value="80">French Polynesia</option><option value="81">French Southern Territories</option><option value="83">Gambia</option><option value="84">Georgia</option><option value="86">Ghana</option><option value="90">Grenada</option><option value="92">Guam</option><option value="94">Guernsey</option><option value="96">Guinea-Bissau</option><option value="98">Haiti</option><option value="99">Heard Island and McDonald Islands</option><option value="101">Honduras</option><option value="102">Hong Kong</option><option value="104">Iceland</option><option value="105">India</option><option value="106">Indonesia</option><option value="107">Côte d&#039;Ivoire</option><option value="108">Iran (Islamic Republic of)</option><option value="109">Iraq</option><option value="112">Israel</option><option value="116">Jersey</option><option value="122">Kyrgyzstan</option><option value="123">Lao People&#039;s Democratic Republic</option><option value="126">Lesotho</option><option value="127">Liberia</option><option value="129">Liechtenstein</option><option value="131">Luxembourg</option><option value="133">Macedonia (the former Yugoslav Republic of)</option><option value="136">Malaysia</option><option value="139">Malta</option><option value="142">Mauritania</option><option value="147">Moldova (Republic of)</option><option value="149">Mongolia</option><option value="151">Montserrat</option><option value="153">Mozambique</option><option value="154">Myanmar</option><option value="155">Namibia</option><option value="157">Nepal</option><option value="158">Netherlands</option><option value="159">New Caledonia</option><option value="160">New Zealand</option><option value="161">Nicaragua</option><option value="164">Niue</option><option value="166">Korea (Democratic People&#039;s Republic of)</option><option value="167">Northern Mariana Islands</option><option value="169">Oman</option><option value="170">Pakistan</option><option value="176">Peru</option><option value="177">Philippines</option><option value="179">Poland</option><option value="180">Portugal</option><option value="184">Réunion</option><option value="185">Romania</option><option value="187">Rwanda</option><option value="188">Saint Barthélemy</option><option value="189">Saint Helena, Ascension and Tristan da Cunha</option><option value="191">Saint Lucia</option><option value="192">Saint Martin (French part)</option><option value="193">Saint Pierre and Miquelon</option><option value="197">Sao Tome and Principe</option><option value="198">Saudi Arabia</option><option value="200">Serbia</option><option value="201">Seychelles</option><option value="203">Singapore</option><option value="205">Slovakia</option><option value="206">Slovenia</option><option value="208">Somalia</option><option value="211">Korea (Republic of)</option><option value="212">South Sudan</option><option value="216">Suriname</option><option value="217">Svalbard and Jan Mayen</option><option value="218">Swaziland</option><option value="220">Switzerland</option><option value="223">Tajikistan</option><option value="225">Thailand</option><option value="226">Timor-Leste</option><option value="230">Trinidad and Tobago</option><option value="231">Tunisia</option><option value="232">Turkey</option><option value="233">Turkmenistan</option><option value="235">Tuvalu</option><option value="236">Uganda</option><option value="237">Ukraine</option><option value="238">United Arab Emirates</option><option value="239">United Kingdom of Great Britain and Northern Ireland</option><option value="240">United States of America</option><option value="241">Uruguay</option><option value="242">Uzbekistan</option><option value="245">Viet Nam</option><option value="250">Zimbabwe</option></select>
+                                                <select id="country_id" name="country_id"><option value="83">Gambia</option><option value="84">Georgia</option><option value="85">Germany</option></select>
                                             </div>
                                         </div>
                                         <br>
@@ -994,7 +1031,7 @@
                                         </div>
                                         <br>
                                                                                 <div class="form-group">
-                                        <img style="height:300px;width:300px;" src="/storage/users/member1_5efddb1337150.png"/>
+                                        <img style="height:300px;width:300px;" src="/storage/user.png"/>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-2">
@@ -1010,10 +1047,10 @@
                                         <br>
                                         <div class="form-group row">
                                             <div class="col-md-2">
-                                                <label for="type" control-label>user.type</label>
+                                                <label for="type" control-label>Type</label>
                                             </div>
                                             <div class="col-md-10">
-                                                <select class="form-control" id="type" name="type"><option selected="selected" value="">Business</option><option value="0">user.individual</option><option value="1">Business</option></select>
+                                                <select class="form-control" id="type" name="type"><option selected="selected" value="">Business</option><option value="0">Individual</option><option value="1">Business</option></select>
                                             </div>
                                         </div>
                                         <br>
@@ -1090,7 +1127,7 @@
                                         </div>
                                         <br />
                                         <div class="form-group">
-                                            <input value="user.submit" type="submit" class="btn btn-success" />
+                                            <input value="Submit" type="submit" class="btn btn-success" />
                                         </div>
                                         <br>
                                         </form>
@@ -1417,7 +1454,7 @@ Dropzone.options.myAwesomeDropzone = {
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="XIUkzcus7x49aRb447Aue73hRTpMHbxyy8onEmva"
+        data-csrftoken="8SkkbZsmvcK9mj4q6OSTG1w7tu2OijND09Sp1GOS"
     ></div>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/jquery.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/tether.min.js"></script>
@@ -1435,11 +1472,6 @@ Dropzone.options.myAwesomeDropzone = {
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/scripts.js"></script>
 <script src="http://127.0.0.1:8000/material/js/plugins/sweetalert2.js"></script>
 <script src="http://127.0.0.1:8000/js/app.js"></script>
-    <!-- 3. AddChat JS -->
-    <!-- Modern browsers -->
-    <script type="module" src="http://127.0.0.1:8000/assets/addchat/js/addchat.min.js"></script>
-    <!-- Fallback support for Older browsers -->
-    <script nomodule src="http://127.0.0.1:8000/assets/addchat/js/addchat-legacy.min.js"></script>
 <script>
     var botmanWidget = {
       //  frameEndpoint: '/chatbox',
@@ -1449,6 +1481,7 @@ Dropzone.options.myAwesomeDropzone = {
         bubbleBackground: '#0063D1'
     };
 </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 <script>
 
     /* Echo.private(`cartupdate`)
@@ -1498,7 +1531,7 @@ Dropzone.options.myAwesomeDropzone = {
 
                 focusInvalid: false, // do not focus the last invalid input
                 
-                rules: {"country_id":{"laravelValidation":[["Required",[],"The country id field is required.",true],["Numeric",[],"The country id must be a number.",false]],"laravelValidationRemote":[["Exists",["country_id","eyJpdiI6InluWWtQa0VCc2xXTVRwU3FxaDZyM3c9PSIsInZhbHVlIjoieDJwQ3JnOHdHXC9aTDNDZFg3aVVYRFQwVjJoSEx1dnJ1VDZIWnUxcU0rY3NPeEFUeExZb292MTRRQzRWblhUeW9PSnJhMEhBcXp4XC9OeldQcWdOZHdWUT09IiwibWFjIjoiNWU0YmMwMDJmNDhjNzg0YzU3NmU4ZTA2MjQyYTY1NDJkZjNlOTYzYjg4M2MxMDEwZmYzNDFkOTE0MDY5YzI4OSJ9",false],"The selected country id is invalid.",false]]},"name":{"laravelValidation":[["Required",[],"The name field is required.",true],["String",[],"The name must be a string.",false],["Max",["191"],"The name may not be greater than 191 characters.",false]]},"email":{"laravelValidation":[["Required",[],"The email field is required.",true],["Email",[],"The email must be a valid email address.",false]],"laravelValidationRemote":[["Unique",["email","eyJpdiI6InluWWtQa0VCc2xXTVRwU3FxaDZyM3c9PSIsInZhbHVlIjoieDJwQ3JnOHdHXC9aTDNDZFg3aVVYRFQwVjJoSEx1dnJ1VDZIWnUxcU0rY3NPeEFUeExZb292MTRRQzRWblhUeW9PSnJhMEhBcXp4XC9OeldQcWdOZHdWUT09IiwibWFjIjoiNWU0YmMwMDJmNDhjNzg0YzU3NmU4ZTA2MjQyYTY1NDJkZjNlOTYzYjg4M2MxMDEwZmYzNDFkOTE0MDY5YzI4OSJ9",false],"The email has already been taken.",false]]},"city":{"laravelValidation":[["Required",[],"The city field is required.",true],["String",[],"The city must be a string.",false]]},"state":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The state must be a string.",false]]},"address1":{"laravelValidation":[["Required",[],"The address1 field is required.",true],["String",[],"The address1 must be a string.",false]]},"address2":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The address2 must be a string.",false]]},"address3":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The address3 must be a string.",false]]},"phone1":{"laravelValidation":[["Required",[],"The phone1 field is required.",true],["String",[],"The phone1 must be a string.",false]]},"phone2":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The phone2 must be a string.",false]]},"phone3":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The phone3 must be a string.",false]]},"image":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Image",[],"The image must be an image.",false],["Mimes",["jpg","jpeg","png","gif","bmp"],"The image must be a file of type: jpg, jpeg, png, gif, bmp.",false],["Max",["10000"],"The image may not be greater than 10000 kilobytes.",false]]},"type":{"laravelValidation":[["Required",[],"The type field is required.",true],["In",["0","1"],"The selected type is invalid.",false]]},"business":{"laravelValidation":[["Required",[],"The business field is required.",true],["String",[],"The business must be a string.",false]]},"description":{"laravelValidation":[["Required",[],"The description field is required.",true],["Min",["3"],"The description must be at least 3 characters.",false],["Max",["1000"],"The description may not be greater than 1000 characters.",false]]}}            });
+                rules: {"country_id":{"laravelValidation":[["Required",[],"The country id field is required.",true],["Numeric",[],"The country id must be a number.",false]],"laravelValidationRemote":[["Exists",["country_id","eyJpdiI6IjNuWWxhTmVVNmxhS2NrZjRoVzlWQWc9PSIsInZhbHVlIjoiSUpzUW1NamhOSzlaRVNSaENDeE5KalE5WlQ5N0pEc293VDVDMjREWVwvSVpKazBjQlFIYk1XUlFhWVcyZHB0XC9ZckliTlNodWs0dVp4dGJmY0pXdk9OQT09IiwibWFjIjoiMjliNjc0NGNhYzcwNWU5NDZkMWJjNGU1Yzk0MzhjYmYzMGMyMjc3NzExNjQwMDU4MWJiOTJmNzc4ZDM0NDNhZSJ9",false],"The selected country id is invalid.",false]]},"name":{"laravelValidation":[["Required",[],"The name field is required.",true],["String",[],"The name must be a string.",false],["Max",["191"],"The name may not be greater than 191 characters.",false]]},"email":{"laravelValidation":[["Required",[],"The email field is required.",true],["Email",[],"The email must be a valid email address.",false]],"laravelValidationRemote":[["Unique",["email","eyJpdiI6IjNuWWxhTmVVNmxhS2NrZjRoVzlWQWc9PSIsInZhbHVlIjoiSUpzUW1NamhOSzlaRVNSaENDeE5KalE5WlQ5N0pEc293VDVDMjREWVwvSVpKazBjQlFIYk1XUlFhWVcyZHB0XC9ZckliTlNodWs0dVp4dGJmY0pXdk9OQT09IiwibWFjIjoiMjliNjc0NGNhYzcwNWU5NDZkMWJjNGU1Yzk0MzhjYmYzMGMyMjc3NzExNjQwMDU4MWJiOTJmNzc4ZDM0NDNhZSJ9",false],"The email has already been taken.",false]]},"city":{"laravelValidation":[["Required",[],"The city field is required.",true],["String",[],"The city must be a string.",false]]},"state":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The state must be a string.",false]]},"address1":{"laravelValidation":[["Required",[],"The address1 field is required.",true],["String",[],"The address1 must be a string.",false]]},"address2":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The address2 must be a string.",false]]},"address3":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The address3 must be a string.",false]]},"phone1":{"laravelValidation":[["Required",[],"The phone1 field is required.",true],["String",[],"The phone1 must be a string.",false]]},"phone2":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The phone2 must be a string.",false]]},"phone3":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The phone3 must be a string.",false]]},"image":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Image",[],"The image must be an image.",false],["Mimes",["jpg","jpeg","png","gif","bmp"],"The image must be a file of type: jpg, jpeg, png, gif, bmp.",false],["Max",["10000"],"The image may not be greater than 10000 kilobytes.",false]]},"type":{"laravelValidation":[["Required",[],"The type field is required.",true],["In",["0","1"],"The selected type is invalid.",false]]},"business":{"laravelValidation":[["Required",[],"The business field is required.",true],["String",[],"The business must be a string.",false]]},"description":{"laravelValidation":[["Required",[],"The description field is required.",true],["Min",["3"],"The description must be at least 3 characters.",false],["Max",["1000"],"The description may not be greater than 1000 characters.",false]]}}            });
         });
     });
 </script>

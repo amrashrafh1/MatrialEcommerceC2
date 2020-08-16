@@ -5,7 +5,7 @@
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex">
-    <meta name="csrf-token" content="lsXtDVyOTvjzOkK7tVJOKLeaOd7rnKEqkjQJw1js">
+    <meta name="csrf-token" content="CsA8gkwNoaWgw8Q5X4pxfL8ffmUBiyZ6Tc8wknTp">
     <title>Seller chat</title>
     <link rel="shortcut icon" type="image/x-icon"
         href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
@@ -834,14 +834,14 @@
 
 <body>
     <div id="app"></div>
-    <div wire:initial-data="{&quot;id&quot;:&quot;iJYacCXxK4qgDwKm7Hvt&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:&quot;&quot;,&quot;user_id&quot;:3,&quot;status&quot;:null,&quot;contacts&quot;:[1,3]},&quot;children&quot;:[],&quot;checksum&quot;:&quot;91eefd7bd0dbb54fd5b835f0d19a84e29227986844d2f1884e9bedf795b51a5c&quot;,&quot;redirectTo&quot;:false}" wire:id="iJYacCXxK4qgDwKm7Hvt" id="frame" wire:ignore.self>
+    <div wire:initial-data="{&quot;id&quot;:&quot;rWerXImVaIMHvlNrvkaB&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:&quot;&quot;,&quot;user_id&quot;:4,&quot;status&quot;:null,&quot;contacts&quot;:[],&quot;paginate_var&quot;:15},&quot;children&quot;:[],&quot;checksum&quot;:&quot;6ef184200d0d65eba26e9043fccc37a21852a366bc8be27afd0871f544ae35b2&quot;,&quot;redirectTo&quot;:false}" wire:id="rWerXImVaIMHvlNrvkaB" id="frame" wire:ignore.self>
         <div id="sidepanel">
         <div id="profile" wire:ignore>
             <div class="wrap">
-                <img id="profile-img" src="/storage/users/member1_5efddb1337150.png" class="
+                <img id="profile-img" src="/storage/user.png" class="
                                 online
                                 " alt="" />
-                <p>Seller</p>
+                <p>Superadministrator</p>
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
                     <ul>
@@ -876,28 +876,6 @@
         
         <div id="contacts" wire:ignore>
             <ul>
-                                                <li class="contact "
-                    wire:click='ChangeContact(1)'>
-                    <div class="wrap">
-                        <img src="/storage/profiles/thumbnail/1_1593693806.jpg" alt="" />
-                        <div class="meta">
-                            <p class="name">Superadministrator</p>
-                            <p class="preview">
-                                                                ok man</p>
-                        </div>
-                    </div>
-                </li>
-                                                <li class="contact active"
-                    wire:click='ChangeContact(3)'>
-                    <div class="wrap">
-                        <img src="/storage/user.png" alt="" />
-                        <div class="meta">
-                            <p class="name">User</p>
-                            <p class="preview">
-                                                                ok</p>
-                        </div>
-                    </div>
-                </li>
                             </ul>
         </div>
     </div>
@@ -905,660 +883,16 @@
     <div class="content">
         <div class="contact-profile" wire:ignore>
             <img src="/storage/user.png" alt="" />
-            <p>User</p>
+            <p>Seller</p>
             <div class="social-media">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
                 <i class="fa fa-twitter" aria-hidden="true"></i>
                 <i class="fa fa-instagram" aria-hidden="true"></i>
             </div>
         </div>
-        <div class="messages" wire:ignore.self>
+                <div id='messages' class="messages">
             <ul>
-                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice man <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice to meet you
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice amr
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">you too <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh man
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">okok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">lol <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hh\
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">as <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh man <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh man <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh man <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hey <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok man
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">you too <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh nice <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">rly
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh hey
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hey
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok man <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok rly <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok man
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok  <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hey <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh rly
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">asdasd
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">okk <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hhh <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hey
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent" wire:ignore>
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok <br /> <span
-                            style="font-size:12px;float:right;">1 week ago</span>
-                        </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies" wire:ignore>
-                    <img src="/storage/users/member1_5efddb1337150.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hhh
-                        <br /> <span
-                            style="font-size:12px; float:right;">1 week ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                            </ul>
+                            </ul>
         </div>
         <div class="message-input" wire:ignore>
             <div class="wrap">
@@ -1609,16 +943,16 @@
         $(this).addClass("active");
         if ($("#status-online").hasClass("active")) {
             $("#profile-img").addClass("online");
-            window.livewire.find('iJYacCXxK4qgDwKm7Hvt').set('status', 'online');
+            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'online');
         } else if ($("#status-away").hasClass("active")) {
             $("#profile-img").addClass("away");
-            window.livewire.find('iJYacCXxK4qgDwKm7Hvt').set('status', 'away');
+            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'away');
         } else if ($("#status-busy").hasClass("active")) {
             $("#profile-img").addClass("busy");
-            window.livewire.find('iJYacCXxK4qgDwKm7Hvt').set('status', 'busy');
+            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'busy');
         } else if ($("#status-offline").hasClass("active")) {
             $("#profile-img").addClass("offline");
-            window.livewire.find('iJYacCXxK4qgDwKm7Hvt').set('status', 'offline');
+            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'offline');
         } else {
             $("#profile-img").removeClass();
         };
@@ -1631,7 +965,7 @@
         if ($.trim(message) == '') {
             return false;
         }
-        $('<li class="replies"><img src="/storage/users/member1_5efddb1337150.png" alt="" /><p>' +
+        $('<li class="replies"><img src="/storage/user.png" alt="" /><p>' +
             message +
             '</p></li>').appendTo($('.messages ul'));
         $('.message-input input').val(null);
@@ -1647,13 +981,13 @@
     });
 
     
-    Echo.join(`chat-4-3`)
+    Echo.join(`chat-4-1`)
         .here((user) => {})
         .joining((user) => {})
         .leaving((user) => {})
         .listen('SendMesseges', (e) => {
-//            window.livewire.find('iJYacCXxK4qgDwKm7Hvt').emitSelf('readMessage', e.message.id);
-            window.livewire.find('iJYacCXxK4qgDwKm7Hvt').call('readMessage', e.message.id)
+
+            window.livewire.find('rWerXImVaIMHvlNrvkaB').call('readMessage', e.message.id);
 
             message = e.message.message;
             if ($.trim(message) == '') {
@@ -1668,13 +1002,17 @@
                 scrollTop: $(document).height() + 10000000
             }, "fast");
         });
-
     
     $('#contacts').on('click', 'li', function () {
         $('#contacts li.active').removeClass('active');
         $(this).addClass('active');
     });
-
+    $('#messages').scroll(function() {
+   var top = $('#messages').scrollTop();
+       if ( top == 0) {
+        window.livewire.find('rWerXImVaIMHvlNrvkaB').call('loadMore');
+        }
+});
 </script>
 
     <!-- Livewire assets -->
@@ -1696,7 +1034,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'lsXtDVyOTvjzOkK7tVJOKLeaOd7rnKEqkjQJw1js';
+        window.livewire_token = 'CsA8gkwNoaWgw8Q5X4pxfL8ffmUBiyZ6Tc8wknTp';
     });
 </script>
 

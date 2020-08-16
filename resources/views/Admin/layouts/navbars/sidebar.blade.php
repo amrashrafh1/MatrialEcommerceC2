@@ -28,12 +28,32 @@
                 <a href="{{ route('seller.index') }}" class="list-group-item nav-link{{ $activePage == 'seller-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu">@lang('admin.sellers')</a>
                 <a href="{{ route('seller_products') }}" class="list-group-item nav-link{{ $activePage == 'seller-products-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu">@lang('admin.products')</a>
             </li>
+            <li class="nav-item{{ $activePage == 'cms-management' ? '' : 'collapsed' }} list-group" >
+                <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    @lang('admin.cms')<span class="caret"></span></a>
+            </li>
+            @php
+                $cms_array = [
+                    'teams-management', 'contact_us-management'
+                ,'testimonials-management','services-management','ourworks-management','sliders-management'
+                ]
+            @endphp
+            <li class="collapse list-group-level1 {{ in_array($activePage, $cms_array) ? ' show' : '' }}" id="sub-menu1">
+                <a href="{{ route('teams.index') }}" class="list-group-item nav-link{{ $activePage == 'teams-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.teams')</a>
+                <a href="{{ route('contact_us.index') }}" class="list-group-item nav-link{{ $activePage == 'contact_us-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.contact_us')</a>
+                <a href="{{ route('testimonials.index') }}" class="list-group-item nav-link{{ $activePage == 'testimonials-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.testimonials')</a>
+                <a href="{{ route('services.index') }}" class="list-group-item nav-link{{ $activePage == 'services-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.services')</a>
+                <a href="{{ route('ourworks.index') }}" class="list-group-item nav-link{{ $activePage == 'ourworks-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.ourworks')</a>
+                <a href="{{ route('sliders.index') }}" class="list-group-item nav-link{{ $activePage == 'sliders-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.sliders')</a>
+            </li>
             <li class="nav-item{{ $activePage == 'Events' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ aurl('/fullcalendar') }}">
                     <i class="material-icons">
                         calendar_today
                     </i>
-                    <p>{{ trans('admin.events') }}</p>
+                    <p>{{ trans('admin.calendar') }}</p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'Currencies' ? ' active' : '' }}">

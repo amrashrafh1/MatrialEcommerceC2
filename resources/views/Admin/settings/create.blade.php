@@ -56,6 +56,10 @@
                         </div>
                     </div>
                     @endforeach
+                    <div class="form-group">
+                        <img class="img-responsive" src="{{Storage::url($rows->logo)}}"/>
+                    </div>
+                    <br/>
                     <div class="form-group row">
                         <div class="col-md-2">
                             {!! Form::label('logo',trans('admin.logo'),['class'=>'control-label']) !!}
@@ -67,6 +71,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <img class="img-responsive" src="{{Storage::url($rows->icon)}}"/>
+                    </div>
+                    <br/>
                     <div class="form-group row">
                         <div class="col-md-2">
                             {!! Form::label('icon',trans('admin.icon'),['class'=>'control-label']) !!}

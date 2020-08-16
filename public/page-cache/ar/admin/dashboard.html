@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq">
+    <meta name="csrf-token" content="6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv">
     <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
     <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
     <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
@@ -30,7 +30,7 @@
 
 <body class="">
         <form id="logout-form" action="http://127.0.0.1:8000/ar/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq">    </form>
+        <input type="hidden" name="_token" value="6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv">    </form>
     <div class="wrapper ">
   <div class="sidebar" data-color="orange" data-background-color="white"
     data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
@@ -67,7 +67,7 @@
                     <i class="material-icons">
                         calendar_today
                     </i>
-                    <p>Events</p>
+                    <p>Calendar</p>
                 </a>
             </li>
             <li class="nav-item">
@@ -373,8 +373,8 @@
   <div class="content">
     <div class="container-fluid">
         <div class="card-chart">
-            <canvas style="display: none;" id="uozeavjgnsfyrwdqpxkhmtibl"  height='400' ></canvas>
-<div id="uozeavjgnsfyrwdqpxkhmtibl_loader" style="
+            <canvas style="display: none;" id="dhaumebcqvilgwrsynkxfotzj"  height='400' ></canvas>
+<div id="dhaumebcqvilgwrsynkxfotzj_loader" style="
     display: flex;
     justify-content: center;
     opacity: 1;
@@ -440,7 +440,7 @@
                 <i class="material-icons">content_copy</i>
               </div>
               <p class="card-category">Used Space</p>
-              <h4 class="card-title"><span>330.11 GiB</span><br/>/<span>383.48 GiB</span>
+              <h4 class="card-title"><span>330.07 GiB</span><br/>/<span>383.48 GiB</span>
               </h4>
             </div>
             <div class="card-footer">
@@ -946,7 +946,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq"
+        data-csrftoken="6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv"
     ></div>
     <div id="app">
     </div>
@@ -1082,7 +1082,7 @@
             $.post({
             url: $url,
             data: {
-                _token: '6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq',
+                _token: '6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv',
                 color: color
             }
             });
@@ -1094,7 +1094,7 @@
             $.post({
             url: $url,
             data: {
-                _token: '6gjm5DFBRYYp5btTnkU2T8xHxISbsa2vH6LMuAnq',
+                _token: '6oQzSeMNXDSm22mxjL9mTce8qcxaMd1UztvQODVv',
                 image: image
             }
             });
@@ -1152,12 +1152,12 @@
         </script>
         <script src="http://127.0.0.1:8000/js/chart.js/dist/Chart.min.js"></script>
     <script  type="text/javascript">
-    var ctvChart = document.getElementById('uozeavjgnsfyrwdqpxkhmtibl').getContext('2d');
-    function uozeavjgnsfyrwdqpxkhmtibl_create(data) {
-        uozeavjgnsfyrwdqpxkhmtibl_rendered = true;
-        document.getElementById("uozeavjgnsfyrwdqpxkhmtibl_loader").style.display = 'none';
-        document.getElementById("uozeavjgnsfyrwdqpxkhmtibl").style.display = 'block';
-        window.uozeavjgnsfyrwdqpxkhmtibl = new Chart(document.getElementById("uozeavjgnsfyrwdqpxkhmtibl").getContext("2d"), {
+    var ctvChart = document.getElementById('dhaumebcqvilgwrsynkxfotzj').getContext('2d');
+    function dhaumebcqvilgwrsynkxfotzj_create(data) {
+        dhaumebcqvilgwrsynkxfotzj_rendered = true;
+        document.getElementById("dhaumebcqvilgwrsynkxfotzj_loader").style.display = 'none';
+        document.getElementById("dhaumebcqvilgwrsynkxfotzj").style.display = 'block';
+        window.dhaumebcqvilgwrsynkxfotzj = new Chart(document.getElementById("dhaumebcqvilgwrsynkxfotzj").getContext("2d"), {
             type: data[0].type,
             data: {
                 labels: ["Today","Yesterday","2 days ago","3 days ago","4 days ago","5 days ago","6 days ago","7 days ago"],
@@ -1167,14 +1167,14 @@
             plugins: []
         });
     }
-    let uozeavjgnsfyrwdqpxkhmtibl_rendered = false;
-let uozeavjgnsfyrwdqpxkhmtibl_load = function () {
-    if (document.getElementById("uozeavjgnsfyrwdqpxkhmtibl") && !uozeavjgnsfyrwdqpxkhmtibl_rendered) {
-                    uozeavjgnsfyrwdqpxkhmtibl_create([{"borderWidth":2,"borderColor":"#9F51B0","backgroundColor":"rgba(233, 30, 99, 0.1)","data":[4,0,0,0,0,0,0,0],"label":"Users","type":"line"}])
+    let dhaumebcqvilgwrsynkxfotzj_rendered = false;
+let dhaumebcqvilgwrsynkxfotzj_load = function () {
+    if (document.getElementById("dhaumebcqvilgwrsynkxfotzj") && !dhaumebcqvilgwrsynkxfotzj_rendered) {
+                    dhaumebcqvilgwrsynkxfotzj_create([{"borderWidth":2,"borderColor":"#9F51B0","backgroundColor":"rgba(233, 30, 99, 0.1)","data":[0,0,0,0,0,0,0,0],"label":"Users","type":"line"}])
             }
 };
-window.addEventListener("load", uozeavjgnsfyrwdqpxkhmtibl_load);
-document.addEventListener("turbolinks:load", uozeavjgnsfyrwdqpxkhmtibl_load);
+window.addEventListener("load", dhaumebcqvilgwrsynkxfotzj_load);
+document.addEventListener("turbolinks:load", dhaumebcqvilgwrsynkxfotzj_load);
 
 </script>
 

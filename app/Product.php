@@ -77,6 +77,12 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+
+    public function already_sold()
+    {
+        return $this->hasMany(Sold::class, 'product_id', 'id')->sum('sold');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -100,6 +106,8 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
         return false;
     }
+
+    // check if the product is visible and approved
     public function IsAvailable()
     {
         if($this->visible === 'visible' && $this->approved) {
@@ -108,12 +116,14 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
         return false;
     }
+
+    // check if the product is visible and approved
     public function isVisibleApproved()
     {
         return $this->where('visible', 'visible')->where('approved', 1);
     }
 
-
+    // get all product that visible and approved
     public function scopeIsApproved($query)
     {
         return $query->where('visible', 'visible')->where('approved', 1);
@@ -123,17 +133,13 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
     public function priceDiscount()
     {
-        if (isset($this->discount)) {
+        if ($this->available_discount()) {
 
-            if ($this->discount->condition === 'percentage_of_product_price'
-                && $this->discount->start_at <= \Carbon\Carbon::now()
-                && $this->discount->expire_at > \Carbon\Carbon::now()) {
+            if ($this->discount->condition === 'percentage_of_product_price') {
 
                 return $this->sale_price - ($this->discount->amount / 100 * $this->sale_price) + ($this->tax * $this->sale_price) / 100;
 
-            } elseif ($this->discount->condition === 'fixed_amount'
-                && $this->discount->start_at <= \Carbon\Carbon::now()
-                && $this->discount->expire_at > \Carbon\Carbon::now()) {
+            } elseif ($this->discount->condition === 'fixed_amount') {
 
                 return $this->sale_price - $this->discount->amount + ($this->tax * $this->sale_price) / 100;
 

@@ -14,7 +14,7 @@ $setting = \App\Setting::latest('id')->first();
             <div class="row">
                 <div class="site-branding">
                     <a href="{{route('home')}}" class="custom-logo-link" rel="home">
-                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
+                        {{-- <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
                             <defs>
                                 <style>
                                     .cls-1,
@@ -48,7 +48,8 @@ $setting = \App\Setting::latest('id')->first();
                             <polygon class="cls-1" points="32.85 27.56 28.6 27.56 28.6 5.42 28.6 3.96 28.6 0.44 47.95 0.44 47.95 5.42 34.46 5.42 34.46 22.72 48.25 22.72 48.25 27.56 34.46 27.56 32.85 27.56" />
                             <polygon class="cls-1" points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
                             <rect class="cls-2" y="0.44" width="7.19" height="5.13" />
-                        </svg>
+                        </svg> --}}
+                        <img src='{{($setting)?Storage::url($setting->logo):''}}'/>
                     </a>
                     <!-- /.custom-logo-link -->
                 </div>
@@ -70,12 +71,12 @@ $setting = \App\Setting::latest('id')->first();
                             <a title="@lang('user.Sell_on')" href="{{route('seller_app')}}" style="font-size:13px">@lang('user.Sell_on') {{($setting)?$setting->sitename:config('app.APP_NAME')}}</a>
                         </li>
                         @endauth
-                        @php $menuTitle = \App\CMS::where('start_at','<=', \Carbon\Carbon::now())->where('expire_at','>', \Carbon\Carbon::now())->orderBy('id', 'DESC')->first(); @endphp
+                        @php $menuTitle = \App\CMS::IsExpired()->orderBy('id', 'DESC')->first(); @endphp
                         @if($menuTitle)
                         <li class="menu-item menu-item-has-children animate-dropdown dropdown">
                             <a title="{{($menuTitle->menuTitle)?$menuTitle->menuTitle:''}}" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">{{($menuTitle)?$menuTitle->menuTitle:''}} <span class="caret"></span></a>
                             <ul role="menu" class=" dropdown-menu">
-                                @foreach(\App\CMS::where('start_at','<=', \Carbon\Carbon::now())->where('expire_at','>', \Carbon\Carbon::now())->get() as $cms)
+                                @foreach(\App\CMS::IsExpired() as $cms)
                                 <li class="menu-item animate-dropdown">
                                     <a title="{{$cms->menuTitle}}" href="{{route('cms_show',$cms->slug)}}">{{$cms->menuTitle}}</a>
                                 </li>
@@ -84,208 +85,19 @@ $setting = \App\Setting::latest('id')->first();
                             <!-- .dropdown-menu -->
                         </li>
                         @endif
-                        {{-- <li class="yamm-fw menu-item menu-item-has-children animate-dropdown dropdown">
-                            <a title="Pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">Pages <span class="caret"></span></a>
+                        @php
+                            $pages = ['about_us','contact_us', 'show_wishlists','show_compare','track-your-order','terms-and-conditions','services']
+                        @endphp
+                        <li class="menu-item menu-item-has-children animate-dropdown dropdown">
+                            <a title="pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">@lang('user.pages') <span class="caret"></span></a>
                             <ul role="menu" class=" dropdown-menu">
-                                <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                    <div class="yamm-content">
-                                        <div class="tm-mega-menu">
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Home Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v1.html">Home v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v2.html">Home v2</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v3.html">Home v3</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v4.html">Home v4</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v5.html">Home v5</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v6.html">Home v6</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v7.html">Home v7</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v8.html">Home v8</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v9.html">Home v9</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v10.html">Home v10</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v11.html">Home v11</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v12.html">Home v12</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v13.html">Home v13</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="home-v14.html">Home v14</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Landing Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="landing-page-v1.html">Landing v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="landing-page-v2.html">Landing v2</a>
-                                                    </li>
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Shop Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop.html">Shop</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-extended.html">Shop Extended</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-listing.html">Shop Listing</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-listing-large.html">Shop Listing Large</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-listing-with-product-sidebar.html">Shop Listing with Product Sidebar</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="product-category.html">Categories</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-right-sidebar.html">Shop Right Sidebar</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="shop-fullwidth.html">Shop Full Width</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Single Product Pages</a>
-                                                    </li>
-                                                    <li class="menu-item menu-item-object-product">
-                                                        <a href="single-product-sidebar.html">Single Product Sidebar</a>
-                                                    </li>
-                                                    <li class="menu-item menu-item-object-product">
-                                                        <a href="single-product-fullwidth.html">Single Product Fullwidth</a>
-                                                    </li>
-                                                    <li class="menu-item menu-item-object-product">
-                                                        <a href="single-product-extended.html">Single Product Extended</a>
-                                                    </li>
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Ecommerce Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="cart.html">Cart</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="checkout.html">Checkout</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="login-and-register.html">My Account</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="compare.html">Compare</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="wishlist.html">Wishlist</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="track-your-order.html">Track Order</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="terms-and-conditions.html">Terms and Conditions</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                            <div class="widget widget_nav_menu">
-                                                <ul class="menu">
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Blog Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-v1.html">Blog v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-v2.html">Blog v2</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-v3.html">Blog v3</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-fullwidth.html">Blog Full Width</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="blog-single.html">Single Blog Post</a>
-                                                    </li>
-                                                    <li class="nav-title menu-item">
-                                                        <a href="#">Other Pages</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="about.html">About Us</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="contact-v1.html">Contact v1</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="contact-v2.html">Contact v2</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="faq.html">FAQ</a>
-                                                    </li>
-                                                    <li class="menu-item">
-                                                        <a href="404.html">404</a>
-                                                    </li>
-                                                </ul>
-                                                <!-- .menu -->
-                                            </div>
-                                            <!-- .widget_nav_menu -->
-                                        </div>
-                                        <!-- .tm-mega-menu -->
-                                    </div>
-                                    <!-- .yamm-content -->
+                                @foreach($pages as $index => $page)
+                                <li class="menu-item animate-dropdown">
+                                    <a title="{{$page}}" href="{{route($page)}}">@lang('user.'.$page)</a>
                                 </li>
-                                <!-- .menu-item -->
+                                @endforeach
                             </ul>
                             <!-- .dropdown-menu -->
-                        </li>
-                        <li class="menu-item animate-dropdown">
-                            <a title="Logitech Sale" href="product-category.html" style="font-size:13px">Logitech Sale</a>
-                        </li>
-                        <li class="menu-item animate-dropdown">
-                            <a title="Headphones Sale" href="product-category.html" style="font-size:13px">Headphones Sale</a>
-                        </li> --}}
-                        <li class="techmarket-flex-more-menu-item dropdown">
-                            <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
-                            <ul class="overflow-items dropdown-menu"></ul>
-                            <!-- . -->
                         </li>
                     </ul>
                     <!-- .nav -->
@@ -300,7 +112,7 @@ $setting = \App\Setting::latest('id')->first();
                         </li>
                         @else
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
-                            <a title="Track Your Order" href="track-your-order.html">
+                            <a title="Track Your Order" href="{{route('track-your-order')}}">
                                 <i class="tm tm-order-tracking"></i>@lang('user.Track_Your_Order')</a>
                         </li>
                         @endrole
@@ -464,7 +276,7 @@ $setting = \App\Setting::latest('id')->first();
         <div class="handheld-header">
             <div class="row">
                 <div class="site-branding">
-                    <a href="home-v1.html" class="custom-logo-link" rel="home">
+                    <a href="{{route('home')}}" class="custom-logo-link" rel="home">
                         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
                             <defs>
                                 <style>

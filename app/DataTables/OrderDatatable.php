@@ -51,7 +51,7 @@ class OrderDatatable extends DataTable
                     ],
                 ],
                 'initComplete' => "function () {
-                this.api().columns([1,4,5]).every(function () {
+                this.api().columns([1,5]).every(function () {
                 var column = this;
                 var input = document.createElement(\"input\");
                 $(input).attr( 'style', 'width: 100%');
@@ -142,6 +142,11 @@ class OrderDatatable extends DataTable
                 'name'  => 'shipping_address',
                 'data'  => 'shipping_address',
                 'title' => trans('admin.shipping_to'),
+            ],
+            [
+                'name'  => 'order_id',
+                'data'  => 'order_id',
+                'title' => trans('admin.order_id'),
             ],
             [
                 'name'       => 'actions',

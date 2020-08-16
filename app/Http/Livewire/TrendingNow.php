@@ -13,7 +13,7 @@ class TrendingNow extends Component
     {
         // get top 20 trending now
         $products = Product::where('section','trending_now')
-        ->select('id','slug','product_type','name','sale_price')->inRandomOrder()->take(20)->get();
+        ->select('id','slug','image','product_type','name','sale_price')->inRandomOrder()->take(20)->get();
 
         // get random trending now categories
         $categories = Category::inRandomOrder()->select('name', 'id', 'slug')

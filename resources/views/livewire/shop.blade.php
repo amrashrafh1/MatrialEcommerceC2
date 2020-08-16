@@ -9,10 +9,11 @@
                 <a href="{{route('shop')}}">@lang('user.Shop')</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
-                </span>@if(count($pros) > 0)
-                {{$pros->currentPage()}}
+                </span>
+                @if(count($pros) > 0)
+                    {{$pros->currentPage()}}
                 @else
-                {{$products->currentPage()}}
+                    {{$products->currentPage()}}
                 @endif
             </nav>
             <!-- .woocommerce-breadcrumb -->
