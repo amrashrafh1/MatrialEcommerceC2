@@ -45,10 +45,10 @@
                                         <tr>
                                             <td class="product-remove">
                                                 <div>
-                                                    <a title="Remove this product" class="remove remove_from_wishlist" wire:click='removeWishlists({{$product->id}})'>×</a>
+                                                    <a title="Remove this product" class="remove remove_from_wishlist" style='cursor:pointer;' wire:click='removeWishlists({{$product->id}})'>X</a>
                                                 </div>
                                             </td>
-                                            <td class="product-thumbnail">
+                                            <td class="product-thumbnail" style='margin-left:20px;'>
                                                 <a href="{{route('show_product',$product->slug)}}">
                                                     <img alt="" class="wp-post-image"
                                                         src="{{Storage::url($product->image)}}" style="width: 180px; height:180px;">

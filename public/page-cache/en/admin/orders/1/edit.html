@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR">
+    <meta name="csrf-token" content="ru3id3U0Ox18M9tj2P3zNCWydVf7uZPacJAMIHiL">
     <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
     <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
     <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
@@ -23,13 +23,14 @@
     <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
+            <link href="http://127.0.0.1:8000/css/colors/azure.css" rel="stylesheet"/>
         </head>
 
 <body class="">
         <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR">    </form>
+        <input type="hidden" name="_token" value="ru3id3U0Ox18M9tj2P3zNCWydVf7uZPacJAMIHiL">    </form>
     <div class="wrapper ">
-  <div class="sidebar" data-color="orange" data-background-color="white"
+  <div class="sidebar" data-color="azure" data-background-color="white"
     data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -407,13 +408,13 @@
             <div class="card-body form">
                 <div class="col-md-12">
                     <form method="POST" action="http://127.0.0.1:8000/en/admin/orders/1" accept-charset="UTF-8" id="users" class="form-horizontal
-                    form-row-seperated" enctype="multipart/form-data"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR">
+                    form-row-seperated" enctype="multipart/form-data"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="ru3id3U0Ox18M9tj2P3zNCWydVf7uZPacJAMIHiL">
                     <div class="form-group row">
                         <div class="col-md-2">
                             <label for="order_id" class="control-label">Order ID</label>
                         </div>
                         <div class="col-md-10">
-                            <input class="form-control order_id" placeholder="Order ID" name="order_id" type="text" value="asdfgag-132-w1" id="order_id">
+                            <input class="form-control order_id" placeholder="Order ID" name="order_id" type="text" id="order_id">
                         </div>
                     </div>
                     <span class='text-danger'>If order ID changed will send mail</span>
@@ -423,7 +424,7 @@
                             <label for="status"  control-label>Status</label>
                         </div>
                         <div class="col-md-10">
-                            <input class="form-control status" placeholder="Status" name="status" type="text" value="completedsssss" id="status">
+                            <input class="form-control status" placeholder="Status" name="status" type="text" value="pending" id="status">
                         </div>
                     </div>
                     <br>
@@ -547,7 +548,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR"
+        data-csrftoken="ru3id3U0Ox18M9tj2P3zNCWydVf7uZPacJAMIHiL"
     ></div>
     <div id="app">
     </div>
@@ -683,7 +684,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR',
+                _token: 'ru3id3U0Ox18M9tj2P3zNCWydVf7uZPacJAMIHiL',
                 color: color
             }
             });
@@ -695,7 +696,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'gaDeChjddzsjvznNoAh2q9B7XI9hoJvvrDojx5PR',
+                _token: 'ru3id3U0Ox18M9tj2P3zNCWydVf7uZPacJAMIHiL',
                 image: image
             }
             });

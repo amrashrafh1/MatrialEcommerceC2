@@ -26,8 +26,9 @@ class SpecialOffers extends Component
                 ->where('daily', 'special_offers');
             });
         }])->take(8)->get();
+        $compare = session()->get('compare');
 
-        return view('livewire.special-offers', ['categories' => $categories]);
+        return view('livewire.special-offers', ['categories' => $categories, 'compare' => $compare]);
     }
 
 
@@ -39,5 +40,20 @@ class SpecialOffers extends Component
             \Cart::add($product,1);
             event(new cartEvent('fire'));
         }
+    }
+
+    public function compare($id) {
+        if(session()->get('compare') !== null) {
+            if(!in_array($id,session()->get('compare'))) {
+                $this->emit('compareAdded');
+                session()->push('compare', $id);
+            } else {
+                return ;
+            }
+        } else {
+            $this->emit('compareAdded');
+            session()->push('compare', $id);
+        }
+
     }
 }

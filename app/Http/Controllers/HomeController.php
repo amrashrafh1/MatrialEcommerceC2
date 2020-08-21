@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\Adz;
+use App\Slider;
 use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOTools;
 
@@ -25,6 +26,8 @@ class HomeController extends Controller
 
         $adzs = Adz::available()->inRandomOrder('id')->get();
         $randomProduct = Product::isApproved()->inRandomOrder('id')->first();
+
+        $sliders = Slider::isActive()->get();
         /* Category::select('name','id', 'slug','image')
         ->where('status', 1)->where('cat_id', NULL)->take(12)
         ->with('children:name,slug,cat_id')->get(); */
@@ -51,6 +54,7 @@ class HomeController extends Controller
         'categories'    => $categories,
         'catalog'       => $catalog,
         'advertizments' => $adzs,
+        'sliders'       => $sliders,
         'randomProduct' => $randomProduct]);
     }
 

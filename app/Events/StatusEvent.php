@@ -19,12 +19,18 @@ class StatusEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public $user;
-    public $status;
-    public function __construct(User $user)
+    public $data =  [];
+    public function __construct(User $user, $status = null)
     {
-        $this->status = $user->chat_status;
-        $this->user   = $user->id;
+        if($status) {
+            $user->chat_status = $status;
+            $user->save();
+        }
+
+        $this->data = [
+            'status'  => $user->chat_status,
+            'user_id' => $user->id
+        ];
     }
 
     /**

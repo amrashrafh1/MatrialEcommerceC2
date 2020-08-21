@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">
-    <title>Nihil et doloremque in. - It's Over 9000!</title>
-<meta name="description" content="Nihil et doloremque in.">
+    <meta name="csrf-token" content="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A">
+    <title>Qui amet non voluptas qui. - It's Over 9000!</title>
+<meta name="description" content="Qui amet non voluptas qui.">
 <link rel="canonical" href="https://codecasts.com.br/lesson"/>
-<meta property="og:title" content="Nihil et doloremque in." />
-<meta property="og:description" content="Nihil et doloremque in." />
+<meta property="og:title" content="Qui amet non voluptas qui." />
+<meta property="og:description" content="Qui amet non voluptas qui." />
 <meta property="og:type" content="store" />
 
-<meta name="twitter:title" content="Nihil et doloremque in." />
-<meta name="twitter:description" content="Nihil et doloremque in." />
+<meta name="twitter:title" content="Qui amet non voluptas qui." />
+<meta name="twitter:description" content="Qui amet non voluptas qui." />
 <meta name="twitter:site" content="@LuizVinicius73" />
-<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"WebPage","name":"Nihil et doloremque in.","description":"Nihil et doloremque in.","image":"\/storage\/products\/thumbnail\/1_1597427927.jpg"}</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"WebPage","name":"Qui amet non voluptas qui.","description":"Qui amet non voluptas qui.","image":"\/storage\/products\/thumbnail\/1_1597427927.jpg"}</script>
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/bootstrap.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/font-awesome.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/FrontEnd/css/bootstrap-grid.min.css" media="all" />
@@ -48,11 +48,62 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl';
+        window.livewire_token = 'qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A';
     });
 </script>
 
 <script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
+    <style>
+        #botmanWidgetRoot > div{
+            min-width: 100px !important;
+            min-height: 120px !important;
+        }
+        /* #scrollUp {
+            right: 80px !important;
+            bottom: 80px !important;
+        } */
+
+    </style>
+<style>
+    .tooltip_cart {
+      position  : relative;
+      display   : inline-block;
+      text-align: center;
+    }
+
+    .tooltip_cart .tooltiptext_cart {
+        visibility: hidden;
+        width: 234px;
+        background-color: red;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 25%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip_cart .tooltiptext_cart::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: red transparent transparent transparent;
+    }
+
+    .tooltip_cart:hover .tooltiptext_cart {
+      visibility: visible;
+      opacity: 1;
+    }
+</style>
 <style>
 div.stars {
   width: 270px;
@@ -275,7 +326,7 @@ label.star:before {
                             </ul>
                             <!-- .dropdown-menu -->
                             <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-                                <input type="hidden" name="_token" value="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">                            </form>
+                                <input type="hidden" name="_token" value="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A">                            </form>
                         </li>
                                                 <li class="techmarket-flex-more-menu-item dropdown">
                             <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
@@ -302,7 +353,7 @@ label.star:before {
                                                         </ul>
             </div>
             <!-- .departments-menu -->
-            <form wire:initial-data="{&quot;id&quot;:&quot;LWGjcwE08PibEkJX4wNy&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;8e9156a97909cb477a56985c2d9bb801197eb5af5c2ce25d0458a29d15fa7f57&quot;,&quot;redirectTo&quot;:false}" wire:id="LWGjcwE08PibEkJX4wNy" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
+            <form wire:initial-data="{&quot;id&quot;:&quot;cFvQKQE732VwHNR8OKkU&quot;,&quot;name&quot;:&quot;front-end.search-result&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product_cat&quot;:null,&quot;search&quot;:&quot;&quot;,&quot;categories&quot;:{&quot;class&quot;:&quot;App\\Category&quot;,&quot;id&quot;:[1],&quot;relations&quot;:[&quot;children&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;products&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;68295d952136b8c4badff04f7820ab3ca6e10cd87f04923ce104265b660248f0&quot;,&quot;redirectTo&quot;:false}" wire:id="cFvQKQE732VwHNR8OKkU" wire:submit.prevent='search' class="navbar-search" style="position:relative;">
     <label class="sr-only screen-reader-text" for="search">Search for:</label>
     <div class="input-group">
         <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
@@ -395,45 +446,89 @@ label.star:before {
 
 </style>
             <!-- .navbar-search -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;lqnzq6y6WnOIyoX9Xegi&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;echo:private-cartupdate,cartEvent&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;3170d986b4355dbe9902c796a7321cf5600219dbd223c3f421ec652acedf050b&quot;,&quot;redirectTo&quot;:false}" wire:id="lqnzq6y6WnOIyoX9Xegi" class="header-compare nav navbar-nav">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;HuzTcjeyVnXdivn0z8Bw&quot;,&quot;name&quot;:&quot;compare-header&quot;,&quot;events&quot;:[&quot;compareAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:null},&quot;children&quot;:[],&quot;checksum&quot;:&quot;dce8e67625981eb3cf003ca773f961d0a9af899f29837a37a33595c2af4dad1f&quot;,&quot;redirectTo&quot;:false}" wire:id="HuzTcjeyVnXdivn0z8Bw" class="header-compare nav navbar-nav">
     <li class="nav-item">
         <a href="http://127.0.0.1:8000/en/compare" class="nav-link">
             <i class="tm tm-compare"></i>
-                        <span id="top-cart-compare-count" class="value">1</span>
+                        <span id="top-cart-compare-count" class="value">0</span>
                     </a>
     </li>
 </ul>
             <!-- .header-compare -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;fGNej0m1CbiA5uNLn5wR&quot;,&quot;name&quot;:&quot;wishlist&quot;,&quot;events&quot;:[&quot;wishlistAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:null},&quot;children&quot;:[],&quot;checksum&quot;:&quot;7333aeaa5143ccf22e82cbac491bbda826ddff5284b0c963e288ddf77ad29f70&quot;,&quot;redirectTo&quot;:false}" wire:id="fGNej0m1CbiA5uNLn5wR" class="header-wishlist nav navbar-nav">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;pDNEDgzOm9gpxIjP3EMw&quot;,&quot;name&quot;:&quot;wishlist&quot;,&quot;events&quot;:[&quot;wishlistAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:null},&quot;children&quot;:[],&quot;checksum&quot;:&quot;1ed69ede923d32999efa4e3c4977d0984a13ff292a31d7428bbadbba106d8351&quot;,&quot;redirectTo&quot;:false}" wire:id="pDNEDgzOm9gpxIjP3EMw" class="header-wishlist nav navbar-nav">
     <li class="nav-item">
         <a href="http://127.0.0.1:8000/wishlists" class="nav-link">
             <i class="tm tm-favorites"></i>
             <span id="top-cart-wishlist-count" class="value">
-                                7
+                                11
                 </span>
         </a>
     </li>
 </ul>
             <!-- .header-wishlist -->
-            <ul wire:initial-data="{&quot;id&quot;:&quot;xGvCBmteLeKryH3i3Daf&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;69b006430fb8b204c902f2becb9eedbe2cd7190f513c2420fa5bd8cf6850c5f9&quot;,&quot;redirectTo&quot;:false}" wire:id="xGvCBmteLeKryH3i3Daf" id="site-header-cart" class="site-header-cart menu">
+            <ul wire:initial-data="{&quot;id&quot;:&quot;8X3O413FevPkMXe84Yss&quot;,&quot;name&quot;:&quot;cart&quot;,&quot;events&quot;:[&quot;cartAdded&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;Foo&quot;:&quot;updating&quot;},&quot;children&quot;:[],&quot;checksum&quot;:&quot;e810f75759d65e42b1518a89f49b4a99f9f4bb830cd49701f4f559c69f4c1a7d&quot;,&quot;redirectTo&quot;:false}" wire:id="8X3O413FevPkMXe84Yss" id="site-header-cart" class="site-header-cart menu">
     <li class="animate-dropdown dropdown ">
         <a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
             <i class="tm tm-shopping-bag"></i>
-            <span class="count">0</span>
+            <span class="count">4</span>
             <span class="amount">
-                            <span class="price-label">Your Cart</span>$0.00</span>
+                            <span class="price-label">Your Cart</span>$39.34</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-mini-cart">
             <li>
                 <div class="widget woocommerce widget_shopping_cart">
                     <div class="widget_shopping_cart_content">
                         <ul class="woocommerce-mini-cart cart_list product_list_widget">
-                                                    </ul>
+                            
+                                                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <a href="#" class="remove" wire:click='removeCart(12)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+                                        <a href="http://127.0.0.1:8000/en/product/quam-quo-perspiciatis-ea-aliquid-eos-est">
+                                            <img src="/storage/products/thumbnail/1_1597427927.jpg" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Amet quia explicabo dolores nisi et.&nbsp;
+                                        </a>
+                                        <span class="quantity">1 ×
+                                            <span class="woocommerce-Price-amount amount">
+                                                $2.58</span>
+                                        </span>
+                                    </li>
+                                                            
+                                                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <a href="#" class="remove" wire:click='removeCart(13)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+                                        <a href="http://127.0.0.1:8000/en/product/officiis-neque-quis-maiores-non-rerum-enim-magni">
+                                            <img src="/storage/products/thumbnail/1_1597427927.jpg" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Cum in eos commodi asperiores labore.&nbsp;
+                                        </a>
+                                        <span class="quantity">1 ×
+                                            <span class="woocommerce-Price-amount amount">
+                                                $10.76</span>
+                                        </span>
+                                    </li>
+                                                            
+                                                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <a href="#" class="remove" wire:click='removeCart(14)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+                                        <a href="http://127.0.0.1:8000/en/product/quia-ducimus-non-aut-quia-quo-minima-odio-exercitationem">
+                                            <img src="/storage/products/thumbnail/1_1597427927.jpg" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Nobis quas sit reiciendis blanditiis.&nbsp;
+                                        </a>
+                                        <span class="quantity">2 ×
+                                            <span class="woocommerce-Price-amount amount">
+                                                $2.26</span>
+                                        </span>
+                                    </li>
+                                                            
+                                                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <a href="#" class="remove" wire:click='removeCart(15)' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+                                        <a href="http://127.0.0.1:8000/en/product/maiores-qui-quas-minima-aut">
+                                            <img src="/storage/products/thumbnail/1_1597427927.jpg" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Facilis quia consequatur non tenetur.&nbsp;
+                                        </a>
+                                        <span class="quantity">2 ×
+                                            <span class="woocommerce-Price-amount amount">
+                                                $10.74</span>
+                                        </span>
+                                    </li>
+                                                                                    </ul>
                         <!-- .cart_list -->
                         <p class="woocommerce-mini-cart__total total">
                             <strong>Subtotal:</strong>
                             <span class="woocommerce-Price-amount amount">
-                                $0.00</span>
+                                $39.34</span>
                         </p>
                         <p class="woocommerce-mini-cart__buttons buttons">
                             <a href="http://127.0.0.1:8000/en/cart" class="button wc-forward">View cart</a>
@@ -1029,7 +1124,7 @@ label.star:before {
 <!-- .header-v1 -->
 <script src="http://127.0.0.1:8000/vendor/sweetalert/sweetalert.all.js"></script>
     
-<div wire:initial-data="{&quot;id&quot;:&quot;fn3ZT6vnM4eUooxLqBjJ&quot;,&quot;name&quot;:&quot;products.show-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1657,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;total&quot;:0,&quot;accessories&quot;:[],&quot;prices&quot;:[],&quot;followers&quot;:0,&quot;isFollow&quot;:false,&quot;isWishlist&quot;:true},&quot;children&quot;:{&quot;3RM4U95&quot;:{&quot;id&quot;:&quot;EvQFAsc3knW8Is6ZMIyd&quot;,&quot;tag&quot;:&quot;div&quot;},&quot;VXlsXfF&quot;:{&quot;id&quot;:&quot;BynNtUnqhbLC5gvgVr6L&quot;,&quot;tag&quot;:&quot;div&quot;},&quot;kpsKpKE&quot;:{&quot;id&quot;:&quot;hk9cvLt12AnmVjwJYXpO&quot;,&quot;tag&quot;:&quot;div&quot;},&quot;HGqCyna&quot;:{&quot;id&quot;:&quot;vdjBe1qbymr4sqNbEg8R&quot;,&quot;tag&quot;:&quot;section&quot;}},&quot;checksum&quot;:&quot;c1e190d9f7cd5a615f465cbb6a9bf75b2e952e5f03640741fae80728b96fe7a9&quot;,&quot;redirectTo&quot;:false}" wire:id="fn3ZT6vnM4eUooxLqBjJ" id="content" class="site-content" tabindex="-1">
+<div wire:initial-data="{&quot;id&quot;:&quot;TuiqHh4s7QtiLNM5DMS6&quot;,&quot;name&quot;:&quot;products.show-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;total&quot;:0,&quot;accessories&quot;:[],&quot;prices&quot;:[],&quot;followers&quot;:0,&quot;isFollow&quot;:false,&quot;isWishlist&quot;:false},&quot;children&quot;:{&quot;EKAAXVP&quot;:{&quot;id&quot;:&quot;pkyzJsizvalqyur97w3s&quot;,&quot;tag&quot;:&quot;div&quot;},&quot;Cmtewzi&quot;:{&quot;id&quot;:&quot;rNffmFikhJwHqWI3eZgj&quot;,&quot;tag&quot;:&quot;div&quot;},&quot;zxxnLYB&quot;:{&quot;id&quot;:&quot;dhaMZFwIRjFfSjsszJWI&quot;,&quot;tag&quot;:&quot;div&quot;},&quot;Q3abuSu&quot;:{&quot;id&quot;:&quot;yu7JpWKAhrHgaSuDQAf2&quot;,&quot;tag&quot;:&quot;section&quot;}},&quot;checksum&quot;:&quot;6790d379273751c02c678f89d673185af570cc51eab2f11d01a260e5d089a309&quot;,&quot;redirectTo&quot;:false}" wire:id="TuiqHh4s7QtiLNM5DMS6" id="content" class="site-content" tabindex="-1">
     <div class="col-full">
         <div class="row">
             <nav class="woocommerce-breadcrumb" wire:ignore>
@@ -1040,7 +1135,7 @@ label.star:before {
                                 <a href="http://127.0.0.1:8000/category/H4kJg5QiEQ">XStedvUD9Q</a>
                                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
-                </span>Nihil et doloremque in.
+                </span>Qui amet non voluptas qui.
             </nav>
                         <div class="col-md-12 mb-1 d-flex justify-content-center">
                 <div class="row">
@@ -1069,7 +1164,7 @@ label.star:before {
                                                             <a href="http://127.0.0.1:8000/en/seller/store/4" class="text-info">see the store <i class="fa fa-angle-double-right"></i></a>
                                                         </li>
                                                         <li class="nav-body menu-item">
-                                                            <a href="http://127.0.0.1:8000/en/chat/quo-voluptatibus-et-sed-beatae-placeat-blanditiis-ut" class="text-info">Contact now <i class="fa fa-send"></i></a>
+                                                            <a href="http://127.0.0.1:8000/en/chat/voluptas-esse-dolorem-alias" class="text-info">Contact now <i class="fa fa-send"></i></a>
                                                         </li>
                                                     </ul>
                                                     <!-- .menu -->
@@ -1101,6 +1196,10 @@ label.star:before {
                     <div class="product">
                         <div class="single-product-wrapper">
                             <div class="product-images-wrapper thumb-count-4">
+                                                                <span class="onsale">
+                                    <span class="woocommerce-Price-amount amount">
+                                       -$1.78</span>
+                                </span>
                                                                 <!-- .onsale -->
                                 <div id="techmarket-single-product-gallery" class="techmarket-single-product-gallery techmarket-single-product-gallery--with-images techmarket-single-product-gallery--columns-4 images" data-columns="4" wire:ignore>
                                     <div class="techmarket-single-product-gallery-images" data-ride="tm-slick-carousel" data-wrap=".woocommerce-product-gallery__wrapper" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;#techmarket-single-product-gallery .techmarket-single-product-gallery-thumbnails__wrapper&quot;}">
@@ -1132,10 +1231,9 @@ label.star:before {
                             <!-- .product-images-wrapper -->
                             <div class="summary entry-summary">
                                 <div class="single-product-header">
-                                <h1 class="product_title entry-title">Nihil et doloremque in.</h1>
+                                <h1 class="product_title entry-title">Qui amet non voluptas qui.</h1>
                                                                 <a style="position: absolute;right: 35px;top: 0;cursor:pointer;" wire:click='wishlists'>
-                                     <i class="fa fa-heart-o fa-2x wish                                       change_color
-                                                                          "></i>
+                                     <i class="fa fa-heart-o fa-2x wish                                                                           "></i>
                                 </a>
                                                                 </div>
                                 <!-- .single-product-header -->
@@ -1150,7 +1248,7 @@ label.star:before {
                                             <a rel="tag" href="http://127.0.0.1:8000/category/H4kJg5QiEQ">XStedvUD9Q</a>
                                         </span>
                                                                                 <span class="sku_wrapper">SKU:
-                                            <span class="sku">AIiVX2TI2s</span>
+                                            <span class="sku">qezu9NWFkv</span>
                                         </span>
                                     </div>
                                                                     </div>
@@ -1167,7 +1265,7 @@ label.star:before {
                                 </div>
                                 <!-- .rating-and-sharing-wrapper -->
                                 <div class="woocommerce-product-details__short-description mb-4" style="border-bottom: 1px solid #ebebeb;">
-                                    Et maxime similique quia libero fuga aut. Rerum quae placeat voluptatem possimus modi ut modi. Nemo omnis doloribus velit placeat id quo neque. Facilis error eveniet enim nisi nobis voluptatem.
+                                    <p>Fugiat sit similique illum blanditiis eaque rerum consectetur. Nemo ipsum consectetur sed dolores. Sed quis consectetur accusantium ut iusto ipsum. Saepe ad est qui fugit.</p>
                                 </div>
                                 <div class="woocommerce-product-details__short-description">
                                     <h6 class="mb-2">Tags:</h6>
@@ -1176,53 +1274,71 @@ label.star:before {
                                 <!-- .woocommerce-product-details__short-description -->
                             </div>
                             <!-- .entry-summary -->
-                            <div wire:initial-data="{&quot;id&quot;:&quot;EvQFAsc3knW8Is6ZMIyd&quot;,&quot;name&quot;:&quot;product-actions&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1657,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;productAttributes&quot;:[],&quot;attribute&quot;:null},&quot;children&quot;:[],&quot;checksum&quot;:&quot;4775c5133e4b81e3cad17f4f25fad8e80e82341412698b58b68015b7f3f1c579&quot;,&quot;redirectTo&quot;:false}" wire:id="EvQFAsc3knW8Is6ZMIyd" class="product-actions-wrapper">
+                            <div wire:initial-data="{&quot;id&quot;:&quot;pkyzJsizvalqyur97w3s&quot;,&quot;name&quot;:&quot;product-actions&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;productAttributes&quot;:[],&quot;attribute&quot;:null},&quot;children&quot;:[],&quot;checksum&quot;:&quot;24c14c08fc76f26fff3b7ff61207b263f6f100fcb6a186c369295fe4590be9f8&quot;,&quot;redirectTo&quot;:false}" wire:id="pkyzJsizvalqyur97w3s" class="product-actions-wrapper">
     <div class="product-actions">
         <div class="availability">
             Availability:
-                        <p class="stock in-stock">732 In stock</p>
+                        <p class="stock in-stock">528410 In stock</p>
                     </div>
 
         <!-- .additional-info -->
         <p class="price">
-                        <ins>
-                <span class="amount">$2.92</span>
+                                    <ins>
+                <span class="amount">$11.17</span>
             </ins>
-                    </p>
+            <del>
+                <span class="amount">$9.39</span>
+            </del>
+                                </p>
         <!-- .price -->
-<form method="POST" action="http://127.0.0.1:8000/product/variation/add/cart/quo-voluptatibus-et-sed-beatae-placeat-blanditiis-ut" accept-charset="UTF-8" class="variations_form cart"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">
+<form method="POST" action="http://127.0.0.1:8000/product/variation/add/cart/voluptas-esse-dolorem-alias" accept-charset="UTF-8" class="variations_form cart"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A">
                         <table class="variations">
-            <tbody class="cat-and-sku">
-                <tr class="sku_wrapper">
-                    <td class="label">
-                        <label class="font-weight-bold">Color :</label>
-                    </td>
-                    <td class="value">
-                        M7c1dV
-                    </td>
-                </tr>
-                <tr class="sku_wrapper">
-                    <td class="label">
-                        <label class="font-weight-bold">Size :</label>
-                    </td>
-                    <td class="value">
-                        n8TeAe
-                    </td>
-                </tr>
-            </tbody>
+                <tbody>
+                    
+                                                            <tr>
+                        <td class="label">
+                            <label for="pa_2">Color</label>
+                        </td>
+                        <td class="value">
+                                                        <select required data-show_option_none="yes" data-attribute_name="attributes"
+                                name="attributes[]"
+                                class="" id="pa_2" wire:model="attribute" wire:change="get_variation()">
+                                                                <option value="">Choose an option</option>
+                                                                                                <option value="1" class="attached enabled">blue</option>
+                                                                                                                                <option value="2" class="attached enabled">red</option>
+                                                                                                                                <option value="3" class="attached enabled">black</option>
+                                                                                            </select>
+                            <a href="#" class="reset_variations" style="visibility: hidden;">Clear</a>
+                        </td>
+                    </tr>
+                                                                                <tr>
+                        <td class="label">
+                            <label for="pa_1">Size</label>
+                        </td>
+                        <td class="value">
+                            <select required data-show_option_none="yes" data-attribute_name="attributes"
+                                name="attributes[]" class="" id="pa_1">
+                                <option value="" selected>Choose an option</option>
+                                                                                                                                <option value="4" class="attached enabled">Xl</option>
+                                                                                                                                                                                                <option value="5" class="attached enabled">L</option>
+                                                                                                                                                                                                <option value="6" class="attached enabled">S</option>
+                                                                                                                            </select>
+                            <a href="#" class="reset_variations" style="visibility: hidden;">Clear</a>
+                                                    </td>
+                    </tr>
+                                                        </tbody>
             </table>
-                        <div class="single_variation_wrap">
+                        <div class="single_variation_wrap" wire:ignore>
                 <div
                     class="woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-disabled">
                     <div class="quantity">
                         <label for="quantity-input">Quantity</label>
-                    <input required id="quantity-input" type="parseInt" name="quantity" value="1" min="1" max="732" title="Qty"
+                    <input required id="quantity-input" type="parseInt" name="quantity" value="1" min="1" max="528410" title="Qty"
                             class="input-text qty text" size="4">
                     </div>
-                    
-                    <button class="single_add_to_cart_button button alt wc-variation-selection-needed"  type="submit">Add
-                        to
-                        cart</button>
+                                            <button class="single_add_to_cart_button button alt wc-variation-selection-needed tooltip_cart add_to_cart disabled"
+                         disabled  type="submit">Add to cart                            <span class="tooltiptext_cart">Please provide the missing information first</span>
+                        </button>
                     <input type="hidden" value="2471" name="add-to-cart">
                     <input type="hidden" value="2471" name="product_id">
                     <input type="hidden" value="0" class="variation_id" name="variation_id">
@@ -1235,7 +1351,6 @@ label.star:before {
     </div>
     <!-- .product-actions -->
 </div>
-
 
                         <!-- .single-product-wrapper -->
                         <div class="techmarket-tabs techmarket-tabs-wrapper wc-tabs-wrapper">
@@ -1253,11 +1368,71 @@ label.star:before {
                                         </li>
                                     </ul>
                                     <!-- /.ec-tabs -->
-                                    <form method="POST" action="http://127.0.0.1:8000/product/add/accesssories" accept-charset="UTF-8"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">
+                                    <form method="POST" action="http://127.0.0.1:8000/product/add/accesssories" accept-charset="UTF-8"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A">
                                     <div class="accessories">
                                         <div class="accessories-wrapper">
                                             <div class="accessories-product columns-4">
                                                 <div class="products">
+                                                                                                        <div class="product" id='3' wire:ignore>
+                                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="http://127.0.0.1:8000/en/product/quam-quo-perspiciatis-ea-aliquid-eos-est">
+                                                            <img style="height:197px; width:224px;" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="/storage/products/thumbnail/1_1597427927.jpg">
+                                                            <span class="price">
+                                                                                                                                <ins>
+                                                                    <span class="amount">$2.41</span>
+                                                                </ins>
+                                                                                                                            </span>
+                                                            <h2 class="woocommerce-loop-product__title">Amet quia explicabo dolores nisi et.</h2>
+                                                        </a>
+                                                                                                                <div class="checkbox accessory-checkbox">
+                                                            <label>
+                                                            <input name="accessories[]" wire:model='accessories' value="3" type="checkbox" data-product-type="simple" data-product-id="185" data-price="997.00" class="product-check" checked=""> Add                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                                                                        <div class="product" id='4' wire:ignore>
+                                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="http://127.0.0.1:8000/en/product/officiis-neque-quis-maiores-non-rerum-enim-magni">
+                                                            <img style="height:197px; width:224px;" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="/storage/products/thumbnail/1_1597427927.jpg">
+                                                            <span class="price">
+                                                                                                                                <ins>
+                                                                    <span class="amount">$6.81</span>
+                                                                </ins>
+                                                                                                                            </span>
+                                                            <h2 class="woocommerce-loop-product__title">Cum in eos commodi asperiores labore.</h2>
+                                                        </a>
+                                                                                                                <div class="checkbox accessory-checkbox">
+                                                            <label>
+                                                            <input name="accessories[]" wire:model='accessories' value="4" type="checkbox" data-product-type="simple" data-product-id="185" data-price="997.00" class="product-check" checked=""> Add                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                                                                        <div class="product" id='5' wire:ignore>
+                                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="http://127.0.0.1:8000/en/product/quia-ducimus-non-aut-quia-quo-minima-odio-exercitationem">
+                                                            <img style="height:197px; width:224px;" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="/storage/products/thumbnail/1_1597427927.jpg">
+                                                            <span class="price">
+                                                                                                                                <ins>
+                                                                    <span class="amount">$1.88</span>
+                                                                </ins>
+                                                                                                                            </span>
+                                                            <h2 class="woocommerce-loop-product__title">Nobis quas sit reiciendis blanditiis.</h2>
+                                                        </a>
+                                                                                                                <div class="checkbox accessory-checkbox">
+                                                            <label>
+                                                            <input name="accessories[]" wire:model='accessories' value="5" type="checkbox" data-product-type="simple" data-product-id="185" data-price="997.00" class="product-check" checked=""> Add                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                                                                        <div class="product" id='6' wire:ignore>
+                                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="http://127.0.0.1:8000/en/product/maiores-qui-quas-minima-aut">
+                                                            <img style="height:197px; width:224px;" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="/storage/products/thumbnail/1_1597427927.jpg">
+                                                            <span class="price">
+                                                                                                                                <ins>
+                                                                    <span class="amount">$8.14</span>
+                                                                </ins>
+                                                                                                                            </span>
+                                                            <h2 class="woocommerce-loop-product__title">Facilis quia consequatur non tenetur.</h2>
+                                                        </a>
+                                                                                                                <div class="checkbox accessory-checkbox">
+                                                            <label>
+                                                            <input name="accessories[]" wire:model='accessories' value="6" type="checkbox" data-product-type="simple" data-product-id="185" data-price="997.00" class="product-check" checked=""> Add                                                            </label>
+                                                        </div>
+                                                    </div>
                                                                                                     </div>
                                                 <!-- /.products -->
                                             </div>
@@ -1303,7 +1478,7 @@ label.star:before {
                                     </ul>
                                     <!-- /.ec-tabs -->
                                     <h2>Description</h2>
-                                    Et maxime similique quia libero fuga aut. Rerum quae placeat voluptatem possimus modi ut modi. Nemo omnis doloribus velit placeat id quo neque. Facilis error eveniet enim nisi nobis voluptatem.
+                                    <p>Fugiat sit similique illum blanditiis eaque rerum consectetur. Nemo ipsum consectetur sed dolores. Sed quis consectetur accusantium ut iusto ipsum. Saepe ad est qui fugit.</p>
                                     <!-- .outer-wrap -->
                                 </div>
                                 <!-- .tab-content -->
@@ -1325,7 +1500,7 @@ label.star:before {
                                         </li>
                                     </ul>
                                     <!-- /.ec-tabs -->
-                                    <div wire:initial-data="{&quot;id&quot;:&quot;BynNtUnqhbLC5gvgVr6L&quot;,&quot;name&quot;:&quot;products.add-reviews&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1657,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;name&quot;:&quot;Superadministrator&quot;,&quot;email&quot;:&quot;superadministrator@app.com&quot;,&quot;comment&quot;:null,&quot;review&quot;:null},&quot;children&quot;:[],&quot;checksum&quot;:&quot;edb21d5f9bef5156a12970097e07611f707282c0e0fa6f58faef0a827ef003b4&quot;,&quot;redirectTo&quot;:false}" wire:id="BynNtUnqhbLC5gvgVr6L" class="techmarket-advanced-reviews" id="reviews">
+                                    <div wire:initial-data="{&quot;id&quot;:&quot;rNffmFikhJwHqWI3eZgj&quot;,&quot;name&quot;:&quot;products.add-reviews&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;name&quot;:&quot;Superadministrator&quot;,&quot;email&quot;:&quot;superadministrator@app.com&quot;,&quot;comment&quot;:null,&quot;review&quot;:null},&quot;children&quot;:[],&quot;checksum&quot;:&quot;83dc06ea96fff3297827aeaccd3b02a69f64c5d9976d5db301f02dc1b9ebc12b&quot;,&quot;redirectTo&quot;:false}" wire:id="rNffmFikhJwHqWI3eZgj" class="techmarket-advanced-reviews" id="reviews">
     <div class="advanced-review row">
         <div class="advanced-review-rating">
             <h2 class="based-title">Review (0)</h2>
@@ -1456,7 +1631,7 @@ label.star:before {
                             <!-- .techmarket-tab -->
                         </div>
                         <!-- .techmarket-tabs -->
-                        <div wire:initial-data="{&quot;id&quot;:&quot;hk9cvLt12AnmVjwJYXpO&quot;,&quot;name&quot;:&quot;related-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1657,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;ralated&quot;:[]},&quot;children&quot;:[],&quot;checksum&quot;:&quot;d860b922029b7d7b29164ba07e6ee3e2c18907711bca6a49623d240c03e9a4c7&quot;,&quot;redirectTo&quot;:false}" wire:id="hk9cvLt12AnmVjwJYXpO" wire:ignore style='width: 100%;' class="tm-related-products-carousel section-products-carousel" id="tm-related-products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;slidesToShow&quot;:7,&quot;slidesToScroll&quot;:7,&quot;dots&quot;:true,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#tm-related-products-carousel .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:767,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:780,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
+                        <div wire:initial-data="{&quot;id&quot;:&quot;dhaMZFwIRjFfSjsszJWI&quot;,&quot;name&quot;:&quot;related-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1,&quot;relations&quot;:[&quot;seller&quot;,&quot;seller.country&quot;,&quot;discount&quot;,&quot;gallery&quot;,&quot;tags&quot;,&quot;attributes&quot;],&quot;connection&quot;:&quot;mysql&quot;},&quot;ralated&quot;:[]},&quot;children&quot;:[],&quot;checksum&quot;:&quot;04683e64956d8973051a58875bec1a0108c0cfd1dcf710dca7b91dfb1259ccc3&quot;,&quot;redirectTo&quot;:false}" wire:id="dhaMZFwIRjFfSjsszJWI" wire:ignore style='width: 100%;' class="tm-related-products-carousel section-products-carousel" id="tm-related-products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;slidesToShow&quot;:7,&quot;slidesToScroll&quot;:7,&quot;dots&quot;:true,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#tm-related-products-carousel .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:767,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:780,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
     <section class="related">
         <header class="section-header">
             <h2 class="section-title">Related products</h2>
@@ -1464,28 +1639,6 @@ label.star:before {
         </header>
         <!-- .section-header -->
         <div class="products">
-                        <div class="product">
-                <div class="yith-wcwl-add-to-wishlist">
-                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
-                        Wishlist</a>
-                </div>
-                <a href="single-product-fullwidth.html" class="woocommerce-LoopProduct-link">
-                    <img src="/storage/products/thumbnail/1_1597427927.jpg" style='width:224px;height:197px;'
-                    class="wp-post-image" alt="">
-                    <span class="price">
-                                                <ins>
-                            <span class="amount">$9.39</span>
-                        </ins>
-                                            </span>
-                    <!-- /.price -->
-                    <h2 class="woocommerce-loop-product__title">Qui amet non voluptas qui.</h2>
-                </a>
-                <div class="hover-area">
-                                        <a class="button add_to_cart_button" wire:click='addCart(1)'
-                        rel="nofollow">Add to cart</a>
-                    <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                    </div>
-            </div>
                         <div class="product">
                 <div class="yith-wcwl-add-to-wishlist">
                     <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
@@ -1904,13 +2057,35 @@ label.star:before {
                     <a class="add-to-compare-link" href="compare.html">Add to compare</a>
                                     </div>
             </div>
+                        <div class="product">
+                <div class="yith-wcwl-add-to-wishlist">
+                    <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
+                        Wishlist</a>
+                </div>
+                <a href="single-product-fullwidth.html" class="woocommerce-LoopProduct-link">
+                    <img src="/storage/products/thumbnail/1_1597427927.jpg" style='width:224px;height:197px;'
+                    class="wp-post-image" alt="">
+                    <span class="price">
+                                                <ins>
+                            <span class="amount">$1.81</span>
+                        </ins>
+                                            </span>
+                    <!-- /.price -->
+                    <h2 class="woocommerce-loop-product__title">Dolorem aliquam sit quia.</h2>
+                </a>
+                <div class="hover-area">
+                                        <a class="button add_to_cart_button" wire:click='addCart(21)'
+                        rel="nofollow">Add to cart</a>
+                    <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                    </div>
+            </div>
                         <!-- /.product-outer -->
         </div>
     </section>
     <!-- .single-product-wrapper -->
 </div>
                         <!-- .tm-related-products-carousel -->
-                        <section wire:initial-data="{&quot;id&quot;:&quot;vdjBe1qbymr4sqNbEg8R&quot;,&quot;name&quot;:&quot;products.recently-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:[],&quot;children&quot;:[],&quot;checksum&quot;:&quot;6ce1cf7af9fd1d565ff0a84371d2eda783199369011ce75a1334a9b6684b7e2c&quot;,&quot;redirectTo&quot;:false}" wire:id="vdjBe1qbymr4sqNbEg8R" style='width: 100%;' class="section-landscape-products-carousel recently-viewed" id="recently-viewed" wire:ignore>
+                        <section wire:initial-data="{&quot;id&quot;:&quot;yu7JpWKAhrHgaSuDQAf2&quot;,&quot;name&quot;:&quot;products.recently-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:[],&quot;children&quot;:[],&quot;checksum&quot;:&quot;dfb87db3cd3b058d68c46b8c13bfe4032f13a9b87a806542ac5f4b90df51dc5f&quot;,&quot;redirectTo&quot;:false}" wire:id="yu7JpWKAhrHgaSuDQAf2" style='width: 100%;' class="section-landscape-products-carousel recently-viewed" id="recently-viewed" wire:ignore>
     <header class="section-header">
         <h2 class="section-title">Recently viewed products</h2>
         <nav class="custom-slick-nav"></nav>
@@ -1920,17 +2095,20 @@ label.star:before {
             <div class="woocommerce columns-5">
                 <div class="products">
                                         <div class="landscape-product product">
-                        <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/quo-voluptatibus-et-sed-beatae-placeat-blanditiis-ut">
+                        <a class="woocommerce-LoopProduct-link" href="http://127.0.0.1:8000/en/product/voluptas-esse-dolorem-alias">
                             <div class="media">
                                 <img class="wp-post-image" src="/storage/products/thumbnail/1_1597427927.jpg" alt="">
                                 <div class="media-body">
                                     <span class="price">
                                                                                 <ins>
-                                            <span class="amount">$2.92</span>
+                                            <span class="amount">$5.07</span>
                                         </ins>
+                                        <del>
+                                            <span class="amount">$9.39</span>
+                                        </del>
                                                                             </span>
                                     <!-- .price -->
-                                    <h2 class="woocommerce-loop-product__title">Nihil et doloremque in.</h2>
+                                    <h2 class="woocommerce-loop-product__title">Qui amet non voluptas qui.</h2>
                                     <div class="techmarket-product-rating">
                                         <div title="Rated 0 out of 5" class="star-rating">
                                             <span style="width:0%">
@@ -2449,7 +2627,7 @@ label.star:before {
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl"
+        data-csrftoken="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A"
     ></div>
 <style>
     .change_color {
@@ -2464,7 +2642,6 @@ label.star:before {
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/hidemaxlistitem.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/jquery.easing.min.js"></script>
-<script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/scrollup.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/jquery.waypoints.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/waypoints-sticky.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8000/FrontEnd/js/pace.min.js"></script>
@@ -2485,19 +2662,28 @@ label.star:before {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 <script>
     var items    = [];
-    var sku = 'AIiVX2TI2s';
+    var sku = 'qezu9NWFkv';
 
 
-            var mainppss = '$2.92';
-        var offerppss = '0';
+            var mainppss = '$9.39';
+        var offerppss = '$11.17';
+        var offer = '-$1.78';
         function countSelected(e) {
         var toReturn = true;
         $('.product-actions-wrapper select:visible').each(function (i) {
             if (!$(this).val()) {
                 toReturn = false;
+                $('.add_to_cart').attr('disabled', 'disabled');
+                $('.add_to_cart').addClass('tooltip_cart');
+
+                $('<span class="tooltiptext_cart">Please provide the missing information first</span>').appendTo('.add_to_cart');
             };
         });
         if (toReturn === true) {
+            $('.add_to_cart').attr('disabled', false);
+            $('.add_to_cart').removeClass('tooltip_cart')
+            $('.tooltiptext_cart').remove();
+
             items = [];
             $.each($(".product-actions-wrapper select"), function () {
                 if(jQuery.inArray($(this).val(), items) !== false) {
@@ -2506,9 +2692,9 @@ label.star:before {
             });
 
             axios.post('http://127.0.0.1:8000/en/get/variations/data', {
-                _token: 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl',
+                _token: 'qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A',
                 data: items,
-                ass: '1657'
+                ass: '1'
             }).then(
                 (response) => {
                     if(response.data['ppss'] == 0 || response.data == '') {
@@ -2547,6 +2733,7 @@ label.star:before {
     };
     $('.product-actions-wrapper select').on('change', countSelected);
 
+
 </script>
 <script>
 
@@ -2564,12 +2751,44 @@ label.star:before {
         $(this).css('color', )
     }); */
     $('.wish').click(function(){
-    $(this).toggleClass('change_color');
+        $(this).toggleClass('change_color');
+    });
+    $('a.comp').click(function(){
+
+        $(this).text("Already added to compare list");
     });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script>
-    </script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+                    window.livewire.find('TuiqHh4s7QtiLNM5DMS6').set('prices.3', 2.41);
+            });
+
+
+
+        
+    document.addEventListener('DOMContentLoaded', function () {
+                    window.livewire.find('TuiqHh4s7QtiLNM5DMS6').set('prices.4', 6.81);
+            });
+
+
+
+        
+    document.addEventListener('DOMContentLoaded', function () {
+                    window.livewire.find('TuiqHh4s7QtiLNM5DMS6').set('prices.5', 1.88);
+            });
+
+
+
+        
+    document.addEventListener('DOMContentLoaded', function () {
+                    window.livewire.find('TuiqHh4s7QtiLNM5DMS6').set('prices.6', 8.14);
+            });
+
+
+
+        </script>
 <script>
     $(document).mouseup(function (e) {
         var container = $("#search-result");

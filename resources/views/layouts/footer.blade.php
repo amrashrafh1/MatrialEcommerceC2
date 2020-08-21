@@ -299,6 +299,11 @@
         data-csrfname="{{ 'X-CSRF-Token' }}"
         data-csrftoken="{{ csrf_token() }}"
     ></div>
+<style>
+    .change_color {
+        color:red;
+    }
+</style>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/tether.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/bootstrap.min.js"></script>
@@ -307,8 +312,8 @@
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/hidemaxlistitem.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery.easing.min.js"></script>
-<script type="text/javascript" src="{{url('/')}}/FrontEnd/js/scrollup.min.js"></script>
-<script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery.waypoints.min.js"></script>
+{{-- <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/scrollup.min.js"></script>
+ --}}<script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery.waypoints.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/waypoints-sticky.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/pace.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/slick.min.js"></script>
@@ -337,6 +342,7 @@
 @else
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 @endrole
+@push('js')
 <script>
 
     /* Echo.private(`cartupdate`)
@@ -349,7 +355,18 @@
             timer: 1500
             });
     }); */
+    /* $('.change_color').on('click', function () {
+        $(this).css('color', )
+    }); */
+    $('.wish').click(function(){
+        $(this).toggleClass('change_color');
+    });
+    $('a.comp').click(function(){
+
+        $(this).text("@lang('user.already_added')");
+    });
 </script>
+@endpush
 @stack('js')
 </body>
 </html>

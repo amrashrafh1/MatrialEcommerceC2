@@ -16,7 +16,7 @@
                         <div class="slider-with-banners row">
                             <div class="slider-block column-1-slider-block ">
                                 <div class="home-v2-slider home-slider">
-                                    @foreach(\App\Slider::isActive()->get() as $index => $slider)
+                                    @foreach($sliders as $index => $slider)
 
                                     <div class="slider-1" style="background-image: url({{url('/')}}/FrontEnd/images/slider/home-v2-background.jpg);">
                                         <img src="{{Storage::url($slider->image)}}" alt="" style='left:46.4%;bottom:0'>
@@ -139,52 +139,6 @@
                                 </div>
                                 @endforeach
                                 @endif
-                                <!-- /.banner -->
-                                {{-- <div class="banner large-banner text-in-right">
-                                    <a href="#">
-                                        <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( {{ url('/') }}/FrontEnd/images/banner/3-4.jpg ); height: 259px;">
-                                            <div class="caption">
-                                                <div class="banner-info">
-                                                    <h3 class="title">Catch Hottest
-                                                        <br>
-                                                        <strong>Deals</strong> on the
-                                                        <br> Curved Soundbars.</h3>
-                                                </div>
-                                                <span class="banner-action button">Browse</span>
-                                            </div>
-                                            <!-- /.caption -->
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- /.banner -->
-                                <div class="banner small-banner text-in-left">
-                                    @if($adz)
-                                    <a href="#">
-                                        <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($adz->image)}} ); height: 259px;">
-                                            <div class="caption ">
-                                                <div class="banner-info">
-                                                    <h3 class="title">
-                                                        <p class='text-white'>{{$adz->name}}</p>
-                                                </div>
-                                                @if(isset($adz->discount))
-                                                <ins class='text-white'>
-                                                    <span class="amount">{!! curr($adz->priceDiscount()) !!}</span>
-                                                </ins>
-                                                <del class='text-white'>
-                                                    <span class="amount">{!! curr($adz->sale_price) !!}</span>
-                                                </del>
-                                                @else
-                                                <ins class='text-white'>
-                                                    <span class="amount">{!! curr($adz->sale_price) !!}</span>
-                                                </ins>
-                                                @endif
-                                            <a href="{{route('show_product',$adz->slug)}}" class="banner-action button">@lang('user.Buy_Now')</a>
-                                            </div>
-                                            <!-- /.caption -->
-                                        </div>
-                                    </a>
-                                    @endif
-                                </div> --}}
                                 <!-- /.banner -->
                             </div>
                             <!-- /.row -->

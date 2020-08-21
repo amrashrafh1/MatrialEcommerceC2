@@ -20,8 +20,8 @@ class CreateFilesTable extends Migration
             $table->string('file');
             $table->string('path');
             $table->string('mime_type');
-            $table->string('model');// news / product / whatever
-            $table->integer('relation_id');
+
+            $table->morphs('relation');
             $table->timestamps();
         });
     }

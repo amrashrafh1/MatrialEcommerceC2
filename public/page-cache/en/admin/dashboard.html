@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF">
+    <meta name="csrf-token" content="mnpld9C6UyUgTTUVU3Pf83FSx0HOppQDmshyepDf">
     <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
     <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
     <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
@@ -23,13 +23,14 @@
     <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
+            <link href="http://127.0.0.1:8000/css/colors/azure.css" rel="stylesheet"/>
         </head>
 
 <body class="">
         <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF">    </form>
+        <input type="hidden" name="_token" value="mnpld9C6UyUgTTUVU3Pf83FSx0HOppQDmshyepDf">    </form>
     <div class="wrapper ">
-  <div class="sidebar" data-color="orange" data-background-color="white"
+  <div class="sidebar" data-color="azure" data-background-color="white"
     data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -384,8 +385,8 @@
   <div class="content">
     <div class="container-fluid">
         <div class="card-chart">
-            <canvas style="display: none;" id="lctwhuipfzsjxgdovyrnkqemb"  height='400' ></canvas>
-<div id="lctwhuipfzsjxgdovyrnkqemb_loader" style="
+            <canvas style="display: none;" id="lcbvfqstzouwxpjnkirhaegyd"  height='400' ></canvas>
+<div id="lcbvfqstzouwxpjnkirhaegyd_loader" style="
     display: flex;
     justify-content: center;
     opacity: 1;
@@ -451,7 +452,7 @@
                 <i class="material-icons">content_copy</i>
               </div>
               <p class="card-category">Used Space</p>
-              <h4 class="card-title"><span>329.99 GiB</span><br/>/<span>383.48 GiB</span>
+              <h4 class="card-title"><span>329.94 GiB</span><br/>/<span>383.48 GiB</span>
               </h4>
             </div>
             <div class="card-footer">
@@ -957,7 +958,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF"
+        data-csrftoken="mnpld9C6UyUgTTUVU3Pf83FSx0HOppQDmshyepDf"
     ></div>
     <div id="app">
     </div>
@@ -1093,7 +1094,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF',
+                _token: 'mnpld9C6UyUgTTUVU3Pf83FSx0HOppQDmshyepDf',
                 color: color
             }
             });
@@ -1105,7 +1106,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'ALaXbqP8geRIJFGluvu08zqkbqLbs6McOabERIKF',
+                _token: 'mnpld9C6UyUgTTUVU3Pf83FSx0HOppQDmshyepDf',
                 image: image
             }
             });
@@ -1163,12 +1164,12 @@
         </script>
         <script src="http://127.0.0.1:8000/js/chart.js/dist/Chart.min.js"></script>
     <script  type="text/javascript">
-    var ctvChart = document.getElementById('lctwhuipfzsjxgdovyrnkqemb').getContext('2d');
-    function lctwhuipfzsjxgdovyrnkqemb_create(data) {
-        lctwhuipfzsjxgdovyrnkqemb_rendered = true;
-        document.getElementById("lctwhuipfzsjxgdovyrnkqemb_loader").style.display = 'none';
-        document.getElementById("lctwhuipfzsjxgdovyrnkqemb").style.display = 'block';
-        window.lctwhuipfzsjxgdovyrnkqemb = new Chart(document.getElementById("lctwhuipfzsjxgdovyrnkqemb").getContext("2d"), {
+    var ctvChart = document.getElementById('lcbvfqstzouwxpjnkirhaegyd').getContext('2d');
+    function lcbvfqstzouwxpjnkirhaegyd_create(data) {
+        lcbvfqstzouwxpjnkirhaegyd_rendered = true;
+        document.getElementById("lcbvfqstzouwxpjnkirhaegyd_loader").style.display = 'none';
+        document.getElementById("lcbvfqstzouwxpjnkirhaegyd").style.display = 'block';
+        window.lcbvfqstzouwxpjnkirhaegyd = new Chart(document.getElementById("lcbvfqstzouwxpjnkirhaegyd").getContext("2d"), {
             type: data[0].type,
             data: {
                 labels: ["Today","Yesterday","2 days ago","3 days ago","4 days ago","5 days ago","6 days ago","7 days ago"],
@@ -1178,14 +1179,14 @@
             plugins: []
         });
     }
-    let lctwhuipfzsjxgdovyrnkqemb_rendered = false;
-let lctwhuipfzsjxgdovyrnkqemb_load = function () {
-    if (document.getElementById("lctwhuipfzsjxgdovyrnkqemb") && !lctwhuipfzsjxgdovyrnkqemb_rendered) {
-                    lctwhuipfzsjxgdovyrnkqemb_create([{"borderWidth":2,"borderColor":"#9F51B0","backgroundColor":"rgba(233, 30, 99, 0.1)","data":[0,0,0,0,0,0,0,0],"label":"Users","type":"line"}])
+    let lcbvfqstzouwxpjnkirhaegyd_rendered = false;
+let lcbvfqstzouwxpjnkirhaegyd_load = function () {
+    if (document.getElementById("lcbvfqstzouwxpjnkirhaegyd") && !lcbvfqstzouwxpjnkirhaegyd_rendered) {
+                    lcbvfqstzouwxpjnkirhaegyd_create([{"borderWidth":2,"borderColor":"#9F51B0","backgroundColor":"rgba(233, 30, 99, 0.1)","data":[0,0,0,0,0,4,0,0],"label":"Users","type":"line"}])
             }
 };
-window.addEventListener("load", lctwhuipfzsjxgdovyrnkqemb_load);
-document.addEventListener("turbolinks:load", lctwhuipfzsjxgdovyrnkqemb_load);
+window.addEventListener("load", lcbvfqstzouwxpjnkirhaegyd_load);
+document.addEventListener("turbolinks:load", lcbvfqstzouwxpjnkirhaegyd_load);
 
 </script>
 

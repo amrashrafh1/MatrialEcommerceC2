@@ -8,6 +8,7 @@ use App\Events\cartEvent;
 
 class ComparePage extends Component
 {
+
     public function render()
     {
         if(session()->get('compare') !== null) {
@@ -22,7 +23,7 @@ class ComparePage extends Component
         if(session()->get('compare') !== null) {
             if(in_array($id, session()->get('compare'))) {
                 session()->forget('compare.' .array_search($id, session()->get('compare')));
-                event(new cartEvent(trans('user.removed_successfuly')));
+                //event(new cartEvent(trans('user.removed_successfuly')));
             }
         }
     }

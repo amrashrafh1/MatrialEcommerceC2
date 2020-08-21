@@ -5,7 +5,7 @@
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex">
-    <meta name="csrf-token" content="CsA8gkwNoaWgw8Q5X4pxfL8ffmUBiyZ6Tc8wknTp">
+    <meta name="csrf-token" content="L8a5CLvhcGb85UYhWsmcLqfXz6i0UVjPKrWOWZmQ">
     <title>Seller chat</title>
     <link rel="shortcut icon" type="image/x-icon"
         href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
@@ -834,7 +834,7 @@
 
 <body>
     <div id="app"></div>
-    <div wire:initial-data="{&quot;id&quot;:&quot;rWerXImVaIMHvlNrvkaB&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:&quot;&quot;,&quot;user_id&quot;:4,&quot;status&quot;:null,&quot;contacts&quot;:[],&quot;paginate_var&quot;:15},&quot;children&quot;:[],&quot;checksum&quot;:&quot;6ef184200d0d65eba26e9043fccc37a21852a366bc8be27afd0871f544ae35b2&quot;,&quot;redirectTo&quot;:false}" wire:id="rWerXImVaIMHvlNrvkaB" id="frame" wire:ignore.self>
+    <div wire:initial-data="{&quot;id&quot;:&quot;KvLHFJUo3xbTWmdFGKDg&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:&quot;&quot;,&quot;images&quot;:null,&quot;user_id&quot;:4,&quot;status&quot;:null,&quot;contacts&quot;:[4],&quot;paginate_var&quot;:15},&quot;children&quot;:[],&quot;checksum&quot;:&quot;7796d3c97ee1542362dfd4b64643e3ade48bc6fd8c2c92b42d81cbf2dc154706&quot;,&quot;redirectTo&quot;:false}" wire:id="KvLHFJUo3xbTWmdFGKDg" id="frame" wire:ignore.self>
         <div id="sidepanel">
         <div id="profile" wire:ignore>
             <div class="wrap">
@@ -845,19 +845,19 @@
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
                     <ul>
-                        <li id="status-online" class="active"><span
+                        <li id="status-online" class="chat_status active"><span
                                 class="status-circle"></span>
                             <p>Online</p>
                         </li>
-                        <li id="status-away" class=""><span
+                        <li id="status-away" class="chat_status "><span
                                 class="status-circle"></span>
                             <p>Away</p>
                         </li>
-                        <li id="status-busy" class=""><span
+                        <li id="status-busy" class="chat_status "><span
                                 class="status-circle"></span>
                             <p>Busy</p>
                         </li>
-                        <li id="status-offline" class="">
+                        <li id="status-offline" class="chat_status ">
                             <span class="status-circle"></span>
                             <p>Offline</p>
                         </li>
@@ -876,6 +876,18 @@
         
         <div id="contacts" wire:ignore>
             <ul>
+                                                <li class="contact contact4 active"
+                    wire:click='ChangeContact(4)'>
+                    <div class="wrap">
+                    <span class="contact-status offline"></span>
+                        <img src="/storage/user.png" alt="" />
+                        <div class="meta">
+                            <p class="name">Seller</p>
+                            <p class="preview">
+                                                                asdasdddd</p>
+                        </div>
+                    </div>
+                </li>
                             </ul>
         </div>
     </div>
@@ -892,17 +904,81 @@
         </div>
                 <div id='messages' class="messages">
             <ul>
-                            </ul>
+                                                                <li class="replies">
+                    <img src="/storage/user.png" alt="" />
+                    <p style="overflow-wrap: break-word;">hi
+                        <br /> <span
+                            style="font-size:12px; float:right;">5 days ago</span>
+                                                        <br/>
+                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </span>
+                                                    </p>
+                </li>
+                                                                                                <li class="replies">
+                    <img src="/storage/user.png" alt="" />
+                    <p style="overflow-wrap: break-word;">nice
+                        <br /> <span
+                            style="font-size:12px; float:right;">5 days ago</span>
+                                                        <br/>
+                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </span>
+                                                    </p>
+                </li>
+                                                                                                <li class="replies">
+                    <img src="/storage/user.png" alt="" />
+                    <p style="overflow-wrap: break-word;">jhj
+                        <br /> <span
+                            style="font-size:12px; float:right;">23 hours ago</span>
+                                                        <br/>
+                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </span>
+                                                    </p>
+                </li>
+                                                                                                <li class="replies">
+                    <img src="/storage/user.png" alt="" />
+                    <p style="overflow-wrap: break-word;">asdasdasd
+                        <br /> <span
+                            style="font-size:12px; float:right;">20 hours ago</span>
+                                                        <br/>
+                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </span>
+                                                    </p>
+                </li>
+                                                                                                <li class="sent">
+                    <img src="/storage/user.png" alt="" />
+                    <p style="overflow-wrap: break-word;">asdasdddd <br /> <span
+                            style="font-size:12px;float:right;">20 hours ago</span>
+                        </p>
+                </li>
+                                                                                                <li class="replies">
+                    <img src="/storage/user.png" alt="" />
+                    <p style="overflow-wrap: break-word;">ok ok ok ok
+                        <br /> <span
+                            style="font-size:12px; float:right;">15 hours ago</span>
+                                                    </p>
+                </li>
+                                                                                                <li class="replies">
+                    <img src="/storage/user.png" alt="" />
+                    <p style="overflow-wrap: break-word;">oh man
+                        <br /> <span
+                            style="font-size:12px; float:right;">15 hours ago</span>
+                                                    </p>
+                </li>
+                                                            </ul>
         </div>
         <div class="message-input" wire:ignore>
             <div class="wrap">
-                <form wire:submit.prevent='sendMesseges'>
-                    <input type="text" placeholder="Write your message..." wire:model.lazy='message' />
-                    
+                <form wire:submit.prevent='sendMesseges' enctype="multipart/form-data">
+                    <input type="text" placeholder="Write your message..." wire:model.lazy='message' style='width:80%;'/>
+
+                    <input type="file" wire:model='images' style='display:none;' id='image'/>
+
+                    <i class="fa fa-paperclip attachment" aria-hidden="true" style='margin-right: 35px;'
+                    onclick='document.getElementById("image").click();'></i>
                     <button class="submit" style='margin-right: 15px;' type="submit"><i class="fa fa-paper-plane"
                             aria-hidden="true"></i></button>
                 </form>
-            </div>
+                            </div>
         </div>
     </div>
 </div>
@@ -943,16 +1019,16 @@
         $(this).addClass("active");
         if ($("#status-online").hasClass("active")) {
             $("#profile-img").addClass("online");
-            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'online');
+            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'online');
         } else if ($("#status-away").hasClass("active")) {
             $("#profile-img").addClass("away");
-            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'away');
+            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'away');
         } else if ($("#status-busy").hasClass("active")) {
             $("#profile-img").addClass("busy");
-            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'busy');
+            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'busy');
         } else if ($("#status-offline").hasClass("active")) {
             $("#profile-img").addClass("offline");
-            window.livewire.find('rWerXImVaIMHvlNrvkaB').set('status', 'offline');
+            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'offline');
         } else {
             $("#profile-img").removeClass();
         };
@@ -982,12 +1058,25 @@
 
     
     Echo.join(`chat-4-1`)
-        .here((user) => {})
-        .joining((user) => {})
-        .leaving((user) => {})
+        .here((user) => {
+        })
+        .joining((user) => {
+            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('changeStatus', 'online');
+            $('.contact4 .contact-status').addClass('online');
+        $('.contact4 .contact-status').removeClass('away');
+        $('.contact4 .contact-status').removeClass('offline');
+        $('.contact4 .contact-status').removeClass('busy');
+        })
+        .leaving((user) => {
+            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('changeStatus', 'offline');
+            $('.contact4 .contact-status').removeClass('online');
+        $('.contact4 .contact-status').removeClass('away');
+        $('.contact4 .contact-status').addClass('offline');
+        $('.contact4 .contact-status').removeClass('busy');
+        })
         .listen('SendMesseges', (e) => {
 
-            window.livewire.find('rWerXImVaIMHvlNrvkaB').call('readMessage', e.message.id);
+            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('readMessage', e.message.id);
 
             message = e.message.message;
             if ($.trim(message) == '') {
@@ -1010,8 +1099,30 @@
     $('#messages').scroll(function() {
    var top = $('#messages').scrollTop();
        if ( top == 0) {
-        window.livewire.find('rWerXImVaIMHvlNrvkaB').call('loadMore');
+        window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('loadMore');
         }
+});
+$(document).ready(function(){
+    $('.chat_status').on('click', function(e) {
+        localStorage.setItem('chat_status', $(this).attr('id').replace('status-',''));
+        window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('changeStatus');
+    });
+    var chat_status = localStorage.getItem('chat_status');
+    if(chat_status){
+        $('#status-' + chat_status).addClass('active');
+        $('#status-' + chat_status).siblings().removeClass('active');
+    }
+});
+
+/*  change status event  */
+Echo.private(`status`)
+    .listen('StatusEvent', (e) => {
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('online');
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('away');
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('offline');
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('busy');
+        $('.contact' + e.data['user_id'] +' .contact-status').addClass(e.data['status']);
+        //console.log(e.data['status']);
 });
 </script>
 
@@ -1034,7 +1145,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'CsA8gkwNoaWgw8Q5X4pxfL8ffmUBiyZ6Tc8wknTp';
+        window.livewire_token = 'L8a5CLvhcGb85UYhWsmcLqfXz6i0UVjPKrWOWZmQ';
     });
 </script>
 

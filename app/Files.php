@@ -13,7 +13,9 @@ class Files extends Model
         'file',
         'path',
         'mime_type',
-        'model',
-        'relation_id',
     ];
+
+    public function files() {
+        return $this->morphTo();
+    }
 }

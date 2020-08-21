@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">
+    <meta name="csrf-token" content="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A">
     <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
     <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
     <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
@@ -24,11 +24,35 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
             <link href="http://127.0.0.1:8000/css/colors/azure.css" rel="stylesheet"/>
-        </head>
+            <!-- Livewire assets -->
+<style>
+    [wire\:loading] {
+        display: none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+</style>
+<script>
+    document.addEventListener('livewire:available', function () {
+        window.livewire = new Livewire();
+        window.livewire.start();
+        window.livewire_app_url = '';
+        window.livewire_token = 'qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A';
+    });
+</script>
+
+<script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
+    </head>
 
 <body class="">
         <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">    </form>
+        <input type="hidden" name="_token" value="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A">    </form>
     <div class="wrapper ">
   <div class="sidebar" data-color="azure" data-background-color="white"
     data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
@@ -106,7 +130,7 @@
                     <p>Users</p>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="http://127.0.0.1:8000/en/admin/discounts">
                     <i class="material-icons">
                         local_offer
@@ -146,7 +170,7 @@
                     <p>Attribute Families</p>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="http://127.0.0.1:8000/en/admin/products">
                     <i class="material-icons">
                         shopping_cart
@@ -278,7 +302,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#">Discounts</a>
+            <a class="navbar-brand" href="#">Add accessories</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -351,11 +375,11 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                 <a class="dropdown-item" rel="alternate" hreflang="en"
-                            href="http://127.0.0.1:8000/en/admin/discounts/1/edit">
+                            href="http://127.0.0.1:8000/en/admin/products/accessories/1">
                             English
                         </a>
                                                 <a class="dropdown-item" rel="alternate" hreflang="ar"
-                            href="http://127.0.0.1:8000/ar/admin/discounts/1/edit">
+                            href="http://127.0.0.1:8000/ar/admin/products/accessories/1">
                             العربية
                         </a>
                                             </div>
@@ -381,206 +405,265 @@
     </div>
 </nav>
 
-    <div class="container-fluid mt-6 pt-8">
+    <div class="container-fluid pt-8">
     <div class="col-md-12">
                 <div class="widget-extra body-req card light bordered">
             <div class="card-header">
                 <div class="caption">
-                    <span class="caption-subject bold uppercase font-dark">Edit discounts</span>
+                    <span class="caption-subject bold uppercase font-dark">Add accessories</span>
                 </div>
                 <div class="actions">
-                    <a href="http://127.0.0.1:8000/admin/discounts" class="btn btn-circle btn-icon-only btn-default"
+                    <a href="http://127.0.0.1:8000/admin/products" class="btn btn-circle btn-icon-only btn-default"
                         tooltip="Show All" title="Show All">
                         <i class="fa fa-list"></i>
                     </a>
                 </div>
             </div>
-            <div class="card-body form">
-                <div class="col-md-12">
-
-                    <form method="POST" action="http://127.0.0.1:8000/en/admin/discounts/1" accept-charset="UTF-8" id="users" class="form-horizontal
-                    form-row-seperated" enctype="multipart/form-data"><input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" value="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            <label for="condition" class="
-                        control-label">Condition</label>
-                        </div>
-                        <div class="col-md-9">
-                            <select class="form-control" id="condition" name="condition"><option value="">Condition</option><option value="percentage_of_product_price" selected="selected">percentage of product price</option><option value="fixed_amount">fixed amount</option><option value="buy_x_and_get_y_free">buy x and get y free</option></select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            <label for="daily" class="
-                        control-label">Daily Deals Section</label>
-                        </div>
-                        <div class="col-md-9">
-                            <select class="form-control" id="daily" name="daily"><option value="">Daily Deals Section</option><option value="none">admin.none</option><option value="daily_deals" selected="selected">Daily Deals Section</option><option value="special_offers">Special offers section</option></select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            <label for="start_at" class="
-                        control-label">Start at</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control datetimepicker" placeholder="Start at" name="start_at" type="datetime" value="2020-08-02 20:00:00" id="start_at">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            <label for="expire_at" class="
-                        control-label">Expire at</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control datetimepicker" placeholder="Expire at" name="expire_at" type="datetime" value="2020-08-29 20:00:00" id="expire_at">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            <label for="amount" class="
-                        control-label">Amount</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control" placeholder="Amount" name="amount" type="number" value="46" id="amount">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            <label for="max_quantity" class="
-                        control-label">Max quantity</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control" placeholder="Max quantity" name="max_quantity" type="number" value="750" id="max_quantity">
-                        </div>
-                    </div>
-                    <br>
-                    <div id='product_id'>
-                        <div wire:initial-data="{&quot;id&quot;:&quot;Onf50K675X2jHSylQWyx&quot;,&quot;name&quot;:&quot;admin.discount.edit-product-id&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;search&quot;:&quot;Qui amet non voluptas qui.&quot;,&quot;productType&quot;:&quot;product_id&quot;,&quot;product_id&quot;:1,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;fb8c97d408bee8d3dc1abda2064a9515c2b07cc4b9b0a47929c01c706c318ad8&quot;,&quot;redirectTo&quot;:false}" wire:id="Onf50K675X2jHSylQWyx" class="form-group">
-    <div>
-        <input type='text' wire:model='search' value='Qui amet non voluptas qui.' class='form-control'
-            placeholder="Search for product">
+            <div class="card-body form" id="element">
+                <div wire:initial-data="{&quot;id&quot;:&quot;15Ri2kD7PyPRYqrU4H8r&quot;,&quot;name&quot;:&quot;products.add-accessories&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;product&quot;:{&quot;class&quot;:&quot;App\\Product&quot;,&quot;id&quot;:1,&quot;relations&quot;:[],&quot;connection&quot;:&quot;mysql&quot;},&quot;search&quot;:&quot;&quot;,&quot;searchHas&quot;:&quot;&quot;,&quot;result&quot;:[],&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;c36673d6c328c5817036fd810fa07a1dfcf60b2a517b0ed39c61ae01793939ee&quot;,&quot;redirectTo&quot;:false}" wire:id="15Ri2kD7PyPRYqrU4H8r" class="row">
+    <div class="col-md-6">
+        <div class="mb-2">
+            <h4>
+                Accessories            </h4>
+        </div>
+        <div class="card">
+            <div class="cart-header">
+                <!-- Search form -->
+                <input type="text" id="myInput" wire:model='searchHas'  placeholder="Search for names..">
+            </div>
+            <div class="card-body">
+                <table id="myTable">
+                    <tr class="header">
+                        <th>remove</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                                    </table>
+                
+            </div>
+        </div>
     </div>
-    <div class="col-md-9">
-        <ul class='list-group'>
-                        <li class='list-group-item' style='padding:5px;'>
-                <div class='form-check'>
-
-                    <input type='radio' class='form-check-radio'                     name='product_id' id='product_id0'
-                     value='1'
-                                        checked="checked"
-                                        />
-                    <label class='form-check-label'                         for='product_id0'
-                         >
-                        Qui amet non voluptas qui.
-                    </label>
-                </div>
-            </li>
-                    </ul>
-
-    </div>
-    
-</div>
-<br>
-                    </div>
-                    <br>
-                    <div class="form-group row" id="buy_x_quantity">
-                        <div class="col-md-2">
-                            <label for="buy_x_quantity" class="
-                        control-label">Buy x quantity</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control" placeholder="Buy x quantity" name="buy_x_quantity" type="number" id="buy_x_quantity">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row" id="y_quantity">
-                        <div class="col-md-2">
-                            <label for="y_quantity" class="
-                        control-label">y quantity</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control" placeholder="y quantity" name="y_quantity" type="number" id="y_quantity">
-                        </div>
-                    </div>
-                    <br>
-                    <div id='product_y'>
-                        <div wire:initial-data="{&quot;id&quot;:&quot;SjRlYp7p9UIFyXwG4pTv&quot;,&quot;name&quot;:&quot;admin.discount.edit-product-id&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;search&quot;:null,&quot;productType&quot;:&quot;product_y&quot;,&quot;product_id&quot;:null,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;f1ed650eacd1e58d80753c89784cc6a8188aa6e6015b122ecadaac2f9c91a6e7&quot;,&quot;redirectTo&quot;:false}" wire:id="SjRlYp7p9UIFyXwG4pTv" class="form-group">
-    <div>
-        <input type='text' wire:model='search' value='' class='form-control'
-            placeholder="Search for product">
-    </div>
-    <div class="col-md-9">
-        <ul class='list-group'>
-                        <li class='list-group-item' style='padding:5px;'>
-                <div class='form-check'>
-
-                    <input type='radio' class='form-check-radio'  name='product_y' id='product_y0'
-                     value='1'
-                                        />
-                    <label class='form-check-label'  for='product_y0'
-                         >
-                        Qui amet non voluptas qui.
-                    </label>
-                </div>
-            </li>
-                        <li class='list-group-item' style='padding:5px;'>
-                <div class='form-check'>
-
-                    <input type='radio' class='form-check-radio'  name='product_y' id='product_y1'
-                     value='2'
-                                        />
-                    <label class='form-check-label'  for='product_y1'
-                         >
-                        Qui repellendus aliquam exercitationem.
-                    </label>
-                </div>
-            </li>
-                        <li class='list-group-item' style='padding:5px;'>
-                <div class='form-check'>
-
-                    <input type='radio' class='form-check-radio'  name='product_y' id='product_y2'
-                     value='3'
-                                        />
-                    <label class='form-check-label'  for='product_y2'
-                         >
-                        Amet quia explicabo dolores nisi et.
-                    </label>
-                </div>
-            </li>
-                        <li class='list-group-item' style='padding:5px;'>
-                <div class='form-check'>
-
-                    <input type='radio' class='form-check-radio'  name='product_y' id='product_y3'
-                     value='4'
-                                        />
-                    <label class='form-check-label'  for='product_y3'
-                         >
-                        Cum in eos commodi asperiores labore.
-                    </label>
-                </div>
-            </li>
-                        <li class='list-group-item' style='padding:5px;'>
-                <div class='form-check'>
-
-                    <input type='radio' class='form-check-radio'  name='product_y' id='product_y4'
-                     value='5'
-                                        />
-                    <label class='form-check-label'  for='product_y4'
-                         >
-                        Nobis quas sit reiciendis blanditiis.
-                    </label>
-                </div>
-            </li>
-                    </ul>
-
-    </div>
-    <ul class="pagination" role="navigation">
+    <div class="col-md-6">
+        <div class="mb-2">
+            <h4>
+                Accessories            </h4>
+        </div>
+        <div class="card">
+            <div class="cart-header">
+                <!-- Search form -->
+                <input type="text" id="myInput" wire:model='search'  placeholder="Search for names..">
+            </div>
+            <div class="card-body">
+                <table id="myTable">
+                    <tr class="header">
+                        <th>Add</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(2)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>2</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/2/edit">Qui repellendus aliquam exercitationem.</a></td>
+                        <td>5.74</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(3)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>3</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/3/edit">Amet quia explicabo dolores nisi et.</a></td>
+                        <td>2.41</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(4)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>4</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/4/edit">Cum in eos commodi asperiores labore.</a></td>
+                        <td>6.81</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(5)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>5</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/5/edit">Nobis quas sit reiciendis blanditiis.</a></td>
+                        <td>1.88</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(6)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>6</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/6/edit">Facilis quia consequatur non tenetur.</a></td>
+                        <td>8.14</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(7)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>7</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/7/edit">Velit veniam unde unde aut.</a></td>
+                        <td>8.66</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(8)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>8</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/8/edit">Distinctio consequatur pariatur quia.</a></td>
+                        <td>1.44</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(9)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>9</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/9/edit">Voluptates assumenda distinctio.</a></td>
+                        <td>3.11</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(10)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>10</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/10/edit">Eveniet sunt qui.</a></td>
+                        <td>9.55</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(11)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>11</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/11/edit">Illum nesciunt commodi quas.</a></td>
+                        <td>8.15</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(12)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>12</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/12/edit">Maiores et voluptates delectus et sequi.</a></td>
+                        <td>4.81</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(13)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>13</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/13/edit">Aut aut dolores.</a></td>
+                        <td>2.78</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(14)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>14</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/14/edit">Ad dolores eius est totam accusamus.</a></td>
+                        <td>3.76</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(15)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>15</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/15/edit">Magni totam qui facere delectus.</a></td>
+                        <td>7.74</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(16)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>16</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/16/edit">Aliquam qui quis et necessitatibus.</a></td>
+                        <td>8.83</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(17)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>17</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/17/edit">Omnis laboriosam deserunt neque.</a></td>
+                        <td>6.92</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(18)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>18</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/18/edit">Odit dolores asperiores sed cumque voluptas.</a></td>
+                        <td>5.79</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(19)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>19</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/19/edit">Totam dolorem nobis accusantium inventore.</a></td>
+                        <td>6.54</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(20)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>20</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/20/edit">Aut sint consequatur optio neque.</a></td>
+                        <td>4.79</td>
+                    </tr>
+                                        <tr>
+                        <td>
+                                                    <button class="btn btn-success btn-sm" wire:click='add_accessories(21)'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                                                </td>
+                        <td>21</td>
+                        <td><a href="http://127.0.0.1:8000/en/admin/products/21/edit">Dolorem aliquam sit quia.</a></td>
+                        <td>1.81</td>
+                    </tr>
+                                    </table>
+                <ul class="pagination" role="navigation">
         
                     <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; Previous">
                 <span class="page-link" aria-hidden="true">&lsaquo;</span>
@@ -605,8 +688,8 @@
                                 
             
             
-                                                                        <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(334)">334</button></li>
-                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(335)">335</button></li>
+                                                                        <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(83)">83</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(84)">84</button></li>
                                                         
         
                     <li class="page-item">
@@ -614,29 +697,68 @@
             </li>
             </ul>
 
-</div>
-<br>
-                    </div>
-                    <br>
-                    <div class="form-actions">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <input class="btn btn-success" type="submit" value="Save">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </form>
-                </div>
-                <div class="clearfix"></div>
             </div>
         </div>
     </div>
 </div>
 
+
+<style>
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        /* Add a search icon to input */
+        background-position: 10px 12px;
+        /* Position the search icon */
+        background-repeat: no-repeat;
+        /* Do not repeat the icon image */
+        width: 100%;
+        /* Full-width */
+        font-size: 16px;
+        /* Increase font-size */
+        padding: 12px 20px 12px 40px;
+        /* Add some padding */
+        border: 1px solid #ddd;
+        /* Add a grey border */
+        margin-bottom: 12px;
+        /* Add some space below the input */
+    }
+
+    #myTable {
+        border-collapse: collapse;
+        /* Collapse borders */
+        width: 100%;
+        /* Full-width */
+        border: 1px solid #ddd;
+        /* Add a grey border */
+        font-size: 18px;
+        /* Increase font-size */
+    }
+
+    #myTable th,
+    #myTable td {
+        text-align: left;
+        /* Left-align text */
+        padding: 12px;
+        /* Add padding */
+    }
+
+    #myTable tr {
+        /* Add a bottom border to all table rows */
+        border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header,
+    #myTable tr:hover {
+        /* Add a grey background color to the table header and on hover */
+        background-color: #f1f1f1;
+    }
+
+</style>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
     <footer class="footer">
   <div class="container-fluid">
     <nav class="float-left">
@@ -738,7 +860,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl"
+        data-csrftoken="qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A"
     ></div>
     <div id="app">
     </div>
@@ -874,7 +996,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl',
+                _token: 'qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A',
                 color: color
             }
             });
@@ -886,7 +1008,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl',
+                _token: 'qj5Q7nAEPvJbFrQ8md9a9YjyG2ZrrZ9ysSlKIx5A',
                 image: image
             }
             });
@@ -924,78 +1046,7 @@
                 $(this).attr('src', $('#wicon').attr('src')).delay(10000);
             });
                             </script>
-    <link href="http://127.0.0.1:8000/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
-<script src="http://127.0.0.1:8000/js/bootstrap-material-datetimepicker.js"></script>
-<script>
-    $('#condition').each(function () {
-    if($(this).val() == 'buy_x_and_get_y_free') {
-        $('#buy_x_quantity').show();
-        $('#y_quantity').show();
-        $('#product_y').show();
-        $('#product_id').show();
-
-    } else if ($(this).val() == 'fixed_amount_for_whole_cart') {
-        $('#buy_x_quantity').hide();
-        $('#y_quantity').hide();
-        $('#product_y').hide();
-        $('#product_id').hide();
-    }else {
-        $('#buy_x_quantity').hide();
-        $('#y_quantity').hide();
-        $('#product_y').hide();
-        $('#product_id').show();
-
-    }
-});
-$('#condition').on('change', function () {
-    if($(this).val() == 'buy_x_and_get_y_free') {
-        $('#buy_x_quantity').show();
-        $('#y_quantity').show();
-        $('#product_y').show();
-        $('#product_id').show();
-
-    } else if ($(this).val() == 'fixed_amount_for_whole_cart') {
-        $('#buy_x_quantity').hide();
-        $('#y_quantity').hide();
-        $('#product_y').hide();
-        $('#product_id').hide();
-    }else {
-        $('#buy_x_quantity').hide();
-        $('#y_quantity').hide();
-        $('#product_y').hide();
-        $('#product_id').show();
-
-    }
-});
-$('.datetimepicker').bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm', minDate : new Date() });
-
-</script>
-<!-- Livewire assets -->
-<style>
-    [wire\:loading] {
-        display: none;
-    }
-
-    [wire\:offline] {
-        display: none;
-    }
-
-    [wire\:dirty]:not(textarea):not(input):not(select) {
-        display: none;
-    }
-</style>
-<script>
-    document.addEventListener('livewire:available', function () {
-        window.livewire = new Livewire();
-        window.livewire.start();
-        window.livewire_app_url = '';
-        window.livewire_token = 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl';
-    });
-</script>
-
-<script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <script>
     //var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     $('#navbarDropdownMenuLink').on('click', function () {

@@ -5,11 +5,13 @@ namespace App\Http\Livewire\FrontEnd;
 use App\Events\SendMesseges;
 use App\Events\StatusEvent;
 use App\Message;
+use App\User;
 use Livewire\Component;
 
 class ChatBot extends Component
 {
     public $message = '';
+    public $images  = [];
     public $user_id;
     public $status;
     public $contacts = [];
@@ -19,22 +21,29 @@ class ChatBot extends Component
     public function mount($user_id)
     {
         $this->user_id = $user_id;
-        \App\Message::query()->where('m_to', auth()->user()->id)->update(['is_read' => 1]);
+        Message::query()->where('m_to', auth()->user()->id)->update(['is_read' => 1]);
     }
 
     public function sendMesseges()
     {
         $data = $this->validate([
             'message' => 'required|string|min:1|max:255',
+            'images'  => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:1000',
         ], [], [
             'message' => trans('user.message'),
+            'images'  => trans('user.images'),
         ]);
         $message = Message::create([
             'message' => $data['message'],
-            'm_to' => intval($this->user_id),
-            'm_from' => auth()->user()->id,
+            'm_to'    => intval($this->user_id),
+            'm_from'  => auth()->user()->id,
         ]);
+        if($data['images']) {
+            multiple_uploads($data['images'], 'messages', $message);
+        }
+        /* $message->files()->create([
 
+        ]); */
         if (auth()->user()->hasRole('seller')) {
             broadcast(new SendMesseges($message, auth()->user()->id, $this->user_id))->toOthers();
         } else {
@@ -129,8 +138,7 @@ class ChatBot extends Component
             $user->chat_status = 'busy';
             $user->save();
         }
-        broadcast(new StatusEvent(auth()->user()->chat_status, auth()->user()))->toOthers();
-
+        $this->changeStatus();
     }
 
     public function readMessage($id)
@@ -143,5 +151,18 @@ class ChatBot extends Component
     public function loadMore()
     {
         $this->paginate_var = $this->paginate_var + 15;
+    }
+
+    public function changeStatus($status = null) {
+
+        if($status) {
+            $user =  User::where('id',$this->user_id)->first();
+            if($user) {
+               // dd('asd');
+                return  broadcast(new StatusEvent($user, $status))->toOthers();
+            }
+        }
+        return  broadcast(new StatusEvent(auth()->user()))->toOthers();
+
     }
 }

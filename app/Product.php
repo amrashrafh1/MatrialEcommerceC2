@@ -56,7 +56,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     }
     public function gallery()
     {
-        return $this->hasMany(Files::class, 'relation_id', 'id')->where('model', 'App\Product');
+        return $this->morphMany(Files::class, 'files');
     }
 
     /* search package */

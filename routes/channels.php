@@ -24,11 +24,11 @@ Broadcast::channel('chat-{from}-{to}', function ($message, $from, $to) {
 /* Broadcast::channel('status-offline', function ($user) {
     return $user->id;
 });
+*/
 
-
-Broadcast::channel('status', function ($user) {
-    return $user->id;
-}); */
+Broadcast::channel('status', function ($data) {
+    return $data;
+});
 
 
 Broadcast::channel('new-seller', function ($message) {

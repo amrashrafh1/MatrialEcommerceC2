@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="VGTc1RZRm8DSCJcS7J8NbQVsE7eE63hCFBxbR9mf">
+    <meta name="csrf-token" content="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">
     <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
     <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
     <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
@@ -23,6 +23,7 @@
     <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
+            <link href="http://127.0.0.1:8000/css/colors/azure.css" rel="stylesheet"/>
             <!-- Livewire assets -->
 <style>
     [wire\:loading] {
@@ -42,7 +43,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'VGTc1RZRm8DSCJcS7J8NbQVsE7eE63hCFBxbR9mf';
+        window.livewire_token = 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl';
     });
 </script>
 
@@ -51,9 +52,9 @@
 
 <body class="">
         <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="VGTc1RZRm8DSCJcS7J8NbQVsE7eE63hCFBxbR9mf">    </form>
+        <input type="hidden" name="_token" value="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">    </form>
     <div class="wrapper ">
-  <div class="sidebar" data-color="orange" data-background-color="white"
+  <div class="sidebar" data-color="azure" data-background-color="white"
     data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -83,12 +84,26 @@
                 <a href="http://127.0.0.1:8000/en/admin/seller" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Sellers</a>
                 <a href="http://127.0.0.1:8000/en/admin/seller/products" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Products</a>
             </li>
+            <li class="nav-itemcollapsed list-group" >
+                <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    CMS<span class="caret"></span></a>
+            </li>
+                        <li class="collapse list-group-level1 " id="sub-menu1">
+                <a href="http://127.0.0.1:8000/en/admin/teams" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Teams</a>
+                <a href="http://127.0.0.1:8000/en/admin/contact_us" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Contact us</a>
+                <a href="http://127.0.0.1:8000/en/admin/testimonials" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Testimonials</a>
+                <a href="http://127.0.0.1:8000/en/admin/services" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Services</a>
+                <a href="http://127.0.0.1:8000/en/admin/ourworks" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Ourworks</a>
+                <a href="http://127.0.0.1:8000/en/admin/sliders" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Sliders</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="http://127.0.0.1:8000/admin/fullcalendar">
                     <i class="material-icons">
                         calendar_today
                     </i>
-                    <p>Events</p>
+                    <p>Calendar</p>
                 </a>
             </li>
             <li class="nav-item">
@@ -408,7 +423,7 @@
                 <div class="col-md-12">
 
                     <form method="POST" action="http://127.0.0.1:8000/en/admin/discounts" accept-charset="UTF-8" id="users" class="form-horizontal
-                    form-row-seperated" enctype="multipart/form-data"><input name="_token" type="hidden" value="VGTc1RZRm8DSCJcS7J8NbQVsE7eE63hCFBxbR9mf">
+                    form-row-seperated" enctype="multipart/form-data"><input name="_token" type="hidden" value="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl">
                     <div class="form-group row">
                         <div class="col-md-2">
                             <label for="condition" class="
@@ -470,7 +485,7 @@
                     </div>
                     <br>
                     <div id='product_id'>
-                        <div wire:initial-data="{&quot;id&quot;:&quot;o6tVHgVeo0RFc6mUDy09&quot;,&quot;name&quot;:&quot;admin.discount.product-id&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;search&quot;:null,&quot;productType&quot;:&quot;product_id&quot;,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;964c13a90a99b670b5fdf1c4bdd5ba1204fdf772f579f89650cf3e8cc49fde6b&quot;,&quot;redirectTo&quot;:false}" wire:id="o6tVHgVeo0RFc6mUDy09" class="form-group">
+                        <div wire:initial-data="{&quot;id&quot;:&quot;pFg1yWJ65N02tsMxfkNS&quot;,&quot;name&quot;:&quot;admin.discount.product-id&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;search&quot;:null,&quot;productType&quot;:&quot;product_id&quot;,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;25b391c50c7d6c608432aa48c11bffaaf02a96bd28e499a7d76454a92e98aa0e&quot;,&quot;redirectTo&quot;:false}" wire:id="pFg1yWJ65N02tsMxfkNS" class="form-group">
     <div>
         <input type='text' wire:model='search' class='form-control' placeholder="Search for product">
     </div>
@@ -485,7 +500,7 @@
                     <label class='form-check-label'
                                             for='product_id0'
                          >
-                        Blanditiis quia ducimus fugiat animi a.
+                        Qui amet non voluptas qui.
                     </label>
                 </div>
             </li>
@@ -498,7 +513,7 @@
                     <label class='form-check-label'
                                             for='product_id1'
                          >
-                        Possimus voluptatem enim et reprehenderit natus.
+                        Qui repellendus aliquam exercitationem.
                     </label>
                 </div>
             </li>
@@ -511,7 +526,7 @@
                     <label class='form-check-label'
                                             for='product_id2'
                          >
-                        Sint dolores iste aperiam ut.
+                        Amet quia explicabo dolores nisi et.
                     </label>
                 </div>
             </li>
@@ -524,7 +539,7 @@
                     <label class='form-check-label'
                                             for='product_id3'
                          >
-                        Ipsam quis inventore dolorem sapiente.
+                        Cum in eos commodi asperiores labore.
                     </label>
                 </div>
             </li>
@@ -537,7 +552,7 @@
                     <label class='form-check-label'
                                             for='product_id4'
                          >
-                        Et voluptates nesciunt ut.
+                        Nobis quas sit reiciendis blanditiis.
                     </label>
                 </div>
             </li>
@@ -569,8 +584,8 @@
                                 
             
             
-                                                                        <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(195)">195</button></li>
-                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(196)">196</button></li>
+                                                                        <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(334)">334</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(335)">335</button></li>
                                                         
         
                     <li class="page-item">
@@ -602,7 +617,7 @@
                     </div>
                     <br>
                     <div id='product_y'>
-                        <div wire:initial-data="{&quot;id&quot;:&quot;F4uRg21aJQszcjYQ41iF&quot;,&quot;name&quot;:&quot;admin.discount.product-id&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;search&quot;:null,&quot;productType&quot;:&quot;product_y&quot;,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;fca87bc34db70193fd91ceb6576e7cdfe841b803b08f7b6a2c433ca540350252&quot;,&quot;redirectTo&quot;:false}" wire:id="F4uRg21aJQszcjYQ41iF" class="form-group">
+                        <div wire:initial-data="{&quot;id&quot;:&quot;h1RCHNiCRuwOq01OhIV3&quot;,&quot;name&quot;:&quot;admin.discount.product-id&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;search&quot;:null,&quot;productType&quot;:&quot;product_y&quot;,&quot;paginator&quot;:{&quot;page&quot;:1}},&quot;children&quot;:[],&quot;checksum&quot;:&quot;8deb6fd27ecab09b1fe22bf2fa687faf4433cf99220a4a39a8f6112295430f77&quot;,&quot;redirectTo&quot;:false}" wire:id="h1RCHNiCRuwOq01OhIV3" class="form-group">
     <div>
         <input type='text' wire:model='search' class='form-control' placeholder="Search for product">
     </div>
@@ -617,7 +632,7 @@
                     <label class='form-check-label'
                      for='product_y0'
                          >
-                        Blanditiis quia ducimus fugiat animi a.
+                        Qui amet non voluptas qui.
                     </label>
                 </div>
             </li>
@@ -630,7 +645,7 @@
                     <label class='form-check-label'
                      for='product_y1'
                          >
-                        Possimus voluptatem enim et reprehenderit natus.
+                        Qui repellendus aliquam exercitationem.
                     </label>
                 </div>
             </li>
@@ -643,7 +658,7 @@
                     <label class='form-check-label'
                      for='product_y2'
                          >
-                        Sint dolores iste aperiam ut.
+                        Amet quia explicabo dolores nisi et.
                     </label>
                 </div>
             </li>
@@ -656,7 +671,7 @@
                     <label class='form-check-label'
                      for='product_y3'
                          >
-                        Ipsam quis inventore dolorem sapiente.
+                        Cum in eos commodi asperiores labore.
                     </label>
                 </div>
             </li>
@@ -669,7 +684,7 @@
                     <label class='form-check-label'
                      for='product_y4'
                          >
-                        Et voluptates nesciunt ut.
+                        Nobis quas sit reiciendis blanditiis.
                     </label>
                 </div>
             </li>
@@ -701,8 +716,8 @@
                                 
             
             
-                                                                        <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(195)">195</button></li>
-                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(196)">196</button></li>
+                                                                        <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(334)">334</button></li>
+                                                                                <li class="page-item"><button type="button" class="page-link" wire:click="gotoPage(335)">335</button></li>
                                                         
         
                     <li class="page-item">
@@ -834,7 +849,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="VGTc1RZRm8DSCJcS7J8NbQVsE7eE63hCFBxbR9mf"
+        data-csrftoken="ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl"
     ></div>
     <div id="app">
     </div>
@@ -970,7 +985,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'VGTc1RZRm8DSCJcS7J8NbQVsE7eE63hCFBxbR9mf',
+                _token: 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl',
                 color: color
             }
             });
@@ -982,7 +997,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'VGTc1RZRm8DSCJcS7J8NbQVsE7eE63hCFBxbR9mf',
+                _token: 'ZbRK3BwBWSh8h5BWW8yAzvgr6rUCQWswa8mhnLnl',
                 image: image
             }
             });

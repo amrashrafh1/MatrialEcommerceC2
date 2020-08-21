@@ -8,12 +8,13 @@ use Auth;
 class ShowProduct extends Component
 {
     public $product;
-    public $total = 0;
+    public $total       = 0;
     public $accessories = [];
-    public $prices = [];
-    public $followers = 0;
-    public $isFollow = false;
-    public $isWishlist = false;
+    public $prices      = [];
+    public $followers   = 0;
+    public $isFollow    = false;
+    public $isWishlist  = false;
+
     public function mount($product) {
 
         $this->product = $product;
@@ -24,10 +25,10 @@ class ShowProduct extends Component
             } else {
                 $this->isFollow = true;
             }
-            if(!auth()->user()->wishlists()->pluck('id')->contains($this->product->id)) {
-                $this->isWishlist = false;
-            } else {
+            if(auth()->user()->wishlists()->disableCache()->pluck('id')->contains($this->product->id)) {
                 $this->isWishlist = true;
+            } else {
+                $this->isWishlist = false;
             }
         }
     }
@@ -59,12 +60,18 @@ class ShowProduct extends Component
 
     public function wishlists() {
         if(Auth::check()) {
-            if(!auth()->user()->wishlists()->pluck('id')->contains($this->product->id)) {
-                auth()->user()->wishlists()->attach($this->product->id);
-                $this->isWishlist = true;
-            } else {
-                auth()->user()->wishlists()->detach($this->product->id);
+            if(auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($this->product->id)) {
+                auth()->user()->wishlists()->disableCache()->detach($this->product->id);
+                $this->emit('wishlistAdded');
+
                 $this->isWishlist = false;
+
+            } else {
+                auth()->user()->wishlists()->disableCache()->attach($this->product->id);
+                $this->emit('wishlistAdded');
+
+                $this->isWishlist = true;
+
             }
         }
     }

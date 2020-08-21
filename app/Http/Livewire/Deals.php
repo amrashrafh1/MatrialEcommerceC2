@@ -21,7 +21,10 @@ class Deals extends Component
         $random = Discount::where('daily', 'daily_deals')->discountAvailable()
             ->with('product:name,slug,product_type,id,sale_price,image,stock')->first();
 
-        return view('livewire.deals', ['discountProducts' => $discountProducts, 'random' => $random]);
+        $compare = session()->get('compare');
+
+        return view('livewire.deals', ['discountProducts' => $discountProducts, 'random' => $random,
+        'compare' => $compare]);
     }
 
     public function addCart($id)
@@ -34,5 +37,20 @@ class Deals extends Component
 
             }
         }
+    }
+
+    public function compare($id) {
+        if(session()->get('compare') !== null) {
+            if(!in_array($id,session()->get('compare'))) {
+                $this->emit('compareAdded');
+                session()->push('compare', $id);
+            } else {
+                return ;
+            }
+        } else {
+            $this->emit('compareAdded');
+            session()->push('compare', $id);
+        }
+
     }
 }

@@ -1,5 +1,8 @@
 <div wire:ignore>
     <!-- /.banners -->
+    @php
+        $compare = session()->get('compare');
+    @endphp
     <section class="section-hot-new-arrivals section-products-carousel-tabs techmarket-tabs">
         <div class="section-products-carousel-tabs-wrap">
             <header class="section-header">
@@ -21,15 +24,23 @@
                         <div class="container-fluid">
                             <div class="woocommerce">
                                 <div class="products">
+                                    @php
+                                        $wishlist_product_id = auth()->user()->wishlists()->disableCache()->pluck('product_id');
+                                    @endphp
                                     @foreach($products as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
-                                                Wishlist</a>
+                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" wire:click='wishlists({{$product->id}})'>
+                                                <i class="fa fa-heart-o fa-2x wish @auth
+                                                @if($wishlist_product_id->contains($product->id)) change_color
+                                                @endif
+                                                @endauth"></i>
+                                           </a>
                                         </div>
-                                        <a href="{{route('show_product',$product->slug)}}" class="woocommerce-LoopProduct-link">
-                                            <img src="{{Storage::url($product->image)}}" width="224"
-                                                height="197" class="wp-post-image" alt="">
+                                        <a href="{{route('show_product',$product->slug)}}"
+                                            class="woocommerce-LoopProduct-link">
+                                            <img src="{{Storage::url($product->image)}}" width="224" height="197"
+                                                class="wp-post-image" alt="">
                                             <span class="price">
                                                 @if($product->available_discount())
                                                 <ins>
@@ -49,13 +60,26 @@
                                         </a>
                                         <div class="hover-area">
                                             @if($product->IsVariable())
-                                            <a class="button add_to_cart_button" href='{{route('show_product', $product->slug)}}'
-                                                rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                            <a class="button add_to_cart_button"
+                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">Add to
+                                                cart</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($product->id,$compare))
+                                                    <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @else
                                             <a class="button add_to_cart_button" wire:click='addCart({{$product->id}})'
                                                 rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($product->id,$compare))
+                                                    <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
@@ -80,13 +104,18 @@
                                     @foreach($category->products->take(20) as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
-                                                Wishlist</a>
+                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" wire:click='wishlists({{$product->id}})'>
+                                                <i class="fa fa-heart-o fa-2x wish @auth
+                                                @if($wishlist_product_id->contains($product->id)) change_color
+                                                @endif
+                                                @endauth"></i>
+                                           </a>
 
                                         </div>
-                                        <a href="{{route('show_product',$product->slug)}}" class="woocommerce-LoopProduct-link">
-                                            <img src="{{Storage::url($product->image)}}" width="224"
-                                                height="197" class="wp-post-image" alt="">
+                                        <a href="{{route('show_product',$product->slug)}}"
+                                            class="woocommerce-LoopProduct-link">
+                                            <img src="{{Storage::url($product->image)}}" width="224" height="197"
+                                                class="wp-post-image" alt="">
                                             <span class="price">
                                                 @if(isset($product->discount))
                                                 <ins>
@@ -108,12 +137,24 @@
                                         <div class="hover-area">
                                             @if($product->IsVariable())
                                             <a class="button add_to_cart_button" href='{{url('/'. $product->slug)}}'
-                                                rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($product->id,$compare))
+                                                    <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @else
                                             <a class="button add_to_cart_button" wire:click='addCart({{$product->id}})'
                                                 rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($product->id,$compare))
+                                                        <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                        <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
@@ -136,3 +177,4 @@
         <!-- .section-products-carousel-tabs-wrap -->
     </section>
 </div>
+

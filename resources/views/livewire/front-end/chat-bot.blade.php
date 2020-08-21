@@ -20,19 +20,19 @@
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
                     <ul>
-                        <li id="status-online" class="{{(auth()->user()->chat_status === 'online')?'active':''}}"><span
+                        <li id="status-online" class="chat_status active"><span
                                 class="status-circle"></span>
                             <p>Online</p>
                         </li>
-                        <li id="status-away" class="{{(auth()->user()->chat_status === 'away')?'active':''}}"><span
+                        <li id="status-away" class="chat_status "><span
                                 class="status-circle"></span>
                             <p>Away</p>
                         </li>
-                        <li id="status-busy" class="{{(auth()->user()->chat_status === 'busy')?'active':''}}"><span
+                        <li id="status-busy" class="chat_status "><span
                                 class="status-circle"></span>
                             <p>Busy</p>
                         </li>
-                        <li id="status-offline" class="{{(auth()->user()->chat_status === 'offline')?'active':''}}">
+                        <li id="status-offline" class="chat_status ">
                             <span class="status-circle"></span>
                             <p>Offline</p>
                         </li>
@@ -58,9 +58,10 @@
                 @php
                 $cont = \App\User::find($contact);
                 @endphp
-                <li class="contact {{($cont->id === $this->user_id)?'active':''}}"
+                <li class="contact contact{{$cont->id}} {{($cont->id === $this->user_id)?'active':''}}"
                     wire:click='ChangeContact({{$cont->id}})'>
                     <div class="wrap">
+                    <span class="contact-status {{$cont->chat_status}}"></span>
                         <img src="{{Storage::url($cont->image)}}" alt="" />
                         <div class="meta">
                             <p class="name">{{$cont->name}}</p>
@@ -167,12 +168,21 @@
         </div>
         <div class="message-input" wire:ignore>
             <div class="wrap">
-                <form wire:submit.prevent='sendMesseges'>
-                    <input type="text" placeholder="Write your message..." wire:model.lazy='message' />
-                    {{-- <i class="fa fa-paperclip attachment" aria-hidden="true"></i> --}}
+                <form wire:submit.prevent='sendMesseges' enctype="multipart/form-data">
+                    <input type="text" placeholder="Write your message..." wire:model.lazy='message' style='width:80%;'/>
+
+                    <input type="file" wire:model.lazy='images' style='display:none;' id='image' multiple/>
+
+                    <i class="fa fa-paperclip attachment" aria-hidden="true" style='margin-right: 35px;'
+                    onclick='document.getElementById("image").click();'></i>
                     <button class="submit" style='margin-right: 15px;' type="submit"><i class="fa fa-paper-plane"
                             aria-hidden="true"></i></button>
                 </form>
+                @if($errors->any())
+        @foreach($errors->all() as $error)
+        <div class="alert alert-danger"> {{$error}}</div>
+        @endforeach
+        @endif
             </div>
         </div>
     </div>
@@ -254,11 +264,24 @@
     @role('seller')
 
     Echo.join(`chat-{{auth()->user()->id}}-{{$this->user_id}}`)
-        .here((user) => {})
-        .joining((user) => {})
-        .leaving((user) => {})
+        .here((user) => {
+        })
+        .joining((user) => {
+            @this.call('changeStatus', 'online');
+            $('.contact{{$this->user_id}} .contact-status').addClass('online');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('away');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('offline');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('busy');
+        })
+        .leaving((user) => {
+            @this.call('changeStatus', 'offline');
+            $('.contact{{$this->user_id}} .contact-status').removeClass('online');
+            $('.contact{{$this->user_id}} .contact-status').removeClass('away');
+            $('.contact{{$this->user_id}} .contact-status').addClass('offline');
+            $('.contact{{$this->user_id}} .contact-status').removeClass('busy');
+        })
         .listen('SendMesseges', (e) => {
-//            @this.emitSelf('readMessage', e.message.id);
+
             @this.call('readMessage', e.message.id)
 
             message = e.message.message;
@@ -278,9 +301,22 @@
     @else
 
     Echo.join(`chat-{{$this->user_id}}-{{auth()->user()->id}}`)
-        .here((user) => {})
-        .joining((user) => {})
-        .leaving((user) => {})
+        .here((user) => {
+        })
+        .joining((user) => {
+            @this.call('changeStatus', 'online');
+            $('.contact{{$this->user_id}} .contact-status').addClass('online');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('away');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('offline');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('busy');
+        })
+        .leaving((user) => {
+            @this.call('changeStatus', 'offline');
+            $('.contact{{$this->user_id}} .contact-status').removeClass('online');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('away');
+        $('.contact{{$this->user_id}} .contact-status').addClass('offline');
+        $('.contact{{$this->user_id}} .contact-status').removeClass('busy');
+        })
         .listen('SendMesseges', (e) => {
 
             @this.call('readMessage', e.message.id);
@@ -309,5 +345,27 @@
        if ( top == 0) {
         @this.call('loadMore');
         }
+});
+$(document).ready(function(){
+    $('.chat_status').on('click', function(e) {
+        localStorage.setItem('chat_status', $(this).attr('id').replace('status-',''));
+        @this.call('changeStatus');
+    });
+    var chat_status = localStorage.getItem('chat_status');
+    if(chat_status){
+        $('#status-' + chat_status).addClass('active');
+        $('#status-' + chat_status).siblings().removeClass('active');
+    }
+});
+
+/*  change status event  */
+Echo.private(`status`)
+    .listen('StatusEvent', (e) => {
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('online');
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('away');
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('offline');
+        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('busy');
+        $('.contact' + e.data['user_id'] +' .contact-status').addClass(e.data['status']);
+        //console.log(e.data['status']);
 });
 </script>

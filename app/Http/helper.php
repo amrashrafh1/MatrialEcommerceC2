@@ -72,7 +72,7 @@ if (!function_exists('upload')) {
 }
 
 if (!function_exists('multiple_uploads')) {
-    function multiple_uploads($images, $path, $model, $relation_id, $height, $width)
+    function multiple_uploads($images, $path, $model, $height = 600, $width = 550)
     {
         foreach ($images as $image) {
 
@@ -96,16 +96,14 @@ if (!function_exists('multiple_uploads')) {
                 $constraint->aspectRatio();
             });
             $logo->save($thumbnailpath);
-            $img = 'public/' . $path . '/' . $filenametostore;
+            $img = 'public/' . $path . '/thumbnail/' . $filenametostore;
 
-            \App\Files::create([
-                'name' => $filenametostore,
-                'size' => $logo->filesize(),
-                'file' => $img,
-                'path' => 'public/' . $path . '/',
-                'mime_type' => $extension,
-                'model' => $model,
-                'relation_id' => $relation_id,
+            $model->files()->create([
+                'name'        => $filenametostore,
+                'size'        => $logo->filesize(),
+                'file'        => $img,
+                'path'        => 'public/' . $path . '/',
+                'mime_type'   => $extension,
             ]);
         }
     }

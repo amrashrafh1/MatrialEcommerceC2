@@ -11,6 +11,7 @@ use Alert;
 use Illuminate\Http\Request;
 use App\Orders\OrderDetails;
 use Cartalyst\Stripe\Stripe;
+use App\Shippings\Shipping;
 
 class StripePaymentGetway implements PaymentGetwayContract
 {
@@ -54,23 +55,12 @@ class StripePaymentGetway implements PaymentGetwayContract
                         Cart::update($cc->id, $cc->buyable->stock);
                     }
                 }
-                $sh = Shipping_methods::where('id',$cart['shipping'])->first();
-                if(!$sh ) {
-                    $defaultShipping = Setting::orderBy('id','desc')->first();
-                    if($defaultShipping->default_shipping == 1) {
-                        if($defaultShipping->shipping !== null) {
-                            $ship =  $cart->buyable->calcShipping($defaultShipping->shipping, $cart->quantity);
-                            $this->shipping += round($ship);
-                            $shipping_name = $defaultShipping->shipping->name;
-                        }
 
-                    }
-                } else {
-                    $ship = $cc->buyable->calcShipping(Shipping_methods::find($cart['shipping']), $cc->quantity);
-                    $this->shipping += round($ship);
-                    $shipping_name = Shipping_methods::find($cart['shipping'])->name;
+                $calcShipping    = new Shipping(Shipping_methods::where('id',$cart['shipping'])->first(), $cc->quantity,$cc->price, $cc->buyable->weight);
+                $shippingMethod  = $calcShipping->shippingMethod();
+                $this->shipping += $shippingMethod[0];
+                $shipping_name   = $shippingMethod[1];
 
-                }
                 $this->qty      += $cc->quantity;
                // $this->shipping += round($ship);
                 $this->subtotal += round($cc->price * $cc->quantity);
@@ -82,7 +72,7 @@ class StripePaymentGetway implements PaymentGetwayContract
                     ]);
                 array_push($data['shipping'],
                     [
-                        'name' => 'shipping_method: ' . $shipping_name, 'price' => 'Price: ' . round($ship),
+                        'name' => 'shipping_method: ' . $shipping_name, 'price' => 'Price: ' . round($shippingMethod[0]),
                         'desc' => 'shipping method: ' . $shipping_name, 'qty' => 1,
                     ]);
                 array_push($this->shippings_names, $shipping_name);
@@ -115,23 +105,11 @@ class StripePaymentGetway implements PaymentGetwayContract
                     }
                 }
 
-                $sh = $cart->buyable->methods->first();
-                if(!$sh ) {
-                    $defaultShipping = Setting::orderBy('id','desc')->first();
-                    if($defaultShipping->default_shipping == 1) {
-                        if($defaultShipping->shipping !== null) {
-                            $ship =  $cart->buyable->calcShipping($defaultShipping->shipping, $cart->quantity);
-                            $this->shipping += round($ship);
-                            $shipping_name = $defaultShipping->shipping->name;
-                        }
+                $calcShipping    = new Shipping($cart->buyable->methods->first(), $cart->quantity, $cart->price, $cart->buyable->weight);
+                $shippingMethod  = $calcShipping->shippingMethod();
+                $this->shipping += $shippingMethod[0];
+                $shipping_name   = $shippingMethod[1];
 
-                    }
-                } else {
-                    $ship            = $cart->buyable->calcShipping($cart->buyable->methods->first(), (int)$cart->quantity);
-                    $this->shipping += round($ship);
-                    $shipping_name   = $cart->buyable->methods->first()->name;
-
-                }
                 $this->qty      += $cart->quantity;
                 //$this->shipping += round($ship);
                 $this->subtotal += round($cart->price * $cart->quantity);
@@ -143,7 +121,7 @@ class StripePaymentGetway implements PaymentGetwayContract
                     ]);
                 array_push($data['shipping'],
                     [
-                        'name' => 'shipping_method: ' . $shipping_name, 'price' => 'cost: ' . round($ship),
+                        'name' => 'shipping_method: ' . $shipping_name, 'price' => 'cost: ' . round($shippingMethod[0]),
                         'desc' => 'shipping method: ' . $shipping_name, 'qty' => 1,
                     ]);
                 array_push($this->shippings_names, $shipping_name);

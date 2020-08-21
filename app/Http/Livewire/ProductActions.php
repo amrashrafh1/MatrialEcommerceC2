@@ -88,13 +88,13 @@ class ProductActions extends Component
     public function compare() {
         if(session()->get('compare') !== null) {
             if(!in_array($this->product->id,session()->get('compare'))) {
-                $this->emit('cartAdded');
+                $this->emit('compareAdded');
                 return  session()->push('compare', $this->product->id);
             } else {
                 return ;
             }
         } else {
-            $this->emit('cartAdded');
+            $this->emit('compareAdded');
             return  session()->push('compare', $this->product->id);
         }
 

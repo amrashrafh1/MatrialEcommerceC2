@@ -116,11 +116,25 @@
                                         </a>
                                         <div class="hover-area">
                                             @if($discount->product->IsVariable())
-                                        <a class="button add_to_cart_button" href='{{route('show_product', $discount->product->slug)}}' rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                            <a class="button add_to_cart_button" href='{{url('/'. $product->slug)}}'
+                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($discount->product->id,$compare))
+                                                    <a class="add-to-compare-link comp" wire:click='compare({{$discount->product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @else
-                                            <a class="button add_to_cart_button" wire:click='addCart({{$discount->product->id}})' rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                            <a class="button add_to_cart_button" wire:click='addCart({{$discount->product->id}})'
+                                                rel="nofollow">Add to cart</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($discount->product->id,$compare))
+                                                        <a class="add-to-compare-link comp" wire:click='compare({{$discount->product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                        <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
@@ -157,11 +171,25 @@
                                         </a>
                                         <div class="hover-area">
                                             @if($discount->product->IsVariable())
-                                            <a class="button add_to_cart_button" href='{{route('show_product', $discount->product->slug)}}' rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                            <a class="button add_to_cart_button" href='{{url('/'. $discount->product->slug)}}'
+                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($discount->product->id,$compare))
+                                                    <a class="add-to-compare-link comp" wire:click='compare({{$discount->product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @else
-                                            <a class="button add_to_cart_button" wire:click='addCart({{$discount->product->id}})' rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                            <a class="button add_to_cart_button" wire:click='addCart({{$discount->product->id}})'
+                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                @if($compare !== null)
+                                                    @if(!in_array($discount->product->id,$compare))
+                                                        <a class="add-to-compare-link comp" wire:click='compare({{$discount->product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                    @else
+                                                        <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                    @endif
+                                                @endif
                                             @endif
                                         </div>
                                     </div>

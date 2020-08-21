@@ -15,6 +15,7 @@ class RecentlyProduct extends Component
         } else {
             $recently_viewed = collect();
         }
+
         return view('livewire.products.recently-product', ['recently_viewed' => $recently_viewed]);
     }
 }

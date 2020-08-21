@@ -5,7 +5,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
 <div id="content" class="site-content" tabindex="-1">
     <div class="col-full">
         <div class="row">
-            <nav class="woocommerce-breadcrumb">
+            <nav class="woocommerce-breadcrumb" wire:ignore>
                 <a href="{{route('home')}}">@lang('user.home')</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
@@ -25,7 +25,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
             <div class="col-md-12 mb-1 d-flex justify-content-center">
                 <div class="row">
                     <nav id="primary-navigation" class="primary-navigation" aria-label="Primary Navigation"
-                        data-nav="flex-menu">
+                        data-nav="flex-menu" wire:ignore>
                         <ul id="menu-primary-menu" class="nav yamm">
                             <li class="yamm-fw menu-item menu-item-has-children animate-dropdown dropdown">
                                 <a title="Pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
@@ -43,7 +43,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                                             @endif
                                                         </li>
                                                         <li class="nav-body menu-item">
-                                                        <a href="#">This store has been open since <span class="text-danger">{{$this->product->seller->created_at->format('F j, Y')}}</span></a>
+                                                        <a href="#">@lang('user.This_store_has_been_open_since') <span class="text-danger">{{$this->product->seller->created_at->format('F j, Y')}}</span></a>
                                                         </li>
                                                         <li class="nav-body menu-item">
                                                             <a href="#" class="text-info">Store rating </a>
@@ -79,7 +79,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                     </div>
                 </div>
             </div>
-            <div style="margin:0 auto 25px;">
+            <div style="margin:0 auto 25px;" wire:ignore>
                 <img class='' src="{{Storage::url($this->product->seller->image)}}" style='height:150px;width:300px;'/>
             </div>
             <!-- .woocommerce-breadcrumb -->
@@ -140,11 +140,14 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 <h1 class="product_title entry-title">{{$this->product->name}}</h1>
                                 @guest
                                 <a style="position: absolute;right: 35px;top: 0; cursor:pointer;" href="{{route('login')}}">
-                                    <i class="fa fa-heart-o fa-2x" style="{{($this->isWishlist)?'color:red;':''}}"></i>
+                                    <i class="fa fa-heart-o fa-2x"></i>
                                </a>
                                 @else
                                 <a style="position: absolute;right: 35px;top: 0;cursor:pointer;" wire:click='wishlists'>
-                                     <i class="fa fa-heart-o fa-2x" style="{{($this->isWishlist)?'color:red;':''}}"></i>
+                                     <i class="fa fa-heart-o fa-2x wish @auth
+                                     @if($this->isWishlist) change_color
+                                     @endif
+                                     @endauth"></i>
                                 </a>
                                 @endguest
                                 </div>
@@ -296,7 +299,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                                         @endif
                                                         <div class="checkbox accessory-checkbox">
                                                             <label>
-                                                            <input name="accessories[]" wire:model='accessories' value="{{$accessory->id}}" type="checkbox" data-product-type="simple" data-product-id="185" data-price="997.00" class="product-check" checked=""> Remove
+                                                            <input name="accessories[]" wire:model='accessories' value="{{$accessory->id}}" type="checkbox" data-product-type="simple" data-product-id="185" data-price="997.00" class="product-check" checked=""> @lang('user.add')
                                                             </label>
                                                         </div>
                                                     </div>

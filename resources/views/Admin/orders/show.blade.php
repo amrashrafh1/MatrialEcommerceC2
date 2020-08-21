@@ -61,8 +61,9 @@
                     <div class="col-sm-6">
                         <address>
                             <strong>@lang('admin.payment_method'):</strong><br>
-                            Visa ending **** 4242<br>
-                            jsmith@email.com
+                            <span class='text-capitalize'>
+                                {{$rows->payment_method}}
+                            </span>
                         </address>
                     </div>
                     <div class="col-sm-6 text-right">

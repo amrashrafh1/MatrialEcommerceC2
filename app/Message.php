@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Files;
+use App\Product;
 class Message extends Model
 {
     protected $table = 'messages';
@@ -16,5 +17,10 @@ class Message extends Model
     public function product()
     {
     	return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function image()
+    {
+        return $this->morphMany(Files::class, 'files');
     }
 }

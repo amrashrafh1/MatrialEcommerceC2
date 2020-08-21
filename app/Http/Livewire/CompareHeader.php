@@ -6,16 +6,18 @@ use Livewire\Component;
 
 class CompareHeader extends Component
 {
-    public $foo = 'updating';
-    protected  $listeners = ['echo:private-cartupdate,cartEvent' => 'cartEvent'];
+    public $Foo;
+
+    protected  $listeners = ['compareAdded' => 'compareEvent'];
+
+    public function compareEvent()
+    {
+        $this->Foo = 'updated';
+    }
 
     public function render()
     {
         return view('livewire.compare-header');
     }
 
-    public function cartEvent()
-    {
-        $this->Foo = 'updated';
-    }
 }

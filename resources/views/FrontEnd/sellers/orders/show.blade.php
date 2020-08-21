@@ -61,8 +61,9 @@
                     <div class="col-sm-6">
                         <address>
                             <strong>@lang('admin.payment_method'):</strong><br>
-                            {{($rows->payment_method)?$rows->payment_method:'null'}}<br>
-                            {{$rows->billing_email}}
+                            <span class='text-capitalize'>
+                                {{$rows->payment_method}}
+                            </span>
                         </address>
                     </div>
                     <div class="col-sm-6 text-right">

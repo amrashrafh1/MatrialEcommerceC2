@@ -17,7 +17,7 @@ class EditProductId extends Component
         $this->productType = $type;
         $product = Product::where('id', $id)->first();
 
-        $this->product_id     = $product->id;
+        $this->product_id     = $id;
         if($product) {
 
             $this->search = $product->name;

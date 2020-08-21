@@ -31,6 +31,17 @@
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,900" rel="stylesheet">
     <link rel="shortcut icon" href="{{\App\Setting::latest('id')->first()?Storage::url(\App\Setting::latest('id')->first()->icon):''}}">
     @livewireAssets
+    <style>
+        #botmanWidgetRoot > div{
+            min-width: 100px !important;
+            min-height: 120px !important;
+        }
+        /* #scrollUp {
+            right: 80px !important;
+            bottom: 80px !important;
+        } */
+
+    </style>
 @stack('css')
 </head>
 

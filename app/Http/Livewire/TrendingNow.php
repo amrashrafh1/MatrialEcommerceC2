@@ -23,7 +23,10 @@ class TrendingNow extends Component
         ->with(['products'=> function ($q) {
             $q->where('section','trending_now');
         }])->take(4)->get();
-        return view('livewire.trending-now',['products' => $products, 'categories' => $categories]);
+        $compare = session()->get('compare');
+
+        return view('livewire.trending-now',['products' => $products, 'categories' => $categories
+        ,'compare' => $compare]);
     }
 
     public function addCart($id) {
@@ -33,5 +36,21 @@ class TrendingNow extends Component
             \Cart::add($product,1);
             $this->emit('cartAdded');
         }
+    }
+
+
+    public function compare($id) {
+        if(session()->get('compare') !== null) {
+            if(!in_array($id,session()->get('compare'))) {
+                $this->emit('compareAdded');
+                session()->push('compare', $id);
+            } else {
+                return ;
+            }
+        } else {
+            $this->emit('compareAdded');
+            session()->push('compare', $id);
+        }
+
     }
 }
