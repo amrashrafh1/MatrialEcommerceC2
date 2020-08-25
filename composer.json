@@ -41,7 +41,6 @@
         "pusher/pusher-php-server": "^4.1",
         "realrashid/sweet-alert": "^2.0",
         "santigarcor/laratrust": "5.2.*",
-        "silber/page-cache": "^1.0",
         "spatie/laravel-searchable": "^1.5",
         "spatie/laravel-tags": "^2.5",
         "spatie/laravel-translatable": "^4.2",
