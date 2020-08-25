@@ -1,10 +1,6 @@
 @extends('Admin.layouts.app', ['activePage' => 'dashboard', 'titlePage' => trans('admin.dashboard')])
 
 @section('content')
-@php
-$disk_total_space = disk_total_space('/');
-$disk_free_space = disk_free_space('/');
-@endphp
 
   <div class="content">
     <div class="container-fluid">
@@ -34,7 +30,7 @@ $disk_free_space = disk_free_space('/');
               <div class="card-icon">
                 <i class="material-icons">content_copy</i>
               </div>
-              <p class="card-category">Used Space</p>
+              <p class="card-category">@lang('admin.Used_Space')</p>
               <h4 class="card-title"><span>{{getSymbolByQuantity($disk_free_space)}}</span><br/>/<span>{{getSymbolByQuantity($disk_total_space)}}</span>
               </h4>
             </div>
@@ -103,13 +99,13 @@ $disk_free_space = disk_free_space('/');
               <div class="ct-chart" id="dailySalesChart"></div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Daily Sales</h4>
+              <h4 class="card-title">@lang('admin.Daily_Sales')</h4>
               <p class="card-category">
-                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{$salesIncrease}}% </span> increase in today sales.</p>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">access_time</i> updated 4 minutes ago
+                <i class="material-icons">access_time</i> @lang('admin.updated_sales') {{($sold)?\Carbon\Carbon::parse($sold->created_at)->diffForhumans():''}}
               </div>
             </div>
           </div>
@@ -458,8 +454,7 @@ $disk_free_space = disk_free_space('/');
              "@lang('admin.4days_ago')", "@lang('admin.5days_ago')", "@lang('admin.6days_ago')","@lang('admin.7days_ago')"],
             datasets: [{
                 label: 'Profits',
-                data: [{{\App\Sold::where('created_at',today())->value(\DB::raw('SUM((sale_price * sold - purchase_price * sold)  - coupon)'))}}
-, {{profit_calc(1)}}, {{profit_calc(2)}}, {{profit_calc(3)}}, {{profit_calc(4)}}, {{profit_calc(4)}}, {{profit_calc(5)}},{{profit_calc(6)}}],
+                data: @json($profits),
                 borderWidth: 2,
                 backgroundColor: 'transparent',
                 borderColor: '#00c3ed',
@@ -500,8 +495,7 @@ $disk_free_space = disk_free_space('/');
         labels: ["@lang('admin.Tod')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
              "@lang('admin.4d')", "@lang('admin.5d')", "@lang('admin.6d')","@lang('admin.7d')"],
         series: [
-            [{{App\Sold::whereDate('created_at', today())->sum('sold')}}
-, {{sales_calc(1)}}, {{sales_calc(2)}}, {{sales_calc(3)}}, {{sales_calc(4)}}, {{sales_calc(4)}}, {{sales_calc(5)}},{{sales_calc(6)}}],
+            @json($sales),
         ]
       };
 

@@ -5,7 +5,7 @@
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex">
-    <meta name="csrf-token" content="pJQ4xfypp0LFVtByDYUpxAmsjDYl2PSrU3yBWfyV">
+    <meta name="csrf-token" content="Nu8POqTFLCbk980xCFob7ieUIVDxJnV2rEwhiDss">
     <title>Seller chat</title>
     <link rel="shortcut icon" type="image/x-icon"
         href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
@@ -868,14 +868,14 @@
 
 <body>
     <div id="app"></div>
-    <div wire:initial-data="{&quot;id&quot;:&quot;VPOMXMaENwBWDwFw9vx7&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[&quot;chatUpdated&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:null,&quot;photos&quot;:[],&quot;user_id&quot;:4,&quot;status&quot;:null,&quot;contacts&quot;:[4],&quot;paginate_var&quot;:15,&quot;chat_update&quot;:false},&quot;children&quot;:[],&quot;checksum&quot;:&quot;782348ac3db5cc01770a031967a1414aaaf8a2e4969f6e27aa8c99deb6fcc450&quot;,&quot;redirectTo&quot;:false}" wire:id="VPOMXMaENwBWDwFw9vx7" id="frame" wire:ignore.self>
+    <div wire:initial-data="{&quot;id&quot;:&quot;TXMY6MXrP4IgCaOJs5AY&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[&quot;chatUpdated&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:null,&quot;photos&quot;:[],&quot;user_id&quot;:5,&quot;status&quot;:null,&quot;contacts&quot;:[1,5],&quot;paginate_var&quot;:15,&quot;chat_update&quot;:false},&quot;children&quot;:[],&quot;checksum&quot;:&quot;e237818afc1d640a4dd08d8d36766cc1e968a6be535da5f41b55305159da1b90&quot;,&quot;redirectTo&quot;:false}" wire:id="TXMY6MXrP4IgCaOJs5AY" id="frame" wire:ignore.self>
         <div id="sidepanel">
         <div id="profile" wire:ignore>
             <div class="wrap">
-                <img id="profile-img" src="/storage/profiles/thumbnail/2_1598110782.jpg" class="
+                <img id="profile-img" src="/storage/user.png" class="
                                 online
                                 " alt="" />
-                <p>Amr Ashraf</p>
+                <p>Seller</p>
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
                     <ul>
@@ -910,13 +910,25 @@
         
         <div id="contacts" wire:ignore>
             <ul>
-                                                <li class="contact contact4 active"
-                    wire:click='ChangeContact(4)'>
+                                                <li class="contact contact1 "
+                    wire:click='ChangeContact(1)'>
                     <div class="wrap">
-                    <span class="contact-status offline"></span>
+                    <span class="contact-status online"></span>
+                        <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
+                        <div class="meta">
+                            <p class="name">Amr Ashraf</p>
+                            <p class="preview">
+                                                                </p>
+                        </div>
+                    </div>
+                </li>
+                                                <li class="contact contact5 active"
+                    wire:click='ChangeContact(5)'>
+                    <div class="wrap">
+                    <span class="contact-status online"></span>
                         <img src="/storage/user.png" alt="" />
                         <div class="meta">
-                            <p class="name">Seller</p>
+                            <p class="name">amr</p>
                             <p class="preview">
                                                                 </p>
                         </div>
@@ -929,170 +941,29 @@
     <div class="content">
         <div class="contact-profile" wire:ignore>
             <img src="/storage/user.png" alt="" />
-            <p>Seller</p>
+            <p>amr</p>
             <div class="social-media">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
                 <i class="fa fa-twitter" aria-hidden="true"></i>
                 <i class="fa fa-instagram" aria-hidden="true"></i>
             </div>
         </div>
-                <div class='position-relative p-3'>
-            <button class='btn btn-primary-outline' wire:click='loadMore' style='width: 100%;
-            top: 0;
-            position: absolute;
-            left: 0;'><i class='fa fa-spinner'></i> Load more</button>
-        </div>
                 <div id='messages' class="messages">
             <ul>
-                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                oh man
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                asdasdasd
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                asdasdasd
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                ok ok
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                hhhh
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                hhhh
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                ok ok
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                nice
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                                                <img src="/storage/messages/thumbnail/3_1598112028.jpg" alt="" class='image'  />
-                                                        <img src="/storage/messages/thumbnail/3column1_1598112028.jpg" alt="" class='image'  />
-                                                                            <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                rly
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                nice nice
-                                                <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
-                    <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                                                <img src="/storage/messages/thumbnail/3column3_1598112055.jpg" alt="" class='image'  />
-                                                        <img src="/storage/messages/thumbnail/4_1598112055.jpg" alt="" class='image'  />
-                                                                            <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                </p>
-                </li>
-                                                                                                <li class="sent">
+                                                                <li class="sent">
                     <img src="/storage/user.png" alt="" />
                     <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                                                <img src="/storage/messages/thumbnail/3column1_1598112308.jpg" alt=""  class='image' wire:ignore/>
-                                                        <img src="/storage/messages/thumbnail/3column2_1598112308.jpg" alt=""  class='image' wire:ignore/>
-                                                     <br /> <span
-                            style="font-size:12px;float:right;">4 hours ago</span>
+                                                hey
+                         <br /> <span
+                            style="font-size:12px;float:right;">33 minutes ago</span>
                         </p>
                 </li>
                                                                                                 <li class="replies">
-                    <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
+                    <img src="/storage/user.png" alt="" />
                     <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                                                <img src="/storage/messages/thumbnail/2-1_1598112318.jpg" alt="" class='image'  />
-                                                                            <br /> <span
-                            style="font-size:12px; float:right;">4 hours ago</span>
+                                                welcome
+                                                <br /> <span
+                            style="font-size:12px; float:right;">33 minutes ago</span>
                                                         <br/>
                             <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
                             </span>
@@ -1101,10 +972,9 @@
                                                                                                 <li class="sent">
                     <img src="/storage/user.png" alt="" />
                     <p style="overflow-wrap: break-word;" id='imageContainer'>
-                                                                                <img src="/storage/messages/thumbnail/3column3_1598112329.jpg" alt=""  class='image' wire:ignore/>
-                                                        <img src="/storage/messages/thumbnail/4_1598112330.jpg" alt=""  class='image' wire:ignore/>
-                                                     <br /> <span
-                            style="font-size:12px;float:right;">4 hours ago</span>
+                                                ok
+                         <br /> <span
+                            style="font-size:12px;float:right;">21 minutes ago</span>
                         </p>
                 </li>
                                                             </ul>
@@ -1151,7 +1021,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'pJQ4xfypp0LFVtByDYUpxAmsjDYl2PSrU3yBWfyV';
+        window.livewire_token = 'Nu8POqTFLCbk980xCFob7ieUIVDxJnV2rEwhiDss';
     });
 </script>
 
@@ -1190,16 +1060,16 @@
         $(this).addClass("active");
         if ($("#status-online").hasClass("active")) {
             $("#profile-img").addClass("online");
-            window.livewire.find('VPOMXMaENwBWDwFw9vx7').set('status', 'online');
+            window.livewire.find('TXMY6MXrP4IgCaOJs5AY').set('status', 'online');
         } else if ($("#status-away").hasClass("active")) {
             $("#profile-img").addClass("away");
-            window.livewire.find('VPOMXMaENwBWDwFw9vx7').set('status', 'away');
+            window.livewire.find('TXMY6MXrP4IgCaOJs5AY').set('status', 'away');
         } else if ($("#status-busy").hasClass("active")) {
             $("#profile-img").addClass("busy");
-            window.livewire.find('VPOMXMaENwBWDwFw9vx7').set('status', 'busy');
+            window.livewire.find('TXMY6MXrP4IgCaOJs5AY').set('status', 'busy');
         } else if ($("#status-offline").hasClass("active")) {
             $("#profile-img").addClass("offline");
-            window.livewire.find('VPOMXMaENwBWDwFw9vx7').set('status', 'offline');
+            window.livewire.find('TXMY6MXrP4IgCaOJs5AY').set('status', 'offline');
         } else {
             $("#profile-img").removeClass();
         };
@@ -1212,7 +1082,7 @@
         if ($.trim(message) == '') {
             return false;
         }
-        $('<li class="replies"><img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" /><p>' +
+        $('<li class="replies"><img src="/storage/user.png" alt="" /><p>' +
             message +
             '<br /> <span style="font-size:12px; float:right;"></span></p></li>').appendTo($('.messages ul'));
         $('.message-input input').val(null);
@@ -1227,34 +1097,33 @@
     });
 
     
-    Echo.join(`chat-4-1`)
-        .here((user) => {
-        })
+    Echo.join(`chat-4-5`)
+        .here((user) => {})
         .joining((user) => {
-            window.livewire.find('VPOMXMaENwBWDwFw9vx7').call('changeStatus', 'online');
-            $('.contact4 .contact-status').addClass('online');
-        $('.contact4 .contact-status').removeClass('away');
-        $('.contact4 .contact-status').removeClass('offline');
-        $('.contact4 .contact-status').removeClass('busy');
+            window.livewire.find('TXMY6MXrP4IgCaOJs5AY').call('changeStatus', 'online');
+            $('.contact5 .contact-status').addClass('online');
+            $('.contact5 .contact-status').removeClass('away');
+            $('.contact5 .contact-status').removeClass('offline');
+            $('.contact5 .contact-status').removeClass('busy');
         })
         .leaving((user) => {
-
-        window.livewire.find('VPOMXMaENwBWDwFw9vx7').call('changeStatus', 'offline');
-        $('.contact4 .contact-status').removeClass('online');
-        $('.contact4 .contact-status').removeClass('away');
-        $('.contact4 .contact-status').removeClass('busy');
-        $('.contact4 .contact-status').addClass('offline');
+            window.livewire.find('TXMY6MXrP4IgCaOJs5AY').call('changeStatus', 'offline');
+            $('.contact5 .contact-status').removeClass('online');
+            $('.contact5 .contact-status').removeClass('away');
+            $('.contact5 .contact-status').removeClass('busy');
+            $('.contact5 .contact-status').addClass('offline');
             console.log('offline');
+
         })
         .listen('SendMesseges', (e) => {
 
-            window.livewire.find('VPOMXMaENwBWDwFw9vx7').call('readMessage', e.message.id);
+            window.livewire.find('TXMY6MXrP4IgCaOJs5AY').call('readMessage', e.message.id)
 
             message = e.message.message;
             if ($.trim(message) == '') {
                 return false;
             }
-            $('<li class="sent"><img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" /><p>' +
+            $('<li class="sent"><img src="/storage/user.png" alt="" /><p>' +
                 message +
                 '<br /> <span style="font-size:12px;float:right;"></span></p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
@@ -1263,6 +1132,7 @@
                 scrollTop: $(document).height() + 10000000
             }, "fast");
         });
+
     
     $('#contacts').on('click', 'li', function () {
         $('#contacts li.active').removeClass('active');
@@ -1271,13 +1141,13 @@
     $('#messages').scroll(function() {
    var top = $('#messages').scrollTop();
        if ( top == 0) {
-        window.livewire.find('VPOMXMaENwBWDwFw9vx7').call('loadMore');
+        window.livewire.find('TXMY6MXrP4IgCaOJs5AY').call('loadMore');
         }
 });
 $(document).ready(function(){
     $('.chat_status').on('click', function(e) {
         localStorage.setItem('chat_status', $(this).attr('id').replace('status-',''));
-        window.livewire.find('VPOMXMaENwBWDwFw9vx7').call('changeStatus');
+        window.livewire.find('TXMY6MXrP4IgCaOJs5AY').call('changeStatus');
     });
     var chat_status = localStorage.getItem('chat_status');
     if(chat_status){
@@ -1316,7 +1186,7 @@ $('#image-upload').change(function () {
 
     $.ajax({
         method: 'POST',
-        url: 'http://127.0.0.1:8000/chat/upload/photots/4',
+        url: 'http://127.0.0.1:8000/chat/upload/photots/5',
         data: image_upload,
         contentType: false,
         processData: false,

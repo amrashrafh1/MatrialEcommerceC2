@@ -368,7 +368,7 @@ if (!function_exists('curr')) {
     }
 }
 
-if (!function_exists('getPercentageChange')) {
+/* if (!function_exists('getPercentageChange')) {
     function getPercentageChange($oldNumber, $newNumber)
     {
         if ($oldNumber == 0) {
@@ -378,7 +378,7 @@ if (!function_exists('getPercentageChange')) {
 
         return ($decreaseValue / $oldNumber) * 100;
     }
-}
+} */
 
 if (!function_exists('sortProducts')) {
     function sortProducts($brand = null, $products = [],$attributes = [], $sort = 'newness', $perpage = 20)
@@ -1224,11 +1224,19 @@ if (!function_exists('get_purchase_price')) {
 
 if(!function_exists('profit_calc')) {
     function profit_calc($days) {
-        return \App\Sold::where('created_at',today()->subDays($days))->value(\DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)'));
+        return \App\Sold::whereDate('created_at',today()->subDays($days))->value(\DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)'));
     }
 }
 if(!function_exists('sales_calc')) {
     function sales_calc($days) {
-        return \App\Sold::where('created_at',today()->subDays($days))->sum('sold');
+        return \App\Sold::whereDate('created_at',today()->subDays($days))->sum('sold');
+    }
+}
+
+if(!function_exists('getPercentageChange')) {
+    function getPercentageChange($oldNumber, $newNumber){
+        $decreaseValue = $oldNumber - $newNumber;
+
+        return ($decreaseValue / $oldNumber) * 100;
     }
 }

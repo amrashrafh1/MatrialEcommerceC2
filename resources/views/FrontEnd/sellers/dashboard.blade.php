@@ -74,10 +74,10 @@
                                         $query->where('user_id', $user_id);
                                     })->sum('sold');
                                     @endphp
-                                    @if(getPercentageChange($total_sales_2, $total_sales_1) < 0)
-                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs(getPercentageChange($total_sales_2, $total_sales_1))}}% decrease</a>
+                                    @if(getPercentageChange(($total_sales_2)?$total_sales_2:1, $total_sales_1) < 0)
+                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs(getPercentageChange(($total_sales_2)?$total_sales_2:1, $total_sales_1))}}% decrease</a>
                                     @else
-                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{getPercentageChange($total_sales_2, $total_sales_1)}}% increase</a>
+                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{getPercentageChange(($total_sales_2)?$total_sales_2:1, $total_sales_1)}}% increase</a>
                                     @endif
                                 </div>
                             </div>
@@ -109,10 +109,10 @@
                                         $query->where('user_id', $user_id);
                                     })->count();
                                     @endphp
-                                    @if(getPercentageChange($total_order_2, $total_order_1) < 0)
-                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs(getPercentageChange($total_order_2, $total_order_1))}}% decrease</a>
+                                    @if(getPercentageChange(($total_order_2)?$total_order_2:1, $total_order_1) < 0)
+                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs(getPercentageChange(($total_order_2)?$total_order_2:1, $total_order_1))}}% decrease</a>
                                     @else
-                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{getPercentageChange($total_order_2, $total_order_1)}}% increase</a>
+                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{getPercentageChange(($total_order_2)?$total_order_2:1, $total_order_1)}}% increase</a>
                                     @endif
                                 </div>
                             </div>

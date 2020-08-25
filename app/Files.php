@@ -15,7 +15,7 @@ class Files extends Model
         'mime_type',
     ];
 
-    public function files() {
+    public function relation() {
         return $this->morphTo();
     }
 }

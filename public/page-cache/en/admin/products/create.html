@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM">
+    <meta name="csrf-token" content="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5">
     <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
     <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
     <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
@@ -23,7 +23,6 @@
     <link href="http://127.0.0.1:8000/css/custom.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="http://127.0.0.1:8000/assets/addchat/css/addchat.min.css" rel="stylesheet">
-            <link href="http://127.0.0.1:8000/css/colors/danger.css" rel="stylesheet"/>
             <!-- Livewire assets -->
 <style>
     [wire\:loading] {
@@ -43,19 +42,19 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM';
+        window.livewire_token = 'qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5';
     });
 </script>
 
 <script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
-</head>
+    </head>
 
 <body class="">
         <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM">    </form>
+        <input type="hidden" name="_token" value="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5">    </form>
     <div class="wrapper ">
-  <div class="sidebar" data-color="danger" data-background-color="white"
-    data-image="http://127.0.0.1:8000/material/img/sidebar-2.jpg">
+  <div class="sidebar" data-color="orange" data-background-color="white"
+    data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -84,12 +83,26 @@
                 <a href="http://127.0.0.1:8000/en/admin/seller" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Sellers</a>
                 <a href="http://127.0.0.1:8000/en/admin/seller/products" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu">Products</a>
             </li>
+            <li class="nav-itemcollapsed list-group" >
+                <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+                        shopping_basket
+                    </i>
+                    CMS<span class="caret"></span></a>
+            </li>
+                        <li class="collapse list-group-level1 " id="sub-menu1">
+                <a href="http://127.0.0.1:8000/en/admin/teams" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Teams</a>
+                <a href="http://127.0.0.1:8000/en/admin/contact_us" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Contact us</a>
+                <a href="http://127.0.0.1:8000/en/admin/testimonials" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Testimonials</a>
+                <a href="http://127.0.0.1:8000/en/admin/services" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Services</a>
+                <a href="http://127.0.0.1:8000/en/admin/ourworks" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Ourworks</a>
+                <a href="http://127.0.0.1:8000/en/admin/sliders" class="list-group-item nav-linkcollapsed" data-parent="#sub-menu1">Sliders</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="http://127.0.0.1:8000/admin/fullcalendar">
                     <i class="material-icons">
                         calendar_today
                     </i>
-                    <p>Events</p>
+                    <p>Calendar</p>
                 </a>
             </li>
             <li class="nav-item">
@@ -406,10 +419,10 @@
                 </div>
             </div>
             <div class="card-body form" id="element">
-                <div wire:initial-data="{&quot;id&quot;:&quot;qG8aNfCFXevmWwQgDg2I&quot;,&quot;name&quot;:&quot;create-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:[],&quot;children&quot;:[],&quot;checksum&quot;:&quot;e2b51a10eb1554ed227b36859fe8b93e4c057134c75e1f552dfe5dd7f3b9ecb9&quot;,&quot;redirectTo&quot;:false}" wire:id="qG8aNfCFXevmWwQgDg2I" class="col-md-12">
+                <div wire:initial-data="{&quot;id&quot;:&quot;wJcixV8tfSZpkJHkxSSJ&quot;,&quot;name&quot;:&quot;create-product&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:[],&quot;children&quot;:[],&quot;checksum&quot;:&quot;806515ffe13f207c10c8caab15cb1ca3489a11d587e13349b49c0e4ff8689939&quot;,&quot;redirectTo&quot;:false}" wire:id="wJcixV8tfSZpkJHkxSSJ" class="col-md-12">
     <form action="http://127.0.0.1:8000/en/admin/products" id="create-product" enctype="multipart/form-data"
         class="form-horizontal form-row-seperated" method="POST">
-        <input type="hidden" name="_token" value="KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM">        <div class="card card-nav-tabs card-plain">
+        <input type="hidden" name="_token" value="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5">        <div class="card card-nav-tabs card-plain">
             <div class="card-header card-header-primary">
                 <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
@@ -489,7 +502,7 @@
                             <label for="name" class=" control-label">Name</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text"  @keyup="changeSlug"  name="name_en" class="form-control"
+                            <input type="text" name="name_en"  @keyup="changeSlug"   class="form-control"
                                 placeholder="Name in English" value="">
                         </div>
                     </div>
@@ -498,7 +511,7 @@
                             <label for="name" class=" control-label">Name</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text"  name="name_ar" class="form-control"
+                            <input type="text" name="name_ar"   class="form-control"
                                 placeholder="Name in Arabic" value="">
                         </div>
                     </div>
@@ -536,7 +549,7 @@
                             <label for="user_id" class="control-label">Seller</label>
                         </div>
                         <div class="col-md-9">
-                            <select class="form-control" name="user_id"><option value="2">administrator@app.com</option><option value="4">seller1@app.com</option></select>
+                            <select class="form-control" name="user_id"><option value="4">seller@app.com</option></select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -670,7 +683,7 @@
                                 
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="description" class=" control-label">Tags in
+                        <label for="tags" class=" control-label">Tags in
                             English</label>
                     </div>
                     <div class="col-md-9">
@@ -681,7 +694,7 @@
                 
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="description" class=" control-label">Tags in
+                        <label for="tags" class=" control-label">Tags in
                             Arabic</label>
                     </div>
                     <div class="col-md-9">
@@ -694,7 +707,7 @@
                         <label for="category_id" class=" control-label">Category</label>
                     </div>
                     <div class="col-md-9">
-                        <select class="form-control" name="category_id"><option value="1">GNnzhJn15D</option></select>
+                        <select class="form-control" name="category_id"><option value="1">XStedvUD9Q</option></select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -702,7 +715,7 @@
                         <label for="tradmark_id" class=" control-label">Brands</label>
                     </div>
                     <div class="col-md-9">
-                        <select class="form-control" name="tradmark_id"></select>
+                        <select class="form-control" name="tradmark_id"><option value="1">Paula Bryan</option></select>
                     </div>
                 </div>
             </div>
@@ -724,7 +737,7 @@
                         <select class="js-example-basic-multiple" style="width:100%;" name="shippings[]"
                             multiple="multiple" value="">
                                                         <option value="1">
-                                lkRYFRRgMA / CQUgiWZjao / iKdC0jG5tU
+                                Europe / TechMarket for shipping / TechMarket standard shipping
                             </option>
                                                     </select>
                     </div>
@@ -778,6 +791,12 @@
                     <div class="col-md-9">
                         <select class="js-example-basic-multiple" style="width:100%;" name="attributes[]"
                             multiple="multiple" value="">
+                                                        <option value="1">blue</option>
+                                                        <option value="2">red</option>
+                                                        <option value="3">black</option>
+                                                        <option value="4">Xl</option>
+                                                        <option value="5">L</option>
+                                                        <option value="6">S</option>
                                                     </select>
                     </div>
                 </div>
@@ -1031,7 +1050,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM"
+        data-csrftoken="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5"
     ></div>
     <div id="app">
     </div>
@@ -1167,7 +1186,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM',
+                _token: 'qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5',
                 color: color
             }
             });
@@ -1179,7 +1198,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM',
+                _token: 'qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5',
                 image: image
             }
             });
@@ -1217,18 +1236,21 @@
                 $(this).attr('src', $('#wicon').attr('src')).delay(10000);
             });
                         document.addEventListener("livewire:load", function(event) {
-        window.livewire.beforeDomUpdate(() => {
-            // Add your custom JavaScript here.
-        });
+            window.livewire.beforeDomUpdate(() => {
+                // Add your custom JavaScript here.
+            });
 
         window.livewire.afterDomUpdate(() => {
-            Swal.fire({
+                        Swal.fire({
             position: 'top-end',
             icon: 'success',
             title: 'Successfully updated',
             showConfirmButton: true,
             timer: 1500
             });
+
+            
+
         });
     });
         </script>
@@ -1346,7 +1368,7 @@
         window.livewire = new Livewire();
         window.livewire.start();
         window.livewire_app_url = '';
-        window.livewire_token = 'KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM';
+        window.livewire_token = 'qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5';
     });
 </script>
 
@@ -1375,6 +1397,8 @@
                 },
 
                 
+                ignore: ":hidden, [contenteditable='true']",
+                
                 
                 unhighlight: function(element) {
                     $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid');
@@ -1386,7 +1410,7 @@
 
                 focusInvalid: false, // do not focus the last invalid input
                 
-                rules: {"sku":{"laravelValidation":[["Required",[],"The sku field is required.",true],["String",[],"The sku must be a string.",false],["Max",["191"],"The sku may not be greater than 191 characters.",false]],"laravelValidationRemote":[["Unique",["sku","eyJpdiI6IllnSHkrejlWWXVIWm1ob0xiUSs0eXc9PSIsInZhbHVlIjoiYVptWGNZR1ZPaU9XdWw1bUV4OHpZbTVGZjViWGpnRUIwaWw3ZUluK0ZOQnlVeUphcVFjRkQwY052ZXVmM2VEQjR5cVRoMUozVTJcL21qU2JJd2lDQkh3PT0iLCJtYWMiOiI5YzAwYTU3Nzc1ZDQ2NWY5ODNiNTQ3NTNlZTkyNDk2MzA4NmYxNmQxYWVhNDE4OWUwOWJlMjdiNTM0MzIxZDQyIn0=",false],"The sku has already been taken.",false]]},"slug":{"laravelValidation":[["Required",[],"The slug field is required.",true],["String",[],"The slug must be a string.",false],["Max",["191"],"The slug may not be greater than 191 characters.",false]],"laravelValidationRemote":[["Unique",["slug","eyJpdiI6IllnSHkrejlWWXVIWm1ob0xiUSs0eXc9PSIsInZhbHVlIjoiYVptWGNZR1ZPaU9XdWw1bUV4OHpZbTVGZjViWGpnRUIwaWw3ZUluK0ZOQnlVeUphcVFjRkQwY052ZXVmM2VEQjR5cVRoMUozVTJcL21qU2JJd2lDQkh3PT0iLCJtYWMiOiI5YzAwYTU3Nzc1ZDQ2NWY5ODNiNTQ3NTNlZTkyNDk2MzA4NmYxNmQxYWVhNDE4OWUwOWJlMjdiNTM0MzIxZDQyIn0=",false],"The slug has already been taken.",false]]},"product_type":{"laravelValidation":[["Required",[],"The product type field is required.",true],["String",[],"The product type must be a string.",false]]},"purchase_price":{"laravelValidation":[["Required",[],"The purchase price field is required.",true],["Numeric",[],"The purchase price must be a number.",false]]},"sale_price":{"laravelValidation":[["Required",[],"The sale price field is required.",true],["Numeric",[],"The sale price must be a number.",false]]},"in_stock":{"laravelValidation":[["Required",[],"The in stock field is required.",true],["String",[],"The in stock must be a string.",false]]},"tradmark_id":{"laravelValidation":[["Required",[],"The tradmark id field is required.",true],["Numeric",[],"The tradmark id must be a number.",false]]},"stock":{"laravelValidation":[["Required",[],"The stock field is required.",true],["Numeric",[],"The stock must be a number.",false]]},"visible":{"laravelValidation":[["Required",[],"The visible field is required.",true],["String",[],"The visible must be a string.",false],["Max",["191"],"The visible may not be greater than 191 characters.",false]]},"tax":{"laravelValidation":[["Required",[],"The tax field is required.",true],["Numeric",[],"The tax must be a number.",false]]},"category_id":{"laravelValidation":[["Required",[],"The category id field is required.",true],["Numeric",[],"The category id must be a number.",false]]},"image":{"laravelValidation":[["Required",[],"The image field is required.",true],["Image",[],"The image must be an image.",false],["Mimes",["jpg","jpeg","png","gif","bmp"],"The image must be a file of type: jpg, jpeg, png, gif, bmp.",false],["Max",["10000"],"The image may not be greater than 10000 kilobytes.",false]]},"description_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The description en must be a string.",false]]},"length_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The length en may not be greater than 191 characters.",false]]},"width_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The width en may not be greater than 191 characters.",false]]},"height_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The height en may not be greater than 191 characters.",false]]},"weight_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["Max",["191"],"The weight en may not be greater than 191 characters.",false]]},"name_en":{"laravelValidation":[["Required",[],"The name en field is required.",true],["String",[],"The name en must be a string.",false],["Max",["191"],"The name en may not be greater than 191 characters.",false]]},"size_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The size en must be a string.",false]]},"color_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false],["Nullable",[],"validation.nullable",false],["String",[],"The color en must be a string.",false]]},"shippings":{"laravelValidation":[["Required",[],"The shippings field is required.",true]]}}            });
+                rules: {"sku":{"laravelValidation":[["Required",[],"The sku field is required.",true,"sku"],["String",[],"The sku must be a string.",false,"sku"],["Max",["191"],"The sku may not be greater than 191 characters.",false,"sku"]],"laravelValidationRemote":[["Unique",["sku","eyJpdiI6IkJGOFVsVVhDaytHUHg3UVN6aUo0R0E9PSIsInZhbHVlIjoidTRTeDhUK20yUHM4c0VDcHZpOE1QXC9lQ09BT3RTdmtvWU85Sk9wdHVTNEYxOVdZTDlZbFZZVng5Zk1ldnVzREEwXC9vYmdGbE1YWU13Ukx3Yk5YUVZDdz09IiwibWFjIjoiMTEyYjQ5OWZiNWY3NGQwZmJkNzdjMmVhZGI1YWM3ZTRlZTYxYTI1NTQ1Y2VkNzM5NDc2Y2RlYjdiMmExMDVlMyJ9",false],"The sku has already been taken.",false,"sku"]]},"slug":{"laravelValidation":[["Required",[],"The slug field is required.",true,"slug"],["String",[],"The slug must be a string.",false,"slug"],["Max",["191"],"The slug may not be greater than 191 characters.",false,"slug"]],"laravelValidationRemote":[["Unique",["slug","eyJpdiI6IkJGOFVsVVhDaytHUHg3UVN6aUo0R0E9PSIsInZhbHVlIjoidTRTeDhUK20yUHM4c0VDcHZpOE1QXC9lQ09BT3RTdmtvWU85Sk9wdHVTNEYxOVdZTDlZbFZZVng5Zk1ldnVzREEwXC9vYmdGbE1YWU13Ukx3Yk5YUVZDdz09IiwibWFjIjoiMTEyYjQ5OWZiNWY3NGQwZmJkNzdjMmVhZGI1YWM3ZTRlZTYxYTI1NTQ1Y2VkNzM5NDc2Y2RlYjdiMmExMDVlMyJ9",false],"The slug has already been taken.",false,"slug"]]},"product_type":{"laravelValidation":[["Required",[],"The product type field is required.",true,"product_type"],["String",[],"The product type must be a string.",false,"product_type"]]},"purchase_price":{"laravelValidation":[["Required",[],"The purchase price field is required.",true,"purchase_price"],["Numeric",[],"The purchase price must be a number.",false,"purchase_price"]]},"sale_price":{"laravelValidation":[["Required",[],"The sale price field is required.",true,"sale_price"],["Numeric",[],"The sale price must be a number.",false,"sale_price"]]},"in_stock":{"laravelValidation":[["Required",[],"The in stock field is required.",true,"in_stock"],["String",[],"The in stock must be a string.",false,"in_stock"]]},"tradmark_id":{"laravelValidation":[["Required",[],"The tradmark id field is required.",true,"tradmark_id"],["Numeric",[],"The tradmark id must be a number.",false,"tradmark_id"]]},"stock":{"laravelValidation":[["Required",[],"The stock field is required.",true,"stock"],["Numeric",[],"The stock must be a number.",false,"stock"]]},"visible":{"laravelValidation":[["Required",[],"The visible field is required.",true,"visible"],["String",[],"The visible must be a string.",false,"visible"],["Max",["191"],"The visible may not be greater than 191 characters.",false,"visible"]]},"tax":{"laravelValidation":[["Required",[],"The tax field is required.",true,"tax"],["Numeric",[],"The tax must be a number.",false,"tax"]]},"category_id":{"laravelValidation":[["Required",[],"The category id field is required.",true,"category_id"],["Numeric",[],"The category id must be a number.",false,"category_id"]]},"image":{"laravelValidation":[["Required",[],"The image field is required.",true,"image"],["Image",[],"The image must be an image.",false,"image"],["Mimes",["jpg","jpeg","png","gif","bmp"],"The image must be a file of type: jpg, jpeg, png, gif, bmp.",false,"image"],["Max",["10000"],"The image may not be greater than 10000 kilobytes.",false,"image"]]},"description_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false,"description_en"],["Nullable",[],"validation.nullable",false,"description_en"],["String",[],"The description en must be a string.",false,"description_en"]]},"length_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false,"length_en"],["Nullable",[],"validation.nullable",false,"length_en"],["Max",["191"],"The length en may not be greater than 191 characters.",false,"length_en"]]},"width_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false,"width_en"],["Nullable",[],"validation.nullable",false,"width_en"],["Max",["191"],"The width en may not be greater than 191 characters.",false,"width_en"]]},"height_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false,"height_en"],["Nullable",[],"validation.nullable",false,"height_en"],["Max",["191"],"The height en may not be greater than 191 characters.",false,"height_en"]]},"weight_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false,"weight_en"],["Nullable",[],"validation.nullable",false,"weight_en"],["Max",["191"],"The weight en may not be greater than 191 characters.",false,"weight_en"]]},"name_en":{"laravelValidation":[["Required",[],"The name en field is required.",true,"name_en"],["String",[],"The name en must be a string.",false,"name_en"],["Max",["191"],"The name en may not be greater than 191 characters.",false,"name_en"]]},"size_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false,"size_en"],["Nullable",[],"validation.nullable",false,"size_en"],["String",[],"The size en must be a string.",false,"size_en"]]},"color_en":{"laravelValidation":[["Sometimes",[],"validation.sometimes",false,"color_en"],["Nullable",[],"validation.nullable",false,"color_en"],["String",[],"The color en must be a string.",false,"color_en"]]},"shippings":{"laravelValidation":[["Required",[],"The shippings field is required.",true,"shippings"]]}}            });
         });
     });
 </script>
@@ -1433,7 +1457,7 @@
     maxFilesize: 2, // MB
     addRemoveLinks: true,
     headers: {
-      'X-CSRF-TOKEN': "KKQFdthRTOHEPnqhlJF7mRkGQpYUdl3vR3sd0BfM"
+      'X-CSRF-TOKEN': "qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5"
     },
     success: function (file, response) {
       $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')

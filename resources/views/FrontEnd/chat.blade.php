@@ -29,6 +29,8 @@
     <link rel='stylesheet prefetch'
         href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{{--     <link rel="stylesheet" type="text/css" href="{{url('/')}}/css/zoom.css">
+ --}}
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style class="cp-pen-styles">
@@ -828,7 +830,40 @@
         #frame .content .message-input .wrap button:focus {
             outline: none;
         }
+        .image {
+            height:120px !important; width:120px!important;
+            border-radius:0!important;
+             margin-bottom:0!important;
+            cursor:pointer;
+        }
+        .modal-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0.6;
+        top: 0px;
+        left: 0px;
+        z-index:999;
 
+}
+.modal-img {
+    position: absolute;
+    background-color: white;
+    margin:auto;
+    z-index:1000;
+
+}
+    @media screen and (max-width: 735px) {
+    .modal-img {
+        height:80%;
+        width:80%;
+}
+    .modal-img img{
+        height:100%;
+        width:100%;
+}
+    }
     </style>
 </head>
 
@@ -836,11 +871,13 @@
     <div id="app"></div>
     @livewire('front-end.chat-bot', $user_id)
 
-    @livewireAssets
     <script
-        src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>
+    src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>
     </script>
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+{{--     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+ --}}
+ @livewireAssets
+ @stack('js')
 </body>
 
 </html>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5">
+    <meta name="csrf-token" content="f6R9D5Bczb00PzMyWSLPCUtsVoNSAI6LnU87gnaT">
     <title>Material Dashboard Laravel - Free Frontend Preset for Laravel</title>
     <link rel="apple-touch-icon" sizes="76x76" href="http://127.0.0.1:8000/material/img/apple-icon.png">
     <link rel="icon" type="image/png" href="http://127.0.0.1:8000/material/img/favicon.png">
@@ -27,7 +27,7 @@
 
 <body class="">
         <form id="logout-form" action="http://127.0.0.1:8000/en/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5">    </form>
+        <input type="hidden" name="_token" value="f6R9D5Bczb00PzMyWSLPCUtsVoNSAI6LnU87gnaT">    </form>
     <div class="wrapper ">
   <div class="sidebar" data-color="orange" data-background-color="white"
     data-image="http://127.0.0.1:8000/material/img/sidebar-1.jpg">
@@ -161,7 +161,7 @@
                     <p>Malls</p>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="http://127.0.0.1:8000/en/admin/countries">
                     <i class="material-icons">
                         emoji_flags
@@ -277,7 +277,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#">Countries</a>
+            <a class="navbar-brand" href="#">Posts</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -350,11 +350,11 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                 <a class="dropdown-item" rel="alternate" hreflang="en"
-                            href="http://127.0.0.1:8000/en/admin/countries">
+                            href="http://127.0.0.1:8000/en/admin/posts/create">
                             English
                         </a>
                                                 <a class="dropdown-item" rel="alternate" hreflang="ar"
-                            href="http://127.0.0.1:8000/ar/admin/countries">
+                            href="http://127.0.0.1:8000/ar/admin/posts/create">
                             العربية
                         </a>
                                             </div>
@@ -380,46 +380,125 @@
     </div>
 </nav>
 
-    		<div class="container-fluid mt-6 pt-8">
-				<div class="col-md-12">
-                        <script src="http://127.0.0.1:8000/vendor/sweetalert/sweetalert.all.js"></script>
-    						<div class="card light bordered">
-								<div class="card-header">
-										<div class="caption">
-												<span class="caption-subject bold uppercase font-dark">countries Table</span>
-										</div>
-								</div>
-								<div class="card-body">
-                                    <div class="table-responsive">
-										<form method="POST" action="http://127.0.0.1:8000/en/admin/countries/multi_delete" accept-charset="UTF-8" id="form_data"><input name="_token" type="hidden" value="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5">
+    <div class="container-fluid mt-6 pt-8">
+    <div class="col-md-12">
+                <div class="widget-extra body-req card light bordered">
+            <div class="card-header">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark">Create posts</span>
+                </div>
+                <div class="actions">
+                    <a href="http://127.0.0.1:8000/admin/posts" class="btn btn-circle btn-icon-only btn-default"
+                        tooltip="Show All" title="Show All">
+                        <i class="fa fa-list"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body form">
+                <div class="col-md-12">
 
-										<table  class="dataTable table table-striped table-hover  table-bordered" id="dataTableBuilder"><thead><tr><th  title="&lt;input type=&quot;checkbox&quot; class=&quot;check_all&quot; onclick=&quot;check_all()&quot; /&gt;"><input type="checkbox" class="check_all" onclick="check_all()" /></th><th  title="Manage">Manage</th><th  title="#">#</th><th  title="flag">flag</th><th  title="Country Name">Country Name</th><th  title="Native name">Native name</th><th  title="Calling codes">Calling codes</th><th  title="Currencies">Currencies</th><th  title="alpha3Code">alpha3Code</th><th  title="Region">Region</th><th  title="subregion">subregion</th><th  title="Lat &amp; Lng">Lat & Lng</th><th  title="Timezones">Timezones</th><th  title="Population">Population</th><th  title="Capital">Capital</th></tr></thead><tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></tfoot></table>
-										<div class="clearfix"></div>
+                    <form method="POST" action="http://127.0.0.1:8000/en/admin/posts" accept-charset="UTF-8" id="users" class="form-horizontal
+                    form-row-seperated" enctype="multipart/form-data"><input name="_token" type="hidden" value="f6R9D5Bczb00PzMyWSLPCUtsVoNSAI6LnU87gnaT">
+                                        <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="title" class="control-label">Title (English)</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control title_en" placeholder="Title (English)" name="title_en" type="text">
+                        </div>
+                    </div>
+                    <br>
+                                        <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="title" class="control-label">Title (العربية)</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control title_ar" placeholder="Title (العربية)" name="title_ar" type="text">
+                        </div>
+                    </div>
+                    <br>
+                                        <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="slug" class="control-label">Slug</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control slug" placeholder="Slug" name="slug" type="text" id="slug">
+                        </div>
+                    </div>
+                    <br>
+                                                                                <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="content" class="
+                            control-label">Content (English)</label>
+                        </div>
+                        <div class="col-md-9">
+                            <textarea class="form-control" id="editor_en" name="content_en" cols="50" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                                                            <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="content" class="
+                            control-label">Content (العربية)</label>
+                        </div>
+                        <div class="col-md-9">
+                            <textarea class="form-control" id="editor_ar" name="content_ar" cols="50" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="image" class="control-label">Image</label>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="custom-file" style="border: 1px solid #e6e6e6;">
+                                <input type="file" class="custom-file-input" id="customFile" name="image">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label for="publish_at" class="control-label">Publish At</label>
+                            </div>
+                            <div class="col-md-10">
+                              <input class="form-control datetimepicker" name="publish_at" type="text" id="publish_at">
+                           </div>
+                        </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="comment" class="control-label">Comment</label>
+                        </div>
+                        <div class="col-md-10">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="commentable" id="toggle-one"  data-toggle="toggle">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input class="btn btn-success" type="submit" value="Add">
                                     </div>
-								</div>
-						</div>
-				</div>
-				<div class="modal fade" id="mutlipleDelete">
-						<div class="modal-dialog">
-								<div class="modal-content">
-										<div class="modal-header">
-												<button class="close" data-dismiss="modal">x</button>
-												<h4 class="modal-title">Delete </h4>
-										</div>
-										<div class="modal-body">
-												<div class="delete_done"><i class="fa fa-exclamation-triangle"></i> Are you sure you want to delete this  <span id="count"></span> Record ! </div>
-												<div class="check_delete">Select some records to delete</div>
-										</div>
-										<div class="modal-footer">
-												<input class="btn btn-danger del_all" type="submit" value="Accept">
-												<a class="btn btn-default" data-dismiss="modal">Cancel</a>
-										</div>
-								</div>
-						</div>
-				</div>
-		</div>
-        		</form>
-		    <footer class="footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
+    <footer class="footer">
   <div class="container-fluid">
     <nav class="float-left">
       <ul>
@@ -520,7 +599,7 @@
         <div id="addchat_app"
         data-baseurl="http://127.0.0.1:8000"
         data-csrfname="X-CSRF-Token"
-        data-csrftoken="qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5"
+        data-csrftoken="f6R9D5Bczb00PzMyWSLPCUtsVoNSAI6LnU87gnaT"
     ></div>
     <div id="app">
     </div>
@@ -656,7 +735,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5',
+                _token: 'f6R9D5Bczb00PzMyWSLPCUtsVoNSAI6LnU87gnaT',
                 color: color
             }
             });
@@ -668,7 +747,7 @@
             $.post({
             url: $url,
             data: {
-                _token: 'qWkIHHNTvssYOWJqVgK24K0dNboMGxCteLkJXBW5',
+                _token: 'f6R9D5Bczb00PzMyWSLPCUtsVoNSAI6LnU87gnaT',
                 image: image
             }
             });
@@ -724,26 +803,36 @@
         });
     });
         </script>
-            <script>
-            delete_all();
-        </script>
-        <script type="text/javascript">(function(window,$){window.LaravelDataTables=window.LaravelDataTables||{};window.LaravelDataTables["dataTableBuilder"]=$("#dataTableBuilder").DataTable({"serverSide":true,"processing":true,"ajax":"","columns":[{"name":"checkbox","data":"checkbox","title":"<input type=\"checkbox\" class=\"check_all\" onclick=\"check_all()\" \/>","orderable":false,"searchable":false},{"name":"actions","data":"actions","title":"Manage","searchable":false,"orderable":false},{"name":"id","data":"id","title":"#","orderable":true,"searchable":true},{"name":"flag","data":"flag","title":"flag","orderable":true,"searchable":true},{"name":"country_name","data":"country_name","title":"Country Name","orderable":true,"searchable":true},{"name":"nativeName","data":"nativeName","title":"Native name","orderable":true,"searchable":true},{"name":"callingCodes","data":"callingCodes","title":"Calling codes","orderable":true,"searchable":true},{"name":"currencies","data":"currencies","title":"Currencies","orderable":true,"searchable":true},{"name":"alpha3Code","data":"alpha3Code","title":"alpha3Code","orderable":true,"searchable":true},{"name":"region","data":"region","title":"Region","orderable":true,"searchable":true},{"name":"subregion","data":"subregion","title":"subregion","orderable":true,"searchable":true},{"name":"latlng","data":"latlng","title":"Lat & Lng","orderable":true,"searchable":true},{"name":"timezones","data":"timezones","title":"Timezones","orderable":true,"searchable":true},{"name":"population","data":"population","title":"Population","orderable":true,"searchable":true},{"name":"capital","data":"capital","title":"Capital","orderable":true,"searchable":true}],"responsive":true,"dom":"Blfrtip","lengthMenu":[[10,25,50,100,-1],[10,25,50,100,"All records"]],"buttons":[{"extend":"print","className":"btn dark btn-outline","text":"<i class=\"fa fa-print\"><\/i> Print"},{"extend":"excel","className":"btn green btn-outline","text":"<i class=\"fe fe-file-plus\"> <\/i> Export Excel"},{"extend":"csv","className":"btn purple btn-outline","text":"<i class=\"fe fe-file-plus\"> <\/i> Export CSV"},{"extend":"reload","className":"btn blue btn-outline","text":"<i class=\"fe fe-refresh-ccw\"><\/i> Reloading"},{"text":"<i class=\"fa fa-trash\"><\/i> Delete","className":"btn red btn-outline delBtn"},{"text":"<i class=\"fa fa-plus\"><\/i> Add","className":"btn btn-primary","action":function(){
-                        	window.location.href =  "http://127.0.0.1:8000/en/admin/countries/create";
-                        }}],"initComplete":function () {
-                this.api().columns([1,3]).every(function () {
-                var column = this;
-                var input = document.createElement("input");
-                $(input).attr( 'style', 'width: 100%');
-                $(input).attr( 'class', 'form-control');
-                $(input).appendTo($(column.footer()).empty())
-                .on('keyup', function () {
-                    column.search($(this).val()).draw();
-                });
-            });
-            },"order":[[1,"desc"]],"language":{"sProcessing":"Processing...","sLengthMenu":"Show _MENU_ entries","sZeroRecords":"No matching records found","sEmptyTable":"No data available in table","sInfo":"Showing _START_ to _END_ of _TOTAL_ entries","sInfoEmpty":"Showing 0 to 0 of 0 entries","sInfoFiltered":"(filtered from _MAX_ total entries)","sInfoPostFix":"","sSearch":"Search:","sUrl":"","sInfoThousands":"","sLoadingRecords":"Loading...","oPaginate":{"sFirst":"First","sLast":"Last","sNext":"Next","sPrevious":"Previous"},"oAria":{"sSortAscending":": activate to sort column ascending","sSortDescending":": activate to sort column descending"}}});})(window,jQuery);
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+            CKEDITOR.replace('editor_en');
+            CKEDITOR.replace('editor_ar');
+        $('.title_en').on('keyup', function () {
+        $('.slug').val($(this).val());
+    });
+    $('.slug').on('keyup', function () {
+        $(this).val($(this).val().replace(' ', '-').toLowerCase());
+    });
+    $('.datetimepicker').datetimepicker({
+    icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+    },
+    format:'DD-MM-YYYY HH:mm',
+});
+    $(function() {
+        $('#toggle-one').bootstrapToggle();
+    });
 </script>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <script>
     //var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     $('#navbarDropdownMenuLink').on('click', function () {

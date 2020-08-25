@@ -10,13 +10,18 @@ use Livewire\Component;
 
 class ChatBot extends Component
 {
-    public $message = '';
-    public $images  = [];
+    protected  $listeners = ['chatUpdated' => 'chatUpdated'];
+
+    public $message;
     public $user_id;
     public $status;
-    public $contacts = [];
+    public $contacts     = [];
     public $paginate_var = 15;
-    // Special Syntax: ['echo:{channel},{event}' => '{method}']
+    public $chat_update = false;
+
+    public function chatUpdated() {
+        $this->chat_update = true;
+    }
 
     public function mount($user_id)
     {
@@ -27,23 +32,13 @@ class ChatBot extends Component
     public function sendMesseges()
     {
         $data = $this->validate([
-            'message' => 'required|string|min:1|max:255',
-            'images'  => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:1000',
-        ], [], [
-            'message' => trans('user.message'),
-            'images'  => trans('user.images'),
+            'message'  => 'required|string|min:1|max:255'
         ]);
         $message = Message::create([
             'message' => $data['message'],
             'm_to'    => intval($this->user_id),
             'm_from'  => auth()->user()->id,
         ]);
-        if($data['images']) {
-            multiple_uploads($data['images'], 'messages', $message);
-        }
-        /* $message->files()->create([
-
-        ]); */
         if (auth()->user()->hasRole('seller')) {
             broadcast(new SendMesseges($message, auth()->user()->id, $this->user_id))->toOthers();
         } else {
@@ -114,11 +109,11 @@ class ChatBot extends Component
 
     public function ChangeContact($id)
     {
-        //dd('asdf');
-        $user_id = \App\User::findOrFail($id);
-        if ($user_id) {
-            $this->user_id = $user_id->id;
-        }
+        /* $user_id = \Crypt::decrypt($id);
+        $user = \App\User::findOrFail($user_id);
+        if ($user) {
+            return redirect()->route('show_chat',$user->id);
+        } */
     }
 
     public function updatedStatus()

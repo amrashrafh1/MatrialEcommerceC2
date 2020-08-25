@@ -19,8 +19,12 @@ class Message extends Model
     	return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function image()
+    /* public function files()
     {
         return $this->morphMany(Files::class, 'files');
+    } */
+    public function files()
+    {
+        return $this->morphMany(Files::class, 'relation');
     }
 }

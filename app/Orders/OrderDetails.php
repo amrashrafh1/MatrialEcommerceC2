@@ -8,6 +8,8 @@ use App\Sold;
 use App\Order_lines;
 use App\Setting;
 use Cart;
+use App\Mail\SendOrder;
+use Mail;
 class OrderDetails
 {
     private $PaymentGetwayContract;
@@ -187,7 +189,7 @@ class OrderDetails
                 Product::find($cart->buyable->id)->decrement('stock', $cart->quantity);
             }
         }
-        //Mail::to($data['billing_email'])->send(new Mail);
+        Mail::to($validate['billing_email'])->send(new SendOrder($order));
 
         session()->forget('order');
         session()->forget('coupon');

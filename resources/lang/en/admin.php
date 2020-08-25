@@ -335,6 +335,10 @@ return array (
   'adz'                                                            => 'Advertizment',
   'link'                                                           => 'Link',
   'slider'                                                         => 'Slider',
+  'Daily_Sales'                                                    => 'Daily Sales',
+  'Used_Space'                                                     => 'Used Space',
+  'updated_sales'                                                  => 'Updated',
+  'error'                                                          => 'Error',
   'required_=_Height:_503px_&&_width:_465px'                       => 'Required = Height: 503px && Width: 465px',
   'if_your_delete_any_attribute_will_deleted_from_all_product_too' => 'if you delete any attribute, it will deleted from all product too',
 );

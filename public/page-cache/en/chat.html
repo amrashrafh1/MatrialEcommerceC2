@@ -5,7 +5,7 @@
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex">
-    <meta name="csrf-token" content="L8a5CLvhcGb85UYhWsmcLqfXz6i0UVjPKrWOWZmQ">
+    <meta name="csrf-token" content="jI79ms24nodeGRLUdT7EF84omKrAWnxI41j5VCIx">
     <title>Seller chat</title>
     <link rel="shortcut icon" type="image/x-icon"
         href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
@@ -29,6 +29,7 @@
     <link rel='stylesheet prefetch'
         href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style class="cp-pen-styles">
@@ -828,20 +829,53 @@
         #frame .content .message-input .wrap button:focus {
             outline: none;
         }
+        .image {
+            height:120px !important; width:120px!important;
+            border-radius:0!important;
+             margin-bottom:0!important;
+            cursor:pointer;
+        }
+        .modal-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0.6;
+        top: 0px;
+        left: 0px;
+        z-index:999;
 
+}
+.modal-img {
+    position: absolute;
+    background-color: white;
+    margin:auto;
+    z-index:1000;
+
+}
+    @media  screen and (max-width: 735px) {
+    .modal-img {
+        height:80%;
+        width:80%;
+}
+    .modal-img img{
+        height:100%;
+        width:100%;
+}
+    }
     </style>
 </head>
 
 <body>
     <div id="app"></div>
-    <div wire:initial-data="{&quot;id&quot;:&quot;KvLHFJUo3xbTWmdFGKDg&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:&quot;&quot;,&quot;images&quot;:null,&quot;user_id&quot;:4,&quot;status&quot;:null,&quot;contacts&quot;:[4],&quot;paginate_var&quot;:15},&quot;children&quot;:[],&quot;checksum&quot;:&quot;7796d3c97ee1542362dfd4b64643e3ade48bc6fd8c2c92b42d81cbf2dc154706&quot;,&quot;redirectTo&quot;:false}" wire:id="KvLHFJUo3xbTWmdFGKDg" id="frame" wire:ignore.self>
+    <div wire:initial-data="{&quot;id&quot;:&quot;lhrlHGMJ4XyCL8bVfPMt&quot;,&quot;name&quot;:&quot;front-end.chat-bot&quot;,&quot;events&quot;:[&quot;chatUpdated&quot;],&quot;eventQueue&quot;:[],&quot;data&quot;:{&quot;message&quot;:null,&quot;photos&quot;:[],&quot;user_id&quot;:5,&quot;status&quot;:null,&quot;contacts&quot;:[1,5],&quot;paginate_var&quot;:15,&quot;chat_update&quot;:false},&quot;children&quot;:[],&quot;checksum&quot;:&quot;3568d1ebc2ac84ec02fdff5b737cbc1d6a70970de1041dcaaf7ae3aa0e29e538&quot;,&quot;redirectTo&quot;:false}" wire:id="lhrlHGMJ4XyCL8bVfPMt" id="frame" wire:ignore.self>
         <div id="sidepanel">
         <div id="profile" wire:ignore>
             <div class="wrap">
                 <img id="profile-img" src="/storage/user.png" class="
-                                online
+                                offline
                                 " alt="" />
-                <p>Superadministrator</p>
+                <p>Seller</p>
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
                     <ul>
@@ -876,17 +910,33 @@
         
         <div id="contacts" wire:ignore>
             <ul>
-                                                <li class="contact contact4 active"
-                    wire:click='ChangeContact(4)'>
+                                                <li class="contact contact1 "
+                    >
+                    <a href='http://127.0.0.1:8000/en/chat/eyJpdiI6IlZreHlMYWl5QjRtUGpkVVwvUDJLaHJnPT0iLCJ2YWx1ZSI6IkxMS1hLblhkWGZudkR5dDhUVjlRMHc9PSIsIm1hYyI6IjU5ZjFlMjQxYzg0NzdmOTMzMGE0NDI1YmEyZGFhNDU5MDIyNTE4YTVjMDdmNzgxZjEyMjAzNGIxZDcwNWEyN2QifQ=='>
                     <div class="wrap">
-                    <span class="contact-status offline"></span>
-                        <img src="/storage/user.png" alt="" />
+                    <span class="contact-status online"></span>
+                        <img src="/storage/profiles/thumbnail/2_1598110782.jpg" alt="" />
                         <div class="meta">
-                            <p class="name">Seller</p>
+                            <p class="name">Amr Ashraf</p>
                             <p class="preview">
-                                                                asdasdddd</p>
+                                                                </p>
                         </div>
                     </div>
+                    </a>
+                </li>
+                                                <li class="contact contact5 active"
+                    >
+                    <a href='http://127.0.0.1:8000/en/chat/eyJpdiI6IkRzbVpRSG1BXC9wSGFiQ0JsQUJJZjVnPT0iLCJ2YWx1ZSI6Ik5LTEtpTWFkTGo3YnNzXC82VmwrWVpRPT0iLCJtYWMiOiI4Njc3Y2NmOTBiNzhkMmJjYjAyM2EwODc5ZDhjYjUyOTkxNWQ0ZjFiNjIyMDUwMTVlMzViYmZiMDZlOGNiYTA1In0='>
+                    <div class="wrap">
+                    <span class="contact-status online"></span>
+                        <img src="/storage/user.png" alt="" />
+                        <div class="meta">
+                            <p class="name">amr</p>
+                            <p class="preview">
+                                                                </p>
+                        </div>
+                    </div>
+                    </a>
                 </li>
                             </ul>
         </div>
@@ -895,7 +945,7 @@
     <div class="content">
         <div class="contact-profile" wire:ignore>
             <img src="/storage/user.png" alt="" />
-            <p>Seller</p>
+            <p>amr</p>
             <div class="social-media">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
                 <i class="fa fa-twitter" aria-hidden="true"></i>
@@ -904,99 +954,94 @@
         </div>
                 <div id='messages' class="messages">
             <ul>
-                                                                <li class="replies">
+                                                                <li class="sent">
                     <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">hi
-                        <br /> <span
-                            style="font-size:12px; float:right;">5 days ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">nice
-                        <br /> <span
-                            style="font-size:12px; float:right;">5 days ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">jhj
-                        <br /> <span
-                            style="font-size:12px; float:right;">23 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="replies">
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">asdasdasd
-                        <br /> <span
-                            style="font-size:12px; float:right;">20 hours ago</span>
-                                                        <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                                                    </p>
-                </li>
-                                                                                                <li class="sent">
-                    <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">asdasdddd <br /> <span
-                            style="font-size:12px;float:right;">20 hours ago</span>
+                    <p style="overflow-wrap: break-word;" id='imageContainer'>
+                                                hey
+                         <br /> <span
+                            style="font-size:12px;float:right;">19 hours ago</span>
                         </p>
                 </li>
                                                                                                 <li class="replies">
                     <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">ok ok ok ok
-                        <br /> <span
-                            style="font-size:12px; float:right;">15 hours ago</span>
-                                                    </p>
+                    <p style="overflow-wrap: break-word;" id='imageContainer'>
+                                                welcome
+                                                <br /> <span
+                            style="font-size:12px; float:right;">19 hours ago</span>
+                                                        <br/>
+                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </span>
+                                                </p>
                 </li>
-                                                                                                <li class="replies">
+                                                                                                <li class="sent">
                     <img src="/storage/user.png" alt="" />
-                    <p style="overflow-wrap: break-word;">oh man
-                        <br /> <span
-                            style="font-size:12px; float:right;">15 hours ago</span>
-                                                    </p>
+                    <p style="overflow-wrap: break-word;" id='imageContainer'>
+                                                ok
+                         <br /> <span
+                            style="font-size:12px;float:right;">18 hours ago</span>
+                        </p>
                 </li>
                                                             </ul>
         </div>
         <div class="message-input" wire:ignore>
             <div class="wrap">
-                <form wire:submit.prevent='sendMesseges' enctype="multipart/form-data">
-                    <input type="text" placeholder="Write your message..." wire:model.lazy='message' style='width:80%;'/>
-
-                    <input type="file" wire:model='images' style='display:none;' id='image'/>
+                <form wire:submit.prevent='sendMesseges' class='submit_form' enctype="multipart/form-data">
+                    <input type="text"  name='message' wire:model.lazy='message' placeholder="Write your message..." id='message' style='width:80%;'/>
+                    <input type="file" id="image-upload" name="image_upload[]" style='display:none' enctype="multipart/form-data" multiple>
 
                     <i class="fa fa-paperclip attachment" aria-hidden="true" style='margin-right: 35px;'
-                    onclick='document.getElementById("image").click();'></i>
+                    onclick='document.getElementById("image-upload").click();'></i>
                     <button class="submit" style='margin-right: 15px;' type="submit"><i class="fa fa-paper-plane"
-                            aria-hidden="true"></i></button>
+                            aria-hidden="true"></i>
+                        </button>
                 </form>
-                            </div>
+                
+            </div>
         </div>
     </div>
 </div>
 
 
-<script src='http://127.0.0.1:8000/js/app.js'></script>
-<script>
-    document.addEventListener("livewire:load", function (event) {
-        window.livewire.hook('beforeDomUpdate', () => {
-            // Add your custom JavaScript here.
-        });
+    <script
+    src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>
+    </script>
 
-        window.livewire.hook('afterDomUpdate', () => {
-            $(".messages").animate({
-                scrollTop: $(document).height() + 10000000
-            }, "fast");
-        });
+ <!-- Livewire assets -->
+<style>
+    [wire\:loading] {
+        display: none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+</style>
+<script>
+    document.addEventListener('livewire:available', function () {
+        window.livewire = new Livewire();
+        window.livewire.start();
+        window.livewire_app_url = '';
+        window.livewire_token = 'jI79ms24nodeGRLUdT7EF84omKrAWnxI41j5VCIx';
     });
+</script>
+
+<script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
+ <script src='http://127.0.0.1:8000/js/app.js'></script>
+<script>
+
+    document.addEventListener("livewire:load", function () {
+    window.livewire.on('loadMore', function () {
+        alert('asdasd');
+        console.log('asdasd');
+    });
+});
+
+
+
     $(".messages").animate({
         scrollTop: $(document).height() + 10000000
     }, "fast");
@@ -1019,16 +1064,16 @@
         $(this).addClass("active");
         if ($("#status-online").hasClass("active")) {
             $("#profile-img").addClass("online");
-            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'online');
+            window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').set('status', 'online');
         } else if ($("#status-away").hasClass("active")) {
             $("#profile-img").addClass("away");
-            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'away');
+            window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').set('status', 'away');
         } else if ($("#status-busy").hasClass("active")) {
             $("#profile-img").addClass("busy");
-            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'busy');
+            window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').set('status', 'busy');
         } else if ($("#status-offline").hasClass("active")) {
             $("#profile-img").addClass("offline");
-            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').set('status', 'offline');
+            window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').set('status', 'offline');
         } else {
             $("#profile-img").removeClass();
         };
@@ -1043,13 +1088,12 @@
         }
         $('<li class="replies"><img src="/storage/user.png" alt="" /><p>' +
             message +
-            '</p></li>').appendTo($('.messages ul'));
+            '<br /> <span style="font-size:12px; float:right;"></span></p></li>').appendTo($('.messages ul'));
         $('.message-input input').val(null);
         $('.contact.active .preview').html('<span>You: </span>' + message);
         $(".messages").animate({
             scrollTop: $(document).height() + 10000000
         }, "fast");
-        $(".message-input input").val('');
     };
 
     $('.submit').click(function () {
@@ -1057,26 +1101,27 @@
     });
 
     
-    Echo.join(`chat-4-1`)
-        .here((user) => {
-        })
+    Echo.join(`chat-4-5`)
+        .here((user) => {})
         .joining((user) => {
-            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('changeStatus', 'online');
-            $('.contact4 .contact-status').addClass('online');
-        $('.contact4 .contact-status').removeClass('away');
-        $('.contact4 .contact-status').removeClass('offline');
-        $('.contact4 .contact-status').removeClass('busy');
+            window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').call('changeStatus', 'online');
+            $('.contact5 .contact-status').addClass('online');
+            $('.contact5 .contact-status').removeClass('away');
+            $('.contact5 .contact-status').removeClass('offline');
+            $('.contact5 .contact-status').removeClass('busy');
         })
         .leaving((user) => {
-            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('changeStatus', 'offline');
-            $('.contact4 .contact-status').removeClass('online');
-        $('.contact4 .contact-status').removeClass('away');
-        $('.contact4 .contact-status').addClass('offline');
-        $('.contact4 .contact-status').removeClass('busy');
+            window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').call('changeStatus', 'offline');
+            $('.contact5 .contact-status').removeClass('online');
+            $('.contact5 .contact-status').removeClass('away');
+            $('.contact5 .contact-status').removeClass('busy');
+            $('.contact5 .contact-status').addClass('offline');
+            console.log('offline');
+
         })
         .listen('SendMesseges', (e) => {
 
-            window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('readMessage', e.message.id);
+            window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').call('readMessage', e.message.id)
 
             message = e.message.message;
             if ($.trim(message) == '') {
@@ -1084,13 +1129,14 @@
             }
             $('<li class="sent"><img src="/storage/user.png" alt="" /><p>' +
                 message +
-                '</p></li>').appendTo($('.messages ul'));
+                '<br /> <span style="font-size:12px;float:right;"></span></p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
             $(".messages").animate({
                 scrollTop: $(document).height() + 10000000
             }, "fast");
         });
+
     
     $('#contacts').on('click', 'li', function () {
         $('#contacts li.active').removeClass('active');
@@ -1099,13 +1145,13 @@
     $('#messages').scroll(function() {
    var top = $('#messages').scrollTop();
        if ( top == 0) {
-        window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('loadMore');
+        window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').call('loadMore');
         }
 });
 $(document).ready(function(){
     $('.chat_status').on('click', function(e) {
         localStorage.setItem('chat_status', $(this).attr('id').replace('status-',''));
-        window.livewire.find('KvLHFJUo3xbTWmdFGKDg').call('changeStatus');
+        window.livewire.find('lhrlHGMJ4XyCL8bVfPMt').call('changeStatus');
     });
     var chat_status = localStorage.getItem('chat_status');
     if(chat_status){
@@ -1124,36 +1170,97 @@ Echo.private(`status`)
         $('.contact' + e.data['user_id'] +' .contact-status').addClass(e.data['status']);
         //console.log(e.data['status']);
 });
+
+
+$.ajaxSetup({
+     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+ });
+
+$('#image-upload').change(function () {
+    event.preventDefault();
+    let image_upload = new FormData();
+    let TotalImages = $('#image-upload')[0].files.length;  //Total Images
+    let images = $('#image-upload')[0];
+    //let message = $('#message').val();
+
+    for (let i = 0; i < TotalImages; i++) {
+    image_upload.append('images[]', images.files[i]);
+    }
+   // image_upload.append('message', message);
+
+    $.ajax({
+        method: 'POST',
+        url: 'http://127.0.0.1:8000/chat/upload/photots/5',
+        data: image_upload,
+        contentType: false,
+        processData: false,
+        success: function (images) {
+
+            /* if ($.trim(images) == '') {
+                return false;
+            }
+            var i;
+            for (i = 0; i < images.length; ++i) {
+            console.log(images[i]);
+            $('<li class="replies"><p style="overflow-wrap: break-word; margin-right:25px;" id="imageContainer"><img src="'+images[i]+'" class="image" alt="" />'+
+                '<br /> <span style="font-size:12px; float:right;"></span></p></li>').appendTo($('.messages ul'));
+            $('.message-input input').val(null);
+            $(".messages").animate({
+                scrollTop: $(document).height() + 10000000
+            }, "fast");
+            } */
+
+            window.livewire.emit('chatUpdated');
+        },
+        error: function () {
+          console.log(`Failed`)
+        }
+    })
+
+});
+
+
+// function for time
+/* function get_time() {
+    t = new Date().getSeconds();
+    if(t > 86400) {
+    return Math.floor(t / 86400) + ' days ago';
+    } else if(t > 3600) {
+        return Math.floor(t / 3600) + ' hours ago';
+    } else if(t > 60) {
+        return Math.floor(t / 60) + ' minutes ago';
+    } else {
+        return t + ' seconds ago';
+    }
+} */
+
+$('#imageContainer img').each(function (index) {
+    if ($(this).attr('onclick') != null) {
+        if ($(this).attr('onclick').indexOf("runThis()") == -1) {
+            $(this).click(function () {
+                $(this).attr('onclick');
+                var src = $(this).attr("src");
+                ShowLargeImage(src);
+            });
+        }
+    }
+    else {
+        $(this).click(function () {
+            var src = $(this).attr("src");
+            ShowLargeImage(src);
+        });
+    }
+});
+
+$('body').on('click', '.modal-overlay', function () {
+    $('.modal-overlay, .modal-img').remove();
+});
+
+function ShowLargeImage(imagePath) {
+    console.log('zoomed');
+    $('body').append('<div class="modal-overlay"></div><div class="modal-img"><img src="' + imagePath.replace("small","large") + '" /></div>');
+}
 </script>
-
-    <!-- Livewire assets -->
-<style>
-    [wire\:loading] {
-        display: none;
-    }
-
-    [wire\:offline] {
-        display: none;
-    }
-
-    [wire\:dirty]:not(textarea):not(input):not(select) {
-        display: none;
-    }
-</style>
-<script>
-    document.addEventListener('livewire:available', function () {
-        window.livewire = new Livewire();
-        window.livewire.start();
-        window.livewire_app_url = '';
-        window.livewire_token = 'L8a5CLvhcGb85UYhWsmcLqfXz6i0UVjPKrWOWZmQ';
-    });
-</script>
-
-<script src="/vendor/livewire/livewire.js?id=18f463023ea07950cbf6" defer></script>
-    <script
-        src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>
-    </script>
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 </body>
 
 </html>
