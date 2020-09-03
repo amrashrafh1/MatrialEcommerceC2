@@ -10,6 +10,7 @@ use \App\Category;
 use \App\Product;
 use \App\Tradmark;
 use DB;
+use Auth;
 class Shop extends Component
 {
     use WithPagination;
@@ -17,8 +18,8 @@ class Shop extends Component
     public $PerPage = 20;
     public $sortBy = 'newness';
     public $assId;
-    public $category = [];
-    public $ass_attrs = [];
+    public $category   = [];
+    public $ass_attrs  = [];
     public $PageNumber = 1;
 
     public function mount($category = [])
@@ -58,106 +59,7 @@ class Shop extends Component
                     array_push($family, $ff);
                 }
             }
-            /* SortBy */
-            if ($this->sortBy === 'popularity') {
-                $products = visits('App\Product')->top(20);
-                $total = $result->count();
-                $pageSize = (is_numeric($this->PerPage)) ? $this->PerPage : 20;
-                $products = CollectionHelper::paginate($result, $total, $pageSize);
-            } else {
-                if ($this->sortBy === 'rating') {
-                    $pros = [];
-                    if (is_numeric($this->assId) && $this->assId) {
-                        $trad = Tradmark::where('id', $this->assId)->first();
-                        if ($trad) {
-                            if ($this->ass_attrs && is_array($this->ass_attrs)) {
-                                $attr_id = $this->ass_attrs;
-                                $pros = Product::IsApproved()->where('tradmark_id', $trad->id)
-                                    ->where('category_id', $cat_id)
-                                    ->whereHas('attributes', function ($q) use ($attr_id) {
-                                        $q->whereIn('id', $attr_id);
-                                    })
-                                    ->withCount(['ratings as average_rating' => function ($query) {
-                                        $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                                    }])->orderByDesc('average_rating')
-                                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                            } else {
-                                $pros = Product::IsApproved()->where('tradmark_id', $trad->id)
-                                    ->where('category_id', $cat_id)
-                                    ->withCount(['ratings as average_rating' => function ($query) {
-                                        $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                                    }])->orderByDesc('average_rating')
-                                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                            }
-                        }
-                    }
-
-                    if ($this->ass_attrs && is_array($this->ass_attrs)) {
-
-                        $attr_id = $this->ass_attrs;
-                        $products = Product::IsApproved()->where('category_id', $cat_id)
-                            ->withCount(['ratings as average_rating' => function ($query) {
-                                $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                            }])->orderByDesc('average_rating')
-                            ->whereHas('attributes', function ($q) use ($attr_id) {
-                                $q->whereIn('id', $attr_id);
-                            })
-                            ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                    } else {
-                        $products = Product::IsApproved()->where('category_id', $cat_id)
-                            ->withCount(['ratings as average_rating' => function ($query) {
-                                $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                            }])->orderByDesc('average_rating')
-                            ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                    }
-                } else {
-                    $pros = [];
-                    if (is_numeric($this->assId) && $this->assId) {
-                        $pros = Tradmark::where('id', $this->assId)->first();
-                        if ($pros) {
-                            if ($this->ass_attrs && is_array($this->ass_attrs)) {
-                                $attr_id = $this->ass_attrs;
-                                $pros = Tradmark::where('id', $this->assId)->first()->productsSortBy($this->sortBy)
-                                    ->where('category_id', $cat_id)
-                                    ->whereHas('attributes', function ($q) use ($attr_id) {
-                                        $q->whereIn('id', $attr_id);
-                                    })
-                                    ->where('visible', 'visible')
-                                    ->where('approved', 1)
-                                    ->select('name','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                            } else {
-                                $pros = Tradmark::where('id', $this->assId)->first()->productsSortBy($this->sortBy)
-                                    ->where('category_id', $cat_id)
-                                    ->where('visible', 'visible')
-                                    ->where('approved', 1)
-                                    ->select('name','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                            }
-                        }
-                    }
-
-                    if ($this->ass_attrs && is_array($this->ass_attrs)) {
-
-                        $attr_id = $this->ass_attrs;
-                        $products = $this->category->productsSortBy($this->sortBy)
-                            ->whereHas('attributes', function ($q) use ($attr_id) {
-                                $q->whereIn('id', $attr_id);
-                            })
-                            ->where('visible', 'visible')
-                            ->where('approved', 1)
-                            ->select('name','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                            ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                    } else {
-
-                        $products = $this->category->productsSortBy($this->sortBy)
-                            ->where('visible', 'visible')
-                            ->where('approved', 1)
-                            ->select('name','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                            ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-                    }
-                }
-            }
+            $products = shop_sort($cat_id, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         } else {
             /*
              *    _____ _                   _____
@@ -185,17 +87,16 @@ class Shop extends Component
                 }
             }
             /* SortBy */
-            if (is_numeric($this->assId) && $this->assId) {
-                $pros = shop_sort_products($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
-                $products = [];
-            } else {
-                $products = shop_sort_products($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
-            }
+            $products = shop_sort_products($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         }
+        $compare = (session()->get('compare'))?session()->get('compare'):[];
+        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
+
         return view('livewire.shop', [
             'products' => $products,
             'pros'     => $pros,     'categories' => $categories,
-            'brands'   => $brands,   'attributes' => $attributes, 'family' => $family]);
+            'brands'   => $brands,   'attributes' => $attributes, 'family' => $family,'compare' =>$compare
+            ,'wishlist_product_id' => $wishlist_product_id]);
     }
 
     public function updatingPageNumber(): void
@@ -222,5 +123,32 @@ class Shop extends Component
                 $this->emit('cartAdded');
             }
         }
+    }
+
+    public function wishlists($id) {
+        if(Auth::check()) {
+            if(auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($id)) {
+                auth()->user()->wishlists()->disableCache()->detach($id);
+                $this->emit('wishlistAdded');
+            } else {
+                auth()->user()->wishlists()->disableCache()->attach($id);
+                $this->emit('wishlistAdded');
+
+            }
+        }
+    }
+    public function compare($id) {
+        if(session()->get('compare') !== null) {
+            if(!in_array($id,session()->get('compare'))) {
+                $this->emit('compareAdded');
+                session()->push('compare', $id);
+            } else {
+                return ;
+            }
+        } else {
+            $this->emit('compareAdded');
+            session()->push('compare', $id);
+        }
+
     }
 }

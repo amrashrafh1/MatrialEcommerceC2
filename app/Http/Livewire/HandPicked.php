@@ -8,8 +8,8 @@ class HandPicked extends Component
 {
     public function render()
     {
-        $handpicked = Product::where('visible', 'visible')
-        ->select('id','slug','name','sale_price')
+        $handpicked = Product::where('visible', 'visible')->where('approved', 1)
+        ->select('id','slug','name','sale_price','image')
         ->inRandomOrder()->take(36)->get();
         $compare = session()->get('compare');
 

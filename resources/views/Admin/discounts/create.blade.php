@@ -105,7 +105,7 @@
                     </div>
                     <br>
                     <div id='product_id'>
-                        @livewire('admin.discount.product-id', 'product_id')
+                        @livewire('admin.discount.product-id', ['type'=>'product_id'])
                     </div>
                     <div class="form-group row" id="buy_x_quantity">
                         <div class="col-md-2">
@@ -132,7 +132,7 @@
                     </div>
                     <br>
                     <div id='product_y'>
-                        @livewire('admin.discount.product-id', 'product_y')
+                        @livewire('admin.discount.product-id', ['type'=>'product_y'])
                     </div>
                     <br>
                     <div class="form-actions">

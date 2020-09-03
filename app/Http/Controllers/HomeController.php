@@ -19,9 +19,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::select('name','id', 'slug','image')
-        ->where('status', 1)->where('cat_id', NULL)->take(12)
-        ->with('children:name,slug,cat_id')->get();
+        $categories = Category::where('status', 1)->where('category_id', NULL)->take(12)
+        ->with('categories')->get();
         $catalog = visits('\App\Category')->top(20);
 
         $adzs = Adz::available()->inRandomOrder('id')->get();

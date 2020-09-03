@@ -62,18 +62,18 @@
                                                 </div>
                                                 <!-- .banner-info -->
                                                 <span class="price">
-                                                    @if(isset($randomProduct->discount))
+                                                    @if($randomProduct->available_discount())
                                                     <ins>
                                                         <span class="amount">{!! curr($randomProduct->priceDiscount()) !!}</span>
                                                     </ins>
                                                     <del>
-                                                        <span class="amount">{!! curr($randomProduct->sale_price) !!}</span>
+                                                        <span class="amount">{!! curr($randomProduct->calc_price()) !!}</span>
                                                     </del>
                                                     @else
                                                     <ins>
-                                                        <span class="amount">{!! curr($randomProduct->sale_price) !!}</span>
+                                                        <span class="amount">{!! curr($randomProduct->calc_price()) !!}</span>
                                                     </ins>
-                                                    @endif
+                                                @endif
                                                         </span>
                                             </div>
                                             <!-- .caption -->

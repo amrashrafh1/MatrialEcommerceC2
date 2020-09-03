@@ -24,18 +24,18 @@
                                         <img src="{{ url('/') }}/FrontEnd/images/products/6.jpg" width="224"
                                             height="197" class="wp-post-image" alt="">
                                         <span class="price">
-                                            @if(isset($product->discount))
-                                            <ins>
-                                                <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
-                                            </ins>
-                                            <del>
-                                                <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                            </del>
-                                            @else
-                                            <ins>
-                                                <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                            </ins>
-                                            @endif
+                                            @if($product->available_discount())
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </del>
+                                                    @else
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </ins>
+                                                @endif
                                         </span>
                                         <!-- /.price -->
                                         <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
@@ -53,8 +53,12 @@
                                                 @endif
                                             @endif
                                         @else
-                                        <a class="button add_to_cart_button" wire:click='addCart({{$product->id}})'
-                                            rel="nofollow">@lang('user.Add_to_cart')</a>
+                                        <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                            rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                            <div wire:loading>
+                                                <i class="fa fa-spinner " aria-hidden="true"></i>
+                                            </div>
+                                        </a>
                                             @if($compare !== null)
                                                 @if(!in_array($product->id,$compare))
                                                 <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>

@@ -18,7 +18,7 @@ class StoreSeeder extends Seeder
             'slug'        => Str::random(10),
             'description' => Str::random(190),
             'slug'        => Str::random(10),
-            'cat_id'      => null
+            'category_id'      => null
         ]);
        $country =  Country::find(1);
         \App\City::create([

@@ -309,6 +309,9 @@
                         placeholder="tax">
                 </div>
             </div>
+            {{-- {{dd(\App\Shipping_methods::whereDoesntHave('products', function ($q){
+                $q->where('id', '!=',1673);
+                })->get())}} --}}
             <div class="form-group row">
                 <div class="col-md-3">
                     <label for="shippings" class=" control-label">shipping</label>

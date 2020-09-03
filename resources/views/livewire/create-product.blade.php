@@ -274,7 +274,7 @@
                     </div>
                     <div class="col-md-9">
                         <input name="tax" value="{{old('tax')}}" type="number" class="form-control" step="0.00"
-                            placeholder="tax">
+                            placeholder="@lang('admin.tax_percentage')">
                     </div>
                 </div>
                 <div class="form-group row">

@@ -24,24 +24,28 @@
                                     @foreach($products as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
-                                                Wishlist</a>
+                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
+                                                <i class="fa fa-heart-o fa-2x wish @auth
+                                                @if($wishlist_product_id->contains($product->id)) change_color
+                                                @endif
+                                                @endauth"></i>
+                                           </a>
                                         </div>
                                         <a href="{{route('show_product', $product->slug)}}" class="woocommerce-LoopProduct-link">
                                             <img src="{{Storage::url($product->image)}}"
                                              style="height:197px;width:224px;" class="wp-post-image" alt="" >
                                             <span class="price">
-                                                @if(isset($product->discount))
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
-                                                </ins>
-                                                <del>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </del>
-                                                @else
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </ins>
+                                                @if($product->available_discount())
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </del>
+                                                    @else
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </ins>
                                                 @endif
                                             </span>
                                             <!-- /.price -->
@@ -60,8 +64,12 @@
                                                     @endif
                                                 @endif
                                             @else
-                                            <a class="button add_to_cart_button" wire:click='addCart({{$product->id}})'
-                                                rel="nofollow">Add to cart</a>
+                                            <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                                <div wire:loading>
+                                                    <i class="fa fa-spinner " aria-hidden="true"></i>
+                                                </div>
+                                            </a>
                                                 @if($compare !== null)
                                                     @if(!in_array($product->id,$compare))
                                                     <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
@@ -93,25 +101,28 @@
                                     @foreach($category->products->take(20) as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
-                                                Wishlist</a>
-
+                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
+                                                <i class="fa fa-heart-o fa-2x wish @auth
+                                                @if($wishlist_product_id->contains($product->id)) change_color
+                                                @endif
+                                                @endauth"></i>
+                                           </a>
                                         </div>
                                         <a href="{{route('show_product', $product->slug)}}" class="woocommerce-LoopProduct-link">
                                             <img src="{{Storage::url($product->image)}}"
                                              style="height:197px;width:224px;" class="wp-post-image" alt="">
                                             <span class="price">
-                                                @if(isset($product->discount))
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
-                                                </ins>
-                                                <del>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </del>
-                                                @else
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </ins>
+                                                @if($product->available_discount())
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </del>
+                                                    @else
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </ins>
                                                 @endif
                                             </span>
                                             <!-- /.price -->
@@ -130,8 +141,12 @@
                                                     @endif
                                                 @endif
                                             @else
-                                            <a class="button add_to_cart_button" wire:click='addCart({{$product->id}})'
-                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                            <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                                <div wire:loading>
+                                                    <i class="fa fa-spinner " aria-hidden="true"></i>
+                                                </div>
+                                            </a>
                                                 @if($compare !== null)
                                                     @if(!in_array($product->id,$compare))
                                                     <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>

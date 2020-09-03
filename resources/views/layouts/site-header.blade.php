@@ -1,8 +1,7 @@
 @if(!isset($categories))
 @php
-$categories = \App\Category::select('name','id', 'slug','image')
-        ->where('status', 1)->where('cat_id', NULL)
-        ->with('children:name,slug,cat_id')->get();
+$categories = \App\Category::where('status', 1)->where('category_id', NULL)
+->with('categories')->get();
 @endphp
 @endif
 @php
@@ -49,36 +48,47 @@ $setting = \App\Setting::latest('id')->first();
                             <polygon class="cls-1" points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
                             <rect class="cls-2" y="0.44" width="7.19" height="5.13" />
                         </svg> --}}
-                        <img src='{{($setting)?Storage::url($setting->logo):''}}'/>
+                        <img src='{{($setting)?Storage::url($setting->logo):''}}' />
                     </a>
                     <!-- /.custom-logo-link -->
                 </div>
                 <!-- /.site-branding -->
                 <!-- ============================================================= End Header Logo ============================================================= -->
-                <nav id="primary-navigation" class="primary-navigation" aria-label="Primary Navigation" data-nav="flex-menu">
+                <nav id="primary-navigation" class="primary-navigation" aria-label="Primary Navigation"
+                    data-nav="flex-menu">
                     <ul id="menu-primary-menu" class="nav yamm">
                         <li class="sale-clr yamm-fw menu-item animate-dropdown">
-                            <a title="@lang('user.Super_deals')" href="{{route('show_superdeal')}}" style="font-size:13px">@lang('user.Super_deals')</a>
+                            <a title="@lang('user.Super_deals')" href="{{route('show_superdeal')}}"
+                                style="font-size:13px">@lang('user.Super_deals')</a>
                         </li>
                         @auth
                         @if(!auth()->user()->seller_info && ! auth()->user()->hasRole('seller'))
                         <li class="yamm-fw menu-item animate-dropdown">
-                            <a title="@lang('user.Sell_on')" href="{{route('seller_app')}}" style="font-size:13px">@lang('user.Sell_on') {{($setting)?$setting->sitename:config('app.APP_NAME')}}</a>
+                            <a title="@lang('user.Sell_on')" href="{{route('seller_app')}}"
+                                style="font-size:13px">@lang('user.Sell_on')
+                                {{($setting)?$setting->sitename:config('app.APP_NAME')}}</a>
                         </li>
                         @endif
                         @else
                         <li class="yamm-fw menu-item animate-dropdown">
-                            <a title="@lang('user.Sell_on')" href="{{route('seller_app')}}" style="font-size:13px">@lang('user.Sell_on') {{($setting)?$setting->sitename:config('app.APP_NAME')}}</a>
+                            <a title="@lang('user.Sell_on')" href="{{route('seller_app')}}"
+                                style="font-size:13px">@lang('user.Sell_on')
+                                {{($setting)?$setting->sitename:config('app.APP_NAME')}}</a>
                         </li>
                         @endauth
                         @php $menuTitle = \App\CMS::IsExpired()->orderBy('id', 'DESC')->first(); @endphp
+
                         @if($menuTitle)
                         <li class="menu-item menu-item-has-children animate-dropdown dropdown">
-                            <a title="{{($menuTitle->menuTitle)?$menuTitle->menuTitle:''}}" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">{{($menuTitle)?$menuTitle->menuTitle:''}} <span class="caret"></span></a>
+                            <a title="{{($menuTitle->menuTitle)?$menuTitle->menuTitle:''}}" data-toggle="dropdown"
+                                class="dropdown-toggle" aria-haspopup="true" href="#"
+                                style="font-size:13px">{{($menuTitle)?$menuTitle->menuTitle:''}} <span
+                                    class="caret"></span></a>
                             <ul role="menu" class=" dropdown-menu">
-                                @foreach(\App\CMS::IsExpired() as $cms)
+                                @foreach(\App\CMS::IsExpired()->get() as $cms)
                                 <li class="menu-item animate-dropdown">
-                                    <a title="{{$cms->menuTitle}}" href="{{route('cms_show',$cms->slug)}}">{{$cms->menuTitle}}</a>
+                                    <a title="{{$cms->menuTitle}}"
+                                        href="{{route('cms_show',$cms->slug)}}">{{$cms->menuTitle}}</a>
                                 </li>
                                 @endforeach
                             </ul>
@@ -86,10 +96,12 @@ $setting = \App\Setting::latest('id')->first();
                         </li>
                         @endif
                         @php
-                            $pages = ['about_us','contact_us', 'show_wishlists','show_compare','track-your-order','terms-and-conditions','services']
+                        $pages = ['about_us','contact_us',
+                        'show_wishlists','show_compare','track-your-order','terms-and-conditions','services']
                         @endphp
                         <li class="menu-item menu-item-has-children animate-dropdown dropdown">
-                            <a title="pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#" style="font-size:13px">@lang('user.pages') <span class="caret"></span></a>
+                            <a title="pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
+                                href="#" style="font-size:13px">@lang('user.pages') <span class="caret"></span></a>
                             <ul role="menu" class=" dropdown-menu">
                                 @foreach($pages as $index => $page)
                                 <li class="menu-item animate-dropdown">
@@ -103,31 +115,57 @@ $setting = \App\Setting::latest('id')->first();
                     <!-- .nav -->
                 </nav>
                 <!-- .primary-navigation -->
-                <nav id="secondary-navigation" class="secondary-navigation" aria-label="Secondary Navigation" data-nav="flex-menu">
+                <nav id="secondary-navigation" class="secondary-navigation" aria-label="Secondary Navigation"
+                    data-nav="flex-menu">
                     <ul id="menu-secondary-menu" class="nav">
                         @role('seller')
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
+                        <li
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
                             <a title="Track Your Order" href="{{route('seller_dashboard')}}">
                                 <i class="tm tm-order-tracking"></i>@lang('user.seller_dashboard')</a>
                         </li>
                         @else
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
+                        <li
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
                             <a title="Track Your Order" href="{{route('track-your-order')}}">
                                 <i class="tm tm-order-tracking"></i>@lang('user.Track_Your_Order')</a>
                         </li>
                         @endrole
+                        <li
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
+                            <a title="{{ LaravelLocalization::getCurrentLocaleName() }}
+                            " data-toggle="dropdown" class="dropdown-toggle"
+                                aria-haspopup="true" href="#">
+                                {{ LaravelLocalization::getCurrentLocaleName() }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul role="menu" class=" dropdown-menu">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <li
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                    <a title="{{ $properties['native'] }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a>
+                                </li>
+                                @endforeach
+                            </ul>
+                            <!-- .dropdown-menu -->
+                        </li>
                         @php
-                            $currencies =  currency()->getActiveCurrencies();
+                        $currencies = currency()->getActiveCurrencies();
                         @endphp
-                        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
-                            <a title="{{currency()->getUserCurrency()}}" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">
+                        <li
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
+                            <a title="{{currency()->getUserCurrency()}}" data-toggle="dropdown" class="dropdown-toggle"
+                                aria-haspopup="true" href="#">
                                 {{currency()->getUserCurrency()}}
                                 <span class="caret"></span>
                             </a>
                             <ul role="menu" class=" dropdown-menu">
                                 @foreach($currencies as $currency)
-                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
-                                <a title="{{$currency['code']}}" href="{{URL::current().'?currency='.$currency['code']}}">{{$currency['code']}}</a>
+                                <li
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                    <a title="{{$currency['code']}}"
+                                        href="{{URL::current().'?currency='.$currency['code']}}">{{$currency['code']}}</a>
                                 </li>
                                 @endforeach
                             </ul>
@@ -139,17 +177,22 @@ $setting = \App\Setting::latest('id')->first();
                                 <i class="tm tm-login-register"></i>@lang('user.register_or_sign_in')</a>
                         </li>
                         @else
-                        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
-                            <a title="Dollar (US)" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">
+                        <li
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
+                            <a title="Dollar (US)" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
+                                href="#">
                                 <i class="tm tm-login-register"></i>@lang('user.my_account')
                                 <span class="caret"></span>
                             </a>
                             <ul role="menu" class=" dropdown-menu">
-                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                <li
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
                                     <a title="Profile" href="{{ url('/profile') }}">@lang('admin.profile')</a>
                                 </li>
-                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-490 animate-dropdown">
-                                    <a title="Profile"  href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{trans('admin.logout')}}</a>
+                                <li
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-490 animate-dropdown">
+                                    <a title="Profile" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{trans('admin.logout')}}</a>
                                 </li>
                             </ul>
                             <!-- .dropdown-menu -->
@@ -159,8 +202,10 @@ $setting = \App\Setting::latest('id')->first();
                         </li>
                         @endguest
                         <li class="techmarket-flex-more-menu-item dropdown">
-                            <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle">...</a>
-                            <ul class="overflow-items dropdown-menu"></ul>
+                            <a title="..." href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bars"
+                                    aria-hidden="true"></i>
+                            </a>
+                            <ul class="overflow-items dropdown-menu" style='left:0 !important;'></ul>
                         </li>
                     </ul>
                     <!-- .nav -->
@@ -171,16 +216,21 @@ $setting = \App\Setting::latest('id')->first();
         </div>
         <!-- .techmarket-sticky-wrap -->
         <div class="row align-items-center">
-            <div id="departments-menu" class="dropdown departments-menu {{ (Str::contains(url()->current(),'login') || Str::contains(url()->current(),'/product/') || Route::current()->getName() == 'show_category'|| Route::current()->getName() == 'tags' || Route::current()->getName() == 'shop' || Route::current()->getName() == 'show_cart' || Route::current()->getName() == 'seller_dashboard' || Route::current()->getName() == 'seller_frontend_products' || Route::current()->getName() == 'show_compare' || Route::current()->getName() == 'show_wishlists' || Route::current()->getName() == 'seller_frontend_products_create' || Route::current()->getName() == 'seller_frontend_products_edit' || Route::current()->getName() == 'seller_frontend_products_variations' || Route::current()->getName() == 'seller_frontend_products_accessories' || Route::current()->getName() == 'show_checkout') ? '' :'show' }}">
-                <button class="btn dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div id="departments-menu"
+                class="dropdown departments-menu {{ (Str::contains(url()->current(),'login') || Str::contains(url()->current(),'/product/') || Route::current()->getName() == 'show_category'|| Route::current()->getName() == 'tags' || Route::current()->getName() == 'shop' || Route::current()->getName() == 'show_cart' || Route::current()->getName() == 'seller_dashboard' || Route::current()->getName() == 'seller_frontend_products' || Route::current()->getName() == 'show_compare' || Route::current()->getName() == 'show_wishlists' || Route::current()->getName() == 'seller_frontend_products_create' || Route::current()->getName() == 'seller_frontend_products_edit' || Route::current()->getName() == 'seller_frontend_products_variations' || Route::current()->getName() == 'seller_frontend_products_accessories' || Route::current()->getName() == 'show_checkout') ? '' :'show' }}">
+                <button class="btn dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                     <i class="tm tm-departments-thin"></i>
-                    <span>All Departments</span>
+                    <span>@lang('user.All_Departments')</span>
                 </button>
-                <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown {{ (Str::contains(url()->current(),'login') || Str::contains(url()->current(),'/product/')  || Route::current()->getName() == 'show_category' || Route::current()->getName() == 'tags' || Route::current()->getName() == 'shop' || Route::current()->getName() == 'show_cart' || Route::current()->getName() == 'seller_dashboard' || Route::current()->getName() == 'seller_frontend_products' || Route::current()->getName() == 'show_compare' || Route::current()->getName() == 'show_wishlists' || Route::current()->getName() == 'seller_frontend_products_create' || Route::current()->getName() == 'seller_frontend_products_edit' || Route::current()->getName() == 'seller_frontend_products_variations' || Route::current()->getName() == 'seller_frontend_products_accessories' || Route::current()->getName() == 'show_checkout')? '' :' show' }}">
+                <ul id="menu-departments-menu"
+                    class="dropdown-menu yamm departments-menu-dropdown {{ (Str::contains(url()->current(),'login') || Str::contains(url()->current(),'/product/')  || Route::current()->getName() == 'show_category' || Route::current()->getName() == 'tags' || Route::current()->getName() == 'shop' || Route::current()->getName() == 'show_cart' || Route::current()->getName() == 'seller_dashboard' || Route::current()->getName() == 'seller_frontend_products' || Route::current()->getName() == 'show_compare' || Route::current()->getName() == 'show_wishlists' || Route::current()->getName() == 'seller_frontend_products_create' || Route::current()->getName() == 'seller_frontend_products_edit' || Route::current()->getName() == 'seller_frontend_products_variations' || Route::current()->getName() == 'seller_frontend_products_accessories' || Route::current()->getName() == 'show_checkout')? '' :' show' }}">
                     @foreach ($categories as $category)
-                    @if(count($category->children))
+                    @if(count($category->categories))
                     <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                        <a title="{{ $category->name }}" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">{{ $category->name }} @if(!empty($category->children)) <span class="caret"></span> @endif</a>
+                        <a title="{{ $category->name }}" data-toggle="dropdown" class="dropdown-toggle"
+                            aria-haspopup="true" href="#">{{ $category->name }} @if(!empty($category->categories)) <span
+                                class="caret"></span> @endif</a>
                         <ul role="menu" class=" dropdown-menu">
                             <li class="menu-item menu-item-object-static_block animate-dropdown">
                                 <div class="yamm-content">
@@ -197,12 +247,16 @@ $setting = \App\Setting::latest('id')->first();
                                     <div class="row yamm-content-row">
                                         <div class="col-md-6 col-sm-12">
                                             <div class="kc-col-container">
-                                                <div class="kc_text_block"><!--categories -->
+                                                <div class="kc_text_block">
+                                                    <!--categories -->
                                                     <ul>
                                                         <li class="nav-title">{{ $category->name }}</li>
-                                                        <li><a href="{{ route('show_category',$category->slug) }}">@lang('user.all') {{ $category->name }}</a></li>
-                                                        @foreach ($category->children->take(12) as $child)
-                                                        <li><a href="{{route('show_category',$child->slug) }}">{{ $child->name }}</a></li>
+                                                        <li><a href="{{ route('show_category',$category->slug) }}">@lang('user.all')
+                                                                {{ $category->name }}</a></li>
+                                                        @foreach ($category->categories->take(12) as $child)
+                                                        <li><a
+                                                                href="{{route('show_category',$child->slug) }}">{{ $child->name }}</a>
+                                                        </li>
                                                         @endforeach
                                                         <li class="nav-divider"></li>
                                                         <li>
@@ -223,8 +277,10 @@ $setting = \App\Setting::latest('id')->first();
                                                 <div class="kc_text_block">
                                                     <ul>
                                                         <li class="nav-title"></li>
-                                                        @foreach ($category->children->skip(12)->take(12) as $child)
-                                                        <li><a href="{{ route('show_category',$child->slug) }}">{{ $child->name }}</a></li>
+                                                        @foreach ($category->categories->skip(12)->take(12) as $child)
+                                                        <li><a
+                                                                href="{{ route('show_category',$child->slug) }}">{{ $child->name }}</a>
+                                                        </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -242,20 +298,21 @@ $setting = \App\Setting::latest('id')->first();
                     </li>
                     @else
                     <li class="highlight menu-item animate-dropdown">
-                        <a title="{{ $category->name }}" href="{{route('show_category',$category->slug) }}">{{ $category->name }}</a>
+                        <a title="{{ $category->name }}"
+                            href="{{route('show_category',$category->slug) }}">{{ $category->name }}</a>
                     </li>
                     @endif
                     @endforeach
                 </ul>
             </div>
             <!-- .departments-menu -->
-            @livewire('front-end.search-result', $categories)
+            @livewire('front-end.search-result', ['categories'=>$categories])
             <!-- .navbar-search -->
             @livewire('compare-header')
             <!-- .header-compare -->
             @livewire('wishlist')
             <!-- .header-wishlist -->
-            @livewire('cart')
+            @livewire('cart-header')
         </div>
         <!-- /.row -->
     </div>
@@ -265,7 +322,7 @@ $setting = \App\Setting::latest('id')->first();
             <div class="row">
                 <div class="site-branding">
                     <a href="{{route('home')}}" class="custom-logo-link" rel="home">
-                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
+                        {{-- <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
                             <defs>
                                 <style>
                                     .cls-1,
@@ -299,29 +356,43 @@ $setting = \App\Setting::latest('id')->first();
                             <polygon class="cls-1" points="32.85 27.56 28.6 27.56 28.6 5.42 28.6 3.96 28.6 0.44 47.95 0.44 47.95 5.42 34.46 5.42 34.46 22.72 48.25 22.72 48.25 27.56 34.46 27.56 32.85 27.56" />
                             <polygon class="cls-1" points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
                             <rect class="cls-2" y="0.44" width="7.19" height="5.13" />
-                        </svg>
+                        </svg> --}}
+                        <img src='{{($setting)?Storage::url($setting->logo):''}}' />
                     </a>
                     <!-- /.custom-logo-link -->
                 </div>
                 <!-- /.site-branding -->
                 <!-- ============================================================= End Header Logo ============================================================= -->
                 <div class="handheld-header-links">
-                    <ul class="columns-3">
+                    <ul class="columns-4">
                         <li class="my-account">
-                            <a href="login-and-register.html" class="has-icon">
+                            <a href="@auth {{route('profile')}} @else {{route('login')}} @endif" class="has-icon">
                                 <i class="tm tm-login-register"></i>
                             </a>
                         </li>
                         <li class="wishlist">
-                            <a href="wishlist.html" class="has-icon">
+                            <a href="{{route('show_wishlists')}}" class="has-icon">
                                 <i class="tm tm-favorites"></i>
-                                <span class="count">3</span>
+                                <span class="count">@guest
+                                    0
+                                    @else
+                                    {{ count(auth()->user()->wishlists) }}
+                                    @endauth</span>
                             </a>
                         </li>
                         <li class="compare">
-                            <a href="compare.html" class="has-icon">
+                            <a href="{{route('show_compare')}}" class="has-icon">
                                 <i class="tm tm-compare"></i>
-                                <span class="count">3</span>
+                                <span class="count">
+                                    @if(session()->get('compare')){{count(session()->get('compare'))}}@else 0 @endif
+                                </span>
+                            </a>
+                        </li>
+                        <li class="compare">
+                            <a href="{{route('chat')}}" class="has-icon">
+                                <i class="tm tm-call-us-footer"></i>
+                                <span class="count">@auth {{auth()->user()->unReadedMessages->count()}}@else 0
+                                    @endif</span>
                             </a>
                         </li>
                     </ul>
@@ -338,491 +409,105 @@ $setting = \App\Setting::latest('id')->first();
                             <span>Menu</span>
                         </button>
                         <div class="handheld-navigation-menu">
-                            <span class="tmhm-close">Close</span>
+                            <span class="tmhm-close">@lang('user.Close')</span>
                             <ul id="menu-departments-menu-1" class="nav">
-                                <li class="highlight menu-item animate-dropdown">
-                                    <a title="Value of the Day" href="shop.html">Value of the Day</a>
-                                </li>
-                                <li class="highlight menu-item animate-dropdown">
-                                    <a title="Top 100 Offers" href="shop.html">Top 100 Offers</a>
-                                </li>
-                                <li class="highlight menu-item animate-dropdown">
-                                    <a title="New Arrivals" href="shop.html">New Arrivals</a>
-                                </li>
-                                <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                                    <a title="Computers &amp; Laptops" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Computers &#038; Laptops <span class="caret"></span></a>
-                                    <ul role="menu" class=" dropdown-menu">
-                                        <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                            <div class="yamm-content">
-                                                <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-                                                    <div class="kc-col-container">
-                                                        <div class="kc_single_image">
-                                                            <img src="{{url('/')}}/FrontEnd/images/megamenu.jpg" class="" alt="" />
-                                                        </div>
-                                                        <!-- .kc_single_image -->
-                                                    </div>
-                                                    <!-- .kc-col-container -->
-                                                </div>
-                                                <!-- .bg-yamm-content -->
-                                                <div class="row yamm-content-row">
-                                                    <div class="col-md-6 col-sm-12">
+                                @foreach($categories as $category)
+                                @if(count($category->categories) == 0) <li class="highlight menu-item animate-dropdown">
+                                    <a title="{{$category->name}}"
+                                        href="{{route('show_category', $category->slug)}}">{{$category->name}}</a>
+                                    </li>
+                                @else
+                                    <li
+                                        class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
+                                        <a title="{{$category->name}}" data-toggle="dropdown" class="dropdown-toggle"
+                                            aria-haspopup="true" href="#">{{$category->name}} <span
+                                                class="caret"></span></a>
+                                        <ul role="menu" class=" dropdown-menu">
+                                            <li class="menu-item menu-item-object-static_block animate-dropdown">
+                                                <div class="yamm-content">
+                                                    <div
+                                                        class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
                                                         <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Computers &amp; Accessories</li>
-                                                                    <li><a href="shop.html">All Computers &amp; Accessories</a></li>
-                                                                    <li><a href="shop.html">Laptops, Desktops &amp; Monitors</a></li>
-                                                                    <li><a href="shop.html">Pen Drives, Hard Drives &amp; Memory Cards</a></li>
-                                                                    <li><a href="shop.html">Printers &amp; Ink</a></li>
-                                                                    <li><a href="shop.html">Networking &amp; Internet Devices</a></li>
-                                                                    <li><a href="shop.html">Computer Accessories</a></li>
-                                                                    <li><a href="shop.html">Software</a></li>
-                                                                    <li class="nav-divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <span class="nav-text">All Electronics</span>
-                                                                            <span class="nav-subtext">Discover more products</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
+                                                            <div class="kc_single_image">
+                                                                <img src="{{Storage::url($category->image)}}" class=""
+                                                                    alt="" />
                                                             </div>
-                                                            <!-- .kc_text_block -->
+                                                            <!-- .kc_single_image -->
                                                         </div>
                                                         <!-- .kc-col-container -->
                                                     </div>
-                                                    <!-- .kc_column -->
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Office &amp; Stationery</li>
-                                                                    <li><a href="shop.html">All Office &amp; Stationery</a></li>
-                                                                    <li><a href="shop.html">Pens &amp; Writing</a></li>
-                                                                </ul>
+                                                    <!-- .bg-yamm-content -->
+                                                    <div class="row yamm-content-row">
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="kc-col-container">
+                                                                <div class="kc_text_block">
+                                                                    <ul>
+                                                                        <li class="nav-title">{{$category->name}}</li>
+                                                                        @foreach($category->categories->take(8) as $child)
+                                                                        <li><a
+                                                                                href="{{route('show_category',$child->slug)}}">{{$child->name}}</a>
+                                                                        </li>
+                                                                        @endforeach
+                                                                        <li>
+                                                                            <a
+                                                                                href="{{route('show_category', $category->slug)}}">
+                                                                                <span
+                                                                                    class="nav-text">{{$category->name}}</span>
+                                                                                <span class="nav-subtext">Discover more
+                                                                                    products</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- .kc_text_block -->
                                                             </div>
-                                                            <!-- .kc_text_block -->
+                                                            <!-- .kc-col-container -->
                                                         </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                </div>
-                                                <!-- .kc_row -->
-                                            </div>
-                                            <!-- .yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                                    <a title="Cameras &amp; Photo" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Cameras &#038; Photo <span class="caret"></span></a>
-                                    <ul role="menu" class=" dropdown-menu">
-                                        <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                            <div class="yamm-content">
-                                                <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-                                                    <div class="kc-col-container">
-                                                        <div class="kc_single_image">
-                                                            <img src="{{url('/')}}/FrontEnd/images/megamenu-1.jpg" class="" alt="" />
-                                                        </div>
-                                                        <!-- .kc_single_image -->
-                                                    </div>
-                                                    <!-- .kc-col-container -->
-                                                </div>
-                                                <!-- .bg-yamm-content -->
-                                                <div class="row yamm-content-row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Cameras & Photography</li>
-                                                                    <li><a href="shop.html">All Cameras & Photography</a></li>
-                                                                    <li><a href="shop.html">Point & Shoot Cameras</a></li>
-                                                                    <li><a href="shop.html">Lenses</a></li>
-                                                                    <li><a href="shop.html">Camera Accessories</a></li>
-                                                                    <li><a href="shop.html">Security & Surveillance</a></li>
-                                                                    <li><a href="shop.html">Binoculars & Telescopes</a></li>
-                                                                    <li><a href="shop.html">Camcorders</a></li>
-                                                                    <li class="nav-divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <span class="nav-text">All Electronics</span>
-                                                                            <span class="nav-subtext">Discover more products</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
+                                                        <!-- .kc_column -->
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="kc-col-container">
+                                                                <div class="kc_text_block">
+                                                                    <ul>
+                                                                        <li class="nav-title">{{$category->name}}</li>
+                                                                        @foreach($category->categories->skip(8)->take(8)
+                                                                        as $child)
+                                                                        <li><a
+                                                                                href="{{route('show_category',$child->slug)}}">{{$child->name}}</a>
+                                                                        </li>
+                                                                        @endforeach
+                                                                        <li>
+                                                                            <a
+                                                                                href="{{route('show_category', $category->slug)}}">
+                                                                                <span
+                                                                                    class="nav-text">{{$category->name}}</span>
+                                                                                <span class="nav-subtext">Discover more
+                                                                                    products</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- .kc_text_block -->
                                                             </div>
-                                                            <!-- .kc_text_block -->
+                                                            <!-- .kc-col-container -->
                                                         </div>
-                                                        <!-- .kc-col-container -->
+                                                        <!-- .kc_column -->
                                                     </div>
-                                                    <!-- .kc_column -->
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Audio & Video</li>
-                                                                    <li><a href="shop.html">All Audio & Video</a></li>
-                                                                    <li><a href="shop.html">Headphones & Speakers</a></li>
-                                                                    <li><a href="shop.html">Home Entertainment Systems</a></li>
-                                                                    <li><a href="shop.html">MP3 & Media Players</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
+                                                    <!-- .kc_row -->
                                                 </div>
-                                                <!-- .kc_row -->
-                                            </div>
-                                            <!-- .yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                                    <a title="Smart Phones &amp; Tablets" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Smart Phones &#038; Tablets 	<span class="caret"></span></a>
-                                    <ul role="menu" class=" dropdown-menu">
-                                        <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                            <div class="yamm-content">
-                                                <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-                                                    <div class="kc-col-container">
-                                                        <div class="kc_single_image">
-                                                            <img src="{{url('/')}}/FrontEnd/images/megamenu.jpg" class="" alt="" />
-                                                        </div>
-                                                        <!-- .kc_single_image -->
-                                                    </div>
-                                                    <!-- .kc-col-container -->
-                                                </div>
-                                                <!-- .bg-yamm-content -->
-                                                <div class="row yamm-content-row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Computers &amp; Accessories</li>
-                                                                    <li><a href="shop.html">All Computers &amp; Accessories</a></li>
-                                                                    <li><a href="shop.html">Laptops, Desktops &amp; Monitors</a></li>
-                                                                    <li><a href="shop.html">Pen Drives, Hard Drives &amp; Memory Cards</a></li>
-                                                                    <li><a href="shop.html">Printers &amp; Ink</a></li>
-                                                                    <li><a href="shop.html">Networking &amp; Internet Devices</a></li>
-                                                                    <li><a href="shop.html">Computer Accessories</a></li>
-                                                                    <li><a href="shop.html">Software</a></li>
-                                                                    <li class="nav-divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <span class="nav-text">All Electronics</span>
-                                                                            <span class="nav-subtext">Discover more products</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Office &amp; Stationery</li>
-                                                                    <li><a href="shop.html">All Office &amp; Stationery</a></li>
-                                                                    <li><a href="shop.html">Pens &amp; Writing</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                </div>
-                                                <!-- .kc_row -->
-                                            </div>
-                                            <!-- .yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                                    <a title="Video Games &amp; Consoles" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Video Games &#038; Consoles <span class="caret"></span></a>
-                                    <ul role="menu" class=" dropdown-menu">
-                                        <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                            <div class="yamm-content">
-                                                <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-                                                    <div class="kc-col-container">
-                                                        <div class="kc_single_image">
-                                                            <img src="{{url('/')}}/FrontEnd/images/megamenu-1.jpg" class="" alt="" />
-                                                        </div>
-                                                        <!-- .kc_single_image -->
-                                                    </div>
-                                                    <!-- .kc-col-container -->
-                                                </div>
-                                                <!-- .bg-yamm-content -->
-                                                <div class="row yamm-content-row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Cameras & Photography</li>
-                                                                    <li><a href="shop.html">All Cameras & Photography</a></li>
-                                                                    <li><a href="shop.html">Point & Shoot Cameras</a></li>
-                                                                    <li><a href="shop.html">Lenses</a></li>
-                                                                    <li><a href="shop.html">Camera Accessories</a></li>
-                                                                    <li><a href="shop.html">Security & Surveillance</a></li>
-                                                                    <li><a href="shop.html">Binoculars & Telescopes</a></li>
-                                                                    <li><a href="shop.html">Camcorders</a></li>
-                                                                    <li class="nav-divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <span class="nav-text">All Electronics</span>
-                                                                            <span class="nav-subtext">Discover more products</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Audio & Video</li>
-                                                                    <li><a href="shop.html">All Audio & Video</a></li>
-                                                                    <li><a href="shop.html">Headphones & Speakers</a></li>
-                                                                    <li><a href="shop.html">Home Entertainment Systems</a></li>
-                                                                    <li><a href="shop.html">MP3 & Media Players</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                </div>
-                                                <!-- .kc_row -->
-                                            </div>
-                                            <!-- .yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                                    <a title="TV &amp; Audio" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">TV &#038; Audio <span class="caret"></span></a>
-                                    <ul role="menu" class=" dropdown-menu">
-                                        <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                            <div class="yamm-content">
-                                                <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-                                                    <div class="kc-col-container">
-                                                        <div class="kc_single_image">
-                                                            <img src="{{url('/')}}/FrontEnd/images/megamenu.jpg" class="" alt="" />
-                                                        </div>
-                                                        <!-- .kc_single_image -->
-                                                    </div>
-                                                    <!-- .kc-col-container -->
-                                                </div>
-                                                <!-- .bg-yamm-content -->
-                                                <div class="row yamm-content-row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Computers &amp; Accessories</li>
-                                                                    <li><a href="shop.html">All Computers &amp; Accessories</a></li>
-                                                                    <li><a href="shop.html">Laptops, Desktops &amp; Monitors</a></li>
-                                                                    <li><a href="shop.html">Pen Drives, Hard Drives &amp; Memory Cards</a></li>
-                                                                    <li><a href="shop.html">Printers &amp; Ink</a></li>
-                                                                    <li><a href="shop.html">Networking &amp; Internet Devices</a></li>
-                                                                    <li><a href="shop.html">Computer Accessories</a></li>
-                                                                    <li><a href="shop.html">Software</a></li>
-                                                                    <li class="nav-divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <span class="nav-text">All Electronics</span>
-                                                                            <span class="nav-subtext">Discover more products</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Office &amp; Stationery</li>
-                                                                    <li><a href="shop.html">All Office &amp; Stationery</a></li>
-                                                                    <li><a href="shop.html">Pens &amp; Writing</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                </div>
-                                                <!-- .kc_row -->
-                                            </div>
-                                            <!-- .yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                                    <a title="Car Electronic &amp; GPS" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Car Electronic &#038; GPS <span class="caret"></span></a>
-                                    <ul role="menu" class=" dropdown-menu">
-                                        <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                            <div class="yamm-content">
-                                                <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-                                                    <div class="kc-col-container">
-                                                        <div class="kc_single_image">
-                                                            <img src="{{url('/')}}/FrontEnd/images/megamenu-1.jpg" class="" alt="" />
-                                                        </div>
-                                                        <!-- .kc_single_image -->
-                                                    </div>
-                                                    <!-- .kc-col-container -->
-                                                </div>
-                                                <!-- .bg-yamm-content -->
-                                                <div class="row yamm-content-row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Cameras & Photography</li>
-                                                                    <li><a href="shop.html">All Cameras & Photography</a></li>
-                                                                    <li><a href="shop.html">Point & Shoot Cameras</a></li>
-                                                                    <li><a href="shop.html">Lenses</a></li>
-                                                                    <li><a href="shop.html">Camera Accessories</a></li>
-                                                                    <li><a href="shop.html">Security & Surveillance</a></li>
-                                                                    <li><a href="shop.html">Binoculars & Telescopes</a></li>
-                                                                    <li><a href="shop.html">Camcorders</a></li>
-                                                                    <li class="nav-divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <span class="nav-text">All Electronics</span>
-                                                                            <span class="nav-subtext">Discover more products</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Audio & Video</li>
-                                                                    <li><a href="shop.html">All Audio & Video</a></li>
-                                                                    <li><a href="shop.html">Headphones & Speakers</a></li>
-                                                                    <li><a href="shop.html">Home Entertainment Systems</a></li>
-                                                                    <li><a href="shop.html">MP3 & Media Players</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                </div>
-                                                <!-- .kc_row -->
-                                            </div>
-                                            <!-- .yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
-                                    <a title="Accesories" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" href="#">Accesories <span class="caret"></span></a>
-                                    <ul role="menu" class=" dropdown-menu">
-                                        <li class="menu-item menu-item-object-static_block animate-dropdown">
-                                            <div class="yamm-content">
-                                                <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-                                                    <div class="kc-col-container">
-                                                        <div class="kc_single_image">
-                                                            <img src="{{url('/')}}/FrontEnd/images/megamenu.jpg" class="" alt="" />
-                                                        </div>
-                                                        <!-- .kc_single_image -->
-                                                    </div>
-                                                    <!-- .kc-col-container -->
-                                                </div>
-                                                <!-- .bg-yamm-content -->
-                                                <div class="row yamm-content-row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Computers &amp; Accessories</li>
-                                                                    <li><a href="shop.html">All Computers &amp; Accessories</a></li>
-                                                                    <li><a href="shop.html">Laptops, Desktops &amp; Monitors</a></li>
-                                                                    <li><a href="shop.html">Pen Drives, Hard Drives &amp; Memory Cards</a></li>
-                                                                    <li><a href="shop.html">Printers &amp; Ink</a></li>
-                                                                    <li><a href="shop.html">Networking &amp; Internet Devices</a></li>
-                                                                    <li><a href="shop.html">Computer Accessories</a></li>
-                                                                    <li><a href="shop.html">Software</a></li>
-                                                                    <li class="nav-divider"></li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <span class="nav-text">All Electronics</span>
-                                                                            <span class="nav-subtext">Discover more products</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="kc-col-container">
-                                                            <div class="kc_text_block">
-                                                                <ul>
-                                                                    <li class="nav-title">Office &amp; Stationery</li>
-                                                                    <li><a href="shop.html">All Office &amp; Stationery</a></li>
-                                                                    <li><a href="shop.html">Pens &amp; Writing</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- .kc_text_block -->
-                                                        </div>
-                                                        <!-- .kc-col-container -->
-                                                    </div>
-                                                    <!-- .kc_column -->
-                                                </div>
-                                                <!-- .kc_row -->
-                                            </div>
-                                            <!-- .yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item animate-dropdown">
-                                    <a title="Gadgets" href="shop.html">Gadgets</a>
-                                </li>
-                                <li class="menu-item animate-dropdown">
-                                    <a title="Virtual Reality" href="shop.html">Virtual Reality</a>
-                                </li>
+                                                <!-- .yamm-content -->
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    @endif
+                                    @endforeach
                             </ul>
                         </div>
                         <!-- .handheld-navigation-menu -->
                     </nav>
                     <!-- .handheld-navigation -->
-                    <div class="site-search">
-                        <div class="widget woocommerce widget_product_search">
-                            <form role="search" method="get" class="woocommerce-product-search" action="home-v1.html">
-                                <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
-                                <input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="Search products&hellip;" value="" name="s" />
-                                <input type="submit" value="Search" />
-                                <input type="hidden" name="post_type" value="product" />
-                            </form>
-                        </div>
-                        <!-- .widget -->
-                    </div>
+                    @livewire('small-monitor-search', ['categories' => $categories])
                     <!-- .site-search -->
-                    <a class="handheld-header-cart-link has-icon" href="cart.html" title="View your shopping cart">
-                        <i class="tm tm-shopping-bag"></i>
-                        <span class="count">2</span>
-                    </a>
+                    @livewire('small-monitor-cart')
                 </div>
                 <!-- /.row -->
             </div>

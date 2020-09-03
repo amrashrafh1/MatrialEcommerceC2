@@ -4445,7 +4445,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
 
 @media (min-width: 1200px) and (max-width: 1699px) {
   .site-header.header-v1 .primary-navigation {
-    flex: 0 0 44%;
+    flex: 0 0 54%;
     max-width: 75%; } }
 
 @media (min-width: 1700px) and (max-width: 1800px) {
@@ -8225,17 +8225,18 @@ figure.gallery-item {
     .site-header .handheld-header .handheld-header-links ul li a {
       color: #444; }
     .site-header .handheld-header .handheld-header-links ul .count {
-      display: none;
+      display: block;
       position: absolute;
-      top: -6px;
+      top: -15px;
       line-height: 1;
       padding: 3px 5px;
-      background: #000;
+      background: #0056B8;
       font-size: 11px;
-      opacity: 0.5;
-      color: #fff;
+      font-weight:bold;
+/*       opacity: 0.5;
+ */      color: #fff;
       border-radius: 50px;
-      right: 12px; }
+       }
   .site-header .handheld-header .handheld-header-cart-link {
     padding-left: 0;
     text-align: center;
@@ -9431,7 +9432,8 @@ a#variations_clear:before {
       border-radius: 4px;
       font-weight: normal; }
     .shop-control-bar form select.orderby {
-      line-height: 2.067em; }
+      line-height: 2.067em;
+       }
     .shop-control-bar form input.form-control {
       line-height: 1.800em; }
   @media (max-width: 1023px) {
@@ -9448,6 +9450,7 @@ a#variations_clear:before {
       .shop-control-bar .woocommerce-products-header__title {
         color: #fff; }
       .shop-control-bar form select.orderby {
+        background:cornflowerblue !important;
         border: none;
         line-height: 1;
         color: #fff;
@@ -9720,14 +9723,14 @@ a#variations_clear:before {
         content: " ";
         margin: 0 .5em; }
       .secondary-navigation .nav .techmarket-flex-more-menu-item.show > .dropdown-menu {
-        left: auto;
+        left: -132px !important;
         right: 0;
         min-width: 200px;
         text-align: center; }
       .secondary-navigation .nav .techmarket-flex-more-menu-item > a {
         position: relative;
         display: inline-block;
-        transform: rotate(-90deg);
+        /* transform: rotate(-90deg); */
         font-size: 20px;
         font-weight: 500;
         line-height: 1; }

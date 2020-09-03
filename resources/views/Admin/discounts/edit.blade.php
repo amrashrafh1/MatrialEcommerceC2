@@ -105,7 +105,7 @@
                     </div>
                     <br>
                     <div id='product_id'>
-                        @livewire('admin.discount.edit-product-id', 'product_id', $rows->product_id)
+                        @livewire('admin.discount.edit-product-id', ['type'=>'product_id','id' => $rows->product_id])
                     </div>
                     <br>
                     <div class="form-group row" id="buy_x_quantity">
@@ -133,7 +133,7 @@
                     </div>
                     <br>
                     <div id='product_y'>
-                        @livewire('admin.discount.edit-product-id', 'product_y', $rows->product_y)
+                        @livewire('admin.discount.edit-product-id', ['type'=>'product_y','id' => $rows->product_y])
                     </div>
                     <br>
                     <div class="form-actions">

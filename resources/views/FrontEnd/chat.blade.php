@@ -29,8 +29,8 @@
     <link rel='stylesheet prefetch'
         href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-{{--     <link rel="stylesheet" type="text/css" href="{{url('/')}}/css/zoom.css">
- --}}
+    @livewireStyles
+
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style class="cp-pen-styles">
@@ -869,14 +869,12 @@
 
 <body>
     <div id="app"></div>
-    @livewire('front-end.chat-bot', $user_id)
+    @livewire('front-end.chat-bot', ['conv' => $conv])
 
     <script
     src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>
     </script>
-{{--     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
- --}}
- @livewireAssets
+ @livewireScripts
  @stack('js')
 </body>
 

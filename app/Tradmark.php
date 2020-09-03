@@ -25,13 +25,66 @@ class Tradmark extends Model
     public function productsSortBy($sort)
     {
         if($sort === 'price-asc') {
-            return $this->hasMany(Product::class)->orderBy('sale_price','asc');
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)->orderBy('sale_price','asc');
         } elseif($sort === 'price-desc') {
-            return $this->hasMany(Product::class)->orderBy('sale_price','desc');
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)->orderBy('sale_price','desc');
         }elseif($sort === 'newness') {
-            return $this->hasMany(Product::class)->orderBy('id','desc');
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)->orderBy('id','desc');
         } else {
-            return $this->hasMany(Product::class)->orderBy('id','desc');
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)->orderBy('id','desc');
+        }
+
+    }//end of products
+
+    public function discountProductsSortBy($sort)
+    {
+        if($sort === 'price-asc') {
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)
+            ->whereHas('discount', function ($d) {
+                $d->where('condition', 'percentage_of_product_price')
+                ->orWhere('condition', 'fixed_amount')
+                ->where('start_at', '<=',\Carbon\Carbon::now())
+                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
+            })->orderBy('sale_price','asc');
+
+        } elseif($sort === 'price-desc') {
+            return $this->hasMany(Product::class)
+            ->where('visible', 'visible')
+            ->where('approved', 1)
+            ->whereHas('discount', function ($d) {
+                $d->where('condition', 'percentage_of_product_price')
+                ->orWhere('condition', 'fixed_amount')
+                ->where('start_at', '<=',\Carbon\Carbon::now())
+                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
+            })->orderBy('sale_price','desc');
+
+
+        }elseif($sort === 'newness') {
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)
+            ->whereHas('discount', function ($d) {
+                $d->where('condition', 'percentage_of_product_price')
+                ->orWhere('condition', 'fixed_amount')
+                ->where('start_at', '<=',\Carbon\Carbon::now())
+                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
+            })
+            ->orderBy('id','desc');
+
+        } else {
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)
+            ->whereHas('discount', function ($d) {
+                $d->where('condition', 'percentage_of_product_price')
+                ->orWhere('condition', 'fixed_amount')
+                ->where('start_at', '<=',\Carbon\Carbon::now())
+                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
+            })
+            ->orderBy('id','desc');
         }
 
     }//end of products

@@ -19,7 +19,7 @@ class CategoryDataTable extends DataTable
 
 	public function query(Category $model)
     {
-        return $model->newQuery()->select('name->en as ss','slug','id','cat_id');
+        return $model->newQuery()->select('name->en as ss','slug','id','category_id');
     }
 
 

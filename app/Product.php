@@ -56,7 +56,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     }
     public function gallery()
     {
-        return $this->morphMany(Files::class, 'files');
+        return $this->morphMany(Files::class, 'relation');
     }
 
     /* search package */
@@ -108,6 +108,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     }
 
     // check if the product is visible and approved
+
     public function IsAvailable()
     {
         if($this->visible === 'visible' && $this->approved) {
@@ -128,9 +129,23 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     {
         return $query->where('visible', 'visible')->where('approved', 1);
     }
+    public function scopeHasDiscount($query)
+    {
+        return $query->where('visible', 'visible')->where('approved', 1)
+        ->whereHas('discount', function ($d) {
+            $d->where('condition', 'percentage_of_product_price')
+                ->orWhere('condition', 'fixed_amount')
+                ->where('start_at', '<=', \Carbon\Carbon::now())
+                ->where('expire_at', '>', \Carbon\Carbon::now())->orderBy('id', 'desc');
+        });
+    }
 
 
 
+    public function calc_price()
+    {
+        return $this->sale_price + ($this->tax * $this->sale_price) / 100;
+    }
     public function priceDiscount()
     {
         if ($this->available_discount()) {
@@ -157,6 +172,34 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
                 return false;
             }
         }
+    }
+
+    public function IsPercentage_of_product_price()
+    {
+        if ($this->available_discount()) {
+
+            if ($this->discount->condition === 'percentage_of_product_price') {
+
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    public function IsFixed_amount()
+    {
+        if ($this->available_discount()) {
+
+            if ($this->discount->condition === 'fixed_amount') {
+
+                return true;
+
+            }
+
+            return false;
+
+        }
+        return false;
     }
 
     public function visits()

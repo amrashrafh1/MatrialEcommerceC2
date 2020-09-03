@@ -182,7 +182,8 @@ return [
         AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
-      //  Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+
 
 
     ],
@@ -239,7 +240,7 @@ return [
         'SEO'          => Artesaos\SEOTools\Facades\SEOTools::class,
         'PayPal'       => Srmklive\PayPal\Facades\PayPal::class,
         'Stripe'       => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
-       // 'Debugbar'     => Barryvdh\Debugbar\Facade::class,
+        'Debugbar'     => Barryvdh\Debugbar\Facade::class,
 
 
     ],

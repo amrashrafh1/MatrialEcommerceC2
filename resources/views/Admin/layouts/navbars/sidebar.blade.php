@@ -22,16 +22,16 @@
                 <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
                         shopping_basket
                     </i>
-                    @lang('admin.marketplace')<span class="caret"></span></a>
+                    @lang('admin.marketplace')
+                    <span class="caret"></span></a>
             </li>
             <li class="collapse list-group-level1 {{ $activePage == 'seller-management' ? ' show' : '' }}" id="sub-menu">
                 <a href="{{ route('seller.index') }}" class="list-group-item nav-link{{ $activePage == 'seller-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu">@lang('admin.sellers')</a>
                 <a href="{{ route('seller_products') }}" class="list-group-item nav-link{{ $activePage == 'seller-products-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu">@lang('admin.products')</a>
             </li>
             <li class="nav-item{{ $activePage == 'cms-management' ? '' : 'collapsed' }} list-group" >
-                <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
-                        shopping_basket
-                    </i>
+                <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu">
+                    <i class="fas fa-tasks"></i>
                     @lang('admin.cms')<span class="caret"></span></a>
             </li>
             @php
@@ -54,6 +54,12 @@
                         calendar_today
                     </i>
                     <p>{{ trans('admin.calendar') }}</p>
+                </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'adzs-management' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ aurl('/adzs') }}">
+                    <i class="fas fa-ad"></i>
+                    <p>{{ trans('admin.advertizments') }}</p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'Currencies' ? ' active' : '' }}">
@@ -98,9 +104,7 @@
             </li>
             <li class="nav-item{{ $activePage == 'category-management' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('categories.index') }}">
-                    <i class="material-icons">
-                        category
-                    </i>
+                    <i class="fas fa-building"></i>
                     <p>{{ trans('admin.categories') }}</p>
                 </a>
             </li>

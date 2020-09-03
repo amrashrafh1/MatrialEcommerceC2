@@ -20,10 +20,12 @@ class CreateMessagesTable extends Migration
             $table->bigInteger('m_to')->unsigned();
 			$table->string('message', 255);
 			$table->bigInteger('product_id')->unsigned()->nullable();
+			$table->bigInteger('conv_id')->unsigned();
 			$table->boolean('is_read')->default(0);
             $table->foreign('m_to')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('m_from')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('conv_id')->references('id')->on('conversations')->onDelete('cascade');
             $table->timestamps();
         });
     }

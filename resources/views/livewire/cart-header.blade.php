@@ -15,7 +15,6 @@
                     <div class="widget_shopping_cart_content">
                         <ul class="woocommerce-mini-cart cart_list product_list_widget">
                             @foreach ($carts as $cart)
-
                                 @if($cart->buyable->IsVariable())
                                     <li class="woocommerce-mini-cart-item mini_cart_item">
                                         <a href="#" class="remove" wire:click='removeCart({{$cart->id}})' aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
@@ -68,3 +67,19 @@
 </ul>
 <!-- .site-header-cart -->
 
+@push('js')
+<script>
+     document.addEventListener('DOMContentLoaded', function () {
+    //console.log('asdasd');
+        window.livewire.on('cartAdded', function() {
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '{{trans("admin.added")}}',
+            showConfirmButton: true,
+            timer: 1500
+            });
+        })
+    })
+    </script>
+@endpush

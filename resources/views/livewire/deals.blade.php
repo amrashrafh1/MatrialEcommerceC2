@@ -27,7 +27,7 @@
                                                                 </ins>
                                                                 <del>
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        {!! curr($random->product->sale_price) !!}</span>
+                                                                        {!! curr($random->product->calc_price()) !!}</span>
                                                                 </del>
                                                             </span>
                                                     <!-- /.price -->
@@ -39,7 +39,7 @@
                                                         <span class="saved-label-text">Save</span>
                                                         <span class="saved-label-amount">
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        {!! curr($random->product->sale_price - $random->product->priceDiscount()) !!}</span>
+                                                                        {!! curr($random->product->calc_price() - $random->product->priceDiscount()) !!}</span>
                                                                 </span>
                                                     </div>
                                                     <!-- /.sale-saved-label -->
@@ -94,12 +94,16 @@
                                     @foreach($discountProducts->take(6) as $discount)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                        </div>
+                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$discount->id}})' @else href='{{route('login')}}' @endauth>
+                                                <i class="fa fa-heart-o fa-2x wish @auth
+                                                @if($wishlist_product_id->contains($discount->id)) change_color
+                                                @endif
+                                                @endauth"></i>
+                                           </a>                                        </div>
                                         <a href="{{url('/product/'. $discount->product->slug)}}" class="woocommerce-LoopProduct-link">
                                         <span class="onsale">
                                             <span class="woocommerce-Price-amount amount">
-                                                {!! curr($discount->product->sale_price - $discount->product->priceDiscount()) !!}</span>
+                                                {!! curr($discount->product->calc_price() - $discount->product->priceDiscount()) !!}</span>
                                         </span>
                                         <img src="{{Storage::url($discount->product->image)}}" class="wp-post-image" alt="{{$discount->product->name}}">
                                             <span class="price">
@@ -107,7 +111,7 @@
                                                         <span class="amount">{!! curr($discount->product->priceDiscount()) !!}</span>
                                                     </ins>
                                                     <del>
-                                                        <span class="amount">{!! curr($discount->product->sale_price) !!}</span>
+                                                        <span class="amount">{!! curr($discount->product->calc_price()) !!}</span>
                                                     </del>
                                                 </span>
                                             <!-- /.price -->
@@ -126,8 +130,12 @@
                                                     @endif
                                                 @endif
                                             @else
-                                            <a class="button add_to_cart_button" wire:click='addCart({{$discount->product->id}})'
-                                                rel="nofollow">Add to cart</a>
+                                                <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                    rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                                    <div wire:loading>
+                                                        <i class="fa fa-spinner " aria-hidden="true"></i>
+                                                    </div>
+                                                </a>
                                                 @if($compare !== null)
                                                     @if(!in_array($discount->product->id,$compare))
                                                         <a class="add-to-compare-link comp" wire:click='compare({{$discount->product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
@@ -149,12 +157,16 @@
                                     @foreach($discountProducts->skip(6)->take(6) as $discount)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                        </div>
+                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$discount->id}})' @else href='{{route('login')}}' @endauth>
+                                                <i class="fa fa-heart-o fa-2x wish @auth
+                                                @if($wishlist_product_id->contains($discount->id)) change_color
+                                                @endif
+                                                @endauth"></i>
+                                           </a>                                        </div>
                                         <a href="{{url('/product/'. $discount->product->slug)}}" class="woocommerce-LoopProduct-link">
                                             <span class="onsale">
                                                 <span class="woocommerce-Price-amount amount">
-                                                    {!! curr($discount->product->sale_price - $discount->product->priceDiscount()) !!}</span>
+                                                    {!! curr($discount->product->calc_price() - $discount->product->priceDiscount()) !!}</span>
                                             </span>
                                             <img src="{{Storage::url($discount->product->image)}}" class="wp-post-image" alt="{{$discount->product->name}}">
                                             <span class="price">
@@ -162,7 +174,7 @@
                                                             <span class="amount">{!! curr($discount->product->priceDiscount()) !!}</span>
                                                         </ins>
                                                         <del>
-                                                            <span class="amount">{!! curr($discount->product->sale_price) !!}</span>
+                                                            <span class="amount">{!! curr($discount->product->calc_price()) !!}</span>
                                                         </del>
                                                     </span>
                                             <!-- /.price -->
@@ -181,8 +193,12 @@
                                                     @endif
                                                 @endif
                                             @else
-                                            <a class="button add_to_cart_button" wire:click='addCart({{$discount->product->id}})'
-                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                    rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                                    <div wire:loading>
+                                                        <i class="fa fa-spinner " aria-hidden="true"></i>
+                                                    </div>
+                                                </a>
                                                 @if($compare !== null)
                                                     @if(!in_array($discount->product->id,$compare))
                                                         <a class="add-to-compare-link comp" wire:click='compare({{$discount->product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>

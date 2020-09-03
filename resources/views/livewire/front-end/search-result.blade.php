@@ -3,10 +3,10 @@
     <div class="input-group">
         <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
             class="form-control search-field product-search-field" dir="ltr" value=""
-            placeholder="Search for products" />
+            placeholder="@lang('user.Search_for_products')" />
         <div class="input-group-addon search-categories popover-header">
-            <select name='product_cat' id='product_cat' class='postform resizeselect' wire:model='product_cat'>
-                <option value='0' selected='selected'>All Categories</option>
+            <select name='cat_id' id='cat_id' class='postform resizeselect' wire:model='cat_id'>
+                <option value='0' selected='selected'>@lang('user.All_Categories')</option>
                 @foreach($categories as $category)
                     <option class="level-0" value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
@@ -25,13 +25,13 @@
         <!-- .input-group-btn -->
     </div>
     <!-- .input-group -->
-    <div style="position: absolute; height:auto; width:100%; z-index:10000;background:#f6f6f6; overflow:auto;"
+    <div style="position: absolute; height:auto; width:100%; z-index:100000;background:#f6f6f6; overflow:auto;"
         id="search-result">
         <div id="loading" wire:loading>
             <div class="loader" ></div>
         </div>
-        @if(count($products)>0)
-        @forelse($products as $product)
+        @if(count($result)>0)
+        @forelse($result as $product)
         <div class='search-product' style="pading :0 10px 0; margin:  10px 0; width:100%;">
             <a href="{{route('show_product', $product->slug)}}" class="row">
                 <div class="col-md-3" style="pading : 0 10px; margin: 0 10px;">
@@ -48,7 +48,7 @@
         <div class="">
             <div class="search-pagination">
                 <nav class="woocommerce-pagination">
-                    {{ $products->links() }}
+                    {{ $result->links() }}
                 </nav>
             </div>
         </div>

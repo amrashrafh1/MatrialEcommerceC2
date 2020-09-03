@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FrontEnd;
 
+use App\Conversation;
 use App\Events\SendMesseges;
 use App\Events\StatusEvent;
 use App\Message;
@@ -10,40 +11,36 @@ use Livewire\Component;
 
 class ChatBot extends Component
 {
-    protected  $listeners = ['chatUpdated' => 'chatUpdated'];
+    protected $listeners = ['chatUpdated' => 'chatUpdated'];
 
-    public $message;
-    public $user_id;
-    public $status;
-    public $contacts     = [];
-    public $paginate_var = 15;
-    public $chat_update = false;
 
-    public function chatUpdated() {
+    public $message, $conv, $status,$contacts = [], $paginate_var = 15, $user_id,$chat_update = false;
+
+    public function chatUpdated()
+    {
         $this->chat_update = true;
     }
 
-    public function mount($user_id)
+    public function mount(Conversation $conv)
     {
-        $this->user_id = $user_id;
-        Message::query()->where('m_to', auth()->user()->id)->update(['is_read' => 1]);
+        $this->conv = $conv;
+        $this->user_id = ($conv->user_1 != auth()->user()->id)?$conv->user_1:$conv->user_2;
     }
 
     public function sendMesseges()
     {
+        //dd([auth()->user()->id,$this->user_id]);
         $data = $this->validate([
-            'message'  => 'required|string|min:1|max:255'
+            'message' => 'required|string|min:1|max:255',
         ]);
-        $message = Message::create([
+        $message = $this->conv->messages()->create([
             'message' => $data['message'],
-            'm_to'    => intval($this->user_id),
+            'm_to'    => $this->user_id,
             'm_from'  => auth()->user()->id,
         ]);
-        if (auth()->user()->hasRole('seller')) {
-            broadcast(new SendMesseges($message, auth()->user()->id, $this->user_id))->toOthers();
-        } else {
-            broadcast(new SendMesseges($message, $this->user_id, auth()->user()->id))->toOthers();
-        }
+        //dd($message);
+        broadcast(new SendMesseges($message, $this->conv->id))->toOthers();
+
 
     }
 
@@ -68,52 +65,44 @@ class ChatBot extends Component
         }else {
         $messeges = $auth_message->merge($seller_message)->sortBy('id');
         } */
-        $auth_id = auth()->user()->id;
-        $messages_count = Message::where('m_from', $auth_id)
-            ->where('m_to', $this->user_id)
-            ->orWhere('m_from', $this->user_id)
-            ->where('m_to', $auth_id)
-            ->count();
 
-        $messages = Message::where('m_from', $auth_id)
-            ->where('m_to', $this->user_id)
-            ->orWhere('m_from', $this->user_id)
-            ->where('m_to', $auth_id)
+        // messages
+        $conversation = $this->conv;
+        if ($conversation) {
+            // get user->id
+            $auth_id = auth()->user()->id;
+
+            // update is read
+            $conversation->messages()->where('m_to', $auth_id)->update(['is_read'=> 1]);
+
+            // get messages count for
+            $messages_count = $conversation->messages->count();
+            $messages = $conversation->messages()
             ->skip($messages_count - $this->paginate_var)
             ->take($this->paginate_var)
             ->get();
 
-        //  dd($messages);
-        $contacts_message = Message::where('m_to', auth()->user()->id)->orWhere('m_from', auth()->user()->id)
-            ->select('m_from', 'm_to')
-            ->groupBy('m_from', 'm_to')
-            ->get();
+            //dd('asd');
+            //  dd($messages);
+            $contacts_message = Conversation::where('user_1', $auth_id)->orWhere('user_2', $auth_id)->get();
 
-        foreach ($contacts_message as $messege) {
-            if ($messege->m_to !== auth()->user()->id) {
-                if (!in_array($messege->m_to, $this->contacts)) {
-                    array_push($this->contacts, $messege->m_to);
+            foreach ($contacts_message as $conv) {
+                if (!in_array($conv->id, $this->contacts)) {
+                    array_push($this->contacts, $conv->id);
                 }
-            } else {
-                if (!in_array($messege->m_from, $this->contacts)) {
-                    array_push($this->contacts, $messege->m_from);
-                }
-
             }
-
         }
-        //dd($this->user_id);
         $this->messege = '';
-        return view('livewire.front-end.chat-bot', ['messeges' => $messages,'messages_count' => $messages_count]);
+        return view('livewire.front-end.chat-bot', ['messeges' => $messages, 'messages_count' => $messages_count]);
     }
 
     public function ChangeContact($id)
     {
         /* $user_id = \Crypt::decrypt($id);
-        $user = \App\User::findOrFail($user_id);
-        if ($user) {
-            return redirect()->route('show_chat',$user->id);
-        } */
+    $user = \App\User::findOrFail($user_id);
+    if ($user) {
+    return redirect()->route('show_chat',$user->id);
+    } */
     }
 
     public function updatedStatus()
@@ -148,16 +137,17 @@ class ChatBot extends Component
         $this->paginate_var = $this->paginate_var + 15;
     }
 
-    public function changeStatus($status = null) {
+    public function changeStatus($status = null)
+    {
 
-        if($status) {
-            $user =  User::where('id',$this->user_id)->first();
-            if($user) {
-               // dd('asd');
-                return  broadcast(new StatusEvent($user, $status))->toOthers();
+        if ($status) {
+            $user = User::where('id', $this->user_id)->first();
+            if ($user) {
+                // dd('asd');
+                return broadcast(new StatusEvent($user, $status))->toOthers();
             }
         }
-        return  broadcast(new StatusEvent(auth()->user()))->toOthers();
+        return broadcast(new StatusEvent(auth()->user()))->toOthers();
 
     }
 }

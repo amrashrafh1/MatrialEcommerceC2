@@ -11,3 +11,19 @@
         </a>
     </li>
 </ul>
+@push('js')
+<script>
+     document.addEventListener('DOMContentLoaded', function () {
+    //console.log('asdasd');
+        window.livewire.on('wishlistAdded', function() {
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '{{trans("admin.added")}}',
+            showConfirmButton: true,
+            timer: 1500
+            });
+        })
+    })
+    </script>
+@endpush

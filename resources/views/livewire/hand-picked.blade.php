@@ -13,23 +13,23 @@
                         <div class="products">
                             @foreach($handpicked as $product)
                             <div class="landscape-product-widget product">
-                                <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html">
+                                <a class="woocommerce-LoopProduct-link" href="{{route('show_product', $product->slug)}}">
                                     <div class="media">
                                         <img class="wp-post-image"
-                                            src="{{ url('/') }}/FrontEnd/images/products/sm-1.jpg" alt="">
+                                            src="{{Storage::url($product->image)}}" alt="">
                                         <div class="media-body">
                                             <span class="price">
-                                                @if(isset($product->discount))
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
-                                                </ins>
-                                                <del>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </del>
+                                                @if($product->available_discount())
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </del>
                                                 @else
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </ins>
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </ins>
                                                 @endif
                                             </span>
                                             <!-- .price -->

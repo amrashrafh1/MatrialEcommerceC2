@@ -6,6 +6,7 @@ use App\Discount;
 use App\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Auth;
 
 class Deals extends Component
 {
@@ -22,9 +23,10 @@ class Deals extends Component
             ->with('product:name,slug,product_type,id,sale_price,image,stock')->first();
 
         $compare = session()->get('compare');
+        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
         return view('livewire.deals', ['discountProducts' => $discountProducts, 'random' => $random,
-        'compare' => $compare]);
+        'compare' => $compare, 'wishlist_product_id' =>$wishlist_product_id]);
     }
 
     public function addCart($id)

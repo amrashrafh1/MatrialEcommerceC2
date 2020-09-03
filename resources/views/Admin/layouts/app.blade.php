@@ -38,7 +38,8 @@
     || Route::current()->getName() == 'add_accessories'
     || Route::current()->getName() == 'discounts.create'
     || Route::current()->getName() == 'attribute_families.index' )
-    @livewireAssets
+    @livewireStyles
+    @livewireScripts
     @endif
 </head>
 

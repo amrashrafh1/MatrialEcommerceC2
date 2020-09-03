@@ -40,7 +40,10 @@ class ShowProduct extends Component
 
         foreach($this->accessories as $tota) {
             if(isset($this->prices[$tota])) {
-                $this->total += $this->prices[$tota];
+                $product = Product::where('id', $tota)->first();
+                if($product) {
+                    $this->total += $product->calc_price();
+                }
             }
         }
         return view('livewire.products.show-product');

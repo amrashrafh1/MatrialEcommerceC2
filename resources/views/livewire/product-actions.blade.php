@@ -17,34 +17,17 @@ $proAttr = $this->product->attributes()->select('id')->get();
 
         <!-- .additional-info -->
         <p class="price">
-            @if(isset($this->product->discount))
-            @if($this->product->discount->condition === 'percentage_of_product_price'
-            && $this->product->discount->start_at <= \Carbon\Carbon::now()
-            && $this->product->discount->expire_at > \Carbon\Carbon::now())
-            <ins>
-                <span class="amount">{!! curr($this->product->priceDiscount()) !!}</span>
-            </ins>
-            <del>
-                <span class="amount">{!! curr($this->product->sale_price) !!}</span>
-            </del>
-            @elseif($this->product->discount->condition === 'fixed_amount'
-            && $this->product->discount->start_at <= \Carbon\Carbon::now()
-            && $this->product->discount->expire_at > \Carbon\Carbon::now())
-            <ins>
-                <span class="amount">{!! curr($this->product->priceDiscount()) !!}</span>
-            </ins>
-            <del>
-                <span class="amount">{!! curr($this->product->sale_price) !!}</span>
-            </del>
-            @else
-            <ins>
-                <span class="amount">{!! curr($this->product->sale_price) !!}</span>
-            </ins>
-            @endif
-            @else
-            <ins>
-                <span class="amount">{!! curr($this->product->sale_price) !!}</span>
-            </ins>
+            @if($product->available_discount())
+                <ins>
+                    <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                </ins>
+                <del>
+                    <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                </del>
+                @else
+                <ins>
+                    <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                </ins>
             @endif
         </p>
         <!-- .price -->
@@ -148,7 +131,7 @@ $proAttr = $this->product->attributes()->select('id')->get();
                             class="input-text qty text" size="4">
                     </div>
                     @error('quantity') <span class="error text-danger">{{ $message }}</span> @enderror
-                        <button class="single_add_to_cart_button button alt wc-variation-selection-needed tooltip_cart add_to_cart disabled"
+                        <button class="single_add_to_cart_button button alt wc-variation-selection-needed tooltip_cart add_to_cart"
                          disabled {{($this->product->stock <= 0)?'disabled':''}} type="submit">@lang('user.Add_to_cart')
                             <span class="tooltiptext_cart">@lang('user.please_provide_the_missing_information_first')</span>
                         </button>

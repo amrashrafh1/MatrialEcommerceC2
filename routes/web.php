@@ -20,3 +20,6 @@ Route::group(
  /* FrontEnd route */
 
 });
+
+
+Addchat::routes();

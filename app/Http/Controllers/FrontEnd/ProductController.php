@@ -105,14 +105,15 @@ class ProductController extends Controller
        // ->where('sale_price' ,'!=', null)
         ->orderBy('id','desc')->first();
         if($variations) {
-            $price = $variations->sale_price;
-            $sale  = $variations->priceDiscount($product,$variations->sale_price);
+            $price      = ($variations->sale_price)?$variations->sale_price:$product->sale_price;
+            $sale_price = $variations->sale_price + ($product->tax * $price) / 100;
+            $sale       = $variations->priceDiscount($product,($variations->sale_price)?$variations->sale_price:$product->sale_price);
             return [
                 'offerppss'       => (intval($sale) == 0)?0:curr($sale),
                 'offerppssNormal' => (intval($sale) == 0)?0:$sale,
-                'ppss'            => (intval($price) == 0)?0:curr($price),
-                'ppssNormal'      => (intval($price) == 0)?0:$price,
-                'offer'           => (intval($sale) == 0)?0:curr($price - $sale),
+                'ppss'            => (intval($sale_price) == 0)?0:curr($sale_price),
+                'ppssNormal'      => (intval($sale_price) == 0)?0:$sale_price,
+                'offer'           => (intval($sale) == 0)?0:curr($sale_price - $sale),
                 'sku'             => $variations->sku
             ];
         }

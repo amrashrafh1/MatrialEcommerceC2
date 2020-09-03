@@ -39,8 +39,8 @@ class Shipping_ZoneController extends Controller
     public function create()
     {
         $validator = \JsValidator::make([
-            'name' => 'required|string|max:191',
-            'country_id.*' =>  'required|numeric'
+            'name'         => 'required|string|max:191',
+            'country_id.*' => 'required|exists,countries'
         ]);
         return view('Admin.'.$this->path.'.create',
             [

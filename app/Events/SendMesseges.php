@@ -28,20 +28,18 @@ class SendMesseges implements ShouldBroadcast
      * @var \App\Message
      */
     public $message;
-    public $user_id;
-    public $seller_id;
+    public $conv_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Message $message, $seller_id, $user_id)
+    public function __construct(Message $message, $conv_id)
     {
 
         $this->message   = $message;
-        $this->seller_id = $seller_id;
-        $this->user_id   = $user_id;
+        $this->conv_id   = $conv_id;
     }
 
     /**
@@ -51,7 +49,7 @@ class SendMesseges implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('chat-' . $this->seller_id . '-' . $this->user_id);
+        return new PresenceChannel('chat-' . $this->conv_id);
 
     }
 }

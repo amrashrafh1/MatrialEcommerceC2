@@ -11,7 +11,6 @@ use Auth;
 
 class NewArrivals extends Component
 {
-    protected $casts;
 
     public function render()
     {
@@ -23,7 +22,9 @@ class NewArrivals extends Component
         ->whereHas('products', function ($query) {
             $query->where('visible', 'visible')->where('approved', 1);
         })->take(4)->get();
-        return view('livewire.new-arrivals',['products' => $products, 'categories' => $categories]);
+        $compare = (session()->get('compare'))?session()->get('compare'):[];
+
+        return view('livewire.new-arrivals',['products' => $products, 'categories' => $categories, 'compare' =>$compare]);
     }
 
 

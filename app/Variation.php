@@ -26,18 +26,18 @@ class Variation extends Model
     }
 
     public function priceDiscount($product, $price) {
-        if(isset($product->discount)){
+        if($product->available_discount()) {
 
         if($product->discount->condition === 'percentage_of_product_price') {
 
-            return  $price - ($product->discount->amount / 100 * $price);
+            return  $price - ($product->discount->amount / 100 * $price) + ($product->tax * $price) / 100;
 
         } elseif($product->discount->condition === 'fixed_amount') {
 
-            return $price - $product->discount->amount;
+            return $price - $product->discount->amount + ($product->tax * $price) / 100;
 
         }
     }
-        return $price;
+        return $price + ($product->tax * $price) / 100;
     }
 }

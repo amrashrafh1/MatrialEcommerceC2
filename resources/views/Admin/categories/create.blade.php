@@ -49,11 +49,11 @@
                             <br>
                             <div class="form-group row">
                                 <div class="col-md-2">
-                                    {!! Form::label('cat_id',trans('admin.cat_id'),['class'=>'control-label']) !!}
+                                    {!! Form::label('category_id',trans('admin.cat_id'),['class'=>'control-label']) !!}
                                 </div>
                                 <div class="col-md-10">
                                     {!!
-                                    Form::select('cat_id',\App\Category::pluck('name','id'),old('cat_id'),['class'=>'form-control','placeholder'=>trans('admin.select_cat_id')])
+                                    Form::select('category_id',\App\Category::pluck('name','id'),old('category_id'),['class'=>'form-control','placeholder'=>trans('admin.select_cat_id')])
                                     !!}
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="col-md-10">
                                     {!!
-                                    Form::select('status',[1 => 'Show', 0 => 'hidden'],old('status'),['class'=>'form-control','placeholder'=>trans('admin.select_cat_id')])
+                                    Form::select('status',[1 => 'Show', 0 => 'hidden'],old('status'),['class'=>'form-control','placeholder'=>trans('admin.status')])
                                     !!}
                                 </div>
                             </div>

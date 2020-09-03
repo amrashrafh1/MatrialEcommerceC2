@@ -1,8 +1,5 @@
-@php
-    $parent = \App\Category::where('id', $cat_id)->first();
-@endphp
-@if($parent == null)
-<td>No Parent</td>
+@if($model->parent == null)
+<td>@lang('admin.No_Parent')</td>
 @else
-<td>{{$parent->name}}</td>
+<td>{{$model->parent->name}}</td>
 @endif

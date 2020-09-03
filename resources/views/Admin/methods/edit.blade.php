@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-10">
                             {!!
-                            Form::select('status',[0 => trans('admin.enable'), 1 => trans('admin.disable')],$rows->enable,['class'=>'form-control','placeholder'=>trans('admin.enable')])
+                            Form::select('status',[0 => trans('admin.enable'), 1 => trans('admin.disable')],old('status',$rows->status),['class'=>'form-control','placeholder'=>trans('admin.enable')])
                             !!}
                         </div>
                     </div>

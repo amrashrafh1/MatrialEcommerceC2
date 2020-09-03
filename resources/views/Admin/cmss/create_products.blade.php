@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="card-body form" id="element">
-                @livewire('cmss.add-products', $row)
+                @livewire('cmss.add-products', ['cms'=>$row])
                 <div class="clearfix"></div>
             </div>
         </div>

@@ -39,13 +39,16 @@ class SuperDealPage extends Component
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
             $brands = Tradmark::with(['products'=> function ($p) {
                 $p->where('visible', 'visible')
+                ->where('approved', 1)
                 ->whereHas('discount', function ($d) {
-                            $d->where('condition', 'percentage_of_product_price')
-                            ->orWhere('condition', 'fixed_amount')
-                            ->where('start_at', '<=',\Carbon\Carbon::now())
-                            ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
-                        });
-            }])->inRandomOrder('id')->get();
+                        $d->where('condition', 'percentage_of_product_price')
+                        ->orWhere('condition', 'fixed_amount')
+                        ->where('start_at', '<=',\Carbon\Carbon::now())
+                        ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
+                    });
+            }])
+            //->select('name', 'image', 'sale_price', 'sku','short_description', 'id', 'slug', 'product_type')
+            ->inRandomOrder('id')->get();
             $attributes = Attribute::get();
             $family = [];
             foreach ($attributes as $attr) {
@@ -59,12 +62,12 @@ class SuperDealPage extends Component
                 }
             }
             /* SortBy */
-            if (is_numeric($this->assId) && $this->assId) {
+            /* if (is_numeric($this->assId) && $this->assId) {
                 $pros = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
                 $products = [];
-            } else {
+            } else { */
                 $products = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
-            }
+            /* } */
 
         return view('livewire.shop', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,

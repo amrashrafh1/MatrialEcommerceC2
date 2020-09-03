@@ -57,7 +57,7 @@
                     </div>
                     @endforeach
                     <div class="form-group">
-                        <img class="img-responsive" src="{{Storage::url($rows->logo)}}"/>
+                        <img class="img-responsive" src="{{Storage::url(($rows)?$rows->logo:'')}}"/>
                     </div>
                     <br/>
                     <div class="form-group row">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <img class="img-responsive" src="{{Storage::url($rows->icon)}}"/>
+                        <img class="img-responsive" src="{{Storage::url(($rows)?$rows->icon:'')}}"/>
                     </div>
                     <br/>
                     <div class="form-group row">

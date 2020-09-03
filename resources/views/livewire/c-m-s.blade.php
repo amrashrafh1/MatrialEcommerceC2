@@ -9,11 +9,8 @@
                 <a href="{{route('shop')}}">@lang('user.Shop')</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
-                </span>@if(count($pros) > 0)
-                {{$pros->currentPage()}}
-                @else
+                </span>
                 {{$products->currentPage()}}
-                @endif
             </nav>
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area">
@@ -92,7 +89,7 @@
                             <input type="hidden" value="right-sidebar" name="shop_layout">
                         </form>
                         <!-- .woocommerce-ordering -->
-                        @if(count($pros) > 0)
+{{--                         @if(count($pros) > 0)
                         <nav class="techmarket-advanced-pagination">
                             <div class="form-adv-pagination">
                                 <input type="number" wire:model='PageNumber' name="goTo"
@@ -100,7 +97,7 @@
                                 required class="form-control" step="1" max="{{$pros->lastPage()}}" min="1" id="goto-page">
                             </div> of {{$pros->lastPage()}}<a href="#" class="next page-numbers">→</a>
                         </nav>
-                        @else
+                        @else --}}
                         <nav class="techmarket-advanced-pagination">
                             <div class="form-adv-pagination">
 
@@ -109,8 +106,8 @@
                                 required class="form-control" step="1" max="{{$products->lastPage()}}" min="1" size="2" id="goto-page">
                             </div> of {{$products->lastPage()}}<a href="#" class="next page-numbers">→</a>
                         </nav>
-                        @endif
-                        <!-- .techmarket-advanced-pagination -->
+{{--                         @endif
+ --}}                        <!-- .techmarket-advanced-pagination -->
                     </div>
                     <!-- .shop-control-bar -->
                     <div class="tab-content">
@@ -121,7 +118,7 @@
                                     @php
                                         $count = 1;
                                     @endphp
-                                    @if(count($pros) > 0)
+                                    {{-- @if(count($pros) > 0)
                                     @foreach($pros as $product)
                                     <div class="product {{($count%4 == 1)?'first':''}} {{($count%4 == 0)?'last':''}}">
                                         <div class="yith-wcwl-add-to-wishlist">
@@ -176,27 +173,31 @@
                                     </div>
                                     @php $count++; @endphp
                                     @endforeach
-                                    @else
+                                    @else --}}
                                     @foreach($products as $product)
                                     <div class="product {{($count%4 == 1)?'first':''}} {{($count%4 == 0)?'last':''}}">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
-                                        </div>
+                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
+                                                <i class="fa fa-heart-o fa-2x wish @auth
+                                                @if($wishlist_product_id->contains($product->id)) change_color
+                                                @endif
+                                                @endauth"></i>
+                                           </a>                                        </div>
                                         <!-- .yith-wcwl-add-to-wishlist -->
                                         <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{route('show_product', $product->slug)}}">
                                             <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="{{Storage::url($product->image)}}">
                                             <span class="price">
-                                                @if(isset($product->discount))
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
-                                                </ins>
-                                                <del>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </del>
-                                                @else
-                                                <ins>
-                                                    <span class="amount">{!! curr($product->sale_price) !!}</span>
-                                                </ins>
+                                                @if($product->available_discount())
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </del>
+                                                    @else
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </ins>
                                                 @endif
                                             </span>
                                             <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
@@ -221,17 +222,31 @@
                                         <!-- .woocommerce-product-details__short-description -->
                                         @if($product->IsVariable())
                                             <a class="button product_type_simple add_to_cart_button" href='{{route('show_product',$product->slug)}}'
-                                                rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            @else
-                                            <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
-                                                rel="nofollow">Add to cart</a>
-                                            <a class="add-to-compare-link" href="compare.html">Add to compare</a>
-                                            @endif
+                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                @if($compare !== null)
+                                                @if(!in_array($product->id,$compare))
+                                                    <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                @else
+                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                @endif
+                                                @endif                                            @else
+                                                <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                    rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                                    <div wire:loading>
+                                                        <i class="fa fa-spinner " aria-hidden="true"></i>
+                                                    </div>
+                                                </a>
+                                                @if($compare !== null)
+                                                @if(!in_array($product->id,$compare))
+                                                    <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                @else
+                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                @endif
+                                                @endif                                            @endif
                                     </div>
                                     @php $count++; @endphp
                                     @endforeach
-                                    @endif
+                                    {{-- @endif --}}
                                     <!-- .product -->
                                 </div>
                                 <!-- .products -->
@@ -1406,20 +1421,20 @@
                         </form>
                         <!-- .form-techmarket-wc-ppp -->
                         <p class="woocommerce-result-count">
-                            @if(count($pros) > 0)
+                            {{-- @if(count($pros) > 0)
                             Showing {{$pros->firstItem()}}&ndash;{{$pros->lastItem()}} of {{$pros->total()}} results
-                            @else
+                            @else --}}
                             Showing {{$products->firstItem()}}&ndash;{{$products->lastItem()}} of {{$products->total()}} results
-                            @endif
+                            {{-- @endif --}}
                         </p>
                         <!-- .woocommerce-result-count -->
                         <nav class="woocommerce-pagination">
-                            @if(count($pros) > 0)
+                            {{-- @if(count($pros) > 0)
 
                             {{ $pros->links() }}
-                            @else
+                            @else --}}
                             {{ $products->links() }}
-                            @endif
+                            {{-- @endif --}}
                         </nav>
                         <!-- .woocommerce-pagination -->
                     </div>
@@ -1503,17 +1518,17 @@
                                                     <img class="wp-post-image" src="{{Storage::url($latest->image)}}" alt="">
                                                     <div class="media-body">
                                                         <span class="price">
-                                                            @if(isset($latest->discount))
-                                                            <ins>
-                                                                <span class="amount">{!! curr($latest->priceDiscount()) !!}</span>
-                                                            </ins>
-                                                            <del>
-                                                                <span class="amount">{!! curr($latest->sale_price) !!}</span>
-                                                            </del>
-                                                            @else
-                                                            <ins>
-                                                                <span class="amount">{!! curr($latest->sale_price) !!}</span>
-                                                            </ins>
+                                                            @if($latest->available_discount())
+                                                                <ins>
+                                                                    <span class="amount">{!! curr($latest->priceDiscount()) !!}</span>
+                                                                </ins>
+                                                                <del>
+                                                                    <span class="amount">{!! curr($latest->calc_price()) !!}</span>
+                                                                </del>
+                                                                @else
+                                                                <ins>
+                                                                    <span class="amount">{!! curr($latest->calc_price()) !!}</span>
+                                                                </ins>
                                                             @endif
                                                         </span>
                                                         <!-- .price -->

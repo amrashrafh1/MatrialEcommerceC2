@@ -1,7 +1,7 @@
 <div id="frame" wire:ignore.self>
-    @php
+{{--     @php
     $user = \App\User::find($this->user_id);
-    @endphp
+    @endphp --}}
     <div id="sidepanel">
         <div id="profile" wire:ignore>
             <div class="wrap">
@@ -54,21 +54,24 @@
         </div> --}}
         <div id="contacts" wire:ignore>
             <ul>
+
                 @foreach($this->contacts as $contact)
                 @php
-                $cont = \App\User::find($contact);
+                $cont    = \App\Conversation::find($contact);
+                $user_id = ($cont->user_1 != auth()->user()->id)?$cont->user_1:$cont->user_2;
+                $user    = \App\User::where('id', $user_id)->first();
                 @endphp
-                <li class="contact contact{{$cont->id}} {{($cont->id === $this->user_id)?'active':''}}"
+                <li class="contact contact{{$cont->id}} {{($cont->id === $this->conv->id)?'active':''}}"
                     >
-                    <a href='{{route('show_chat',Crypt::encrypt($cont->id))}}'>
+                    <a href='{{route('show_chat',$cont->id)}}'>
                     <div class="wrap">
-                    <span class="contact-status {{$cont->chat_status}}"></span>
-                        <img src="{{Storage::url($cont->image)}}" alt="" />
+                    <span class="contact-status {{$user->chat_status}}"></span>
+                        <img src="{{Storage::url($user->image)}}" alt="" />
                         <div class="meta">
-                            <p class="name">{{$cont->name}}</p>
+                            <p class="name">{{$user->name}}</p>
                             <p class="preview">
                                 @php
-                                $mess = $cont->messages->where('m_to', auth()->user()->id)->last();
+                                $mess = $user->messages->where('m_to', auth()->user()->id)->last();
                                 @endphp
                                 {{($mess)?(count($mess->files) > 0)?'':'':''}}</p>
                         </div>
@@ -114,7 +117,7 @@
                         {{$message->message}}
                         @endif
                         <br /> <span
-                            style="font-size:12px; float:right;">{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                            style="font-size:12px; float:right;" wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
                             @if($message->is_read)
                             <br/>
                             <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -125,7 +128,7 @@
                 @else
                 <li class="replies">
                     <img src="{{Storage::url(auth()->user()->image)}}" alt="" />
-                    <p style="overflow-wrap: break-word; background:none">
+                    <p style="overflow-wrap: break-word;">
                         <a href='{{route('show_product', $message->product->slug)}}'>
                             <img src='{{Storage::url($message->product->image)}}' class='image'
                                 >
@@ -134,9 +137,9 @@
                         </a>
                         <br />
                         <span
-                            style="font-size:12px; float:right;background: #2C3E50;
+                            style="font-size:12px; float:right;
                             padding: 5px;
-                            border-radius: 10%;">{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                            border-radius: 10%;" wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
                     @if($message->is_read)
                     <br/>
                     <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -157,7 +160,7 @@
                         @else
                         {{$message->message}}
                         @endif <br /> <span
-                            style="font-size:12px;float:right;">{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                            style="font-size:12px;float:right;" wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
                         </p>
                 </li>
                 @else
@@ -173,7 +176,7 @@
                         </a><br /> <span
                             style="font-size:12px; float:right;
                             padding: 5px;
-                            border-radius: 10%;">{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                            border-radius: 10%;" wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
                     </p>
                 </li>
                 @endif
@@ -272,9 +275,7 @@
         newMessage();
     });
 
-    @role('seller')
-
-    Echo.join(`chat-{{auth()->user()->id}}-{{$this->user_id}}`)
+    Echo.join(`chat-{{$this->conv->id}}`)
         .here((user) => {})
         .joining((user) => {
             @this.call('changeStatus', 'online');
@@ -310,45 +311,7 @@
             }, "fast");
         });
 
-    @else
 
-    Echo.join(`chat-{{$this->user_id}}-{{auth()->user()->id}}`)
-        .here((user) => {
-        })
-        .joining((user) => {
-        @this.call('changeStatus', 'online');
-        $('.contact{{$this->user_id}} .contact-status').addClass('online');
-        $('.contact{{$this->user_id}} .contact-status').removeClass('away');
-        $('.contact{{$this->user_id}} .contact-status').removeClass('offline');
-        $('.contact{{$this->user_id}} .contact-status').removeClass('busy');
-        })
-        .leaving((user) => {
-
-        @this.call('changeStatus', 'offline');
-        $('.contact{{$this->user_id}} .contact-status').removeClass('online');
-        $('.contact{{$this->user_id}} .contact-status').removeClass('away');
-        $('.contact{{$this->user_id}} .contact-status').removeClass('busy');
-        $('.contact{{$this->user_id}} .contact-status').addClass('offline');
-            console.log('offline');
-        })
-        .listen('SendMesseges', (e) => {
-
-            @this.call('readMessage', e.message.id);
-
-            message = e.message.message;
-            if ($.trim(message) == '') {
-                return false;
-            }
-            $('<li class="sent"><img src="{{Storage::url(auth()->user()->image)}}" alt="" /><p>' +
-                message +
-                '<br /> <span style="font-size:12px;float:right;"></span></p></li>').appendTo($('.messages ul'));
-            $('.message-input input').val(null);
-            $('.contact.active .preview').html('<span>You: </span>' + message);
-            $(".messages").animate({
-                scrollTop: $(document).height() + 10000000
-            }, "fast");
-        });
-    @endrole
 
     $('#contacts').on('click', 'li', function () {
         $('#contacts li.active').removeClass('active');
@@ -402,7 +365,7 @@ $('#image-upload').change(function () {
 
     $.ajax({
         method: 'POST',
-        url: '{{route("sendMessage", $this->user_id)}}',
+        url: '{{route("sendMessage", $this->conv->id)}}',
         data: image_upload,
         contentType: false,
         processData: false,
@@ -472,5 +435,10 @@ function ShowLargeImage(imagePath) {
     console.log('zoomed');
     $('body').append('<div class="modal-overlay"></div><div class="modal-img"><img src="' + imagePath.replace("small","large") + '" /></div>');
 }
+
+/* window.livewire.on('scroll', function()  {
+      $('#messages').animate({
+          scrollTop: $('#messages')[0].scrollHeight}, "slow");
+}) */
 </script>
 @endpush

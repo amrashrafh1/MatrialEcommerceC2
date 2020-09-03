@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Product;
+use Auth;
+
 class Dreams extends Component
 {
     public function render()
@@ -12,9 +14,26 @@ class Dreams extends Component
         $products = Product::where('section','make_dreams_your_reality')
         ->select('id','slug','product_type','name','sale_price')->orderBy('id','desc')->take(20)->get();
 
-        $compare = session()->get('compare');
+        $compare = (session()->get('compare'))?session()->get('compare'):[];
+        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
-        return view('livewire.dreams', ['products' => $products, 'compare' => $compare]);
+        return view('livewire.dreams', ['products' => $products, 'compare' => $compare,
+        'wishlist_product_id' => $wishlist_product_id]);
+    }
+
+
+
+    public function wishlists($id) {
+        if(Auth::check()) {
+            if(auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($id)) {
+                auth()->user()->wishlists()->disableCache()->detach($id);
+                $this->emit('wishlistAdded');
+            } else {
+                auth()->user()->wishlists()->disableCache()->attach($id);
+                $this->emit('wishlistAdded');
+
+            }
+        }
     }
 
     public function addCart($id) {

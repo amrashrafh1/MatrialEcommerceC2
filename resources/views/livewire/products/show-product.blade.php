@@ -1,6 +1,8 @@
 @php
 $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
 ->count();
+//$direction =  (LaravelLocalization::getCurrentLocaleDirection() === 'rtl') ? 'right' :'left';
+//dd($direction);
 @endphp
 <div id="content" class="site-content" tabindex="-1">
     <div class="col-full">
@@ -91,7 +93,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 @if($this->product->available_discount())
                                 <span class="onsale">
                                     <span class="woocommerce-Price-amount amount">
-                                       {!! curr($this->product->sale_price - $this->product->priceDiscount()) !!}</span>
+                                       {!! curr($this->product->calc_price() - $this->product->priceDiscount()) !!}</span>
                                 </span>
                                 @endif
                                 <!-- .onsale -->
@@ -139,11 +141,11 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 <div class="single-product-header">
                                 <h1 class="product_title entry-title">{{$this->product->name}}</h1>
                                 @guest
-                                <a style="position: absolute;right: 35px;top: 0; cursor:pointer;" href="{{route('login')}}">
+                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: 0;  cursor:pointer;" href="{{route('login')}}">
                                     <i class="fa fa-heart-o fa-2x"></i>
                                </a>
                                 @else
-                                <a style="position: absolute;right: 35px;top: 0;cursor:pointer;" wire:click='wishlists'>
+                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: 0; cursor:pointer;" wire:click='wishlists'>
                                      <i class="fa fa-heart-o fa-2x wish @auth
                                      @if($this->isWishlist) change_color
                                      @endif
@@ -218,7 +220,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 <!-- .woocommerce-product-details__short-description -->
                             </div>
                             <!-- .entry-summary -->
-                            @livewire('product-actions', $this->product)
+                            @livewire('product-actions', ['product'=>$this->product])
 
                         <!-- .single-product-wrapper -->
                         <div class="techmarket-tabs techmarket-tabs-wrapper wc-tabs-wrapper">
@@ -248,17 +250,16 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                                             <img style="height:197px; width:224px;" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="{{Storage::url($accessory->image)}}">
                                                             <span class="price">
                                                                 @if($accessory->available_discount())
-
-                                                                <ins>
-                                                                    <span class="amount">{!! curr($accessory->priceDiscount()) !!}</span>
-                                                                </ins>
-                                                                <del>
-                                                                    <span class="amount">{!! curr($accessory->sale_price) !!}</span>
-                                                                </del>
-                                                                @else
-                                                                <ins>
-                                                                    <span class="amount">{!! curr($accessory->sale_price) !!}</span>
-                                                                </ins>
+                                                                    <ins>
+                                                                        <span class="amount">{!! curr($accessory->priceDiscount()) !!}</span>
+                                                                    </ins>
+                                                                    <del>
+                                                                        <span class="amount">{!! curr($accessory->calc_price()) !!}</span>
+                                                                    </del>
+                                                                    @else
+                                                                    <ins>
+                                                                        <span class="amount">{!! curr($accessory->calc_price()) !!}</span>
+                                                                    </ins>
                                                                 @endif
                                                             </span>
                                                             <h2 class="woocommerce-loop-product__title">{{$accessory->name}}</h2>
@@ -371,14 +372,14 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                         </li>
                                     </ul>
                                     <!-- /.ec-tabs -->
-                                    @livewire('products.add-reviews', $this->product)
+                                    @livewire('products.add-reviews', ['product' => $this->product])
                                 </div>
                                 <!-- .tab-content -->
                             </div>
                             <!-- .techmarket-tab -->
                         </div>
                         <!-- .techmarket-tabs -->
-                        @livewire('related-product', $this->product,$this->product->tags)
+                        @livewire('related-product', ['product' => $this->product, 'tags' => $this->product->tags])
                         <!-- .tm-related-products-carousel -->
                         @livewire('products.recently-product')
                         <!-- .section-landscape-products-carousel -->
@@ -581,7 +582,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
         @if($accessory->available_discount())
             @this.set('prices.{{$accessory->id}}', {{$accessory->priceDiscount()}});
         @else
-            @this.set('prices.{{$accessory->id}}', {{$accessory->sale_price}});
+            @this.set('prices.{{$accessory->id}}', {{$accessory->calc_price()}});
         @endif
     });
 
@@ -589,12 +590,12 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
 
     @if($accessory->product_type === 'variable')
     var options{{$accessory->id}}    = [];
-    @if(isset($accessory->discount))
-        var mainppss{{$accessory->id}} = '{!! curr($accessory->sale_price) !!}';
+    @if($accessory->available_discount())
+        var mainppss{{$accessory->id}} = '{!! curr($accessory->calc_price()) !!}';
         var offerppss{{$accessory->id}} = '{!! curr($accessory->priceDiscount()) !!}';
-        var offer{{$accessory->id}} = '{!! curr($accessory->sale_price - $accessory->priceDiscount()) !!}';
+        var offer{{$accessory->id}} = '{!! curr($accessory->calc_price() - $accessory->priceDiscount()) !!}';
     @else
-        var mainppss{{$accessory->id}} = '{!! curr($accessory->sale_price) !!}';
+        var mainppss{{$accessory->id}} = '{!! curr($accessory->calc_price()) !!}';
         var offerppss{{$accessory->id}} = '0';
     @endif
     function countSelected{{$accessory->id}} (e) {

@@ -21,7 +21,7 @@
             </div>
             <div class="card-body form">
                 <!-- Accordion wrapper -->
-                @livewire('variations', $rows)
+                @livewire('variations', ['rows' => $rows])
             </div>
         </div>
     </div>

@@ -39,11 +39,11 @@ class CategoryController extends Controller
     public function create()
     {
         $validatorCategoryForm = \JsValidator::make([
-            'name_en' => 'sometimes|nullable|string|max:191',
-            'slug' => 'required|string|max:191|unique:categories',
-            'cat_id'  => 'sometimes|nullable|numeric',
-            'description_en'  => 'required|string',
-            'status'  => 'required|numeric',
+            'name_en'        => 'sometimes|nullable|string|max:191',
+            'slug'           => 'required|string|max:191|unique:categories',
+            'category_id'    => 'sometimes|nullable|numeric',
+            'description_en' => 'required|string',
+            'status'         => 'required|numeric',
             'image'          => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
         ]);
         return view('Admin.'.$this->path.'.create',
@@ -64,13 +64,13 @@ class CategoryController extends Controller
         $data = $this->validate(request(), [
             'name_en'        => 'sometimes|nullable|string|max:191',
             'slug'           => 'required|string|max:191|unique:categories',
-            'cat_id'         => 'sometimes|nullable|numeric',
+            'category_id'    => 'sometimes|nullable|numeric',
             'description_en' => 'required|string',
             'status'         => 'required|numeric',
             'image'          => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
         ],[],[
             'name_en'     => trans('admin.name_en'),
-            'cat_id'      => trans('admin.cat_id'),
+            'category_id' => trans('admin.category_id'),
             'slug'        => trans('admin.slug'),
             'description' => trans('admin.description'),
             'status'      => trans('admin.status'),
@@ -83,7 +83,7 @@ class CategoryController extends Controller
         $create = $this->model::create([
             'name'        => $data['name_en'],
             'slug'        => \Str::slug($data['slug']),
-            'cat_id'      => $data['cat_id'],
+            'category_id' => $data['category_id'],
             'description' => $data['description_en'],
             'status'      => $data['status'],
             'image'       => (!empty($img))?$img: NULL,
@@ -120,7 +120,7 @@ class CategoryController extends Controller
         $validatorCategoryForm = \JsValidator::make([
             'name_en'        => 'sometimes|nullable|string|max:191',
             'slug'           => 'required|string|max:191|unique:categories,slug,'.$id,
-            'cat_id'         => 'sometimes|nullable|numeric',
+            'category_id'    => 'sometimes|nullable|numeric',
             'description_en' => 'required|string',
             'status'         => 'required|numeric',
             'image'          => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
@@ -146,14 +146,14 @@ class CategoryController extends Controller
     {
         $data = $this->validate(request(), [
             'name_en'        => 'required|string|max:255',
-            'cat_id'         => 'sometimes|nullable|string|max:191',
+            'category_id'         => 'sometimes|nullable|string|max:191',
             'slug'           => 'required|string|max:191|unique:categories,slug,'.$id,
             'description_en' => 'required|string',
             'status'         => 'required|numeric',
             'image'          => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
         ],[],[
             'name_en'     => trans('admin.name_en'),
-            'cat_id'      => trans('admin.cat_id'),
+            'category_id'      => trans('admin.category_id'),
             'slug'        => trans('admin.slug'),
             'description' => trans('admin.description'),
             'status'      => trans('admin.status'),
@@ -169,7 +169,7 @@ class CategoryController extends Controller
         }
         $this->model::where('id', $id)->update([
             'name'        => $data['name_en'],
-            'cat_id'      => $data['cat_id'],
+            'category_id'      => $data['category_id'],
             'slug'        => \Str::slug($data['slug']),
             'description' => $data['description_en'],
             'status'      => $data['status'],

@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Product;
 use App\Category;
 use App\Events\cartEvent;
-
+use Auth;
 class TrendingNow extends Component
 {
     public function render()
@@ -23,11 +23,14 @@ class TrendingNow extends Component
         ->with(['products'=> function ($q) {
             $q->where('section','trending_now');
         }])->take(4)->get();
-        $compare = session()->get('compare');
+        $compare = (session()->get('compare'))?session()->get('compare'):[];
+
+        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
         return view('livewire.trending-now',['products' => $products, 'categories' => $categories
-        ,'compare' => $compare]);
+        ,'compare' => $compare, 'wishlist_product_id' => $wishlist_product_id]);
     }
+
 
     public function addCart($id) {
 
@@ -38,6 +41,18 @@ class TrendingNow extends Component
         }
     }
 
+    public function wishlists($id) {
+        if(Auth::check()) {
+            if(auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($id)) {
+                auth()->user()->wishlists()->disableCache()->detach($id);
+                $this->emit('wishlistAdded');
+            } else {
+                auth()->user()->wishlists()->disableCache()->attach($id);
+                $this->emit('wishlistAdded');
+
+            }
+        }
+    }
 
     public function compare($id) {
         if(session()->get('compare') !== null) {

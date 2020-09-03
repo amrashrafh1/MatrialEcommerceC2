@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="card-body form">
-            @livewire('edit-product',$rows)
+            @livewire('edit-product',['product'=>$rows])
                 <div class="clearfix"></div>
             </div>
         </div>

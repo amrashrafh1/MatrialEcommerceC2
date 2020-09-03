@@ -292,6 +292,7 @@
 </footer>
 <!-- .site-footer -->
 </div>
+
 <div id="app"></div>
         <!-- 2. AddChat widget -->
         <div id="addchat_app"
@@ -342,6 +343,8 @@
 @else
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 @endrole
+@livewireScripts
+
 @push('js')
 <script>
 

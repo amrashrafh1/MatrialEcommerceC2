@@ -20,8 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->string('image')->nullable();
             $table->text('description');
             $table->boolean('status')->default(1);
-            $table->bigInteger('cat_id')->nullable()->unsigned();
-            $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->bigInteger('category_id')->nullable()->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
