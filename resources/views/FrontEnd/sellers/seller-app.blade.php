@@ -104,7 +104,7 @@
                                         /* dd(auth()->user()->seller_info->address1) */
                                         @endphp
                                         <div class="form-group">
-                                        <img style="height:300px;width:300px;" src="{{Storage::url(auth()->user()->image)}}"/>
+                                        <img class='dropify-single' style="height:300px;width:300px;" src="{{Storage::url(auth()->user()->image)}}"/>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-2">

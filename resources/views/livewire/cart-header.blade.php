@@ -54,7 +54,7 @@
                         </p>
                         <p class="woocommerce-mini-cart__buttons buttons">
                             <a href="{{route('show_cart')}}" class="button wc-forward">@lang('user.View-cart')</a>
-                            <a href="{{route('show_checkout')}}" class="button checkout wc-forward">Checkout</a>
+                            <a href="{{route('show_checkout')}}" class="button checkout wc-forward">@lang('user.Checkout')</a>
                         </p>
                     </div>
                     <!-- .widget_shopping_cart_content -->

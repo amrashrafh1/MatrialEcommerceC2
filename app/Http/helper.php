@@ -348,8 +348,44 @@ if (!function_exists('curr')) {
     }
 }
 
+/* // for tags page
+if (!function_exists('tags_product')) {
+    function tags_product($tags = [], $sort = 'newness', $perpage = 20)
+    {
+        if ($sort === 'popularity') {
+            return $products = visits('App\Product')->top(100);
+        } else {
+            if ($sort === 'price-asc') {
+                return $products = Product::withAllTags([$tags])->isApproved()->orderBy('sale_price', 'asc')
+                ->withCount(['ratings as average_rating' => function ($query) {
+                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
+                }])->orderByDesc('average_rating')
+                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            } elseif ($sort === 'price-desc') {
+                return $products = Product::withAllTags([$tags])->isApproved()->orderBy('sale_price', 'desc')
+                ->withCount(['ratings as average_rating' => function ($query) {
+                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
+                }])->orderByDesc('average_rating')
+                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            } elseif ($sort === 'newness') {
+                return $products = Product::withAllTags([$tags])->isApproved()->orderBy('id', 'desc')
+                ->withCount(['ratings as average_rating' => function ($query) {
+                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
+                }])->orderByDesc('average_rating')
+                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            } else {
+                return $products = Product::withAllTags([$tags])->isApproved()
+                ->withCount(['ratings as average_rating' => function ($query) {
+                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
+                }])->orderByDesc('average_rating')
+                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            }
+        }
 
-if (!function_exists('sortProducts')) {
+    }
+} */
+
+if (!function_exists('cms_page_products')) {
     function cms_page_products($brand = null, $products = [], $attributes = [], $sort = 'newness', $perpage = 20)
     {
         if ($sort === 'popularity') {
@@ -632,7 +668,7 @@ if (!function_exists('sortProducts')) {
     }
 }
 
-if (!function_exists('shop_sort')) {
+if (!function_exists('cms_page_categories')) {
     function cms_page_categories($cat_id = [], $brand = null, $attributes = [], $sort = 'newness', $perpage = 20)
     {
         if ($sort === 'popularity') {
@@ -944,12 +980,10 @@ if (!function_exists('shop_sort_products')) {
                             $q->whereIn('id', $attributes);
                         })
                         ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
                         ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
                 } else {
                     return $products = $tradmark->productsSortBy($sort)
                         ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
                         ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
                 }
                 // if not $tradmark exist

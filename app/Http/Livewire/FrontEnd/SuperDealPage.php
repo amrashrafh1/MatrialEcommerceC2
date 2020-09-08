@@ -22,8 +22,7 @@ class SuperDealPage extends Component
     public $assId;
     public $category = [];
     public $ass_attrs = [];
-    public $PageNumber = 1;
-
+    public $PageNumber = 1, $tab = '';
     public function mount($category = [])
     {
         if ($category) {
@@ -71,7 +70,7 @@ class SuperDealPage extends Component
 
         return view('livewire.shop', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,
-            'brands' => $brands, 'attributes' => $attributes, 'family' => $family]);
+            'brands' => $brands, 'attributes' => $attributes, 'family' => $family,'tab' => $this->tab]);
     }
 
     public function updatingPageNumber(): void
@@ -99,5 +98,9 @@ class SuperDealPage extends Component
 
             }
         }
+    }
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
     }
 }

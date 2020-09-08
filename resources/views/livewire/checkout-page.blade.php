@@ -80,7 +80,7 @@
                                         <p class="form-row form-row-first">
                                             <input type="text" value="" id="coupon_code" wire:model.lazy='coupon'
                                                 placeholder="@lang('user.Coupon_code')" class="input-text"
-                                                name="coupon_code">
+                                                name="coupon_code" autocomplete='off'>
                                         </p>
                                         <p class="form-row form-row-last">
                                             <input type="submit" value="@lang('user.Apply_coupon')"
@@ -557,10 +557,9 @@
                                                         class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
                                                         <input type="checkbox" id="terms" name="terms"
                                                             class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" required>
-                                                        <span>I’ve read and accept the <a
+                                                        <span>@lang('user.I’ve_read_and_accept_the') <a
                                                                 class="woocommerce-terms-and-conditions-link"
-                                                                href="terms-and-conditions.html">terms &amp;
-                                                                conditions</a></span>
+                                                                href="terms-and-conditions.html">@lang('user.terms_&amp;conditions')</a></span>
                                                         <span class="required">*</span>
                                                     </label>
                                                     <input type="hidden" value="1" name="terms-field">

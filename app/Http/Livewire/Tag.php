@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Product;
 use App\Category;
+use Auth;
 class Tag extends Component
 {
     public $tag;
@@ -12,9 +13,11 @@ class Tag extends Component
     public $sortBy     = 'newness';
     public $PerPage    = 20;
     public $PageNumber = 1;
+    public $tab        = '';
 
-    public function mount($tag) {
-        $this->tag = $tag->id;
+
+    public function mount($tag = null) {
+        ($tag)?$this->tag = $tag->id:'';
     }
     public function render()
     {
@@ -26,27 +29,27 @@ class Tag extends Component
 
             if($this->sortBy === 'newess') {
             $products = Product::withAllTags([$tags])
-            ->where('visible', 'visible')
-            ->select('name','image','sale_price','sku','id','slug','product_type')
+            ->isApproved()
+            ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
             ->orderBy('id', 'desc')
             ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
             } elseif($this->sortBy === 'price-asc') {
                 $products = Product::withAllTags([$tags])
-                ->where('visible', 'visible')
-                ->select('name','image','sale_price','sku','id','slug','product_type')
+                ->isApproved()
+                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
                 ->orderBy('sale_price', 'asc')
                 ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
             }
             elseif($this->sortBy === 'price-desc') {
                 $products = Product::withAllTags([$tags])
-                ->where('visible', 'visible')
-                ->select('name','image','sale_price','sku','id','slug','product_type')
+                ->isApproved()
+                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
                 ->orderBy('sale_price', 'desc')
                 ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
             } else {
                 $products = Product::withAllTags([$tags])
-                ->where('visible', 'visible')
-                ->select('name','image','sale_price','sku','id','slug','product_type')
+                ->isApproved()
+                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
                 ->orderBy('id', 'desc')
                 ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
             }
@@ -55,40 +58,95 @@ class Tag extends Component
             $tags     = \Spatie\Tags\Tag::whereIn('id', $this->tags)->get();
             if($this->sortBy === 'newess') {
                 $products = Product::withAllTags($tags->pluck('name')->toArray())
-                ->where('visible', 'visible')
-                ->select('name','image','sale_price','sku','id','slug','product_type')
+                ->isApproved()
+                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
                 ->orderBy('id', 'desc')
                 ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
                 } elseif($this->sortBy === 'price-asc') {
                     $products = Product::withAllTags($tags->pluck('name')->toArray())
-                    ->where('visible', 'visible')
-                    ->select('name','image','sale_price','sku','id','slug','product_type')
+                    ->isApproved()
+                    ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
                     ->orderBy('sale_price', 'asc')
                     ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
                 }
                 elseif($this->sortBy === 'price-desc') {
                     $products = Product::withAllTags($tags->pluck('name')->toArray())
-                    ->where('visible', 'visible')
-                    ->select('name','image','sale_price','sku','id','slug','product_type')
+                    ->isApproved()
+                    ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
                     ->orderBy('sale_price', 'desc')
                     ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
                 } else {
                     $products = Product::withAllTags($tags->pluck('name')->toArray())
-                    ->where('visible', 'visible')
-                    ->select('name','image','sale_price','sku','id','slug','product_type')
+                    ->isApproved()
+                    ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
                     ->orderBy('id', 'desc')
                     ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
                 }
             }
         }
-        return view('livewire.tag', ['products' => $products, 'categories' => $categories]);
+        $compare = (session()->get('compare'))?session()->get('compare'):[];
+        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
+
+        return view('livewire.tag', ['products' => $products, 'categories' => $categories,
+         'compare' =>$compare, 'wishlist_product_id' => $wishlist_product_id,'tab' => $this->tab]);
     }
 
 
     public function updatingPageNumber(): void
     {
-        if($this->PageNumber && is_numeric($this->PageNumber)) {
+        if ($this->PageNumber && is_numeric($this->PageNumber)) {
             $this->gotoPage($this->PageNumber);
         }
+    }
+    public function updatingAssId(): void
+    {
+        $this->gotoPage(1);
+    }
+    public function updatingAss_attrs(): void
+    {
+        $this->gotoPage(1);
+    }
+
+    public function addCart($id)
+    {
+        if (is_numeric($id) && $id) {
+            $product = Product::find($id);
+            if ($product) {
+                \Cart::add($product, 1);
+                $this->emit('cartAdded');
+            }
+        }
+    }
+
+    public function wishlists($id) {
+        if(Auth::check()) {
+            if(auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($id)) {
+                auth()->user()->wishlists()->disableCache()->detach($id);
+                $this->emit('wishlistAdded');
+            } else {
+                auth()->user()->wishlists()->disableCache()->attach($id);
+                $this->emit('wishlistAdded');
+
+            }
+        }
+    }
+    public function compare($id) {
+        if(session()->get('compare') !== null) {
+            if(!in_array($id,session()->get('compare'))) {
+                $this->emit('compareAdded');
+                session()->push('compare', $id);
+            } else {
+                return ;
+            }
+        } else {
+            $this->emit('compareAdded');
+            session()->push('compare', $id);
+        }
+
+    }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
     }
 }

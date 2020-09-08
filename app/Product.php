@@ -226,16 +226,16 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         }
     }
 
-    public function productsSortBy($sort)
+    public function productsSortBy($query, $sort)
     {
         if ($sort === 'price-asc') {
-            return $this->hasMany(Product::class)->orderBy('sale_price', 'asc');
+            return $query->orderBy('sale_price', 'asc');
         } elseif ($sort === 'price-desc') {
-            return $this->hasMany(Product::class)->orderBy('sale_price', 'desc');
+            return $query->orderBy('sale_price', 'desc');
         } elseif ($sort === 'newness') {
-            return $this->hasMany(Product::class)->orderBy('id', 'desc');
+            return $query->orderBy('id', 'desc');
         } else {
-            return $this->hasMany(Product::class)->orderBy('id', 'desc');
+            return $query->orderBy('id', 'desc');
         }
 
     } //end of products

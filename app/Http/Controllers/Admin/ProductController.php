@@ -18,6 +18,7 @@ use App\Product_Attribute;
 use Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Arr;
+use LaravelLocalization;
 class ProductController extends Controller
 {
     protected $model = '';
@@ -136,23 +137,24 @@ class ProductController extends Controller
             'meta_keyword'     => (empty($request['meta_keyword_en']))?NULL:$request['meta_keyword_en'],
         ]);
     if(!empty($request['tags_en'])) {
-        $data_en = explode(',',$request['tags_en']);
-        foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+        /* $data_en = explode(',',$request['tags_en']);
+        foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
             ($localeCode == 'en')?'':${'data_' . $localeCode} = explode(',',$request['tags_'.$localeCode]);
         }
         foreach($data_en as $index => $att) {
             $product->attachTag($att);
             $tag = \Spatie\Tags\Tag::findOrCreate($att);
-            foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+            foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
                 if($localeCode != 'en') {
                     if (!empty(${'data_' . $localeCode}[$index])) {
                         $tag->setTranslation('name', $localeCode, ${'data_' . $localeCode}[$index])->save();
                     }
                 }
             }
-        }
+        } */
+        $product->attachTags([$request['tags_en']]);
     }
-        foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+        foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
             $product->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
             (empty($request['description_'.$localeCode]))?:$product->setTranslation('description', $localeCode, $request['description_'.$localeCode])->save();
             (empty($request['size_'.$localeCode]))?:$product->setTranslation('size', $localeCode, $request['size_'.$localeCode])->save();
@@ -254,53 +256,57 @@ class ProductController extends Controller
             $img = $this->model::find($id)->image;
         }
         $this->model::where('id', $id)->update([
-            'sku'            => $request['sku'],
-            'section'        => $request['section'],
-            'product_type'   => $request['product_type'],
-            'purchase_price' => $request['purchase_price'],
-            'sale_price'     => $request['sale_price'],
-            'in_stock'       => $request['in_stock'],
-            'tradmark_id'    => $request['tradmark_id'],
-            'stock'          => $request['stock'],
-            'visible'        => $request['visible'],
-            'tax'            => $request['tax'],
-            'category_id'    => $request['category_id'],
-            'image'          => $img,
-            'description'    => $request['description_en'],
-            'slug'           => \Str::slug($request['slug']),
-            'length'         => (empty($request['length']))?NULL:$request['length'],
-            'width'          => (empty($request['width']))?NULL:$request['width'],
-            'height'         => (empty($request['height']))?NULL:$request['height'],
-            'weight'         => (empty($request['weight']))?NULL:$request['weight'],
-            'name'           => $request['name_en'],
-            'size'           => (empty($request['size_en']))?NULL:$request['size_en'],
-            'color'          => (empty($request['color_en']))?NULL:$request['color_en'],
+            'sku'              => $request['sku'],
+            'section'          => $request['section'],
+            'product_type'     => $request['product_type'],
+            'purchase_price'   => $request['purchase_price'],
+            'sale_price'       => $request['sale_price'],
+            'in_stock'         => $request['in_stock'],
+            'tradmark_id'      => $request['tradmark_id'],
+            'stock'            => $request['stock'],
+            'visible'          => $request['visible'],
+            'tax'              => $request['tax'],
+            'category_id'      => $request['category_id'],
+            'image'            => $img,
+            'description'      => $request['description_en'],
+            'slug'             => \Str::slug($request['slug']),
+            'length'           => (empty($request['length']))?NULL:$request['length'],
+            'width'            => (empty($request['width']))?NULL:$request['width'],
+            'height'           => (empty($request['height']))?NULL:$request['height'],
+            'weight'           => (empty($request['weight']))?NULL:$request['weight'],
+            'name'             => $request['name_en'],
+            'size'             => (empty($request['size_en']))?NULL:$request['size_en'],
+            'color'            => (empty($request['color_en']))?NULL:$request['color_en'],
             'has_accessories'  => $request['has_accessories'],
-            'meta_tag'       => (empty($request['meta_tag_en']))?NULL:$request['meta_tag_en'],
+            'meta_tag'         => (empty($request['meta_tag_en']))?NULL:$request['meta_tag_en'],
             'meta_description' => (empty($request['meta_description_en']))?NULL:$request['meta_description_en'],
-            'meta_keyword'          => (empty($request['meta_keyword_en']))?NULL:$request['meta_keyword_en'],
+            'meta_keyword'     => (empty($request['meta_keyword_en']))?NULL:$request['meta_keyword_en'],
         ]);
         $product = Product::find($id);
 
         if(!empty($request['tags_en'])) {
+            LaravelLocalization::setLocale('en');
             $data_en = explode(',',$request['tags_en']);
-            foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-                ($localeCode == 'en')?'':${'data_' . $localeCode} = explode(',',$request['tags_'.$localeCode]);
+            foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+                ($localeCode === 'en')?'':${'data_' . $localeCode} = explode(',',$request['tags_'.$localeCode]);
             }
             $product->syncTags($data_en);
-            foreach($data_en as $index => $att) {
-                $tag = \Spatie\Tags\Tag::findOrCreate($att);
-                foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+            foreach($data_en as $index => $tag) {
+                $tag = \Spatie\Tags\Tag::findOrCreate($tag);
+                //dd($tag);
+                foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
                     if($localeCode != 'en') {
                         if (!empty(${'data_' . $localeCode}[$index])) {
+                            //dd(${'data_' . $localeCode}[$index]);
                             $tag->setTranslation('name', $localeCode, ${'data_' . $localeCode}[$index])->save();
                         }
                     }
                 }
             }
+
         }
 
-        foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+        foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
             $product->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
             (empty($request['description_'.$localeCode]))?:$product->setTranslation('description', $localeCode, $request['description_'.$localeCode])->save();
             (empty($request['size_'.$localeCode]))?:$product->setTranslation('size', $localeCode, $request['size_'.$localeCode])->save();

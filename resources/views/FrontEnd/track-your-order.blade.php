@@ -46,7 +46,7 @@
                                 </p>
                                 <div class="clear"></div>
                                 <p class="form-row">
-                                    <input type="submit" class="button" name="track" value="Track" />
+                                    <input type="submit" class="button" name="track" value="@lang('user.track')" />
                                 </p>
                                 {!! Form::close() !!}
                                 <!-- .track_order -->

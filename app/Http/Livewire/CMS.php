@@ -17,12 +17,7 @@ class CMS extends Component
 {
     use WithPagination;
 
-    public $PerPage = 20;
-    public $sortBy = 'newness';
-    public $assId;
-    public $cms = [];
-    public $ass_attrs = [];
-    public $PageNumber = 1;
+    public $PerPage = 20, $sortBy = 'newness', $assId, $cms = [], $ass_attrs = [], $PageNumber = 1, $tab = '';
 
     public function mount($cms = [])
     {
@@ -108,7 +103,7 @@ class CMS extends Component
         return view('livewire.c-m-s', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,
             'brands' => $brands, 'attributes' => $attributes, 'family' => $family, 'compare' => $compare,
-            'wishlist_product_id' => $wishlist_product_id]);
+            'wishlist_product_id' => $wishlist_product_id, 'tab' => $this->tab]);
     }
 
     public function updatingPageNumber(): void
@@ -162,5 +157,10 @@ class CMS extends Component
             session()->push('compare', $id);
         }
 
+    }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
     }
 }

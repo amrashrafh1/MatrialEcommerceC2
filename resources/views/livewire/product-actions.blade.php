@@ -126,7 +126,7 @@ $proAttr = $this->product->attributes()->select('id')->get();
                 <div
                     class="woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-disabled">
                     <div class="quantity">
-                        <label for="quantity-input">Quantity</label>
+                        <label for="quantity-input">@lang('user.quantity')</label>
                     <input required id="quantity-input" type="parseInt" name="quantity" value="1" min="1" max="{{$this->product->stock}}" title="Qty"
                             class="input-text qty text" size="4">
                     </div>

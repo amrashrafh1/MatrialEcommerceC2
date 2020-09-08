@@ -128,7 +128,7 @@
                                         <tr>
                                             <td colspan="6">
                                                 <div class="yith-wcwl-share">
-                                                    <h4 class="yith-wcwl-share-title">Share on:</h4>
+                                                    <h4 class="yith-wcwl-share-title">@lang('user.Share_on:')</h4>
                                                     <ul>
                                                         <li style="list-style-type: none; display: inline-block;">
                                                             <a title="Facebook"

@@ -217,14 +217,14 @@ $setting = \App\Setting::latest('id')->first();
         <!-- .techmarket-sticky-wrap -->
         <div class="row align-items-center">
             <div id="departments-menu"
-                class="dropdown departments-menu {{ (Str::contains(url()->current(),'login') || Str::contains(url()->current(),'/product/') || Route::current()->getName() == 'show_category'|| Route::current()->getName() == 'tags' || Route::current()->getName() == 'shop' || Route::current()->getName() == 'show_cart' || Route::current()->getName() == 'seller_dashboard' || Route::current()->getName() == 'seller_frontend_products' || Route::current()->getName() == 'show_compare' || Route::current()->getName() == 'show_wishlists' || Route::current()->getName() == 'seller_frontend_products_create' || Route::current()->getName() == 'seller_frontend_products_edit' || Route::current()->getName() == 'seller_frontend_products_variations' || Route::current()->getName() == 'seller_frontend_products_accessories' || Route::current()->getName() == 'show_checkout') ? '' :'show' }}">
+                class="dropdown departments-menu ">
                 <button class="btn dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i class="tm tm-departments-thin"></i>
                     <span>@lang('user.All_Departments')</span>
                 </button>
                 <ul id="menu-departments-menu"
-                    class="dropdown-menu yamm departments-menu-dropdown {{ (Str::contains(url()->current(),'login') || Str::contains(url()->current(),'/product/')  || Route::current()->getName() == 'show_category' || Route::current()->getName() == 'tags' || Route::current()->getName() == 'shop' || Route::current()->getName() == 'show_cart' || Route::current()->getName() == 'seller_dashboard' || Route::current()->getName() == 'seller_frontend_products' || Route::current()->getName() == 'show_compare' || Route::current()->getName() == 'show_wishlists' || Route::current()->getName() == 'seller_frontend_products_create' || Route::current()->getName() == 'seller_frontend_products_edit' || Route::current()->getName() == 'seller_frontend_products_variations' || Route::current()->getName() == 'seller_frontend_products_accessories' || Route::current()->getName() == 'show_checkout')? '' :' show' }}">
+                    class="dropdown-menu yamm departments-menu-dropdown ">
                     @foreach ($categories as $category)
                     @if(count($category->categories))
                     <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
@@ -306,7 +306,7 @@ $setting = \App\Setting::latest('id')->first();
                 </ul>
             </div>
             <!-- .departments-menu -->
-            @livewire('front-end.search-result', ['categories'=>$categories])
+            @livewire('front-end.search-result'/* , ['categories'=>$categories] */)
             <!-- .navbar-search -->
             @livewire('compare-header')
             <!-- .header-compare -->

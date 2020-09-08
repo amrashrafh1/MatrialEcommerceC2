@@ -364,12 +364,12 @@ $('#image-upload').change(function () {
    // image_upload.append('message', message);
 
     $.ajax({
-        method: 'POST',
-        url: '{{route("sendMessage", $this->conv->id)}}',
-        data: image_upload,
+        method     : 'POST',
+        url        : '{{route("sendMessage", $this->conv->id)}}',
+        data       : image_upload,
         contentType: false,
         processData: false,
-        success: function (images) {
+        success    : function (images) {
 
             /* if ($.trim(images) == '') {
                 return false;

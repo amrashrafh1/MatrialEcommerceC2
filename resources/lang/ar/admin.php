@@ -131,7 +131,7 @@ return array (
   'forgot_password'                                                => 'نسيت رقمك السري ؟',
   'fr'                                                             => 'فرنسي',
   'fullscreen'                                                     => 'تكبير الشاشة',
-  'general'                                                        => 'جنرال لواء',
+  'general'                                                        => 'عام',
   'grand_total'                                                    => 'المبلغ الإجمالي',
   'here_reset_link'                                                => 'لقد طلبت استعادة حسابك',
   'hidden'                                                         => 'مخفي',

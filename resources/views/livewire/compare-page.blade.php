@@ -113,10 +113,10 @@
                                             <td>
                                                 @if($product->IsVariable())
                                                 <a class="button add_to_cart_button" href='{{url('/'. $product->slug)}}'
-                                                    rel="nofollow">Add to cart</a>
+                                                    rel="nofollow">@lang('user.Add_to_cart')</a>
                                                 @else
                                                 <a class="button add_to_cart_button" wire:click='addCart({{$product->id}})'
-                                                    rel="nofollow">Add to cart</a>
+                                                    rel="nofollow">@lang('user.Add_to_cart')</a>
                                                 @endif
                                             </td>
                                             @endforeach

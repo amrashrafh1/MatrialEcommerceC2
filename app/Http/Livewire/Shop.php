@@ -21,6 +21,7 @@ class Shop extends Component
     public $category   = [];
     public $ass_attrs  = [];
     public $PageNumber = 1;
+    public $tab        = '';
 
     public function mount($category = [])
     {
@@ -96,7 +97,7 @@ class Shop extends Component
             'products' => $products,
             'pros'     => $pros,     'categories' => $categories,
             'brands'   => $brands,   'attributes' => $attributes, 'family' => $family,'compare' =>$compare
-            ,'wishlist_product_id' => $wishlist_product_id]);
+            ,'wishlist_product_id' => $wishlist_product_id, 'tab' => $this->tab]);
     }
 
     public function updatingPageNumber(): void
@@ -150,5 +151,10 @@ class Shop extends Component
             session()->push('compare', $id);
         }
 
+    }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
     }
 }

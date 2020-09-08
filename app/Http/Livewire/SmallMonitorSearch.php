@@ -10,10 +10,8 @@ class SmallMonitorSearch extends Component
 {
     use WithPagination;
 
-    public $categoty_id;
     public $smallSearch = '';
     public $categories;
-    public $smallProducts = [];
 
     public function mount($categories)
     {
@@ -21,38 +19,19 @@ class SmallMonitorSearch extends Component
     }
     public function render()
     {
-        //dd($this->search);
-        $smallProducts = [];
+        $lang = session('locale');
+        $tags = [];
         if (!empty($this->smallSearch)) {
             // Validation for $this->search & $this->category_id
             $data = $this->validate([
                 'smallSearch' => 'required|string',
-                //'categoty_id' => 'sometimes|nullable|exists:categories,id',
             ], [], [
                 'smallSearch' => trans('user.search'),
-               // 'categoty_id' => trans('user.category'),
             ]);
-            /* if (!empty($data['categoty_id'])) {
-                $search = $data['smallSearch'];
-                // Find category by id
-                $categories = Category::where('id', $data['categoty_id'])->first();
-
-                $id = [];
-                // get category children
-                $id = $categories->children->pluck('id')->toArray();
-
-                array_push($id, $categories->id);
-
-                // get all smallProducts where category_id in $id
-                $smallProducts = Product::whereIn('category_id', $id)->where('visible', 'visible')->where('name', 'like', '%' . $data['search'] . '%')
-                    ->orWhere('description', 'like', '%' . $data['search'] . '%')->disableCache()->paginate(10);
-            } else { */
-                $smallProducts = Product::where('visible', 'visible')->where('name', 'like', '%' . $data['smallSearch'] . '%')
-                    ->orWhere('description', 'like', '%' . $data['smallSearch'] . '%')->disableCache()->paginate(10);
-            /* } */
+            $tags = \Spatie\Tags\Tag::Containing($data['smallSearch'], $lang)->paginate(10);
         }
 
-        return view('livewire.small-monitor-search', ['categories' => $this->categories, 'results' => $smallProducts]);
+        return view('livewire.small-monitor-search', ['categories' => $this->categories, 'results' => $tags]);
     }
 
     public function search()
@@ -62,5 +41,10 @@ class SmallMonitorSearch extends Component
     public function updatingSearch(): void
     {
         $this->gotoPage(1);
+    }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
     }
 }

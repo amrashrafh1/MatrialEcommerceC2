@@ -13,7 +13,7 @@
             <li class="menu-item animate-dropdown">
                 <a href="{{route('chat')}}" class='notification'>
                     <i class="fa fa-envelope fa-2x" style='color:#3265B0'></i>
-                    <span class="badge">@auth {{auth()->user()->unReadedMessages->count()}}@else 0 @endif</span>
+                    <span class="badge" style="{{($direction === 'right')?'right: 90px;':''}}">@auth {{auth()->user()->unReadedMessages->count()}}@else 0 @endif</span>
                 </a>
             </li>
         </ul>

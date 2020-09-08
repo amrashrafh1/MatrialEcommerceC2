@@ -31,7 +31,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                         <ul id="menu-primary-menu" class="nav yamm">
                             <li class="yamm-fw menu-item menu-item-has-children animate-dropdown dropdown">
                                 <a title="Pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
-                            href="#">{{$this->product->seller->name}} <span class="caret ml-5"></span></a>
+                            href="#">{{$this->product->seller->name}} <span class="caret {{($direction === 'right')?'mr-5':'ml-5'}}"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     <li class="menu-item menu-item-object-static_block animate-dropdown" style="width: 450px;
                                     margin: auto;">
@@ -48,10 +48,10 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                                         <a href="#">@lang('user.This_store_has_been_open_since') <span class="text-danger">{{$this->product->seller->created_at->format('F j, Y')}}</span></a>
                                                         </li>
                                                         <li class="nav-body menu-item">
-                                                            <a href="#" class="text-info">Store rating </a>
+                                                            <a href="#" class="text-info">@lang('user.Store_rating') </a>
                                                         </li>
                                                         <li class="nav-body menu-item">
-                                                            <a href="{{route('show_seller', $this->product->seller->id)}}" class="text-info">see the store <i class="fa fa-angle-double-right"></i></a>
+                                                            <a href="{{route('show_seller', $this->product->seller->id)}}" class="text-info">@lang('user.See_the_store') <i class="fa fa-angle-double-{{($direction === 'right')?'left':'right'}}"></i></a>
                                                         </li>
                                                         <li class="nav-body menu-item">
                                                             <a href="{{route('show_chat', $this->product->slug)}}" class="text-info">Contact now <i class="fa fa-send"></i></a>
@@ -73,9 +73,9 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                     </nav>
                     <div>
                     @guest
-                    <a class="button ml-5 text-white" style="cursor:pointer;" href="{{route('login')}}"><i class="fa fa-plus"></i> Follow</a>
+                    <a class="button {{($direction === 'right')?'mr-5':'ml-5'}} text-white" style="cursor:pointer;" href="{{route('login')}}"><i class="fa fa-plus"></i> Follow</a>
                     @else
-                    <a class="button ml-5 text-white {{($this->isFollow) ? 'disabled' : ''}}" style="cursor:pointer; padding:7px;" wire:click='follow'><i class="fa fa-plus"></i> {{($this->isFollow) ? trans('user.followed') : trans('user.follow')}}</a>
+                    <a class="button {{($direction === 'right')?'mr-5':'ml-5'}} text-white {{($this->isFollow) ? 'disabled' : ''}}" style="cursor:pointer; padding:7px;" wire:click='follow'><i class="fa fa-plus"></i> {{($this->isFollow) ? trans('user.followed') : trans('user.follow')}}</a>
                     @endguest
                         <h6 class="mt-1 font-weight-light text-right" style="color: #b8b8b8;">{{$this->product->seller->followers()->count()}} @lang('user.followers')</h6>
                     </div>
@@ -202,7 +202,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                         </div>
                                     <a rel="nofollow" class="woocommerce-review-link" href="#reviews">(<span class="count">{{DB::table('reviews')
                                         ->where('reviewrateable_id', $this->product->id)->where('approved', 1)
-                                        ->count()}})</span> customer review)</a>
+                                        ->count()}})</span> @lang('user.customer_review'))</a>
                                     </div>
                                 </div>
                                 <!-- .rating-and-sharing-wrapper -->
@@ -234,7 +234,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                             <a href="#tab-description">@lang('admin.description')</a>
                                         </li>
                                         <li class="reviews_tab">
-                                            <a href="#tab-reviews">Reviews ({{$reviewCount}})</a>
+                                            <a href="#tab-reviews">@lang('user.Reviews') ({{$reviewCount}})</a>
                                         </li>
                                     </ul>
                                     <!-- /.ec-tabs -->
@@ -345,7 +345,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                             <a href="#tab-description">@lang('admin.description')</a>
                                         </li>
                                         <li class="reviews_tab">
-                                            <a href="#tab-reviews">Reviews ({{$reviewCount}})</a>
+                                            <a href="#tab-reviews">@lang('user.Reviews') ({{$reviewCount}})</a>
                                         </li>
                                     </ul>
                                     <!-- /.ec-tabs -->
@@ -368,7 +368,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                             <a href="#tab-description">@lang('admin.description')</a>
                                         </li>
                                         <li class="reviews_tab active">
-                                            <a href="#tab-reviews">Reviews ({{$reviewCount}})</a>
+                                            <a href="#tab-reviews">@lang('user.Reviews') ({{$reviewCount}})</a>
                                         </li>
                                     </ul>
                                     <!-- /.ec-tabs -->

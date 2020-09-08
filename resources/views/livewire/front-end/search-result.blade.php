@@ -1,17 +1,10 @@
-<form wire:submit.prevent='search' class="navbar-search" style="position:relative;">
+<form wire:submit.prevent='search' class="navbar-search" style="position:relative;" action='' method='post'>
+
     <label class="sr-only screen-reader-text" for="search">Search for:</label>
     <div class="input-group">
         <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
-            class="form-control search-field product-search-field" dir="ltr" value=""
-            placeholder="@lang('user.Search_for_products')" />
-        <div class="input-group-addon search-categories popover-header">
-            <select name='cat_id' id='cat_id' class='postform resizeselect' wire:model='cat_id'>
-                <option value='0' selected='selected'>@lang('user.All_Categories')</option>
-                @foreach($categories as $category)
-                    <option class="level-0" value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
+            class="form-control search-field product-search-field"  value=""
+            placeholder="@lang("user.I'm_shopping_for..")" />
         <!-- .input-group-addon -->
         <div class="input-group-btn input-group-append">
             <input type="hidden" id="search-param" name="post_type" value="product" />
@@ -19,8 +12,6 @@
                 <i class="fa fa-search"></i>
                 <span class="search-btn">@lang('user.search')</span>
             </button>
-
-
         </div>
         <!-- .input-group-btn -->
     </div>
@@ -30,15 +21,12 @@
         <div id="loading" wire:loading>
             <div class="loader" ></div>
         </div>
-        @if(count($result)>0)
-        @forelse($result as $product)
-        <div class='search-product' style="pading :0 10px 0; margin:  10px 0; width:100%;">
-            <a href="{{route('show_product', $product->slug)}}" class="row">
-                <div class="col-md-3" style="pading : 0 10px; margin: 0 10px;">
-                    <img src="{{Storage::url($product->image)}}" style="height:60px;width:60px;">
-                </div>
+        @if(count($tags)>0)
+        @forelse($tags as $tag)
+        <div class='search-product' style="padding :10px 0 10px; margin:  10px 0; width:100%;">
+            <a href="{{route('tags', $tag->slug)}}" class="row">
                 <div class="col-md-8">
-                    {{$product->name}}
+                    {{$tag->name}}
                 </div>
             </a>
         </div>
@@ -48,7 +36,7 @@
         <div class="">
             <div class="search-pagination">
                 <nav class="woocommerce-pagination">
-                    {{ $result->links() }}
+                    {{ $tags->links() }}
                 </nav>
             </div>
         </div>
