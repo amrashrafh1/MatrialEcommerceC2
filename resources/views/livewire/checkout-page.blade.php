@@ -106,6 +106,27 @@
                                 @endif
                                 <!-- .collapse -->
 
+                                <div class='row justify-content-center text-center'>
+                                    @if($setting)
+                                    @if($setting->paypal)
+                                    <a class='col-md-2 m-2 {{$this->payment === 'paypal'? 'active_payment':''}}' style='border:1px solid #e8e8e8'
+                                         href='{{route('show_checkout', ['payment' => 'paypal'])}}'>@lang('user.pay_with_paypal')
+                                            <div  class=''>
+                                                <img class="payment-icon-image " style='width: 92px;margin: auto;' src="{{url('/')}}/FrontEnd/images/credit-cards/paypal.svg" alt="paypal" />
+                                            </div>
+                                        </a>
+                                        @endif
+                                        @if($setting->stripe)
+                                    <a class='col-md-2 m-2 {{$this->payment === 'stripe'? 'active_payment':''}}' style='border:1px solid #e8e8e8' href='{{route('show_checkout', ['payment' => 'stripe'])}}'>@lang('user.pay_with_card')
+                                        <div  class='row'>
+                                            <img class="payment-icon-image" style='width: 75px;margin: auto;' src="{{url('/')}}/FrontEnd/images/credit-cards/mastercard.svg" alt="mastercard" />
+                                            <img class="payment-icon-image" style='width: 75px;margin: auto;' src="{{url('/')}}/FrontEnd/images/credit-cards/visa.svg" alt="visa" />
+                                            <img class="payment-icon-image" style='width: 75px;margin: auto;' src="{{url('/')}}/FrontEnd/images/credit-cards/maestro.svg" alt="maestro" />
+                                        </div>
+                                    </a>
+                                    @endif
+                                    @endif
+                                </div>
                                 {!! Form::open(['url' => route('payment'), 'class' => 'checkout
                                 woocommerce-checkout',
                                 'method' => 'post', 'id' => 'payment-form']) !!}
@@ -122,7 +143,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value="{{(Auth::check())?(old('billing_first_name'))?old('billing_first_name'):auth()->user()->name:''}}"
+                                                            value="{{old('billing_first_name', Auth::check()?auth()->user()->name:'')}}"
                                                             placeholder="@lang('user.First_Name')"
                                                             id="billing_first_name" name="billing_first_name"
                                                             class="input-text ">
@@ -133,8 +154,8 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value="{{(Auth::check())?(old('billing_last_name'))?old('billing_last_name'):auth()->user()->last_name:''}}"
-                                                            placeholder="@lang('user.Last_Name')" id="billing_last_name"
+                                                        value="{{old('billing_last_name', Auth::check() ? auth()->user()->last_name:'')}}"
+                                                        placeholder="@lang('user.Last_Name')" id="billing_last_name"
                                                             name="billing_last_name" class="input-text ">
                                                     </p>
                                                     <div class="clear"></div>
@@ -162,7 +183,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value="{{(Auth::check())?(old('billing_address_1'))?old('billing_address_1'):auth()->user()->address:''}}"
+                                                            value="{{old('billing_address_1', Auth::check()?auth()->user()->address : '')}}"
                                                             placeholder="@lang('user.Street_address')"
                                                             id="billing_address_1" name="billing_address_1"
                                                             class="input-text ">
@@ -171,7 +192,7 @@
                                                         class="form-row form-row-wide address-field">
                                                         <input type="text" value=""
                                                             placeholder="@lang('user.Apartment,_suite,_unit_etc._(optional)')"
-                                                id="billing_address_2" name="billing_address_2" value="{{(old('billing_address_2'))?old('billing_address_2'):''}}"
+                                                id="billing_address_2" name="billing_address_2" value="{{old('billing_address_2')}}"
                                                             class="input-text ">
                                                     </p>
                                                     <p id="billing_city_field"
@@ -181,7 +202,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value="{{(Auth::check())?(old('billing_city'))?old('billing_city'):auth()->user()->address:''}}"
+                                                            value="{{old('billing_city', Auth::check()?auth()->user()->city : '')}}"
                                                             placeholder="" id="billing_city" name="billing_city"
                                                             class="input-text ">
                                                     </p>
@@ -192,7 +213,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text" autocomplete="address-level2"
-                                                            value="{{(Auth::check())?(old('billing_state'))?old('billing_state'):auth()->user()->state:''}}"
+                                                            value="{{old('billing_state', Auth::check()?auth()->user()->state : '')}}"
                                                             placeholder="@lang('user.State')" id="states"
                                                             name="billing_state" class="input-text ">
                                                     </p>
@@ -204,7 +225,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text"
-                                                            value="{{(Auth::check())?(old('billing_postcode'))?old('billing_postcode'):auth()->user()->postcode:''}}"
+                                                            value="{{old('billing_state', Auth::check()?auth()->user()->postcode : '')}}"
                                                             placeholder="@lang('user.Postcode_ZIP')"
                                                             id="billing_postcode" name="billing_postcode"
                                                             class="input-text ">
@@ -215,7 +236,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="tel"
-                                                            value="{{(Auth::check())?(old('billing_phone'))?old('billing_phone'):auth()->user()->phone:''}}"
+                                                            value="{{old('billing_phone', Auth::check()?auth()->user()->phone : '')}}"
                                                             placeholder="@lang('user.Phone')" id="billing_phone"
                                                             name="billing_phone" class="input-text ">
                                                     </p>
@@ -225,7 +246,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="email"
-                                                            value="{{(Auth::check())?(old('billing_email'))?old('billing_email'):auth()->user()->email:''}}"
+                                                            value="{{old('billing_phone', Auth::check()?auth()->user()->email : '')}}"
                                                             placeholder="@lang('user.Email_Address')" id="billing_email"
                                                             name="billing_email" class="input-text ">
                                                     </p>
@@ -276,7 +297,7 @@
                                                     aria-controls="shipping-address">
                                                     <input id="ship-to-different-address-checkbox"
                                                         class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox"
-                                                        type="checkbox" value="{{(old('ship_to_different_address'))?old('ship_to_different_address'):''}}" name="ship_to_different_address">
+                                                        type="checkbox" value="{{old('ship_to_different_address')}}" name="ship_to_different_address">
                                                     <span>@lang('user.Ship_to_a_different_address?')</span>
                                                 </label>
                                             </h3>
@@ -289,7 +310,7 @@
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
                                                         <input type="text" autofocus="autofocus"
-                                                            autocomplete="given-name" value="{{(old('shipping_first_name'))?old('shipping_first_name'):''}}"
+                                                            autocomplete="given-name" value="{{old('shipping_first_name')}}"
                                                             placeholder="@lang('user.First_Name')"
                                                             id="shipping_first_name" name="shipping_first_name"
                                                             class="input-text ">
@@ -299,7 +320,7 @@
                                                         <label class="" for="shipping_last_name">@lang('user.Last_Name')
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" autocomplete="family-name" value="{{(old('shipping_last_name'))?old('shipping_last_name'):''}}"
+                                                        <input type="text" autocomplete="family-name" value="{{old('shipping_last_name')}}"
                                                             placeholder="@lang('user.Last_Name')"
                                                             id="shipping_last_name" name="shipping_last_name"
                                                             class="input-text ">
@@ -312,7 +333,7 @@
                                                         <select autocomplete="country"
                                                             class="country_to_state country_select select2-hidden-accessible"
                                                             id="shipping_country" name="shipping_country" tabindex="-1"
-                                                            aria-hidden="true">
+                                                            aria-hidden="true" value='{{old('shipping_country')}}'>
                                                             @foreach(\App\Country::all() as $country)
                                                             <option value="{{$country->id}}">{{$country->country_name}}
                                                             </option>
@@ -325,14 +346,14 @@
                                                             for="shipping_address_1">@lang('user.Street_address')
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" autocomplete="address-line1" value="{{(old('shipping_address_1'))?old('shipping_address_1'):''}}"
+                                                        <input type="text" autocomplete="address-line1" value="{{old('shipping_address_1')}}"
                                                             placeholder="@lang('user.House_number_and_street_name')"
                                                             id="shipping_address_1" name="shipping_address_1"
                                                             class="input-text " >
                                                     </p>
                                                     <p id="shipping_address_2_field"
                                                         class="form-row form-row-wide address-field">
-                                                        <input type="text" autocomplete="address-line2" value="{{(old('shipping_address_2'))?old('shipping_address_2'):''}}"
+                                                        <input type="text" autocomplete="address-line2" value="{{old('shipping_address_2')}}"
                                                             placeholder="@lang('user.Apartment,_suite,_unit_etc._(optional)')"
                                                             id="shipping_address_2" name="shipping_address_2"
                                                             class="input-text ">
@@ -343,7 +364,7 @@
                                                         <label class="" for="shipping_city">@lang('user.Town_City')
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" autocomplete="address-level2" value="{{(old('shipping_city'))?old('shipping_city'):''}}"
+                                                        <input type="text" autocomplete="address-level2" value="{{old('shipping_city')}}"
                                                             placeholder="@lang('user.Town_City')" id="shipping_city"
                                                             name="shipping_city" class="input-text ">
                                                     </p>
@@ -353,7 +374,7 @@
                                                         <label class="" for="shipping_state">@lang('user.State')
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" autocomplete="address-level2" value="{{(old('shipping_state'))?old('shipping_state'):''}}"
+                                                        <input type="text" autocomplete="address-level2" value="{{old('shipping_state')}}"
                                                             placeholder="@lang('user.State')" id="states"
                                                             name="shipping_state" class="input-text ">
                                                     </p>
@@ -364,7 +385,7 @@
                                                             for="shipping_postcode">@lang('user.Postcode_ZIP')
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" autocomplete="postal-code" value="{{(old('shipping_postcode'))?old('shipping_postcode'):''}}"
+                                                        <input type="text" autocomplete="postal-code" value="{{old('shipping_postcode')}}"
                                                             placeholder="" id="shipping_postcode"
                                                             name="shipping_postcode" class="input-text ">
                                                     </p>
@@ -373,7 +394,7 @@
                                                         <label class="" for="shipping_phone">@lang('user.Phone')
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="tel" value="{{(old('shipping_phone'))?old('shipping_phone'):''}}" placeholder="@lang('user.Phone')"
+                                                        <input type="tel" value="{{old('shipping_phone')}}" placeholder="@lang('user.Phone')"
                                                             id="shipping_phone" name="shipping_phone"
                                                             class="input-text ">
                                                     </p>
@@ -382,7 +403,7 @@
                                                         <label class="" for="shipping_email">@lang('user.Email_Address')
                                                             <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="email" value="{{(old('shipping_email'))?old('shipping_email'):''}}"
+                                                        <input type="email" value="{{old('shipping_email')}}"
                                                             placeholder="@lang('user.Email_Address')"
                                                             id="shipping_email" name="shipping_email"
                                                             class="input-text ">
@@ -398,7 +419,7 @@
                                                 <p id="order_comments_field" class="form-row notes">
                                                     <label class=""
                                                         for="order_comments">@lang('user.Order_notes')</label>
-                                                    <textarea cols="5" rows="2" value="{{(old('order_comments'))?old('order_comments'):''}}"
+                                                    <textarea cols="5" rows="2" value="{{old('order_comments')}}"
                                                         placeholder="@lang('user.Notes_about_your_order,_e.g._special_notes_for_delivery.')"
                                                         id="order_comments" class="input-text "
                                                         name="order_comments"></textarea>
@@ -534,7 +555,9 @@
                                         </table>
                                         <!-- /.woocommerce-checkout-review-order-table -->
                                         <div class="woocommerce-checkout-payment" id="payment">
+                                            @if($setting)
                                             <ul class="wc_payment_methods payment_methods methods">
+                                                @if($setting->stripe && $this->payment === 'stripe')
                                                 <li class="wc_payment_method payment_method_bacs">
                                                     <input type="radio" data-order_button_text="" checked="checked"
                                                         value="card" name="payment_method"
@@ -542,15 +565,19 @@
                                                     <label for="payment_method_bacs">@lang('user.pay_with_card')</label>
 
                                                 </li>
+                                                @endif
+                                                @if($setting->paypal && $this->payment === 'paypal')
                                                 <li class="wc_payment_method payment_method_cheque">
-                                                    <input type="radio" data-order_button_text=""  value="paypal"
+                                                    <input type="radio" data-order_button_text=""  value="paypal" checked="checked"
                                                         name="payment_method" class="input-radio"
                                                         id="payment_method_cheque">
                                                     <label
                                                         for="payment_method_cheque">@lang('user.pay_with_paypal')</label>
 
                                                 </li>
+                                                @endif
                                             </ul>
+                                            @endif
                                             <div class="form-row place-order" id='orders'>
                                                 <p class="form-row terms wc-terms-and-conditions woocommerce-validated" style="margin-bottom: 15px;">
                                                     <label
@@ -559,7 +586,7 @@
                                                             class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" required>
                                                         <span>@lang('user.I’ve_read_and_accept_the') <a
                                                                 class="woocommerce-terms-and-conditions-link"
-                                                                href="terms-and-conditions.html">@lang('user.terms_&amp;conditions')</a></span>
+                                                                href="{{route('terms-and-conditions')}}">@lang('user.terms_&amp;conditions')</a></span>
                                                         <span class="required">*</span>
                                                     </label>
                                                     <input type="hidden" value="1" name="terms-field">
@@ -578,6 +605,7 @@
                                                         <img class="payment-icon-image" src="{{url('/')}}/FrontEnd/images/credit-cards/maestro.svg" alt="maestro" />
                                                     </li>
                                                 </ul>
+                                                @if($setting && $setting->stripe)
                                                 <div class="form-row" id="stripePayment" wire:ignore>
                                                     <label for="card-element">
                                                       @lang('user.Credit_or_debit_card')
@@ -588,7 +616,8 @@
 
                                                     <!-- Used to display form errors. -->
                                                     <div id="card-errors" role="alert"></div>
-                                                  </div>
+                                                </div>
+                                                @endif
                                                 <input type="submit" value="@lang('user.buy')"
                                                     class="button wc-forward text-center">
                                             </div>
@@ -616,6 +645,7 @@
     </div>
     <!-- .col-full -->
 </div>
+@if($setting && $setting->stripe && $this->payment === 'stripe')
 @push('js')
   <script src="https://js.stripe.com/v3/"></script>
   <script>
@@ -701,6 +731,7 @@
 }); */
   </script>
   @endpush
+  @endif
   @push('css')
 
   <style>
@@ -735,6 +766,10 @@
 
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+  }
+  .active_payment {
+    border: 1px solid red !important;
+    background: rgb(61, 156, 210, .2)  !important;
   }
   </style>
   @endpush

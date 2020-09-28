@@ -14,7 +14,7 @@ class Post extends Model implements Searchable
 {
    // use Likeable;
    // use LogsActivity;
-   use HasTranslations, Cachable;
+   use HasTranslations, Cachable, \Spatie\Tags\HasTags;
 
     protected $table = 'posts';
     protected $fillable = [
@@ -40,5 +40,14 @@ class Post extends Model implements Searchable
             $this->title,
             $url
         );
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
     }
 }

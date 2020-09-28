@@ -60,7 +60,7 @@ class Shop extends Component
                     array_push($family, $ff);
                 }
             }
-            $products = shop_sort($cat_id, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+            $products = shop_sort($cat_id,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         } else {
             /*
              *    _____ _                   _____
@@ -88,16 +88,13 @@ class Shop extends Component
                 }
             }
             /* SortBy */
-            $products = shop_sort_products($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+            $products = shop_sort(NULL,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         }
-        $compare = (session()->get('compare'))?session()->get('compare'):[];
-        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
         return view('livewire.shop', [
             'products' => $products,
             'pros'     => $pros,     'categories' => $categories,
-            'brands'   => $brands,   'attributes' => $attributes, 'family' => $family,'compare' =>$compare
-            ,'wishlist_product_id' => $wishlist_product_id, 'tab' => $this->tab]);
+            'brands'   => $brands,   'attributes' => $attributes, 'family' => $family, 'tab' => $this->tab]);
     }
 
     public function updatingPageNumber(): void

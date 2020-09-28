@@ -22,13 +22,10 @@
                         <div class="container-fluid">
                             <div class="woocommerce">
                                 <div class="products">
-                                    @php
-                                        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
-                                    @endphp
                                     @foreach($products as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
+                                            <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
                                                 <i class="fa fa-heart-o fa-2x wish @auth
                                                 @if($wishlist_product_id->contains($product->id)) change_color
                                                 @endif
@@ -37,6 +34,18 @@
                                         </div>
                                         <a href="{{route('show_product',$product->slug)}}"
                                             class="woocommerce-LoopProduct-link">
+                                            @if($product->available_discount())
+                                            @if($product->discount->condition != 'buy_x_and_get_y_free')
+                                            <span class="onsale">
+                                                <span class="woocommerce-Price-amount amount">
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price() -
+                                                            $product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                </span>
+                                            </span>
+                                            @endif
+                                            @endif
                                             <img src="{{Storage::url($product->image)}}" width="224" height="197"
                                                 class="wp-post-image" alt="">
                                             <span class="price">
@@ -53,8 +62,11 @@
                                                     </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                             <!-- /.price -->
                                             <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
+
                                         </a>
                                         <div class="hover-area">
                                             @if($product->IsVariable())
@@ -74,13 +86,11 @@
                                                         <i class="fa fa-spinner " aria-hidden="true"></i>
                                                     </div>
                                                 </a>
-                                                {{-- @if($compare !== null) --}}
                                                     @if(!in_array($product->id,$compare))
                                                     <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
                                                     @else
                                                     <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
                                                     @endif
-                                                {{-- @endif --}}
                                             @endif
                                         </div>
                                     </div>
@@ -105,7 +115,7 @@
                                     @foreach($category->products->take(20) as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" wire:click='wishlists({{$product->id}})'>
+                                            <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" wire:click='wishlists({{$product->id}})'>
                                                 <i class="fa fa-heart-o fa-2x wish @auth
                                                 @if($wishlist_product_id->contains($product->id)) change_color
                                                 @endif
@@ -115,9 +125,21 @@
                                         </div>
                                         <a href="{{route('show_product',$product->slug)}}"
                                             class="woocommerce-LoopProduct-link">
+                                            @if($product->available_discount())
+                                            @if($product->discount->condition != 'buy_x_and_get_y_free')
+                                            <span class="onsale">
+                                                <span class="woocommerce-Price-amount amount">
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price() -
+                                                            $product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                </span>
+                                            </span>
+                                            @endif
+                                            @endif
                                             <img src="{{Storage::url($product->image)}}" width="224" height="197"
                                                 class="wp-post-image" alt="">
-                                            <span class="price">
+                                                <span class="price">
                                                 @if($product->available_discount())
                                                     <ins>
                                                         <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
@@ -131,6 +153,7 @@
                                                     </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
                                             <!-- /.price -->
                                             <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
                                         </a>

@@ -5,7 +5,7 @@
     <div class="col-full">
         <div class="row">
             <nav class="woocommerce-breadcrumb">
-                <a href="{{route('home')}}">Home</a>
+                <a href="{{route('home')}}">@lang('user.home')</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
                 </span>

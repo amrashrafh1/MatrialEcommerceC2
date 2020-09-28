@@ -1,5 +1,5 @@
 <?php
-
+//use App\Setting;
 return [
 
     /*
@@ -14,6 +14,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+
+    'setting' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -162,6 +164,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Codebyray\ReviewRateable\ReviewRateableServiceProvider::class,
+        CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -178,7 +182,6 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
 
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
-        Codebyray\ReviewRateable\ReviewRateableServiceProvider::class,
         AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,

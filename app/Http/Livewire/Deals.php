@@ -22,11 +22,8 @@ class Deals extends Component
         $random = Discount::where('daily', 'daily_deals')->discountAvailable()
             ->with('product:name,slug,product_type,id,sale_price,image,stock')->first();
 
-        $compare = session()->get('compare');
-        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
-
         return view('livewire.deals', ['discountProducts' => $discountProducts, 'random' => $random,
-        'compare' => $compare, 'wishlist_product_id' =>$wishlist_product_id]);
+        ]);
     }
 
     public function addCart($id)

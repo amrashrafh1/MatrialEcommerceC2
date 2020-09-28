@@ -188,6 +188,72 @@
                     <br>
                     <div class="form-group row">
                         <div class="col-md-2">
+                        {!! Form::label('facebook',trans('admin.facebook'),['control-label']) !!}
+                        </div>
+                        <div class="col-md-10">
+                            {!!
+                            Form::url('facebook',(isset($rows->facebook))?$rows->facebook:old('facebook'),['class'=>'form-control','placeholder'=>trans('admin.facebook')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        {!! Form::label('twitter',trans('admin.twitter'),['control-label']) !!}
+                        </div>
+                        <div class="col-md-10">
+                            {!!
+                            Form::url('twitter',(isset($rows->twitter))?$rows->twitter:old('twitter'),['class'=>'form-control','placeholder'=>trans('admin.twitter')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        {!! Form::label('facebook_login',trans('admin.facebook_login'),['control-label']) !!}
+                        </div>
+                        <div class="col-md-10">
+                            {!!
+                            Form::select('facebook_login',[1 => 'On', 0 =>'Off'],(isset($rows->facebook_login))?$rows->facebook_login:old('facebook_login'),['class'=>'form-control','placeholder'=>trans('admin.facebook_login')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        {!! Form::label('twitter_login',trans('admin.twitter_login'),['control-label']) !!}
+                        </div>
+                        <div class="col-md-10">
+                            {!!
+                            Form::select('twitter_login',[1 => 'On', 0 =>'Off'],(isset($rows->twitter_login))?$rows->twitter_login:old('twitter_login'),['class'=>'form-control','placeholder'=>trans('admin.twitter_login')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        {!! Form::label('google_login',trans('admin.google_login'),['control-label']) !!}
+                        </div>
+                        <div class="col-md-10">
+                            {!!
+                            Form::select('google_login',[1 => 'On', 0 =>'Off'],(isset($rows->google_login))?$rows->google_login:old('google_login'),['class'=>'form-control','placeholder'=>trans('admin.google_login')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        {!! Form::label('github',trans('admin.github'),['control-label']) !!}
+                        </div>
+                        <div class="col-md-10">
+                            {!!
+                            Form::select('github',[1 => 'On', 0 =>'Off'],(isset($rows->github))?$rows->github:old('github'),['class'=>'form-control','placeholder'=>trans('admin.github')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
                         {!! Form::label('system_status',trans('admin.system_status'),['control-label']) !!}
                         </div>
                         <div class="col-md-10">
@@ -211,6 +277,7 @@
                         </div>
                     @endforeach
                     <br>
+                    <input type='hidden' value='{{($setting)?$setting->id:NULL}}'/>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-12">

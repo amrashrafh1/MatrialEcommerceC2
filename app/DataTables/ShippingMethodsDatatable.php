@@ -12,8 +12,9 @@ class ShippingMethodsDatatable extends DataTable
             ->addColumn('actions', 'Admin.methods.buttons.actions')
             ->addColumn('company', 'Admin.methods.buttons.company')
             ->addColumn('zone', 'Admin.methods.buttons.zone')
+            ->addColumn('rates', 'Admin.methods.buttons.ranges')
             ->addColumn('checkbox', 'Admin.methods.buttons.checkbox')
-            ->rawColumns(['checkbox','show_action','actions','date','company']);
+            ->rawColumns(['checkbox','show_action','rates','actions','date','company']);
     }
 
     public function query()
@@ -130,6 +131,11 @@ class ShippingMethodsDatatable extends DataTable
                 'name'=>'zone',
                 'data'=>'zone',
                 'title'=>trans('admin.zone'),
+            ],
+            [
+                'name'=>'rates',
+                'data'=>'rates',
+                'title'=>trans('admin.rates'),
             ],
             [
                 'name' => 'actions',

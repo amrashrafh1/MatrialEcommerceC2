@@ -192,4 +192,60 @@ class Shipping_MethodsController extends Controller
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
         return redirect()->route($this->path . '.index');
     }
+
+
+    public function rates($id) {
+        $method = $this->model::findOrfail($id);
+        return view('Admin.methods.rates', ['method' => $method, 'title' => trans('admin.set_rates')]);
+    }
+
+    public function rates_edit($id) {
+        $method = $this->model::findOrfail($id);
+        return view('Admin.methods.rates_edit', ['method' => $method, 'title' => trans('admin.set_rates')]);
+    }
+    public function rates_store(Request $request, $id) {
+        $data = $this->validate(request(), [
+            'value.*' => 'required|numeric',
+            'from.*'  => 'required|numeric',
+            'to.*'    => 'required|numeric',
+
+        ],[],[
+            'value' => trans('admin.value'),
+            'from'  => trans('admin.range_from'),
+            'to'    => trans('admin.range_to'),
+        ]);
+        //dd($request->all());
+        $method = $this->model::findOrfail($id);
+        if($method) {
+            if(count($method->rates) <= 0) {
+
+                foreach($data['value'] as $index => $value) {
+                    $method->rates()->create([
+                        'from'  => $data['from'][$index],
+                        'to'    => $data['to'][$index],
+                        'value' => $value,
+                        ]);
+                }
+            } else {
+                $this->update_rates($method, $data);
+            }
+        }
+        Alert::success(trans('admin.updated'), trans('admin.success_record'));
+        return redirect()->route('methods.index');
+    }
+
+
+    public function update_rates(Shipping_methods $method, $data) {
+        foreach($method->rates as $rate) {
+            $rate->delete();
+        }
+        foreach($data['value'] as $index => $value) {
+            $method->rates()->create([
+                'from'  => $data['from'][$index],
+                'to'    => $data['to'][$index],
+                'value' => $value,
+            ]);
+        }
+
+    }
 }

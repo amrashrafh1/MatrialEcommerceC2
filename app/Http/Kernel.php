@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Torann\Currency\Middleware\CurrencyMiddleware::class,
+            \App\Http\Middleware\ChangeCountry::class,
             //\Silber\PageCache\Middleware\CacheResponse::class,
 
         ],

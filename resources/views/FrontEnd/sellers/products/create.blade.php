@@ -17,12 +17,12 @@
             <div id="primary" class="content-area" style="flex: 0 0 100%;
             max-width: 100%;
             order: 2;">
-@if($errors->any())
-@foreach($errors->all() as $error)
-<div class="alert alert-danger"> {{$error}}</div>
-@endforeach
-@endif
- @livewire('sellers.product-seller-create')
+                @if($errors->any())
+                @foreach($errors->all() as $error)
+                <div class="alert alert-danger"> {{$error}}</div>
+                @endforeach
+                @endif
+                @livewire('sellers.product-seller-create')
             </div>
         </div>
     </div>

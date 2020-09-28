@@ -7,8 +7,10 @@ use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 class Discount extends Model
 {
+    use Cachable;
     protected $table = 'discounts';
     protected $guarded = [];
+    protected $cachePrefix = "discounts-prefix";
 
     public function product() {
         return $this->belongsTo('App\Product', 'product_id', 'id');

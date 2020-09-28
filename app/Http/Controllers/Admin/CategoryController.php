@@ -129,8 +129,8 @@ class CategoryController extends Controller
         $rows = $this->model::findOrFail($id);
         return view('Admin.'.$this->path.'.edit',
             [
-                'title' => trans('admin.edit'),
-                'rows'=>$rows,
+                'title'                 => trans('admin.edit'),
+                'rows'                  => $rows,
                 'validatorCategoryForm' => $validatorCategoryForm
             ]);
     }
@@ -168,18 +168,16 @@ class CategoryController extends Controller
             $img = $this->model::find($id)->image;
         }
         $this->model::where('id', $id)->update([
-            'name'        => $data['name_en'],
-            'category_id'      => $data['category_id'],
+            'category_id' => $data['category_id'],
             'slug'        => \Str::slug($data['slug']),
-            'description' => $data['description_en'],
             'status'      => $data['status'],
             'image'       => $img,
 
         ]);
         $update = $this->model::find($id);
         foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-            $update->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
-            $update->setTranslation('description', $localeCode, $request['description_'.$localeCode])->save();
+            (empty($request['name' . $localeCode])) ?: $update->setTranslation('name', $localeCode, $request['name' . $localeCode])->save();
+            (empty($request['description_' . $localeCode])) ?: $update->setTranslation('description', $localeCode, $request['description_' . $localeCode])->save();
         };
         Alert::success(trans('admin.updated'), trans('admin.success_record'));
         return redirect()->route($this->path . '.index');

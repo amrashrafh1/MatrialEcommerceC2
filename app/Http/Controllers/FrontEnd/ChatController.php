@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use App\Conversation;
 use App\Events\SendMesseges;
 use App\Events\StatusEvent;
 use App\Http\Controllers\Controller;
-use App\Message;
 use App\Product;
 use App\User;
-use App\Conversation;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -17,7 +16,7 @@ class ChatController extends Controller
     {
         $user_id = $slug;
         $auth_id = auth()->user()->id;
-        if($slug === auth()->user()->id){return redirect()->route('home');};
+        if ($slug === auth()->user()->id) {return redirect()->route('home');};
         $conversation = Conversation::where('id', $user_id)->first();
 
         // if conversation exist
@@ -32,7 +31,7 @@ class ChatController extends Controller
 
             // if product exist
             if ($product) {
-                if($product->user_id === auth()->user()->id){return redirect()->route('home');};
+                if ($product->user_id === auth()->user()->id) {return redirect()->route('home');};
                 // check if the last url (route('show_product', $slug))
 
                 if (url()->previous() === route('show_product', $slug)) {
@@ -50,37 +49,16 @@ class ChatController extends Controller
 
                         // create message with product to seller
                         $conversationProduct->messages()->create([
-                            'message'    => 'product',
+                            'message' => 'product',
                             'product_id' => $product->id,
-                            'm_to'       => intval($product->user_id),
-                            'm_from'     => auth()->user()->id,
+                            'm_to' => intval($product->user_id),
+                            'm_from' => auth()->user()->id,
                         ]);
 
                         event(new StatusEvent(auth()->user()));
                         return view('FrontEnd.chat', ['conv' => $conversationProduct]);
 
                     }
-
-                    /* else {
-                    $conv = Conversation::create([
-                    'user_1' => $auth_id,
-                    'user_2' => $product->seller_id
-                    ]);
-                    $conv->messages()->create([
-                    'message'    => 'product',
-                    'product_id' => $product->id,
-                    'm_to'       => intval($product->seller->id),
-                    'm_from'     => auth()->user()->id,
-                    ]);
-
-                    event(new StatusEvent(auth()->user()));
-                    return view('FrontEnd.chat', ['conv' => $conv]);
-                    } */
-                    /*     return $this->customer($user_id);
-                } else {
-
-                return $this->customer($user_id);
-                } */
                 }
             } else {
                 return redirect()->route('chat');
@@ -106,7 +84,6 @@ class ChatController extends Controller
         $auth_id = auth()->user()->id;
         $conversation = Conversation::where('user_1', $auth_id)
             ->orWhere('user_2', $auth_id)->first();
-
 
         if ($conversation) {
             event(new StatusEvent(auth()->user()));
@@ -140,26 +117,25 @@ class ChatController extends Controller
             // 'message'  => trans('user.message'),
             'images.*' => trans('user.images'),
         ]);
-        //return $data;
-        $user = User::where('id', $id)->first();
-        if ($data['images'] && $user) {
-            $message = Message::create([
-                'message' => 'images only',
-                'm_to' => $user->id,
-                'm_from' => auth()->user()->id,
-            ]);
-            multiple_uploads($data['images'], 'messages', $message);
-            /* $images = [];
-            foreach($message->files->pluck('file') as $file) {
-            array_push($images, \Storage::url($file));
-            } */
-            if (auth()->user()->hasRole('seller')) {
-                broadcast(new SendMesseges($message, auth()->user()->id, $id))->toOthers();
-            } else {
-                broadcast(new SendMesseges($message, $id, auth()->user()->id))->toOthers();
-            }
-            return 'success';
-        }
+        // get conversation
+        $conv = Conversation::where('id', $id)->first();
+        if ($conv) {
 
+            // get the user id
+            $user_id = ($conv->user_1 != auth()->user()->id) ? $conv->user_1 : $conv->user_2;
+
+            if ($data['images'] && $user_id) {
+                $message = $conv->messages()->create([
+                    'message' => 'images only',
+                    'm_to'    => $user_id,
+                    'm_from'  => auth()->user()->id,
+                ]);
+                multiple_uploads($data['images'], 'messages', $message);
+
+                broadcast(new SendMesseges($message, $conv->id))->toOthers();
+
+                return 'success';
+            }
+        }
     }
 }

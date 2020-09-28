@@ -21,8 +21,6 @@ class CreatePromocodesTable extends Migration
 
             $table->text('data')->nullable();
             $table->enum('rules', ['new_sign_up', 'all_users','specific_user'])->default('all_users');
-            $table->bigInteger('seller_id')->nullable()->unsigned();
-            $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->bigInteger('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -38,6 +38,7 @@
                                                 {!!
                                                 Form::label('name',trans('user.store_name'),['control-label'])
                                                 !!}
+                                                <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -52,6 +53,7 @@
                                                 {!!
                                                 Form::label('email',trans('user.email'),['control-label'])
                                                 !!}
+                                                <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -65,6 +67,7 @@
                                                 {!!
                                                 Form::label('country_id',trans('user.country'),['control-label'])
                                                 !!}
+                                                <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -78,7 +81,7 @@
                                             <div class="col-md-2">
                                                 {!!
                                                 Form::label('city',trans('user.city'),['control-label'])
-                                                !!}
+                                                !!} <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -100,15 +103,10 @@
                                             </div>
                                         </div>
                                         <br>
-                                        @php
-                                        /* dd(auth()->user()->seller_info->address1) */
-                                        @endphp
-                                        <div class="form-group">
-                                        <img class='dropify-single' style="height:300px;width:300px;" src="{{Storage::url(auth()->user()->image)}}"/>
-                                        </div>
                                         <div class="form-group row">
                                             <div class="col-md-2">
                                                 {!! Form::label('image',trans('admin.image'),['class'=>'control-label']) !!}
+                                                <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="custom-file" style="border: 1px solid #e6e6e6;">
@@ -122,7 +120,7 @@
                                             <div class="col-md-2">
                                                 {!!
                                                 Form::label('type',trans('user.type'),['control-label'])
-                                                !!}
+                                                !!} <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -150,7 +148,7 @@
                                             <div class="col-md-2">
                                                 {!!
                                                 Form::label('address1',trans('user.address1'),['control-label'])
-                                                !!}
+                                                !!} <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -188,7 +186,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-2">
                                                 {!! Form::label('phone1',trans('user.phone1'),['control-label'])
-                                                !!}
+                                                !!} <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -225,7 +223,7 @@
                                             <div class="col-md-2">
                                                 {!!
                                                 Form::label('description',trans('user.about_store'),['control-label'])
-                                                !!}
+                                                !!} <abbr title="required" class="required">*</abbr>
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
@@ -265,24 +263,6 @@ Dropzone.options.myAwesomeDropzone = {
 </style>
 @push('js')
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-<link href="{{url('/')}}/css/dropify.css" rel="stylesheet" type="text/css" />
-<script src="{{url('/')}}/js/dropify.min.js"></script>
 {!! $SellerApp->selector('#seller-app') !!}
-<script>
-    $('.dropify-single').dropify({
-        messages: {
-            'default': 'Drag and drop a file here or click',
-            'replace': 'Drag and drop or click to replace',
-            'remove': 'Remove',
-            'error': 'Ooops, something wrong appended.'
-        },
-        error: {
-            'fileSize': 'The file size is too big (2M max).'
-        },
-        thumbnailHeight: 300,
-        thumbnailWidth : 300
-    });
-
-</script>
 @endpush
 @endsection

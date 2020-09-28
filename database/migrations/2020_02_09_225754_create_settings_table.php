@@ -27,6 +27,12 @@ class CreateSettingsTable extends Migration
             $table->boolean('default_shipping')->default(1);
             $table->boolean('paypal')->default(1);
             $table->boolean('stripe')->default(1);
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->boolean('facebook_login')->default(0);
+            $table->boolean('twitter_login')->default(0);
+            $table->boolean('google_login')->default(0);
+            $table->boolean('github')->default(0);
             $table->unsignedInteger('shipping_method')->nullable();
             $table->foreign('shipping_method')->references('id')->on('shipping_methods')->onDelete('cascade');
 

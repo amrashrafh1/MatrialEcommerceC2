@@ -162,14 +162,13 @@ class TradmarkController extends Controller
             $data['logo'] = 'public/tradmarks/thumbnail/'.$filenametostore;
         }
         $this->model::where('id', $id)->update([
-            'name'  => $data['name_en'],
             'logo' => $data['logo'],
             'slug' => \Str::slug($data['slug'])
 
         ]);
         $update = $this->model::find($id);
         foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-            $update->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
+            (empty($request['name_' . $localeCode])) ?: $update->setTranslation('name', $localeCode, $request['name_' . $localeCode])->save();
         };
         Alert::success(trans('admin.updated'), trans('admin.success_record'));
         return redirect()->route($this->route.'.index');

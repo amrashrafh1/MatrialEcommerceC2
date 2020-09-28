@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="form-group row">
+                    <div class="form-group row" id='amount'>
                         <div class="col-md-2">
                             {!! Form::label('amount',trans('admin.amount'),['class'=>'
                         control-label']) !!}
@@ -165,17 +165,21 @@
         $('#y_quantity').show();
         $('#product_y').show();
         $('#product_id').show();
+        $('#amount').hide();
 
     } else if ($(this).val() == 'fixed_amount_for_whole_cart') {
         $('#buy_x_quantity').hide();
         $('#y_quantity').hide();
         $('#product_y').hide();
         $('#product_id').hide();
+        $('#amount').show();
+
     }else {
         $('#buy_x_quantity').hide();
         $('#y_quantity').hide();
         $('#product_y').hide();
         $('#product_id').show();
+        $('#amount').show();
 
     }
 });
@@ -185,17 +189,22 @@ $('#condition').on('change', function () {
         $('#y_quantity').show();
         $('#product_y').show();
         $('#product_id').show();
+        $('#amount').hide();
+
 
     } else if ($(this).val() == 'fixed_amount_for_whole_cart') {
         $('#buy_x_quantity').hide();
         $('#y_quantity').hide();
         $('#product_y').hide();
         $('#product_id').hide();
+        $('#amount').show();
+
     }else {
         $('#buy_x_quantity').hide();
         $('#y_quantity').hide();
         $('#product_y').hide();
         $('#product_id').show();
+        $('#amount').show();
 
     }
 });

@@ -51,6 +51,7 @@
                                 </div>
                                 @endif
                                 <!-- .banner -->
+                                @if($randomProduct)
                                 <div class="banner text-in-left">
                                     <a href="{{route('show_product', $randomProduct->slug)}}">
                                         <div style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($randomProduct->image)}} ); height: 256px;" class="banner-bg">
@@ -74,13 +75,16 @@
                                                         <span class="amount">{!! curr($randomProduct->calc_price()) !!}</span>
                                                     </ins>
                                                 @endif
-                                                        </span>
+                                                </span>
+                                                <span class='product_shipping'>{{product_shipping($randomProduct)}}</span>
+
                                             </div>
                                             <!-- .caption -->
                                         </div>
                                         <!-- .banner-bg -->
                                     </a>
                                 </div>
+                                @endif
                                 <!-- .banner -->
                             </div>
                             <!-- .banners-block -->

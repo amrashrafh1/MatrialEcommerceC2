@@ -57,7 +57,7 @@ class CMS extends Component
                 }
             }
             /* SortBy */
-            $products = cms_page_categories($cat_id, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+            $products = shop_sort($cat_id, NULL,$this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         } else {
             /*
              *    _____ _                   _____
@@ -91,19 +91,16 @@ class CMS extends Component
                 $products = [];
             } else { */
 
-                $products = cms_page_products($this->assId, $this->cms->products->where('visible', 'visible')
+                $products = shop_sort(NULL,$this->cms->products->where('visible', 'visible')
                 ->where('approved', 1)
-                ->pluck('id'),$this->ass_attrs, $this->sortBy, $this->PerPage);
+                ->pluck('id'),$this->assId,$this->ass_attrs, $this->sortBy, $this->PerPage);
            /*  } */
 
         }
-        $compare = (session()->get('compare'))?session()->get('compare'):[];
-        $wishlist_product_id = (\Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
-
         return view('livewire.c-m-s', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,
-            'brands' => $brands, 'attributes' => $attributes, 'family' => $family, 'compare' => $compare,
-            'wishlist_product_id' => $wishlist_product_id, 'tab' => $this->tab]);
+            'brands' => $brands, 'attributes' => $attributes, 'family' => $family,
+             'tab' => $this->tab]);
     }
 
     public function updatingPageNumber(): void

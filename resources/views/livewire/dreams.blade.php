@@ -16,12 +16,16 @@
                                 @foreach($products as $product)
                                 <div class="product">
                                     <div class="yith-wcwl-add-to-wishlist">
-                                        <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to
-                                            Wishlist</a>
+                                        <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
+                                            <i class="fa fa-heart-o fa-2x wish @auth
+                                            @if($wishlist_product_id->contains($product->id)) change_color
+                                            @endif
+                                            @endauth"></i>
+                                       </a>
 
                                     </div>
-                                    <a href="single-product-fullwidth.html" class="woocommerce-LoopProduct-link">
-                                        <img src="{{ url('/') }}/FrontEnd/images/products/6.jpg" width="224"
+                                    <a href="{{route('show_product', $product->slug)}}" class="woocommerce-LoopProduct-link">
+                                        <img src="{{Storage::url($product->image)}}" width="224"
                                             height="197" class="wp-post-image" alt="">
                                         <span class="price">
                                             @if($product->available_discount())
@@ -37,6 +41,8 @@
                                                     </ins>
                                                 @endif
                                         </span>
+                                        <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                         <!-- /.price -->
                                         <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
                                     </a>

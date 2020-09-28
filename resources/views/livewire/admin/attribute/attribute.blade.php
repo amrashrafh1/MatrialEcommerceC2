@@ -1,7 +1,7 @@
-<div>
+<div class='mb-5'>
     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
     <input type="text" wire:keydown.enter="add_attribute($event.target.value)" name="attribute"
-        placeholder="No Attribute yet in {{$properties['name']}}" class="attribute_input">
+        placeholder="No Attribute yet in {{$properties['name']}}" class="attribute_input mb-3 mt-4">
     <ul class="tags">
         @foreach($attributes as $attribute)
         <li><a class="tag attribute_{{$attribute->id}}"><span
@@ -39,15 +39,7 @@
             }
         });
     });
-    /*     document.addEventListener("livewire:load", function(event) {
-            window.livewire.hook('beforeDomUpdate', () => {
 
-            });
-            window.livewire.hook('afterDomUpdate', () => {
-                $('.last_modal').modal('hide');
-                console.log('updated');
-                });
-        }); */
 
 </script>
 @endpush

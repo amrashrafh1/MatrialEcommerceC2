@@ -54,6 +54,8 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->where('visible','visible')->first();
         if($product) {
+        views($product)->record();
+
         SEOTools::setTitle(($product->meta_tag)?$product->meta_tag:$product->name);
         SEOTools::setDescription(($product->meta_description)?$product->meta_description:$product->name);
         SEOTools::opengraph()->setUrl('http://current.url.com');
@@ -61,8 +63,6 @@ class ProductController extends Controller
         SEOTools::opengraph()->addProperty('type', 'store');
         SEOTools::twitter()->setSite('@LuizVinicius73');
         SEOTools::jsonLd()->addImage(\Storage::url($product->image));
-
-        visits($product)->increment();
 
         if(session()->get('recently_viewed') !== null) {
             if(!in_array($product->id, session()->get('recently_viewed'))) {

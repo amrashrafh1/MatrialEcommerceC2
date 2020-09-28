@@ -21,8 +21,8 @@ class CreateShippingMethodsTable extends Migration
                 'quantity_based_per_order',
                 'price_based_per_order',
                 'flat_rate_per_item',
-                'weight_based_per_item',
                 'weight_based_per_order',
+                'weight_based_per_item',
                 'price_based_per_item'
             ]);
             $table->integer('weight')->nullable();

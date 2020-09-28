@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Attribute;
+use App\Attribute_Family;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 class AttributeController extends Controller
@@ -21,9 +22,10 @@ class AttributeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $family = Attribute_Family::findOrfail($id);
+        return view('Admin.attributes.create', ['family' => $family, 'title' => trans('admin.create_attributes')]);
     }
 
     /**

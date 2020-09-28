@@ -1,8 +1,6 @@
 @php
 $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
 ->count();
-//$direction =  (LaravelLocalization::getCurrentLocaleDirection() === 'rtl') ? 'right' :'left';
-//dd($direction);
 @endphp
 <div id="content" class="site-content" tabindex="-1">
     <div class="col-full">
@@ -139,13 +137,33 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                             <!-- .product-images-wrapper -->
                             <div class="summary entry-summary">
                                 <div class="single-product-header">
+                                    @php
+                                        $discount_condition_buy_x  = ($product->available_discount() && $product->discount->condition === 'buy_x_and_get_y_free');
+                                    @endphp
+                                @if($discount_condition_buy_x)
+                                @php
+                                    $url = route('show_product', $product->discount->productY->slug);
+                                    $numberFormat = new NumberFormatter(session('locale'), NumberFormatter::SPELLOUT);
+                                @endphp
+                                <div class='row'>
+                                    <h5 class='col-md-8' style='font-size:14px; margin-bottom:10px;'>@lang('user.buy')
+                                        {{$numberFormat->format($product->discount->buy_x_quantity)}}
+                                        @lang('user.get')
+                                        {{$numberFormat->format($product->discount->y_quantity)}}
+                                        <a style='color:blue;' href='{{$url}}'>
+                                            {{$product->discount->productY->name}}</a> @lang('user.free')</h5>
+                                        <div class='col-md-4'><a href='{{$url}}'>
+                                        <img src='{{Storage::url($product->discount->productY->image)}}'></div>
+                                    </a>
+                                </div>
+                                @endif
                                 <h1 class="product_title entry-title">{{$this->product->name}}</h1>
                                 @guest
-                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: 0;  cursor:pointer;" href="{{route('login')}}">
+                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: {{($discount_condition_buy_x)?'130px':'0'}};  cursor:pointer;" href="{{route('login')}}">
                                     <i class="fa fa-heart-o fa-2x"></i>
                                </a>
                                 @else
-                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: 0; cursor:pointer;" wire:click='wishlists'>
+                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: {{($discount_condition_buy_x)?'130px':'0'}}; cursor:pointer;" wire:click='wishlists'>
                                      <i class="fa fa-heart-o fa-2x wish @auth
                                      @if($this->isWishlist) change_color
                                      @endif
@@ -383,182 +401,8 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                         <!-- .tm-related-products-carousel -->
                         @livewire('products.recently-product')
                         <!-- .section-landscape-products-carousel -->
-                        <section style='width: 100%;' class="brands-carousel" wire:ignore>
-                            <h2 class="sr-only">Brands Carousel</h2>
-                            <div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
-                                <div class="brands">
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>apple</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="apple" src="{{url('/')}}/FrontEnd/images/brands/1.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>bosch</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="bosch" src="{{url('/')}}/FrontEnd/images/brands/2.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>cannon</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="cannon" src="{{url('/')}}/FrontEnd/images/brands/3.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>connect</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="connect" src="{{url('/')}}/FrontEnd/images/brands/4.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>galaxy</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="galaxy" src="{{url('/')}}/FrontEnd/images/brands/5.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>gopro</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="gopro" src="{{url('/')}}/FrontEnd/images/brands/6.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>handspot</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="handspot" src="{{url('/')}}/FrontEnd/images/brands/7.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>kinova</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="kinova" src="{{url('/')}}/FrontEnd/images/brands/8.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>nespresso</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="nespresso" src="{{url('/')}}/FrontEnd/images/brands/9.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>samsung</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="samsung" src="{{url('/')}}/FrontEnd/images/brands/10.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>speedway</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="speedway" src="{{url('/')}}/FrontEnd/images/brands/11.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                    <div class="item">
-                                        <a href="shop.html">
-                                            <figure>
-                                                <figcaption class="text-overlay">
-                                                    <div class="info">
-                                                        <h4>yoko</h4>
-                                                    </div>
-                                                    <!-- /.info -->
-                                                </figcaption>
-                                                <img width="145" height="50" class="img-responsive desaturate" alt="yoko" src="{{url('/')}}/FrontEnd/images/brands/12.png">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- .item -->
-                                </div>
-                            </div>
-                            <!-- .col-full -->
-                        </section>
+                        @livewire('brands')
+
                         <!-- .brands-carousel -->
                     </div>
                     <!-- .product -->

@@ -94,7 +94,7 @@
                             <label for="name" class=" control-label">Slug</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="slug" class="form-control" placeholder="Slug" v-model="slug">
+                        <input type="text" name="slug" class="form-control" placeholder="Slug" v-model="slug" value='{{old('slug')}}'>
                         </div>
                     </div>
                     <br />

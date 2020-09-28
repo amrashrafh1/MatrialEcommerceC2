@@ -1,12 +1,3 @@
-@if(!isset($categories))
-@php
-$categories = \App\Category::where('status', 1)->where('category_id', NULL)
-->with('categories')->get();
-@endphp
-@endif
-@php
-$setting = \App\Setting::latest('id')->first();
-@endphp
 <header id="masthead" class="site-header header-v1" style="background-image: none; ">
     <div class="col-full desktop-only">
         <div class="techmarket-sticky-wrap">
@@ -97,7 +88,7 @@ $setting = \App\Setting::latest('id')->first();
                         @endif
                         @php
                         $pages = ['about_us','contact_us',
-                        'show_wishlists','show_compare','track-your-order','terms-and-conditions','services']
+                        'show_wishlists','show_compare','track-your-order','terms-and-conditions','blogs']
                         @endphp
                         <li class="menu-item menu-item-has-children animate-dropdown dropdown">
                             <a title="pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"

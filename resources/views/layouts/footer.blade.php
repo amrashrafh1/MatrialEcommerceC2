@@ -1,9 +1,15 @@
 <!-- #content -->
+@if(!isset($categories))
+@php
+$categories = \App\Category::where('status', 1)->where('category_id', NULL)
+->with('categories')->get();
+@endphp
+@endif
 <footer class="site-footer footer-v1">
     <div class="col-full">
         <div class="before-footer-wrap">
             <div class="col-full">
-                <div class="footer-newsletter">
+                {{-- <div class="footer-newsletter">
                     <div class="media">
                         <i class="footer-newsletter-icon tm tm-newsletter"></i>
                         <div class="media-body">
@@ -11,8 +17,8 @@
                                 <div class="newsletter-header">
                                     <h5 class="newsletter-title">Sign up to Newsletter</h5>
                                     <span class="newsletter-marketing-text">...and receive
-                                                    <strong>$20 coupon for first shopping</strong>
-                                                </span>
+                                            <strong>$20 coupon for first shopping</strong>
+                                    </span>
                                 </div>
                                 <!-- .newsletter-header -->
                                 <div class="newsletter-body">
@@ -28,30 +34,22 @@
                         <!-- .media-body -->
                     </div>
                     <!-- .media -->
-                </div>
+                </div> --}}
                 <!-- .footer-newsletter -->
                 <div class="footer-social-icons">
                     <ul class="social-icons nav">
+                        @if($setting->facebook)
                         <li class="nav-item">
-                            <a class="sm-icon-label-link nav-link" href="#">
-                                <i class="fa fa-facebook"></i> Facebook</a>
+                            <a class="sm-icon-label-link nav-link" href="{{$setting->facebook}}">
+                                <i class="fa fa-facebook"></i> @lang('user.facebook')</a>
                         </li>
+                        @endif
+                        @if($setting->twitter)
                         <li class="nav-item">
-                            <a class="sm-icon-label-link nav-link" href="#">
-                                <i class="fa fa-twitter"></i> Twitter</a>
+                            <a class="sm-icon-label-link nav-link" href="{{$setting->twitter}}">
+                                <i class="fa fa-twitter"></i> @lang('user.twitter')</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="sm-icon-label-link nav-link" href="#">
-                                <i class="fa fa-google-plus"></i> Google+</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="sm-icon-label-link nav-link" href="#">
-                                <i class="fa fa-vimeo-square"></i> Vimeo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="sm-icon-label-link nav-link" href="#">
-                                <i class="fa fa-rss"></i> RSS</a>
-                        </li>
+                        @endif
                     </ul>
                 </div>
                 <!-- .footer-social-icons -->
@@ -63,8 +61,8 @@
             <div class="row">
                 <div class="footer-contact">
                     <div class="footer-logo">
-                        <a href="home-v1.html" class="custom-logo-link" rel="home">
-                            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
+                        <a href="{{route('home')}}" class="custom-logo-link" rel="home">
+                            {{-- <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
                                 <defs>
                                     <style>
                                         .cls-1,
@@ -98,7 +96,8 @@
                                 <polygon class="cls-1" points="32.85 27.56 28.6 27.56 28.6 5.42 28.6 3.96 28.6 0.44 47.95 0.44 47.95 5.42 34.46 5.42 34.46 22.72 48.25 22.72 48.25 27.56 34.46 27.56 32.85 27.56" />
                                 <polygon class="cls-1" points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
                                 <rect class="cls-2" y="0.44" width="7.19" height="5.13" />
-                            </svg>
+                            </svg> --}}
+                            <img src='{{Storage::url($setting->logo)}}'>
                         </a>
                     </div>
                     <!-- .footer-logo -->
@@ -110,10 +109,9 @@
                                             </span>
                                 <div class="media-body">
                                     <span class="call-us-title">Got Questions ? Call us 24/7!</span>
-                                    <span class="call-us-text">(800) 8001-8588, (0600) 874 548</span>
-                                    <address class="footer-contact-address">17 Princess Road, London, Greater London NW1 8JR, UK</address>
-                                    <a href="#" class="footer-address-map-link">
-                                        <i class="tm tm-map-marker"></i>Find us on map</a>
+                                    <span class="call-us-text">{{$setting->mobile}}</span>
+                                    <address class="footer-contact-address">{{$setting->location}}</address>
+
                                 </div>
                                 <!-- .media-body -->
                             </div>
@@ -126,7 +124,7 @@
                                                 <i class="tm tm-safe-payments"></i>
                                             </span>
                                 <div class="media-body">
-                                    <h5 class="footer-payment-info-title">We are using safe payments</h5>
+                                    <h5 class="footer-payment-info-title">@lang('user.We_are_using_safe_payments')</h5>
                                     <div class="footer-payment-icons">
                                         <ul class="list-payment-icons nav">
                                             <li class="nav-item">
@@ -144,7 +142,7 @@
                                         </ul>
                                     </div>
                                     <!-- .footer-payment-icons -->
-                                    <div class="footer-secure-by-info">
+                                    {{-- <div class="footer-secure-by-info">
                                         <h6 class="footer-secured-by-title">Secured by:</h6>
                                         <ul class="footer-secured-by-icons">
                                             <li class="nav-item">
@@ -154,7 +152,7 @@
                                                 <img class="secure-icons-image" src="{{url('/')}}/FrontEnd/images/secured-by/mcafee.svg" alt="mcafee" />
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                     <!-- .footer-secure-by-info -->
                                 </div>
                                 <!-- .media-body -->
@@ -170,27 +168,14 @@
                     <div class="columns">
                         <aside class="widget clearfix">
                             <div class="body">
-                                <h4 class="widget-title">Find it Fast</h4>
+                                <h4 class="widget-title">@lang('user.Find_it_Fast')</h4>
                                 <div class="menu-footer-menu-1-container">
                                     <ul id="menu-footer-menu-1" class="menu">
+                                        @foreach($categories->take(5) as $category)
                                         <li class="menu-item">
-                                            <a href="shop.html">Computers &#038; Laptops</a>
+                                            <a href="{{route('show_category', $category->slug)}}">{{$category->name}}</a>
                                         </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Cameras &#038; Photography</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Smart Phones &#038; Tablets</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Video Games &#038; Consoles</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">TV</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Car Electronic &#038; GPS</a>
-                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <!-- .menu-footer-menu-1-container -->
@@ -206,24 +191,11 @@
                                 <h4 class="widget-title">&nbsp;</h4>
                                 <div class="menu-footer-menu-2-container">
                                     <ul id="menu-footer-menu-2" class="menu">
+                                        @foreach($categories->skip(5)->take(5) as $category)
                                         <li class="menu-item">
-                                            <a href="shop.html">Printers &#038; Ink</a>
+                                            <a href="{{route('show_category', $category->slug)}}">{{$category->name}}</a>
                                         </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Audio &amp; Music</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Home Theaters</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">PC Components</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Ultrabooks</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="shop.html">Smartwatches</a>
-                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <!-- .menu-footer-menu-2-container -->
@@ -236,29 +208,30 @@
                     <div class="columns">
                         <aside class="widget clearfix">
                             <div class="body">
-                                <h4 class="widget-title">Customer Care</h4>
+                                <h4 class="widget-title">@lang('user.Customer_Care')</h4>
                                 <div class="menu-footer-menu-3-container">
                                     <ul id="menu-footer-menu-3" class="menu">
                                         <li class="menu-item">
-                                            <a href="login-and-register.html">My Account</a>
+                                            @auth
+                                            <a href="{{route('profile')}}">@lang('user.my_account')</a>
+                                            @else
+                                            <a href="{{route('login')}}">@lang('user.register')</a>
+                                            @endif
                                         </li>
                                         <li class="menu-item">
-                                            <a href="track-your-order.html">Track Order</a>
+                                            <a href="{{route('track-your-order')}}">@lang('user.track-your-order')</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a href="shop.html">Shop</a>
+                                            <a href="{{route('shop')}}">@lang('user.Shop')</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a href="wishlist.html">Wishlist</a>
+                                            <a href="{{route('show_wishlists')}}">@lang('user.show_wishlists')</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a href="about.html">About Us</a>
+                                            <a href="{{route('about_us')}}">@lang('user.about_us')</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a href="terms-and-conditions.html">Returns/Exchange</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="faq.html">FAQs</a>
+                                            <a href="{{route('terms-and-conditions')}}">@lang('user.terms-and-conditions')</a>
                                         </li>
                                     </ul>
                                 </div>

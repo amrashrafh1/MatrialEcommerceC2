@@ -7,13 +7,15 @@ use Spatie\Translatable\HasTranslations;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
-
-class Category extends Model implements Searchable
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+class Category extends Model implements Searchable, Viewable
 {
-    use HasTranslations, Cachable;
+    use HasTranslations, Cachable, InteractsWithViews;
     protected $table = 'categories';
     protected $guarded = [];
     public $translatable = ['name', 'description'];
+    protected $removeViewsOnDelete = true;
 
 
 
@@ -64,9 +66,4 @@ class Category extends Model implements Searchable
         );
     }
 
-
-    public function visits()
-    {
-        return visits($this);
-    }
 }

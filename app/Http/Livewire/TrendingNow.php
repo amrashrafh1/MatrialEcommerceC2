@@ -23,12 +23,9 @@ class TrendingNow extends Component
         ->with(['products'=> function ($q) {
             $q->where('section','trending_now');
         }])->take(4)->get();
-        $compare = (session()->get('compare'))?session()->get('compare'):[];
-
-        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
         return view('livewire.trending-now',['products' => $products, 'categories' => $categories
-        ,'compare' => $compare, 'wishlist_product_id' => $wishlist_product_id]);
+        ]);
     }
 
 

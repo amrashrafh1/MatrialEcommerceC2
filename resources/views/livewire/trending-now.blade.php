@@ -24,7 +24,7 @@
                                     @foreach($products as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
+                                            <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
                                                 <i class="fa fa-heart-o fa-2x wish @auth
                                                 @if($wishlist_product_id->contains($product->id)) change_color
                                                 @endif
@@ -48,14 +48,15 @@
                                                     </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                             <!-- /.price -->
                                             <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
                                         </a>
                                         <div class="hover-area">
                                             @if($product->IsVariable())
                                             <a class="button add_to_cart_button"
-                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">Add to
-                                                cart</a>
+                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">@lang('user.Add_to_cart')</a>
                                                 @if($compare !== null)
                                                     @if(!in_array($product->id,$compare))
                                                     <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
@@ -101,7 +102,7 @@
                                     @foreach($category->products->take(20) as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
+                                            <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
                                                 <i class="fa fa-heart-o fa-2x wish @auth
                                                 @if($wishlist_product_id->contains($product->id)) change_color
                                                 @endif
@@ -125,6 +126,8 @@
                                                     </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                             <!-- /.price -->
                                             <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
                                         </a>

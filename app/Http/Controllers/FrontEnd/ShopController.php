@@ -17,7 +17,7 @@ class ShopController extends Controller
     {
         $category = Category::where('slug', $slug)->first();
         if($category) {
-            visits($category)->increment();
+            views($category)->record();
             return view('FrontEnd.shop', ['category' => $category]);
         } else {
             return redirect()->route('home');

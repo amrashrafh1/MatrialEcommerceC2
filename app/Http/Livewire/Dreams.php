@@ -12,13 +12,9 @@ class Dreams extends Component
     {
 
         $products = Product::where('section','make_dreams_your_reality')
-        ->select('id','slug','product_type','name','sale_price')->orderBy('id','desc')->take(20)->get();
+        ->select('id','slug','product_type','name','sale_price', 'image')->orderBy('id','desc')->take(20)->get();
 
-        $compare = (session()->get('compare'))?session()->get('compare'):[];
-        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
-
-        return view('livewire.dreams', ['products' => $products, 'compare' => $compare,
-        'wishlist_product_id' => $wishlist_product_id]);
+        return view('livewire.dreams', ['products' => $products]);
     }
 
 

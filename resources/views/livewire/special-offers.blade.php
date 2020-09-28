@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore>
     <div>
         <section class="section-3-2-3-product-cards-tabs-with-featured-product stretch-full-width">
             <div class="col-full">
@@ -53,19 +53,20 @@
                                                                 <span>A+</span>
                                                             </div>
                                                             <div class="techmarket-product-rating">
-                                                                <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
+                                                                <div title="Rated 5.00 out of 5" class="star-rating">
+                                                                    <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                        <strong class="rating">5.00</strong> out of 5</span>
                                                                 </div>
-                                                                <span class="review-count">(0)</span>
+                                                                <span class="review-count">({{DB::table('reviews')
+                                                                            ->where('reviewrateable_id', $product->id)->where('approved', 1)
+                                                                            ->count()}})</span>
                                                             </div>
                                                             <!-- .techmarket-product-rating -->
                                                         </a>
                                                         <div class="hover-area">
                                                             @if($product->IsVariable())
                                                             <a class="button add_to_cart_button"
-                                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">Add to
-                                                                cart</a>
+                                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">@lang('user.Add_to_cart')</a>
                                                                 @if($compare !== null)
                                                                     @if(!in_array($product->id,$compare))
                                                                     <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
@@ -107,75 +108,73 @@
                                                 <div class="media">
                                                     <div class="techmarket-product-gallery images techmarket-3-2-3-gallery">
                                                         <figure class="techmarket-wc-product-gallery__wrapper" data-ride="tm-slick-carousel" data-wrap=".techmarket-wc-product-gallery__wrapper" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;.techmarket-3-2-3-gallery .techmarket-wc-product-gallery-thumbnails__wrapper&quot;}">
-                                                            <figure class="techmarket-wc-product-gallery__image" data-thumb="{{ url('/') }}/FrontEnd/images/products/big-card-1.jpg">
-                                                                <img width="600" height="600" title="" alt="" class="wp-post-image1" src="{{ url('/') }}/FrontEnd/images/products/big-card-1.jpg">
+                                                            @foreach($product->gallery as $image)
+                                                            <figure class="techmarket-wc-product-gallery__image" data-thumb="{{Storage::url($image->file)}}">
+                                                                <img width="600" height="600" title="" alt="" class="wp-post-image1" src="{{Storage::url($image->file)}}">
                                                             </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image" data-thumb="{{ url('/') }}/FrontEnd/images/products/big-card-2.jpg">
-                                                                <img width="600" height="600" title="" alt="" class="wp-post-image2" src="{{ url('/') }}/FrontEnd/images/products/big-card-2.jpg">
-                                                            </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image" data-thumb="{{ url('/') }}/FrontEnd/images/products/big-card-1.jpg">
-                                                                <img width="600" height="600" title="" alt="" class="wp-post-image3" src="{{ url('/') }}/FrontEnd/images/products/big-card.jpg">
-                                                            </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image" data-thumb="{{ url('/') }}/FrontEnd/images/products/big-card.jpg">
-                                                                <img width="600" height="600" title="" alt="" class="wp-post-image" src="{{ url('/') }}/FrontEnd/images/products/big-card-1.jpg">
-                                                            </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image" data-thumb="{{ url('/') }}/FrontEnd/images/products/big-card-1.jpg">
-                                                                <img width="600" height="600" title="" alt="" class="wp-post-image" src="{{ url('/') }}/FrontEnd/images/products/big-card-2.jpg">
-                                                            </figure>
+                                                            @endforeach
+
                                                         </figure>
                                                         <figure class="techmarket-wc-product-gallery-thumbnails__wrapper" data-ride="tm-slick-carousel" data-wrap=".techmarket-wc-product-gallery-thumbnails__wrapper" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;vertical&quot;:true,&quot;verticalSwiping&quot;:true,&quot;focusOnSelect&quot;:true,&quot;touchMove&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-up\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-down\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;asNavFor&quot;:&quot;.techmarket-3-2-3-gallery .techmarket-wc-product-gallery__wrapper&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:767,&quot;settings&quot;:{&quot;vertical&quot;:false,&quot;verticalSwiping&quot;:false,&quot;slidesToShow&quot;:1}}]}">
+                                                            @foreach($product->gallery as $image)
                                                             <figure class="techmarket-wc-product-gallery__image">
-                                                                <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" src="{{ url('/') }}/FrontEnd/images/products/sm-card-2.jpg">
+                                                                <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" src="{{Storage::url($image->file)}}">
                                                             </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image">
-                                                                <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail" src="{{ url('/') }}/FrontEnd/images/products/sm-card-3.jpg">
-                                                            </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image">
-                                                                <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail" src="{{ url('/') }}/FrontEnd/images/products/sm-card-1.jpg">
-                                                            </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image">
-                                                                <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail" src="{{ url('/') }}/FrontEnd/images/products/sm-card-2.jpg">
-                                                            </figure>
-                                                            <figure class="techmarket-wc-product-gallery__image">
-                                                                <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail" src="{{ url('/') }}/FrontEnd/images/products/sm-card-3.jpg">
-                                                            </figure>
+                                                            @endforeach
                                                         </figure>
                                                     </div>
                                                     <div class="media-body">
                                                         <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="woocommerce-Price-amount amount">
-                                                                                <span class="woocommerce-Price-currencySymbol">$</span>3,499.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="woocommerce-Price-amount amount">
-                                                                                <span class="woocommerce-Price-currencySymbol">$</span>4,129.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                            <h2 class="woocommerce-loop-product__title">X930E Series 65” 4K Ultra Slim HD High Dynamic Range 3D</h2>
+                                                            <span class="price">
+                                                                <ins>
+                                                                    <span class="amount"> {!! curr($product->priceDiscount()) !!}</span>
+                                                                </ins>
+                                                                <del>
+                                                                    <span class="amount"> {!! curr($product->calc_price()) !!}</span>
+                                                                </del>
+                                                            </span>
+                                                            <h2 class="woocommerce-loop-product__title">{{$product->name}}</h2>
                                                             <div class="ribbon green-label">
                                                                 <span>A+</span>
                                                             </div>
                                                             <div class="techmarket-product-rating">
-                                                                <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
+                                                                <div title="Rated 5.00 out of 5" class="star-rating">
+                                                                    <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                        <strong class="rating">5.00</strong> out of 5</span>
                                                                 </div>
-                                                                <span class="review-count">(0)</span>
+                                                                <span class="review-count">({{DB::table('reviews')
+                                                                            ->where('reviewrateable_id', $product->id)->where('approved', 1)
+                                                                            ->count()}})</span>
                                                             </div>
                                                         </a>
                                                         <div class="woocommerce-product-details__short-description">
-                                                            <ul>
-                                                                <li>Picture Quality Index:1300</li>
-                                                                <li>64.5″ screen (measured diagonally from corner to corner)</li>
-                                                                <li>Built-in Wi-Fi Smart TV means a huge world of entertainment</li>
-                                                                <li>LED TVs perform well in all lighting conditions</li>
-                                                                <li>2160p resolution for breathtaking HD images</li>
-                                                            </ul>
+                                                            {!! $product->short_description !!}
                                                         </div>
-                                                        <a class="button add_to_cart_button" href="cart.html">Add to cart</a>
-                                                        <a class="add-to-compare-link" href="compare.html">Add to compare</a>
+                                                        @if($product->IsVariable())
+                                                            <a class="button add_to_cart_button"
+                                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                                @if($compare !== null)
+                                                                    @if(!in_array($product->id,$compare))
+                                                                    <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                                    @else
+                                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                                    @endif
+                                                                @endif
+                                                            @else
+                                                            <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                                rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                                                <div wire:loading>
+                                                                    <i class="fa fa-spinner " aria-hidden="true"></i>
+                                                                </div>
+                                                            </a>
+                                                                @if($compare !== null)
+                                                                    @if(!in_array($product->id,$compare))
+                                                                    <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                                    @else
+                                                                    <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
+                                                                    @endif
+                                                                @endif
+                                                            @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -202,11 +201,13 @@
                                                                 <span>A+</span>
                                                             </div>
                                                             <div class="techmarket-product-rating">
-                                                                <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
+                                                                <div title="Rated 5.00 out of 5" class="star-rating">
+                                                                    <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                        <strong class="rating">5.00</strong> out of 5</span>
                                                                 </div>
-                                                                <span class="review-count">(0)</span>
+                                                                <span class="review-count">({{DB::table('reviews')
+                                                                            ->where('reviewrateable_id', $product->id)->where('approved', 1)
+                                                                            ->count()}})</span>
                                                             </div>
                                                             <!-- .techmarket-product-rating -->
                                                         </a>

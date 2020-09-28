@@ -19,9 +19,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::where('status', 1)->where('category_id', NULL)->take(12)
-        ->with('categories')->get();
-        $catalog = visits('\App\Category')->top(20);
+        $catalog = Category::orderByViews()->get();
 
         $adzs = Adz::available()->inRandomOrder('id')->get();
         $randomProduct = Product::isApproved()->inRandomOrder('id')->first();
@@ -50,7 +48,6 @@ class HomeController extends Controller
         SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
 
         return view('FrontEnd.home', [
-        'categories'    => $categories,
         'catalog'       => $catalog,
         'advertizments' => $adzs,
         'sliders'       => $sliders,

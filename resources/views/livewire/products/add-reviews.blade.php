@@ -71,20 +71,20 @@
                 <div id="review_form">
                     <div class="comment-respond" id="respond">
                         <h3 class="comment-reply-title" id="reply-title">@lang('user.Add_a_review')</h3>
-                        <form novalidate="" class="comment-form" id="commentform" wire:submit.prevent='addReview'>
+                        <form class="comment-form" id="commentform" wire:submit.prevent='addReview'>
                             <div class="comment-form-rating">
                                 <label>@lang('user.Your_Rating')</label>
                                 <p class="rating">
                                 <div class="stars">
-                                      <input class="star star-5" id="star-5" type="radio" name="star" value="5" wire:model='review'/>
+                                      <input class="star star-5" id="star-5" type="radio" name="star" value="5" wire:model.lazy='review'/>
                                       <label class="star star-5" for="star-5"></label>
-                                      <input class="star star-4" id="star-4" type="radio" name="star" value="4" wire:model='review'/>
+                                      <input class="star star-4" id="star-4" type="radio" name="star" value="4" wire:model.lazy='review'/>
                                       <label class="star star-4" for="star-4"></label>
-                                      <input class="star star-3" id="star-3" type="radio" name="star" value="3" wire:model='review'/>
+                                      <input class="star star-3" id="star-3" type="radio" name="star" value="3" wire:model.lazy='review'/>
                                       <label class="star star-3" for="star-3"></label>
-                                      <input class="star star-2" id="star-2" type="radio" name="star" value="2" wire:model='review'/>
+                                      <input class="star star-2" id="star-2" type="radio" name="star" value="2" wire:model.lazy='review'/>
                                       <label class="star star-2" for="star-2"></label>
-                                      <input class="star star-1" id="star-1" type="radio" name="star" value="1" wire:model='review'/>
+                                      <input class="star star-1" id="star-1" type="radio" name="star" value="1" wire:model.lazy='review'/>
                                       <label class="star star-1" for="star-1"></label>
                                   </div>
                                   @error('review') <span class="alert alert-danger">{{ $message }}</span> @enderror
@@ -92,23 +92,28 @@
                             </div>
                             <p class="comment-form-comment">
                                 <label for="comment">@lang('user.Your_Review')</label>
-                                <textarea aria-required="true" rows="8" cols="45" name="comment" id="comment" wire:model.lazy='comment'></textarea>
+                                <textarea aria-required="true" rows="8" cols="45" name="comment" id="comment" wire:model.lazy='comment' required></textarea>
                                 @error('comment') <span class="alert alert-danger">{{ $message }}</span> @enderror
                             </p>
                             <p class="comment-form-author">
                                 <label for="author">@lang('admin.name')
                                     <span class="required">*</span>
                                 </label>
-                                <input type="text" aria-required="true" size="30" value="" name="author" id="author" wire:model.lazy='name'>
+                                <input type="text" aria-required="true" size="30" value="" name="author" id="author" wire:model.lazy='name' required>
                                 @error('name') <span class="alert alert-danger">{{ $message }}</span> @enderror
                             </p>
                             <p class="comment-form-email">
                                 <label for="email">@lang('admin.email')
                                     <span class="required">*</span>
                                 </label>
-                                <input type="text" aria-required="true" size="30" value="" name="email" id="email" wire:model.lazy='email'>
+                                <input type="text" aria-required="true" size="30" value="" name="email" id="email" wire:model.lazy='email' required>
                                 @error('email') <span class="alert alert-danger">{{ $message }}</span> @enderror
                             </p>
+                            <div class="form-group" style="display: none;">
+                                <label for="faxonly">Fax Only
+                                 <input type="checkbox" name="faxonly" id="faxonly" wire:model.lazy='faxonly'/>
+                                </label>
+                            </div>
                             <p class="form-submit">
                                 <input type="submit" value="Add Review" class="submit" id="submit" name="submit">
                                 <input type="hidden" id="comment_post_ID" value="185" name="comment_post_ID">

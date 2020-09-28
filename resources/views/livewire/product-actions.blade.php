@@ -132,8 +132,10 @@ $proAttr = $this->product->attributes()->select('id')->get();
                     </div>
                     @error('quantity') <span class="error text-danger">{{ $message }}</span> @enderror
                         <button class="single_add_to_cart_button button alt wc-variation-selection-needed tooltip_cart add_to_cart"
-                         disabled {{($this->product->stock <= 0)?'disabled':''}} type="submit">@lang('user.Add_to_cart')
-                            <span class="tooltiptext_cart">@lang('user.please_provide_the_missing_information_first')</span>
+                        @if($this->product->product_type === 'variable') disabled @endif{{($this->product->stock <= 0)?'disabled':''}} type="submit">@lang('user.Add_to_cart')
+                         @if($this->product->product_type === 'variable')
+                         <span class="tooltiptext_cart">@lang('user.please_provide_the_missing_information_first')</span>
+                         @endif
                         </button>
                     <input type="hidden" value="2471" name="add-to-cart">
                     <input type="hidden" value="2471" name="product_id">
@@ -209,16 +211,22 @@ $proAttr = $this->product->attributes()->select('id')->get();
         $('.product-actions-wrapper select:visible').each(function (i) {
             if (!$(this).val()) {
                 toReturn = false;
+
+                @if($this->product->product_type === 'variable')
                 $('.add_to_cart').attr('disabled', 'disabled');
                 $('.add_to_cart').addClass('tooltip_cart');
-
                 $('<span class="tooltiptext_cart">@lang("user.please_provide_the_missing_information_first")</span>').appendTo('.add_to_cart');
+                @endif
             };
         });
         if (toReturn === true) {
+            @if($this->product->product_type === 'variable')
+
             $('.add_to_cart').attr('disabled', false);
-            $('.add_to_cart').removeClass('tooltip_cart')
+            $('.add_to_cart').removeClass('tooltip_cart');
+
             $('.tooltiptext_cart').remove();
+            @endif
 
             items = [];
             $.each($(".product-actions-wrapper select"), function () {

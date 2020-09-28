@@ -4,6 +4,11 @@
     <div class="col-md-12">
         @include('sweetalert::alert')
         <div class="card light bordered">
+            @if($errors->any())
+            @foreach($errors->all() as $error)
+            <div class="alert alert-danger"> {{$error}}</div>
+            @endforeach
+            @endif
             <div class="card-header">
                 <div class="caption">
                     <span class="caption-subject bold uppercase font-dark">{{$title}}</span>
@@ -79,8 +84,21 @@
                         <div class="col-md-12">
                             {!!
                             Form::select('rules',[
-                            'all_users'=> trans('admin.all_users'),'new_sign_up' => trans('admin.new_sign_up')
+                            'all_users'=> trans('admin.all_users'),'new_sign_up' => trans('admin.new_sign_up'),
+                            'specific_user' => trans('admin.specific_user')
                             ],old('rules'),['class'=>'form-control','id'=>'rules','placeholder'=>trans('admin.rules')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row" id='user_id'>
+                        <div class="col-md-12">
+                            {!! Form::label('user_id',trans('admin.user_id'),['class'=>'
+                            control-label']) !!}
+                        </div>
+                        <div class="col-md-12">
+                            {!!
+                            Form::email('user_id',old('user_id'),['class'=>'form-control','id'=>'user_id','placeholder'=>trans('admin.user_id')])
                             !!}
                         </div>
                     </div>
@@ -151,10 +169,21 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">@lang('user.save')</button>
             </div>
             {!! Form::close() !!}
         </div>
     </div>
 </div>
 @stop
+@push('js')
+<script>
+    $('#rules').on('change', function (e) {
+        if($(this).val() == 'all_users' || $(this).val() == 'new_sign_up') {
+            $('#user_id').hide();
+        } else {
+            $('#user_id').show();
+        }
+    });
+</script>
+@endpush

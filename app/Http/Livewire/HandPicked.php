@@ -11,9 +11,8 @@ class HandPicked extends Component
         $handpicked = Product::where('visible', 'visible')->where('approved', 1)
         ->select('id','slug','name','sale_price','image')
         ->inRandomOrder()->take(36)->get();
-        $compare = session()->get('compare');
 
-        return view('livewire.hand-picked', ['handpicked' => $handpicked, 'compare' => $compare]);
+        return view('livewire.hand-picked', ['handpicked' => $handpicked]);
     }
 
     public function compare($id) {

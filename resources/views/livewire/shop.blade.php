@@ -163,6 +163,8 @@
                                         </ins>
                                         @endif
                                     </span>
+                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                     <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                 </a>
                                 <!-- .woocommerce-LoopProduct-link -->
@@ -236,7 +238,7 @@
                                     <div class="media-body">
                                         <div class="product-info">
                                             <div class="yith-wcwl-add-to-wishlist">
-                                                <a style="position: absolute;left: 0;top: 0;cursor:pointer;" @auth
+                                                <a style="position: absolute;top: 0;cursor:pointer;" @auth
                                                     wire:click='wishlists({{$product->id}})' @else
                                                     href='{{route('login')}}' @endauth>
                                                     <i class="fa fa-heart-o fa-2x wish @auth
@@ -263,7 +265,7 @@
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
                                             <div class="brand">
-                                                <a href="#">
+                                                <a href="{{route('brand',$product->tradmark->slug)}}">
                                                     <img alt="galaxy" src="{{Storage::url($product->tradmark->logo)}}">
                                                 </a>
                                             </div>
@@ -300,6 +302,8 @@
                                                 </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                             <!-- .price -->
                                             @if($product->IsVariable())
                                             <a class="button product_type_simple add_to_cart_button"
@@ -361,7 +365,7 @@
                                     <div class="media-body">
                                         <div class="product-info">
                                             <div class="yith-wcwl-add-to-wishlist">
-                                                <a style="position: absolute;left: 0;top: 0;cursor:pointer;" @auth
+                                                <a style="position: absolute;top: 0;cursor:pointer;" @auth
                                                     wire:click='wishlists({{$product->id}})' @else
                                                     href='{{route('login')}}' @endauth>
                                                     <i class="fa fa-heart-o fa-2x wish @auth
@@ -388,7 +392,7 @@
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
                                             <div class="brand">
-                                                <a href="#">
+                                                <a href="{{route('brand', $product->tradmark->slug)}}">
                                                     <img alt="galaxy" src="{{Storage::url($product->tradmark->logo)}}">
                                                 </a>
                                             </div>
@@ -422,6 +426,8 @@
                                                 </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                             <!-- .price -->
                                             @if($product->IsVariable())
                                             <a class="button product_type_simple add_to_cart_button"
@@ -483,7 +489,7 @@
                                     <div class="media-body">
                                         <div class="product-info">
                                             <div class="yith-wcwl-add-to-wishlist">
-                                                <a style="position: absolute;left: 0;top: 0;cursor:pointer;" @auth
+                                                <a style="position: absolute;top: 0;cursor:pointer;" @auth
                                                     wire:click='wishlists({{$product->id}})' @else
                                                     href='{{route('login')}}' @endauth>
                                                     <i class="fa fa-heart-o fa-2x wish @auth
@@ -533,6 +539,8 @@
                                                 </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                             <!-- .price -->
                                             @if($product->IsVariable())
                                             <a class="button product_type_simple add_to_cart_button"
@@ -736,14 +744,18 @@
                                                     </ins>
                                                     @endif
                                                 </span>
+                                                <span class='product_shipping'>{{product_shipping($latest)}}</span>
+
                                                 <!-- .price -->
                                                 <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
                                                 <div class="techmarket-product-rating">
-                                                    <div title="Rated 0 out of 5" class="star-rating">
-                                                        <span style="width:0%">
-                                                            <strong class="rating">0</strong> out of 5</span>
+                                                    <div title="Rated 5.00 out of 5" class="star-rating">
+                                                        <span style="width:{{$latest->averageRating(null, true)[0] * 2 * 10}}%">
+                                                            <strong class="rating">5.00</strong> out of 5</span>
                                                     </div>
-                                                    <span class="review-count">(0)</span>
+                                                    <span class="review-count">({{DB::table('reviews')
+                                                                ->where('reviewrateable_id', $latest->id)->where('approved', 1)
+                                                                ->count()}})</span>
                                                 </div>
                                                 <!-- .techmarket-product-rating -->
                                             </div>

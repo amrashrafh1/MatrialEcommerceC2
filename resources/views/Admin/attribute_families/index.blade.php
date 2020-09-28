@@ -44,26 +44,6 @@ trans('admin.attribute_families')])
             </div>
         </div>
     </div>
-
-@foreach(\App\Attribute_Family::get() as $attr)
-<div class="modal fade @if($loop->last) last_modal @endif" id="family_modal{{$attr->id}}" tabindex="-1" role="dialog"
-    aria-labelledby="family_modal{{$attr->id}}Label" aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="family_modal{{$attr->id}}Label">
-                    @lang('admin.if_your_delete_any_attribute_will_deleted_from_all_product_too')</h5>
-                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </a>
-            </div>
-            <div class="modal-body" id='{{$attr->id}}'>
-                @livewire('admin.attribute.attribute', $attr)
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
 </div>
 
 @push('js')

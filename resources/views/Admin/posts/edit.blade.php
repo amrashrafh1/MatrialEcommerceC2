@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-md-10">
                             {!!
-                            Form::text('title_'.$localeCode,\App\Post::where('id', $rows->id)->first()->getTranslation('title', $localeCode),['class'=>'form-control
+                            Form::text('title_'.$localeCode,old('title_'. $localeCode,$rows->getTranslation('title', $localeCode)),['class'=>'form-control
                             title_'.$localeCode,'placeholder'=>trans('admin.title') .' ('. $properties['native'] . ')'])
                             !!}
                         </div>
@@ -133,13 +133,31 @@
                         </div>
                     </div>
                     <br>
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="description" class=" control-label">@lang('admin.Tags_in_'.$properties['name'])</label>
+                            </div>
+                            @php
+                            $tags = [];
+                            foreach($rows->tags()->select('name')->get() as $tag) {
+                            $value = $tag->translate('name', $localeCode);
+                            array_push($tags, $value);
+                            }
+                            @endphp
+                            <div class="col-md-9">
+                                <input type="text" name="tags_{{$localeCode}}" placeholder="@lang('admin.Tags_in_'.$properties['name'])"
+                                    value='{{(!empty($rows->tags))?implode(',', $tags):''}}' data-role="tagsinput">
+                            </div>
+                        </div>
+                    @endforeach
                     <div class="form-group row">
                         <div class="col-md-2">
                             {!! Form::label('comment',trans('admin.comment'),['class'=>'control-label']) !!}
                         </div>
                         <div class="col-md-10">
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="commentable" id="toggle-one" {{($rows->commentable == 1)?'checked':''}} value='{{$rows->commentable}}' data-toggle="toggle">
+                                <input type="checkbox" name="commentable" id="toggle-one" {{($rows->commentable == 1)?'checked':''}} data-toggle="toggle">
                               </label>
                         </div>
                     </div>
@@ -166,6 +184,8 @@
 @push('js')
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link rel="stylesheet" href="{{url('/')}}/css/bootstrap-tagsinput.css">
+<script src="{{url('/')}}/js/bootstrap-tagsinput.min.js"></script>
 <script>
         <?php foreach($ids as $i) { ?>
         CKEDITOR.replace('editor_{{$i}}');
@@ -176,6 +196,25 @@
         $('.slug').on('keyup', function () {
             $(this).val($(this).val().replace(' ', '-').toLowerCase());
         });
+        $('.datetimepicker').datetimepicker({
+            icons: {
+                time    : "fa fa-clock-o",
+                date    : "fa fa-calendar",
+                up      : "fa fa-chevron-up",
+                down    : "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next    : 'fa fa-chevron-right',
+                today   : 'fa fa-screenshot',
+                clear   : 'fa fa-trash',
+                close   : 'fa fa-remove'
+            },
+            format:'DD-MM-YYYY HH:mm',
+        });
+        $('form').keypress(function(e){
+      if(e.keyCode==13)
+      //$('#linkadd').click();
+      e.preventDefault();
+    });
 </script>
 @endpush
 @stop

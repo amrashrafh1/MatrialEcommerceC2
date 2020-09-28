@@ -1,12 +1,15 @@
 <?php
 
 use App\Product;
+use App\Sold;
 use App\Tradmark;
 use App\User;
-use App\Sold;
-
+use App\Setting;
+use App\Country;
+use App\Shipping_methods;
 
 // /Admin url
+
 if (!function_exists('aurl')) {
     function aurl($url = null)
     {
@@ -70,7 +73,7 @@ if (!function_exists('multiple_uploads')) {
             $logo->save($thumbnailpath);
             $img = 'public/' . $path . '/thumbnail/' . $filenametostore;
 
-            $model->files()->create([
+            $model->gallery()->create([
                 'name' => $filenametostore,
                 'size' => $logo->filesize(),
                 'file' => $img,
@@ -147,7 +150,6 @@ if (function_exists('user_agent')) {
         echo $bname;
     }
 }
-
 
 // get users by day
 if (!function_exists('users_charts')) {
@@ -348,667 +350,66 @@ if (!function_exists('curr')) {
     }
 }
 
-/* // for tags page
-if (!function_exists('tags_product')) {
-    function tags_product($tags = [], $sort = 'newness', $perpage = 20)
-    {
-        if ($sort === 'popularity') {
-            return $products = visits('App\Product')->top(100);
-        } else {
-            if ($sort === 'price-asc') {
-                return $products = Product::withAllTags([$tags])->isApproved()->orderBy('sale_price', 'asc')
-                ->withCount(['ratings as average_rating' => function ($query) {
-                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                }])->orderByDesc('average_rating')
-                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-            } elseif ($sort === 'price-desc') {
-                return $products = Product::withAllTags([$tags])->isApproved()->orderBy('sale_price', 'desc')
-                ->withCount(['ratings as average_rating' => function ($query) {
-                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                }])->orderByDesc('average_rating')
-                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-            } elseif ($sort === 'newness') {
-                return $products = Product::withAllTags([$tags])->isApproved()->orderBy('id', 'desc')
-                ->withCount(['ratings as average_rating' => function ($query) {
-                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                }])->orderByDesc('average_rating')
-                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-            } else {
-                return $products = Product::withAllTags([$tags])->isApproved()
-                ->withCount(['ratings as average_rating' => function ($query) {
-                    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                }])->orderByDesc('average_rating')
-                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-            }
-        }
-
-    }
-} */
-
-if (!function_exists('cms_page_products')) {
-    function cms_page_products($brand = null, $products = [], $attributes = [], $sort = 'newness', $perpage = 20)
-    {
-        if ($sort === 'popularity') {
-            return $products = visits('App\Product')->top(100);
-        } else {
-            $pros = [];
-            $tradmark = Tradmark::where('id', $brand)->first();
-            if ($tradmark) {
-                if ($attributes && is_array($attributes)) {
-                    return $products = $tradmark->productsSortBy($sort)
-                        ->whereIn('id', $products)
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                } else {
-                    return $products = $tradmark->productsSortBy($sort)->whereIn('id', $products)
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-                // if not $tradmark exist
-            } else {
-
-                // if $attributes not null
-
-                if ($attributes && is_array($attributes)) {
-                    return $products = Product::IsApproved()
-                        ->whereIn('id', $products)
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-
-                    // if $attributes null
-                } else {
-                    return $products = Product::IsApproved()
-                        ->whereIn('id', $products)
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-            }
-        }
-        /* if ($sort === 'popularity') {
-    return $products = visits('App\Product')->top(100);
-    } elseif ($sort === 'newness') {
-
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->orderBy('id', 'desc')->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    $pros = [];
-    if (is_numeric($brand) && $brand) {
-    $pros = Tradmark::where('id', $brand)->first();
-    if ($pros) {
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-    }
-    }
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-
-    } elseif ($sort === 'price-asc') {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->orderBy('sale_price', 'asc')->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    $pros = [];
-    if (is_numeric($brand) && $brand) {
-    $pros = Tradmark::where('id', $brand)->first();
-    if ($pros) {
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-    }
-    }
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-
-    } elseif ($sort === 'price-desc') {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->orderBy('sale_price', 'desc')->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    $pros = [];
-    if (is_numeric($brand) && $brand) {
-    $pros = Tradmark::where('id', $brand)->first();
-    if ($pros) {
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-    }
-    }
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-
-    }if ($sort === 'rating') {
-    $pros = [];
-    if (is_numeric($brand) && $brand) {
-    $trad = Tradmark::where('id', $brand)->first();
-    if ($trad) {
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $pros = Product::whereIn('id', $products)->where('tradmark_id', $trad->id)
-    ->where('visible', 'visible')
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })
-    ->withCount(['ratings as average_rating' => function ($query) {
-    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0'));
-    }])
-    ->disableCache()->orderByDesc('average_rating')
-    ->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $pros = Product::whereIn('id', $products)->where('tradmark_id', $trad->id)
-    ->where('visible', 'visible')
-    ->withCount(['ratings as average_rating' => function ($query) {
-    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-    }])->orderByDesc('average_rating')
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-    }
-    }
-
-    if ($attributes && is_array($attributes)) {
-
-    $attr_id = $attributes;
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->withCount(['ratings as average_rating' => function ($query) {
-    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-    }])->orderByDesc('average_rating')
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->withCount(['ratings as average_rating' => function ($query) {
-    $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-    }])->orderByDesc('average_rating')
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-    } else {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->orderBy('id', 'desc')->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    $pros = [];
-    if (is_numeric($brand) && $brand) {
-    $pros = Tradmark::where('id', $brand)->first();
-    if ($pros) {
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-    }
-    }
-    if ($attributes && is_array($attributes)) {
-    $attr_id = $attributes;
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->whereHas('attributes', function ($q) use ($attr_id) {
-    $q->whereIn('id', $attr_id);
-    })->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    } else {
-    return $products = Product::whereIn('id', $products)->where('visible', 'visible')
-    ->where('visible', 'visible')
-    ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-    }
-    } */
-    }
-}
-
-if (!function_exists('cms_page_categories')) {
-    function cms_page_categories($cat_id = [], $brand = null, $attributes = [], $sort = 'newness', $perpage = 20)
-    {
-        if ($sort === 'popularity') {
-            return $products = visits('App\Product')->top(100);
-        } else {
-            $products = [];
-            $pros = [];
-            $tradmark = Tradmark::where('id', $brand)->first();
-            if ($tradmark) {
-                if ($attributes && is_array($attributes)) {
-                    return $products = $tradmark->productsSortBy($sort)
-                        ->whereIn('category_id', $cat_id)
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                } else {
-                    return $products = $tradmark->productsSortBy($sort)
-                        ->whereIn('category_id', $cat_id)
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-                // if not $tradmark exist
-            } else {
-
-                // if $attributes not null
-
-                if ($attributes && is_array($attributes)) {
-                    return $products = Product::IsApproved()
-                        ->whereIn('category_id', $cat_id)
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-
-                    // if $attributes null
-                } else {
-                    return $products = Product::IsApproved()
-                        ->whereIn('category_id', $cat_id)
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-            }
-        }
-    }
-}
-
+// for Shop page & CMS page (event page)
 if (!function_exists('shop_sort')) {
-    function shop_sort($cat_id, $brand = null, $attributes = [], $sort = 'newness', $perpage = 20)
+    function shop_sort($cat_id = null, $prods = null, $brand = null, $attributes = [], $sort = 'newness', $perpage = 20)
     {
-        if ($sort === 'popularity') {
-            return $products = visits('App\Product')->top(100);
-        } else {
-            $products = [];
-            $pros = [];
-            $tradmark = Tradmark::where('id', $brand)->first();
-            if ($tradmark) {
-                if ($attributes && is_array($attributes)) {
-                    return $products = $tradmark->productsSortBy($sort)
-                        ->where('category_id', $cat_id)
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                } else {
-                    return $products = $tradmark->productsSortBy($sort)
-                        ->where('category_id', $cat_id)
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-                // if not $tradmark exist
-            } else {
-
-                // if $attributes not null
-
-                if ($attributes && is_array($attributes)) {
-                    return $products = Product::IsApproved()
-                        ->where('category_id', $cat_id)
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-
-                    // if $attributes null
-                } else {
-                    return $products = Product::IsApproved()
-                        ->where('category_id', $cat_id)
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-            }
-
-            /* } elseif ($sort === 'price-asc') {
-
+        $products = [];
         $pros = [];
-        if (is_numeric($brand) && $brand) {
-        $pros = Tradmark::where('id', $brand)->first();
-        if ($pros) {
-        if ($attributes && is_array($attributes)) {
-        $attr_id = $attributes;
-        $pros = Product::IsApproved()->where('tradmark_id', $trad->id)
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->withCount(['ratings as average_rating' => function ($query) {
-        $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-        }])->orderByDesc('average_rating')
-        ->disableCache()
-        ->orderBy('sale_price','asc')
-        ->paginate((is_numeric($perpage)) ? $perpage : 20);
+        $tradmark = Tradmark::where('id', $brand)->first();
+        if ($tradmark) {
+            return $products = tradmark_exist(($cat_id) ? $cat_id : null, ($prods) ? $prods : null, $tradmark, $attributes, $sort, $perpage);
         } else {
-        $pros = Product::IsApproved()->where('tradmark_id', $trad->id)
-        ->withCount(['ratings as average_rating' => function ($query) {
-        $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
-        }])->orderByDesc('average_rating')
-        ->disableCache()->orderBy('sale_price','asc')
-        ->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-        }
-        }
-        if ($attributes && is_array($attributes)) {
-        $attr_id = $attributes;
-        return $products = Product::IsApproved()
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
 
-        ->orderBy('sale_price','asc')
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        } else {
-        return $products = Product::IsApproved()
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->orderBy('sale_price','asc')
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-
-        } elseif ($sort === 'price-desc') {
-
-        $pros = [];
-        if (is_numeric($brand) && $brand) {
-        $pros = Tradmark::where('id', $brand)->first();
-        if ($pros) {
-        if ($attributes && is_array($attributes)) {
-        $attr_id = $attributes;
-        return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->where('visible', 'visible')
-        ->where('approved', 1)
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()
-        ->orderBy('sale_price','desc')->paginate((is_numeric($perpage)) ? $perpage : 20);
-        } else {
-        return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-        ->where('visible', 'visible')
-        ->where('approved', 1)
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()
-        ->orderBy('sale_price','desc')->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-        }
-        }
-        if ($attributes && is_array($attributes)) {
-        $attr_id = $attributes;
-        return $products = Product::IsApproved()
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()
-        ->orderBy('sale_price','desc')->paginate((is_numeric($perpage)) ? $perpage : 20);
-        } else {
-        return $products = Product::IsApproved()
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()
-        ->orderBy('sale_price','desc')->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-
-        }if ($sort === 'rating') {
-        $pros = [];
-        if (is_numeric($brand) && $brand) {
-        $trad = Tradmark::where('id', $brand)->first();
-        if ($trad) {
-        if ($attributes && is_array($attributes)) {
-        $attr_id = $attributes;
-        return $pros = Product::IsApproved()->where('tradmark_id', $trad->id)
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->withCount(['ratings as average_rating' => function ($query) {
-        $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0'));
-        }])
-        ->disableCache()->orderByDesc('average_rating')
-        ->paginate((is_numeric($perpage)) ? $perpage : 20);
-        } else {
-        return $pros = Product::IsApproved()->where('tradmark_id', $trad->id)
-        ->withCount(['ratings as average_rating' => function ($query) {
-        $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-        }])->orderByDesc('average_rating')
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-        }
-        }
-
-        if ($attributes && is_array($attributes)) {
-
-        $attr_id = $attributes;
-        return $products = Product::IsApproved()
-        ->withCount(['ratings as average_rating' => function ($query) {
-        $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-        }])->orderByDesc('average_rating')
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        } else {
-        return $products = Product::IsApproved()
-        ->withCount(['ratings as average_rating' => function ($query) {
-        $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-        }])->orderByDesc('average_rating')
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-        } else {
-        return $products = Product::IsApproved()
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->orderBy('id', 'desc')->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        $pros = [];
-        if (is_numeric($brand) && $brand) {
-        $pros = Tradmark::where('id', $brand)->first();
-        if ($pros) {
-        if ($attributes && is_array($attributes)) {
-        $attr_id = $attributes;
-        return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->where('visible', 'visible')
-        ->where('approved', 1)
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        } else {
-        return $pros = Tradmark::where('id', $brand)->first()->productsSortBy($sort)
-        ->where('visible', 'visible')
-        ->where('approved', 1)
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-        }
-        }
-        if ($attributes && is_array($attributes)) {
-        $attr_id = $attributes;
-        return $products = Product::IsApproved()
-        ->whereHas('attributes', function ($q) use ($attr_id) {
-        $q->whereIn('id', $attr_id);
-        })
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        } else {
-        return $products = Product::IsApproved()
-        ->select('name', 'image', 'tax','short_description','sale_price', 'sku', 'id', 'slug', 'product_type')
-
-        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-        }
-        } */
+            // if $attributes not null
+            return $products = tradmark_not_exist(($cat_id) ? $cat_id : null, ($prods) ? $prods : null, $attributes, $sort, $perpage);
         }
     }
 }
 
-if (!function_exists('shop_sort_products')) {
-    function shop_sort_products($brand = null, $attributes = [], $sort = 'newness', $perpage = 20)
+if (!function_exists('brand_sort')) {
+    function brand_sort($brand_id, $brand = null, $attributes = [], $sort = 'newness', $perpage = 20)
     {
-        if ($sort === 'popularity') {
-            return $products = visits('App\Product')->top(100);
-        } else {
-            $products = [];
-            $pros = [];
-            $tradmark = Tradmark::where('id', $brand)->first();
-            if ($tradmark) {
-                if ($attributes && is_array($attributes)) {
-                    return $products = $tradmark->productsSortBy($sort)
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                } else {
-                    return $products = $tradmark->productsSortBy($sort)
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-                // if not $tradmark exist
+        $products = [];
+        $pros = [];
+        $tradmark = Tradmark::where('id', $brand)->first();
+        if ($tradmark) {
+            if ($attributes && is_array($attributes)) {
+                return $products = $tradmark->productsSortBy($sort)
+                //->where('tradmark_id', $brand_id)
+                    ->whereHas('attributes', function ($q) use ($attributes) {
+                        $q->whereIn('id', $attributes);
+                    })
+                //->select('name', 'image', 'tax', 'short_description', 'tradmark_id', 'sale_price', 'sku', 'id', 'slug', 'product_type')
+
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
             } else {
+                return $products = $tradmark->productsSortBy($sort)
+                //->where('tradmark_id', $brand_id)
+                // ->select('name', 'image', 'tax', 'short_description', 'tradmark_id', 'sale_price', 'sku', 'id', 'slug', 'product_type')
 
-                // if $attributes not null
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            }
+            // if not $tradmark exist
+        } else {
 
-                if ($attributes && is_array($attributes)) {
-                    return $products = Product::IsApproved()
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            // if $attributes not null
 
-                    // if $attributes null
-                } else {
-                    return $products = Product::IsApproved()
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
+            if ($attributes && is_array($attributes)) {
+                return $products = Product::IsApproved()
+                    ->where('tradmark_id', $brand_id)
+                    ->productsSortBy($sort)
+                    ->whereHas('attributes', function ($q) use ($attributes) {
+                        $q->whereIn('id', $attributes);
+                    })
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+
+                // if $attributes null
+            } else {
+                return $products = Product::IsApproved()
+                    ->where('tradmark_id', $brand_id)
+                    ->productsSortBy($sort)
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
             }
         }
     }
@@ -1017,48 +418,40 @@ if (!function_exists('shop_sort_products')) {
 if (!function_exists('sortProductsDiscount')) {
     function sortProductsDiscount($brand = null, $attributes = [], $sort = 'newness', $perpage = 20)
     {
-        if ($sort === 'popularity') {
-            return $products = visits('App\Product')->top(100);
-        } else {
-            $products = [];
-            $pros = [];
-            $tradmark = Tradmark::where('id', $brand)->first();
-            if ($tradmark) {
-                if ($attributes && is_array($attributes)) {
-                    return $products = $tradmark->discountProductsSortBy($sort)
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                } else {
-                    return $products = $tradmark->discountProductsSortBy($sort)
-                        ->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
-                // if not $tradmark exist
+        $products = [];
+        $pros = [];
+        $tradmark = Tradmark::where('id', $brand)->first();
+        if ($tradmark) {
+            if ($attributes && is_array($attributes)) {
+                return $products = $tradmark->discountProductsSortBy($sort)
+                    ->whereHas('attributes', function ($q) use ($attributes) {
+                        $q->whereIn('id', $attributes);
+                    })
+                //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
             } else {
+                return $products = $tradmark->discountProductsSortBy($sort)
+                //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            }
+            // if not $tradmark exist
+        } else {
 
-                // if $attributes not null
+            // if $attributes not null
 
-                if ($attributes && is_array($attributes)) {
-                    return $products = Product::hasDiscount()
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->whereHas('attributes', function ($q) use ($attributes) {
-                            $q->whereIn('id', $attributes);
-                        })
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            if ($attributes && is_array($attributes)) {
+                return $products = Product::hasDiscount()
+                    ->productsSortBy($sort)
+                    ->whereHas('attributes', function ($q) use ($attributes) {
+                        $q->whereIn('id', $attributes);
+                    })
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
 
-                    // if $attributes null
-                } else {
-                    return $products = Product::hasDiscount()
-                        ->withCount(['ratings as average_rating' => function ($query) {
-                            $query->where('approved', 1)->select(DB::raw('coalesce(avg(rating),0)'));
-                        }])->orderByDesc('average_rating')
-                        ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-                }
+                // if $attributes null
+            } else {
+                return $products = Product::hasDiscount()
+                    ->productsSortBy($sort)
+                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
             }
         }
     }
@@ -1120,4 +513,169 @@ if (!function_exists('getPercentageChange')) {
 
         return ($decreaseValue / $oldNumber) * 100;
     }
+}
+
+if (!function_exists('tradmark_exist')) {
+    function tradmark_exist($cat_id = null, $prods = null, $tradmark = null, $attributes = [], $sort, $perpage)
+    {
+        if ($attributes && is_array($attributes)) {
+            $query = $tradmark->productsSortBy($sort);
+            if ($cat_id) {
+                if (is_array($cat_id)) {
+                    $query->whereIn('category_id', $cat_id);
+                } else {
+                    $query->where('category_id', $cat_id);
+                }
+            }
+            ;
+            if ($prods) {
+                $query->whereIn('id', $prods);
+            }
+            ;
+            return $query->whereHas('attributes', function ($q) use ($attributes) {
+                $q->whereIn('id', $attributes);
+            })
+            //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
+                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+
+            return $query;
+        } else {
+            $query = $tradmark->productsSortBy($sort);
+            if ($cat_id) {
+                if (is_array($cat_id)) {
+                    $query->whereIn('category_id', $cat_id);
+                } else {
+                    $query->where('category_id', $cat_id);
+                }
+            }
+            ;
+            if ($prods) {
+                $query->whereIn('id', $prods);
+            }
+            ;
+            //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
+            return $query->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+        }
+    }
+}
+
+if (!function_exists('tradmark_not_exist')) {
+    function tradmark_not_exist($cat_id = null, $prods = null, $attributes = [], $sort, $perpage)
+    {
+
+        // if $attributes not null
+        if ($attributes && is_array($attributes)) {
+            $query = Product::IsApproved()->productsSortBy($sort);
+            if ($cat_id) {
+                if (is_array($cat_id)) {
+                    $query->whereIn('category_id', $cat_id);
+                } else {
+                    $query->where('category_id', $cat_id);
+                }
+            }
+            ;
+            if ($prods) {
+                $query->whereIn('id', $prods);
+            }
+            ;
+            return $query->whereHas('attributes', function ($q) use ($attributes) {
+                $q->whereIn('id', $attributes);
+            })->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+
+        } else {
+            // if $attributes null
+
+            $query = Product::IsApproved()->productsSortBy($sort);
+            if ($cat_id) {
+                if (is_array($cat_id)) {
+                    $query->whereIn('category_id', $cat_id);
+                } else {
+                    $query->where('category_id', $cat_id);
+                }
+            }
+            ;
+            if ($prods) {
+                $query->whereIn('id', $prods);
+            }
+            ;
+            return $query->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+        }
+    }
+}
+
+
+if(!function_exists('product_shipping')) {
+    function product_shipping(Product $product) {
+        $shippings  = [];
+        $country_id = (session('country'))?session('country'):1;
+        $country    = Country::where('id', $country_id)->first();
+
+        $methods    = $product->methods()->whereHas('zone', function ($q) use ($country_id) {
+            $q->whereHas('countries', function ($query) use ($country_id) {
+                $query->where('id', $country_id);
+        });
+        })->get();
+        if (count($methods) <= 0) {
+            // will get the default shipping method if has this country
+            $defaultShipping = config('app.setting');
+            if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
+
+                    $isDefaultMethod = $defaultShipping->shipping()->whereHas('zone', function ($q) use ($country_id) {
+                        $q->whereHas('countries', function ($query) use ($country_id) {
+                            $query->where('id', $country_id);
+                        });
+                    })->first();
+                    // push $defaultShipping to shippings array
+                    if ($isDefaultMethod !== null) {
+                        array_push($shippings, $product->calcShipping($isDefaultMethod, 1));
+                    } else {
+                        // if $defaultShipping empty remove this item from items array
+                        return trans('user.shipping_not_available_in') . $country->country_name;
+                    }
+
+
+            }
+            // if $defaultShipping empty remove this item from items array
+            if ($defaultShipping->default_shipping != 1 || $defaultShipping->shipping == null) {
+                return trans('user.shipping_not_available_in') . $country->country_name;
+            }
+        } else {
+
+            foreach($methods as $method) {
+                array_push($shippings, $product->calcShipping($method, 1));
+            }
+        }
+        if(count($shippings) > 0) {
+            return  (min($shippings) == 0)?trans('user.free_shipping'):  '+'.trans('user.shipping:') . curr(min($shippings)) ;
+
+        } else {
+            return trans('user.shipping_not_available_in') . $country->country_name;
+        }
+    }
+
+
+    if(!function_exists('quantity_based_per_order')) {
+        function quantity_based_per_order(Shipping_methods $method, $qty) {
+            $rates = $method->rates;
+           foreach($rates as $rate) {
+                if($qty >= $rate->from && $qty <= $rate->to){
+                    return $rate->value;
+                };
+        }
+        return 0;
+        }
+    }
+    if(!function_exists('weight_based_per_order')) {
+        function weight_based_per_order($weight, Shipping_methods $method, $qty) {
+            $rates = $method->rates;
+           foreach($rates as $rate) {
+                if(($weight * $qty) >= $rate->from && ($weight * $qty) <= $rate->to){
+                    return $rate->value;
+                };
+        }
+        return 0;
+        }
+    }
+
+
 }

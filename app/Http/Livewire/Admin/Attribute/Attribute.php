@@ -18,7 +18,7 @@ class Attribute extends Component
     public function render()
     {
         $attr = Attribute_Family::find($this->attr->id);
-        //dd($attr->attributes);
+
         return view('livewire.admin.attribute.attribute', ['attributes'=>$attr->attributes]);
     }
 
@@ -26,9 +26,12 @@ class Attribute extends Component
     {
         attr::find($id)->delete();
     }
+
     public function removeLang($id, $lang)
     {
+
         attr::find($id)->setTranslation('name', $lang, null);
+
     }
     public function add_attribute($name)
     {

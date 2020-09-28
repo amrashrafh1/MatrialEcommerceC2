@@ -163,27 +163,19 @@ class EventCategoryController extends Controller
         $create =  $this->model::where('id', $id)->update([
             'type'             => $data['type'],
             'start_at'         => $data['start_at'],
-            'title'            => $data['title_en'],
             'expire_at'        => $data['expire_at'],
             'slug'             => \Str::slug($data['slug']),
-            'meta_tag'         => $data['meta_tag_en'],
-            'meta_keyword'     => $data['meta_keyword_en'],
-            'meta_description' => $data['meta_description_en'],
-            'menuTitle'        => $data['menuTitle_en'],
-            'content'          => $data['content_en'],
             'image'            => $img,
         ]);
         $cms = CMS::find($id);
 
         foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-            //if($localeCode != 'en') {
             (empty($request['title_'.$localeCode]))?:$cms->setTranslation('title', $localeCode, $request['title_'.$localeCode])->save();
             (empty($request['menuTitle_'.$localeCode]))?:$cms->setTranslation('menuTitle', $localeCode, $request['menuTitle_'.$localeCode])->save();
             (empty($request['content_'.$localeCode]))?:$cms->setTranslation('content', $localeCode, $request['content_'.$localeCode])->save();
             (empty($request['meta_tag_'.$localeCode]))?:$cms->setTranslation('meta_tag', $localeCode, $request['meta_tag_'.$localeCode])->save();
             (empty($request['meta_description_'.$localeCode]))?:$cms->setTranslation('meta_description', $localeCode, $request['meta_description_'.$localeCode])->save();
             (empty($request['meta_keyword_'.$localeCode]))?:$cms->setTranslation('meta_keyword', $localeCode, $request['meta_keyword_'.$localeCode])->save();
-            //}
         };
         if($cms->type == 'categories') {
             $cms->categories()->sync($data['categories']);

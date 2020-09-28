@@ -30,6 +30,7 @@
                                                                         {!! curr($random->product->calc_price()) !!}</span>
                                                                 </del>
                                                             </span>
+
                                                     <!-- /.price -->
                                                     <h2 class="woocommerce-loop-product__title">{{ $random->product->name}}</h2>
                                                 </div>
@@ -120,7 +121,7 @@
                                         </a>
                                         <div class="hover-area">
                                             @if($discount->product->IsVariable())
-                                            <a class="button add_to_cart_button" href='{{url('/'. $product->slug)}}'
+                                            <a class="button add_to_cart_button" href='{{url('/'. $discount->product->slug)}}'
                                                 rel="nofollow">@lang('user.Add_to_cart')</a>
                                                 @if($compare !== null)
                                                     @if(!in_array($discount->product->id,$compare))
@@ -130,7 +131,7 @@
                                                     @endif
                                                 @endif
                                             @else
-                                                <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$discount->product->id}})'
                                                     rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
                                                     <div wire:loading>
                                                         <i class="fa fa-spinner " aria-hidden="true"></i>
@@ -193,7 +194,7 @@
                                                     @endif
                                                 @endif
                                             @else
-                                                <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
+                                                <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$discount->product->id}})'
                                                     rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
                                                     <div wire:loading>
                                                         <i class="fa fa-spinner " aria-hidden="true"></i>

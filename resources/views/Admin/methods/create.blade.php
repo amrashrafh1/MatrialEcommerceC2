@@ -48,13 +48,13 @@
                             <br>
                             <div id="app">
                             <shipping-type :type="{{json_encode([
-                            'flat_rate_per_order' => trans('admin.flat_rate_per_order'),
-                            'quantity_based_per_order'=> trans('admin.quantity_based_per_order'),
-                            'price_based_per_order'=> trans('admin.price_based_per_order'),
-                            'flat_rate_per_item'=> trans('admin.flat_rate_per_item'),
-                            'weight_based_per_item'=> trans('admin.weight_based_per_item'),
-                            'weight_based_per_order'=> trans('admin.weight_based_per_order'),
-                            'price_based_per_item'=> trans('admin.price_based_per_item')
+                            'flat_rate_per_order'      => trans('admin.flat_rate_per_order'),
+                            'quantity_based_per_order' => trans('admin.quantity_based_per_order'),
+                            'price_based_per_order'    => trans('admin.price_based_per_order'),
+                            'flat_rate_per_item'       => trans('admin.flat_rate_per_item'),
+                            'weight_based_per_item'    => trans('admin.weight_based_per_item'),
+                            'weight_based_per_order'   => trans('admin.weight_based_per_order'),
+                            'price_based_per_item'     => trans('admin.price_based_per_item')
                             ])}}" shipping_type="{{trans('admin.shipping_type')}}" value="{{trans('admin.cost')}}"
                             quantity="{{trans('admin.quantity')}}"></shipping-type>
                             </div>

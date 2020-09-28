@@ -92,6 +92,17 @@
                            </div>
                         </div>
                     <br>
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="tags" class=" control-label">@lang('admin.Tags_in_'.$properties['name'])</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="tags_{{$localeCode}}"
+                                placeholder="Tags in {{$properties['name']}}" data-role="tagsinput">
+                        </div>
+                    </div>
+                    @endforeach
                     <div class="form-group row">
                         <div class="col-md-2">
                             {!! Form::label('comment',trans('admin.comment'),['class'=>'control-label']) !!}
@@ -125,6 +136,8 @@
 @push('js')
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link rel="stylesheet" href="{{url('/')}}/css/bootstrap-tagsinput.css">
+<script src="{{url('/')}}/js/bootstrap-tagsinput.min.js"></script>
 <script>
     <?php foreach($ids as $i) { ?>
         CKEDITOR.replace('editor_{{$i}}');
@@ -151,6 +164,11 @@
 });
     $(function() {
         $('#toggle-one').bootstrapToggle();
+    });
+    $('form').keypress(function(e){
+      if(e.keyCode==13)
+      //$('#linkadd').click();
+      e.preventDefault();
     });
 </script>
 @endpush

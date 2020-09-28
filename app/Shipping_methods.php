@@ -5,6 +5,7 @@ namespace App;
 use App\ShippingCompany;
 use App\Zone;
 use App\Product;
+use App\Range;
 use Illuminate\Database\Eloquent\Model;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
@@ -21,6 +22,10 @@ class Shipping_methods extends Model
 
     public function zone() {
         return $this->belongsTo(Zone::class,'zone_id', 'id');
+    }
+
+    public function rates() {
+        return $this->hasMany(Range::class,'method_id', 'id');
     }
 
     public function products() {

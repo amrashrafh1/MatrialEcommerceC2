@@ -33,9 +33,14 @@ class Tradmark extends Model
         }elseif($sort === 'newness') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
             ->where('approved', 1)->orderBy('id','desc');
+        }elseif($sort === 'popularity') {
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)->orderByUniqueViews();
         } else {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)->orderBy('id','desc');
+            ->where('approved', 1)->withCount(['ratings as average_rating' => function ($query) {
+                $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
+            }])->orderByDesc('average_rating');
         }
 
     }//end of products
@@ -75,7 +80,15 @@ class Tradmark extends Model
             })
             ->orderBy('id','desc');
 
-        } else {
+        } elseif($sort === 'popularity') {
+            return $this->hasMany(Product::class)->where('visible', 'visible')
+            ->where('approved', 1)->whereHas('discount', function ($d) {
+                $d->where('condition', 'percentage_of_product_price')
+                ->orWhere('condition', 'fixed_amount')
+                ->where('start_at', '<=',\Carbon\Carbon::now())
+                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
+            })->orderByUniqueViews();
+        }  else {
             return $this->hasMany(Product::class)->where('visible', 'visible')
             ->where('approved', 1)
             ->whereHas('discount', function ($d) {

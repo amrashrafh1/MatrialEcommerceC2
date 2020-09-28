@@ -50,8 +50,14 @@ Route::get('/cart', function () {
 })->name('show_cart');
 
 // checkout page
-Route::get('/checkout', function () {
-    return view('FrontEnd.checkout');
+Route::get('/checkout', function (Request $request) {
+    $payment = '';
+    if($request->payment === 'stripe') {
+        $payment = 'stripe';
+    } elseif($request->payment === 'paypal') {
+        $payment = 'paypal';
+    }
+    return view('FrontEnd.checkout', ['payment' => $payment]);
 })->name('show_checkout');
 
 // Payment
@@ -108,6 +114,9 @@ Route::get('/shop', function () {
 
  // Tags Page
 Route::get('/tag/{slug}','FrontEnd\TagController@index')->name('tags');
+
+// Brand Page
+Route::get('/brand/{slug}','FrontEnd\BrandController@index')->name('brand');
 
 // Seller Application page
 Route::get('/seller/app', 'FrontEnd\SellerAppController@index')->name('seller_app');
@@ -196,7 +205,7 @@ Route::post('/seller/discount/update/{id}', 'FrontEnd\DiscountController@update'
 /* End seller Discount */
 
 //
-Route::get('/search', 'HomeController@search')->name('search');
+Route::get('/search', 'HomeController@search')->middleware('ChangeCountry')->name('search');
 Route::get('/invoice/{id}', 'FrontEnd\SellerController@export_invoice')->name('export_invoice');
 Route::get('/seller/store/{id}', 'FrontEnd\SellerProfileController@show_seller')->name('show_seller');
 
@@ -221,6 +230,10 @@ Route::get('contact_us', 'FrontEnd\ContactUsController@index')->name('contact_us
 Route::get('services', 'FrontEnd\ServicesController@index')->name('services');
 Route::get('terms-and-conditions', 'FrontEnd\TermsAndConditionController')->name('terms-and-conditions');
 Route::get('about_us', 'FrontEnd\AboutUsController')->name('about_us');
+Route::get('blogs', 'FrontEnd\BlogsController@index')->name('blogs');
+Route::get('blogs/search', 'FrontEnd\BlogsController@blogs_search')->name('blogs_search');
+Route::get('blogs/tags/{slug}', 'FrontEnd\BlogsController@blogs_tags')->name('blogs_tags');
+Route::get('blog/{slug}', 'FrontEnd\BlogController')->name('blog');
 Route::get('track-your-order', 'FrontEnd\TrackYourOrderController@index')->name('track-your-order');
 Route::post('track-your-order-send', 'FrontEnd\TrackYourOrderController@send')->name('track-your-order-send');
 // End Pages

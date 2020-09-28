@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('')}}/FrontEnd/css/colors/blue.css" media="all" />
 
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,900" rel="stylesheet">
-    <link rel="shortcut icon" href="{{\App\Setting::latest('id')->first()?Storage::url(\App\Setting::latest('id')->first()->icon):''}}">
+    <link rel="shortcut icon" href="{{$setting?Storage::url($setting->icon):''}}">
     @livewireStyles
     <style>
         #botmanWidgetRoot > div{
@@ -70,6 +70,23 @@
         100% {
             transform: rotate(360deg);
         }
+    }
+    .yith-wcwl-add-to-wishlist a {
+        position: absolute;
+        @if($direction === 'right')
+        left:0;
+        @else
+        right:0;
+        @endif
+        top     : 0px;
+        cursor  : pointer;
+    }
+    .product_shipping {
+        height: 16px;
+    margin-bottom: 2px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #666;
     }
     </style>
 @stack('css')

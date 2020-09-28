@@ -17,8 +17,8 @@
                     @if(!empty($this->tags))
                     <div class="shop-archive-header" wire:ignore style="display:block;">
                         <div class="jumbotron">
-                            <select class="form-control" multiple="multiple" name='tags[]' id="tags" wire:model='tags'>
-                                @foreach(\Spatie\Tags\Tag::get() as $tag)
+                            <select class="form-control" multiple="multiple" name='tags[]' id="tags">
+                                @foreach(\Spatie\Tags\Tag::where('type', 'products')->get() as $tag)
                                 <option value="{{$tag->id}}" {{($this->tag === $tag->id)?'selected':''}}>{{$tag->name}}
                                 </option>
                                 @endforeach
@@ -40,13 +40,15 @@
                         <ul role="tablist" class="shop-view-switcher nav nav-tabs">
                             <li class="nav-item list-products">
                                 <a href="#grid-extended" title="Grid Extended View" data-toggle="tab"
-                                    class="nav-link {{ $tab == 'grid-extended' ? 'active' : '' }}" wire:click="$set('tab', 'grid-extended')">
+                                    class="nav-link {{ $tab == 'grid-extended' ? 'active' : '' }}"
+                                    wire:click="$set('tab', 'grid-extended')">
                                     <i class="tm tm-grid"></i>
                                 </a>
                             </li>
                             <li class="nav-item list-products">
                                 <a href="#list-view-large" title="List View Large" data-toggle="tab" class="nav-link
-                                {{ $tab == 'list-view-large' ? 'active' : '' }}" wire:click="$set('tab', 'list-view-large')">
+                                {{ $tab == 'list-view-large' ? 'active' : '' }}"
+                                    wire:click="$set('tab', 'list-view-large')">
                                     <i class="tm tm-listing-large"></i>
                                 </a>
                             </li>
@@ -58,7 +60,8 @@
                             </li>
                             <li class="nav-item list-products">
                                 <a href="#list-view-small" title="List View Small" data-toggle="tab" class="nav-link
-                                {{ $tab == 'list-view-small' ? 'active' : '' }}" wire:click="$set('tab', 'list-view-small')">
+                                {{ $tab == 'list-view-small' ? 'active' : '' }}"
+                                    wire:click="$set('tab', 'list-view-small')">
                                     <i class="tm tm-listing-small"></i>
                                 </a>
                             </li>
@@ -101,10 +104,10 @@
                     <!-- .shop-control-bar -->
                     <div class="tab-content" style='position:relative;'>
                         <div id="shop-loading" wire:loading>
-                            <div class="loader" ></div>
+                            <div class="loader"></div>
                         </div>
                         <!-- .tab-pane -->
-                        @if($tab ===  'grid-extended')
+                        @if($tab === 'grid-extended')
                         <div id="grid-extended" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-4">
                                 <div class="products">
@@ -203,7 +206,7 @@
                             <!-- .woocommerce -->
                         </div>
                         <!-- .tab-pane -->
-                        @elseif($tab ===  'list-view-large')
+                        @elseif($tab === 'list-view-large')
                         <div id="list-view-large" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-1">
                                 <div class="products">
@@ -331,7 +334,7 @@
                             <!-- .woocommerce -->
                         </div>
                         <!-- .tab-pane -->
-                        @elseif($tab ===  'list-view')
+                        @elseif($tab === 'list-view')
                         <div id="list-view" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-1">
                                 <div class="products">
@@ -456,7 +459,7 @@
                             <!-- .woocommerce -->
                         </div>
                         <!-- .tab-pane -->
-                        @elseif($tab ===  'list-view-small')
+                        @elseif($tab === 'list-view-small')
                         <div id="list-view-small" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-1">
                                 <div class="products">
@@ -702,15 +705,16 @@
     $('#tags').on('change', function () {
         @this.set('tags', $(this).val());
     });
-    $('.list-products a.nav-link').on('show.bs.tab', function(e) {
-        localStorage.setItem('listProducts',  $(e.target).attr('href'));
+    $('.list-products a.nav-link').on('show.bs.tab', function (e) {
+        localStorage.setItem('listProducts', $(e.target).attr('href'));
     });
-    document.addEventListener("livewire:load", function(event) {
+    document.addEventListener("livewire:load", function (event) {
         var listProducts = localStorage.getItem('listProducts').replace('#', '');
 
-        if(listProducts){
+        if (listProducts) {
             @this.set('tab', listProducts);
         }
     });
+
 </script>
 @endpush

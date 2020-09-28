@@ -20,13 +20,17 @@ use Spatie\Translatable\HasTranslations;
 use Treestoneit\ShoppingCart\Buyable;
 use Treestoneit\ShoppingCart\BuyableTrait;
 use Treestoneit\ShoppingCart\Taxable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use Treestoneit\ShoppingCart\Models\CartItem;
 
-class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable
+class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable,Viewable
 {
-    use HasTranslations, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable;
+    use HasTranslations, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews;
     protected $table = 'products';
     protected $guarded = [];
     protected $cachePrefix = "products-prefix";
+    protected $removeViewsOnDelete = true;
 
     public $translatable = ['name', 'description', 'size', 'color'];
 
@@ -54,9 +58,15 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     {
         return $this->belongsToMany(Shipping_methods::class, 'product_shipping_method', 'product_id', 'shipping_method_id');
     }
+
     public function gallery()
     {
         return $this->morphMany(Files::class, 'relation');
+    }
+
+    public function carts()
+    {
+        return $this->morphMany(CartItem::class, 'buyable');
     }
 
     /* search package */
@@ -202,31 +212,38 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         return false;
     }
 
-    public function visits()
-    {
-        return visits($this);
-    }
 
     public function calcShipping($method, $qty)
     {
         if ($method->rule === 'flat_rate_per_order') {
+
             return $method->value;
         } elseif ($method->rule === 'quantity_based_per_order') {
-            return $method->value * ($qty / $method->weight);
+
+            return quantity_based_per_order($method, $qty);
+
         } elseif ($method->rule === 'price_based_per_order') {
+
             return $method->value / 100 * $this->sale_price;
         } elseif ($method->rule === 'flat_rate_per_item') {
+
             return $method->value * $qty;
         } elseif ($method->rule === 'weight_based_per_item') {
-            return (floatval($this->weight) * $qty / $method->weight) * $method->value;
+
+            return (floatval($this->weight) * $qty) * $method->value;
         } elseif ($method->rule === 'weight_based_per_order') {
-            return (floatval($this->weight) * $qty / $method->weight) * $method->value;
+
+            return weight_based_per_order($this->weight, $method, $qty);
+            //return $method->value * (($this->weight *  / $method->weight);
+
         } elseif ($method->rule === 'price_based_per_item') {
+
             return ($method->value / 100 * $this->sale_price) * $qty;
         }
     }
 
-    public function productsSortBy($query, $sort)
+
+    public function scopeProductsSortBy($query, $sort)
     {
         if ($sort === 'price-asc') {
             return $query->orderBy('sale_price', 'asc');
@@ -234,8 +251,12 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
             return $query->orderBy('sale_price', 'desc');
         } elseif ($sort === 'newness') {
             return $query->orderBy('id', 'desc');
+        } elseif ($sort === 'popularity') {
+            return $query->orderByUniqueViews();
         } else {
-            return $query->orderBy('id', 'desc');
+            return $query->withCount(['ratings as average_rating' => function ($query) {
+                $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
+            }])->orderByDesc('average_rating');
         }
 
     } //end of products
@@ -360,5 +381,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
         return 8;
     }
+
+
 
 }

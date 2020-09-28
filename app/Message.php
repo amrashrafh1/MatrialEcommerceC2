@@ -23,7 +23,7 @@ class Message extends Model
     {
         return $this->morphMany(Files::class, 'files');
     } */
-    public function files()
+    public function gallery()
     {
         return $this->morphMany(Files::class, 'relation');
     }

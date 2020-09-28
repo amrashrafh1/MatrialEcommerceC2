@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\User;
 use App\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,9 +9,9 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class SendMesseges implements ShouldBroadcast
+class SendMesseges implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -40,6 +39,7 @@ class SendMesseges implements ShouldBroadcast
 
         $this->message   = $message;
         $this->conv_id   = $conv_id;
+        $this->dontBroadcastToCurrentUser();
     }
 
     /**
@@ -49,7 +49,9 @@ class SendMesseges implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('chat-' . $this->conv_id);
+        return new PresenceChannel('chat.'.$this->conv_id);
 
     }
+
+
 }

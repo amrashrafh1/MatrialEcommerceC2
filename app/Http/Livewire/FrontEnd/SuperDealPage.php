@@ -7,12 +7,12 @@ use App\Http\Controllers\CollectionHelper;
 use DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-use \App\Attribute;
-use \App\Attribute_Family;
-use \App\Category;
-use \App\Product;
-use \App\Tradmark;
-
+use App\Attribute;
+use App\Attribute_Family;
+use App\Category;
+use App\Product;
+use App\Tradmark;
+use Auth;
 class SuperDealPage extends Component
 {
     use WithPagination;
@@ -67,10 +67,14 @@ class SuperDealPage extends Component
             } else { */
                 $products = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
             /* } */
+            $compare = (session()->get('compare'))?session()->get('compare'):[];
+            $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
         return view('livewire.shop', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,
-            'brands' => $brands, 'attributes' => $attributes, 'family' => $family,'tab' => $this->tab]);
+            'brands' => $brands, 'attributes' => $attributes,
+             'family' => $family,'tab' => $this->tab, 'wishlist_product_id' =>$wishlist_product_id
+             , 'compare' => $compare]);
     }
 
     public function updatingPageNumber(): void

@@ -103,12 +103,9 @@ class Attribute_FamilyController extends Controller
         ],[],[
             'name_en' => trans('admin.name_en'),
         ]);
-        $this->model::where('id', $id)->update([
-            'name'  => $data['name_en']
-        ]);
         $update = $this->model::find($id);
         foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-            $update->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
+            (empty($request['name_'.$localeCode]))?:$cms->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
         };
         Alert::success(trans('admin.updated'), trans('admin.success_record'));
         return redirect()->route($this->path . '.index');

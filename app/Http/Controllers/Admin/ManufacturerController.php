@@ -202,12 +202,9 @@ class ManufacturerController extends Controller
             $data['icon'] = 'public/manufacturers/'.$filenametostore;
         }
         $this->model::where('id', $id)->update($data);
-        $this->model::where('id', $id)->update([
-            'name'         => $name_en,
-            ]);
         $update = Manufacturer::find($id);
         foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-            $update->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
+            (empty($request['name_'.$localeCode]))?:$update->setTranslation('name', $localeCode, $request['name_'.$localeCode])->save();
         };
         Alert::success(trans('admin.updated'), trans('admin.success_record'));
         return redirect()->route($this->route.'.index');

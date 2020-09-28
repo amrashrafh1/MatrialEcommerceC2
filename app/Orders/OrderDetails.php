@@ -10,6 +10,7 @@ use App\Setting;
 use Cart;
 use App\Mail\SendOrder;
 use Mail;
+use NumberFormatter;
 class OrderDetails
 {
     private $PaymentGetwayContract;
@@ -124,17 +125,18 @@ class OrderDetails
                     $ship = $cc->buyable->calcShipping(Shipping_methods::find($cart['shipping']), $cc->quantity);
                 }
                 Order_lines::create([
-                    'order_id'  => $order->id,
-                    'quantity'  => $cc->quantity,
-                    'total'     => $cc->price * $cc->quantity,
-                    'price'     => $cc->price,
-                    'tax'       => $cc->buyable->tax * ($cc->price * $cc->quantity) / 100,
-                    'shipping'  => $ship,
-                    'discount'  => $this->discount($cc->buyable),
-                    'sku'       => $cc->buyable->sku,
-                    'product'   => $cc->buyable->name,
-                    'options'   => ($cc->buyable->product_type === 'variable') ? json_encode($cc->options) : null,
-                    'seller_id' => $cc->buyable->user_id,
+                    'order_id'         => $order->id,
+                    'quantity'         => $cc->quantity,
+                    'total'            => $cc->price * $cc->quantity,
+                    'price'            => $cc->price,
+                    'tax'              => $cc->buyable->tax * ($cc->price * $cc->quantity) / 100,
+                    'shipping'         => $ship,
+                    'discount'         => $this->discount($cc->buyable),
+                    'discount_details' => $this->discount_details($cc->buyable),
+                    'sku'              => $cc->buyable->sku,
+                    'product'          => $cc->buyable->name,
+                    'options'          => ($cc->buyable->product_type === 'variable') ? json_encode($cc->options) : null,
+                    'seller_id'        => $cc->buyable->user_id,
                 ]);
                 Sold::create([
                     'sold'           => $cc->quantity,
@@ -165,17 +167,18 @@ class OrderDetails
                     $ship            = $cart->buyable->calcShipping($cart->buyable->methods->first(), (int)$cart->quantity);
                 }
                 Order_lines::create([
-                    'order_id'  => $order->id,
-                    'quantity'  => $cart->quantity,
-                    'total'     => $cart->price * $cart->quantity,
-                    'price'     => $cart->price,
-                    'tax'       => $cart->buyable->tax * ($cart->price * $cart->quantity) / 100,
-                    'shipping'  => $ship,
-                    'discount'  => $this->discount($cart->buyable),
-                    'sku'       => $cart->buyable->sku,
-                    'product'   => $cart->buyable->name,
-                    'options'   => ($cart->buyable->product_type === 'variable') ? json_encode($cart->options) : null,
-                    'seller_id' => $cart->buyable->user_id,
+                    'order_id'         => $order->id,
+                    'quantity'         => $cart->quantity,
+                    'total'            => $cart->price * $cart->quantity,
+                    'price'            => $cart->price,
+                    'tax'              => $cart->buyable->tax * ($cart->price * $cart->quantity) / 100,
+                    'shipping'         => $ship,
+                    'discount'         => $this->discount($cart->buyable),
+                    'discount_details' => $this->discount_details($cart->buyable),
+                    'sku'              => $cart->buyable->sku,
+                    'product'          => $cart->buyable->name,
+                    'options'          => ($cart->buyable->product_type === 'variable') ? json_encode($cart->options) : null,
+                    'seller_id'        => $cart->buyable->user_id,
                 ]);
                 Sold::create([
                     'sold'           => $cart->quantity,
@@ -224,6 +227,18 @@ class OrderDetails
             }
         }
         return 0;
+    }
+
+    public function discount_details($product) {
+         if ($product->available_discount() && $product->discount->condition === 'buy_x_and_get_y_free') {
+            $numberFormat = new NumberFormatter(session('locale'), NumberFormatter::SPELLOUT);
+
+            return 'buy '.$numberFormat->format($product->discount->y_quantity) . 'and get '. $numberFormat->format($product->discount->y_quantity)
+            . $product->discount->productY->name . ' free';
+
+        }
+
+        return NULL;
     }
 
 }

@@ -18,7 +18,7 @@ Broadcast::channel('home', function ($message) {
     return $message;
 });
 
-Broadcast::channel('chat-{conv_id}', function ($message, $conv_id) {
+Broadcast::channel('chat.{conv_id}', function ($message, $conv_id) {
     return $message;
 });
 /* Broadcast::channel('status-offline', function ($user) {

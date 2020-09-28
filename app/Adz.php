@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 class Adz extends Model
 {
+    use Cachable;
     protected $table = 'adzs';
     protected $guarded = [];
+    protected $cachePrefix = "adz-prefix";
 
 
     public function scopeAvailable($query) {

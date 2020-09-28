@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Category;
 use App\Discount;
+use App\Product;
 use App\Events\cartEvent;
 use Auth;
 
@@ -27,11 +28,18 @@ class SpecialOffers extends Component
                 ->where('daily', 'special_offers');
             });
         }])->take(8)->get();
-        $compare = (session()->get('compare'))?session()->get('compare'):[];
-        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
-        return view('livewire.special-offers', ['categories' => $categories, 'compare' => $compare
-        ,'wishlist_product_id' => $wishlist_product_id]);
+
+        return view('livewire.special-offers', ['categories' => $categories]);
+    }
+
+    public function addCart($id) {
+
+        $product = Product::find($id);
+        if($product) {
+            \Cart::add($product,1);
+            $this->emit('cartAdded');
+        }
     }
 
     public function wishlists($id) {
@@ -44,15 +52,6 @@ class SpecialOffers extends Component
                 $this->emit('wishlistAdded');
 
             }
-        }
-    }
-
-    public function addCart($id) {
-
-        $product = Product::find($id);
-        if($product) {
-            \Cart::add($product,1);
-            event(new cartEvent('fire'));
         }
     }
 

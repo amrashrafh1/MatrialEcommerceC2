@@ -27,12 +27,6 @@ class SearchResult extends Component
                 'search' => trans('user.search'),
             ]);
             $tags = \Spatie\Tags\Tag::Containing($data['search'], $lang)->paginate(10);
-           //dd($tags_id);
-           /* $searchResults = (new Search())
-           ->registerModel(Tag::class, 'name')
-           ->search($data['search']); */
-           //dd($searchResults);
-           //$tags    = \Spatie\Tags\Tag::whereIn('id', $tags_id)->paginate(10);
         }
 
         return view('livewire.front-end.search-result', ['tags' => $tags]);

@@ -148,6 +148,8 @@
                                                 </ins>
                                                 @endif
                                             </span>
+                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                             <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                         </a>
                                         <!-- .woocommerce-LoopProduct-link -->
@@ -222,7 +224,7 @@
                                             <div class="media-body">
                                                 <div class="product-info">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a style="position: absolute;left: 0;top: 0;cursor:pointer;"
+                                                        <a
                                                             @auth wire:click='wishlists({{$product->id}})' @else
                                                             href='{{route('login')}}' @endauth>
                                                             <i class="fa fa-heart-o fa-2x wish @auth
@@ -288,6 +290,8 @@
                                                         @endif
                                                     </span>
                                                     <!-- .price -->
+                                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
                                                         href='{{route('show_product',$product->slug)}}'
@@ -350,7 +354,7 @@
                                             <div class="media-body">
                                                 <div class="product-info">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a style="position: absolute;left: 0;top: 0;cursor:pointer;"
+                                                        <a
                                                             @auth wire:click='wishlists({{$product->id}})' @else
                                                             href='{{route('login')}}' @endauth>
                                                             <i class="fa fa-heart-o fa-2x wish @auth
@@ -412,6 +416,8 @@
                                                         </ins>
                                                         @endif
                                                     </span>
+                                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
@@ -475,7 +481,7 @@
                                             <div class="media-body">
                                                 <div class="product-info">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a style="position: absolute;left: 0;top: 0;cursor:pointer;"
+                                                        <a
                                                             @auth wire:click='wishlists({{$product->id}})' @else
                                                             href='{{route('login')}}' @endauth>
                                                             <i class="fa fa-heart-o fa-2x wish @auth
@@ -525,6 +531,8 @@
                                                         </ins>
                                                         @endif
                                                     </span>
+                                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
@@ -591,20 +599,11 @@
                         </form>
                         <!-- .form-techmarket-wc-ppp -->
                         <p class="woocommerce-result-count">
-                            {{-- @if(count($pros) > 0)
-                            Showing {{$pros->firstItem()}}&ndash;{{$pros->lastItem()}} of {{$pros->total()}} results
-                            @else --}}
                             Showing {{$products->firstItem()}}&ndash;{{$products->lastItem()}} of {{$products->total()}} results
-                            {{-- @endif --}}
                         </p>
                         <!-- .woocommerce-result-count -->
                         <nav class="woocommerce-pagination">
-                            {{-- @if(count($pros) > 0)
-
-                            {{ $pros->links() }}
-                            @else --}}
                             {{ $products->links() }}
-                            {{-- @endif --}}
                         </nav>
                         <!-- .woocommerce-pagination -->
                     </div>
@@ -622,7 +621,7 @@
                                 @foreach($categories as $category)
                                 <li class="cat-item">
                                     <a href="{{route('show_category', $category->slug)}}">
-                                        <span class="{{(count($category->children) > 0)?'child-indicator':'no-child'}}"></span>{{$category->name}}</a>
+                                        <span class="{{(count($category->categories) > 0)?'child-indicator':'no-child'}}"></span>{{$category->name}}</a>
                                 </li>
                                 @endforeach
                             </ul>
@@ -702,6 +701,7 @@
                                                             @endif
                                                         </span>
                                                         <!-- .price -->
+                                                        <span class='product_shipping'>{{product_shipping($product)}}</span>
                                                         <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">

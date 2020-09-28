@@ -266,7 +266,7 @@ return array (
   'short_description'                                              => 'وصف اللقطة',
   'Show more'                                                      => 'أظهر المزيد',
   'show_all'                                                       => 'عرض الكل',
-  'show'                                                           => 'تبين',
+  'show'                                                           => 'عرض',
   'sInfo'                                                          => 'إظهار _START_ إلى _END_ من _TOTAL_ من الإدخالات',
   'sInfoEmpty'                                                     => 'إظهار 0 إلى 0 من 0 مدخلات',
   'sInfoFiltered'                                                  => '(تمت تصفيته من إجمالي إدخالات _MAX_)',
@@ -349,4 +349,8 @@ return array (
   'linkdin_account'                                                => 'حساب linkdin',
   'project_type'                                                   => 'نوع المشروع',
   'header'                                                         => 'الرأس',
+  'successfully'                                                   => 'بنجاح',
+  'coupons'                                                        => 'كوبونات',
+  'has_accessories'                                                => 'لديها ملحقات',
+  'sold'                                                           => 'تم البيع',
 );

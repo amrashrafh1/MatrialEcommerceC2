@@ -8,7 +8,6 @@ use App\Category;
 use App\Events\cartEvent;
 use Auth;
 
-
 class NewArrivals extends Component
 {
 
@@ -22,9 +21,9 @@ class NewArrivals extends Component
         ->whereHas('products', function ($query) {
             $query->where('visible', 'visible')->where('approved', 1);
         })->take(4)->get();
-        $compare = (session()->get('compare'))?session()->get('compare'):[];
 
-        return view('livewire.new-arrivals',['products' => $products, 'categories' => $categories, 'compare' =>$compare]);
+        return view('livewire.new-arrivals',['products' => $products,
+         'categories' => $categories]);
     }
 
 

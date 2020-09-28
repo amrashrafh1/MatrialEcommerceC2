@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Product;
 use App\Category;
+use App\Product;
 use Auth;
+use Livewire\Component;
+
 class Tag extends Component
 {
     public $tag;
@@ -15,96 +16,76 @@ class Tag extends Component
     public $PageNumber = 1;
     public $tab        = '';
 
-
-    public function mount($tag = null) {
-        ($tag)?$this->tag = $tag->id:'';
+    public function mount($tag = null)
+    {
+        ($tag) ? $this->tag = $tag->id : '';
     }
     public function render()
     {
         $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
 
-        if(count($this->tags) <= 0) {
+        if (count($this->tags) <= 0) {
             array_push($this->tags, $this->tag);
-            $tags     = \Spatie\Tags\Tag::where('id', $this->tag)->first();
+            $tags = \Spatie\Tags\Tag::where('id', $this->tag)->first();
 
-            if($this->sortBy === 'newess') {
-            $products = Product::withAllTags([$tags])
-            ->isApproved()
-            ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-            ->orderBy('id', 'desc')
-            ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
-            } elseif($this->sortBy === 'price-asc') {
-                $products = Product::withAllTags([$tags])
-                ->isApproved()
-                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-                ->orderBy('sale_price', 'asc')
-                ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
-            }
-            elseif($this->sortBy === 'price-desc') {
-                $products = Product::withAllTags([$tags])
-                ->isApproved()
-                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-                ->orderBy('sale_price', 'desc')
-                ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
+            if ($this->sortBy === 'newess') {
+                $products = Product::isApproved()->withAllTags([$tags], 'products')
+                    ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->orderBy('id', 'desc')
+                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+            } elseif ($this->sortBy === 'price-asc') {
+                $products = Product::isApproved()->withAllTags([$tags], 'products')
+                    ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->orderBy('sale_price', 'asc')
+                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+            } elseif ($this->sortBy === 'price-desc') {
+                $products = Product::isApproved()->withAllTags([$tags], 'products')
+                    ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->orderBy('sale_price', 'desc')
+                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
             } else {
-                $products = Product::withAllTags([$tags])
-                ->isApproved()
-                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-                ->orderBy('id', 'desc')
-                ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
+                $products = Product::isApproved()->withAllTags([$tags], 'products')
+                    ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->orderBy('id', 'desc')
+                    ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
             }
         } else {
-            if(is_array($this->tags)) {
-            $tags     = \Spatie\Tags\Tag::whereIn('id', $this->tags)->get();
-            if($this->sortBy === 'newess') {
-                $products = Product::withAllTags($tags->pluck('name')->toArray())
-                ->isApproved()
-                ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-                ->orderBy('id', 'desc')
-                ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
-                } elseif($this->sortBy === 'price-asc') {
-                    $products = Product::withAllTags($tags->pluck('name')->toArray())
-                    ->isApproved()
-                    ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-                    ->orderBy('sale_price', 'asc')
-                    ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
-                }
-                elseif($this->sortBy === 'price-desc') {
-                    $products = Product::withAllTags($tags->pluck('name')->toArray())
-                    ->isApproved()
-                    ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-                    ->orderBy('sale_price', 'desc')
-                    ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
+            if (is_array($this->tags)) {
+                $tags = \Spatie\Tags\Tag::whereIn('id', $this->tags)->where('type', 'products')->get();
+
+                if ($this->sortBy === 'newess') {
+                    $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
+                        ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                        ->orderBy('id', 'desc')
+                        ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+                } elseif ($this->sortBy === 'price-asc') {
+                    $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
+                        ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                        ->orderBy('sale_price', 'asc')
+                        ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+                } elseif ($this->sortBy === 'price-desc') {
+                    $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
+                         ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                        ->orderBy('sale_price', 'desc')
+                        ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
                 } else {
-                    $products = Product::withAllTags($tags->pluck('name')->toArray())
-                    ->isApproved()
-                    ->select('name','image','sale_price','sku','id','slug','product_type','short_description','stock','tradmark_id')
-                    ->orderBy('id', 'desc')
-                    ->paginate((is_numeric($this->PerPage))?$this->PerPage:20);
+                    $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
+                        ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                        ->orderBy('id', 'desc')
+                        ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
                 }
             }
         }
-        $compare = (session()->get('compare'))?session()->get('compare'):[];
-        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
 
         return view('livewire.tag', ['products' => $products, 'categories' => $categories,
-         'compare' =>$compare, 'wishlist_product_id' => $wishlist_product_id,'tab' => $this->tab]);
+             'tab' => $this->tab]);
     }
-
 
     public function updatingPageNumber(): void
     {
         if ($this->PageNumber && is_numeric($this->PageNumber)) {
             $this->gotoPage($this->PageNumber);
         }
-    }
-    public function updatingAssId(): void
-    {
-        $this->gotoPage(1);
-    }
-    public function updatingAss_attrs(): void
-    {
-        $this->gotoPage(1);
     }
 
     public function addCart($id)
@@ -118,9 +99,10 @@ class Tag extends Component
         }
     }
 
-    public function wishlists($id) {
-        if(Auth::check()) {
-            if(auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($id)) {
+    public function wishlists($id)
+    {
+        if (Auth::check()) {
+            if (auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($id)) {
                 auth()->user()->wishlists()->disableCache()->detach($id);
                 $this->emit('wishlistAdded');
             } else {
@@ -130,13 +112,14 @@ class Tag extends Component
             }
         }
     }
-    public function compare($id) {
-        if(session()->get('compare') !== null) {
-            if(!in_array($id,session()->get('compare'))) {
+    public function compare($id)
+    {
+        if (session()->get('compare') !== null) {
+            if (!in_array($id, session()->get('compare'))) {
                 $this->emit('compareAdded');
                 session()->push('compare', $id);
             } else {
-                return ;
+                return;
             }
         } else {
             $this->emit('compareAdded');
