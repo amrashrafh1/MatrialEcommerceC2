@@ -16,11 +16,10 @@ class FileResource extends JsonResource
     {
         return [
             'name'      => $this->name,
+            'size'      => $this->size,
             'file'      => $this->file,
             'path'      => $this->path,
             'mime_type' => $this->mime_type,
-           // 'model' => $this->name,
-            //'relation_id' => $this->relation_id,
         ];
     }
 }

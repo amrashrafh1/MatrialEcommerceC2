@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\DataTables\CouponDatatable;
+use App\Jobs\CouponJob;
 use App\Coupon;
 use App\User;
 class CouponController extends Controller
@@ -40,38 +41,21 @@ class CouponController extends Controller
         $data = $this->validate(request(), [
             'quantity'  => 'sometimes|nullable|numeric',
             'reward'    => 'required|numeric',
-            'amount'    => 'required|numeric',
+            'amount'    => 'required|numeric|max:10000',
             'rules'     => 'sometimes|nullable|in:all_users,new_sign_up,specific_user',
             'expire_at' => 'required|string',
             'is_usd'    => 'required|in:is_usd,percentage',
-            'user_id'   => 'required|email|exists:users,email',
+            'user_id'   => 'sometimes|nullable|email|exists:users,email',
         ],[],[
             'quantity'  => trans('admin.quantity'),
             'reward'    => trans('admin.reward'),
-            'amount'    => trans('admin.reward'),
+            'amount'    => trans('admin.amount'),
             'rules'     => trans('admin.rules'),
             'expire_at' => trans('admin.expire_at'),
             'is_usd'    => trans('admin.is_usd'),
             'user_id'   => trans('admin.user_id'),
         ]);
-        $expire_at = (!empty($data['expire_at']))?$data['expire_at']:NULL;
-        $quantity = (!empty($data['quantity']))?$data['quantity']:NULL;
-        $codeS = \Promocodes::create($data['amount'], $data['reward'], [],$expire_at, $quantity);
-        if(is_array($codeS->toArray())) {
-            foreach($codeS as $code) {
-                Coupon::where('code', $code['code'])->where('reward', $code['reward'])->first()->update([
-                    'rules'   => (!empty($data['rules']))?$data['rules']:'all_users',
-                    'is_usd'  => ($data['is_usd'] === 'is_usd')?1:0,
-                    'user_id' => (!empty($data['user_id']) && !empty($data['rules']) && $data['rules'] == 'specific_user')?User::where('email', $data['user_id'])->first()->id:NULL
-                ]);
-            }
-        } else {
-            Coupon::where('code', $codeS['code'])->where('reward', $codeS['reward'])->first()->update([
-                'rules'   => (!empty($data['rules']))?$data['rules']:'all_users',
-                'is_usd'  => ($data['is_usd'] === 'is_usd') ? 1 : 0,
-                'user_id' => (!empty($data['user_id']) && !empty($data['rules']) && $data['rules'] == 'specific_user')?User::where('email', $data['user_id'])->first()->id:NULL
-            ]);
-        }
+        dispatch(new CouponJob($data));
         \Alert::success(trans('admin.successfuly'), trans('admin.successfuly'));
         return redirect()->route('coupons.index');
     }

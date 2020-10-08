@@ -60,7 +60,7 @@ class ContactUsController extends Controller
             'subject' => 'required',
         ],[],[
             'name'    => trans('admin.name'),
-            'image'   => trans('admin.image'),
+            'email'   => trans('admin.email'),
             'message' => trans('admin.message'),
             'mobile'  => trans('admin.mobile'),
             'subject' => trans('admin.subject'),

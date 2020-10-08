@@ -1,6 +1,3 @@
-@php
-$slugs = \App\Product::find($id)->slug;
-@endphp
 <div class="actions">
     <div class="btn-group">
         @if($product_type == 'variable')
@@ -32,7 +29,7 @@ $slugs = \App\Product::find($id)->slug;
                 </li>
                 <li class="divider"> </li>
                 <li class='p-2'>
-                    <a href="{{ route('show_product', $slugs)}}"><i class="fa fa-eye"></i> {{trans('admin.show')}}</a>
+                    <a href="{{ route('show_product', $slug)}}"><i class="fa fa-eye"></i> {{trans('admin.show')}}</a>
                 </li>
                 <li class='p-2'>
                     <a data-toggle="modal" data-target="#delete_record{{$id}}" href="#">

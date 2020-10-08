@@ -68,15 +68,15 @@
                         </div>
                         <div class="col-md-9">
                             <select name="product_type" v-model="variant" @change="variations" class="form-control">
-                                <option disabled value="">product_type</option>
-                                <option value="simple">Simple</option>
-                                <option value="variable">Variable</option>
+                                <option disabled value="">@lang('user.product_type')</option>
+                                <option value="simple">@lang('user.simple')</option>
+                                <option value="variable">@lang('user.variable')</option>
                             </select> </div>
                     </div>
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                    <div class="form-group row ">
                         <div class="col-md-3">
-                            <label for="name" class=" control-label">@lang('user.Name_in_'.$properties['name'])</label>
+                            <label for="name" class=" control-label">@lang('user.Name_in_'.$properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
                         </div>
                         <div class="col-md-9">
                             <input type="text" @keyup="changeSlug" name="name_{{$localeCode}}" class="form-control"
@@ -86,9 +86,9 @@
                     </div>
                     @endforeach
                     <br />
-                    <div class="form-group row required">
+                    <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="name" class=" control-label">@lang('user.slug')</label>
+                            <label for="name" class=" control-label">@lang('user.slug') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
                             <input type="text" name="slug" class="form-control" placeholder="@lang('user.slug')" v-model="slug"
@@ -96,18 +96,18 @@
                         </div>
                     </div>
                     <br />
-                    <div class="form-group row required">
+                    <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="sku" class=" control-label">@lang('user.SKU')</label>
+                            <label for="sku" class=" control-label">@lang('user.SKU') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
                             <input type="text" name="sku" class="form-control" value="{{old('sku')}}" placeholder="@lang('user.SKU')"
                                 required>
                         </div>
                     </div>
-                    <div class="form-group row required">
+                    <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="has_accessories" class=" control-label">@lang('user.has_accessories')</label>
+                            <label for="has_accessories" class=" control-label">@lang('user.has_accessories') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
                             <select name="has_accessories" class="form-control" v-model="has_accessories" required>
@@ -122,7 +122,7 @@
                         <div>
                             <div class="card shadow">
                                 <div class="card-header">
-                                    <h2 class="mb-0">@lang('user.Main_image_(single file)')</h2>
+                                    <h2 class="mb-0">@lang('user.Main_image_(single file)') <abbr title="required" class="required">*</abbr></h2>
                                 </div>
                                 <div class="card-body">
                                     <input name="image" type="file" class="dropify-single" data-height="300"
@@ -148,27 +148,27 @@
             </div>
 
             <div class="tab-pane fade" id="Inventory" role="tabpanel" aria-labelledby="Inventory-tab">
-                <div class="form-group row required">
+                <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="stock" class=" control-label">@lang('user.Stock_quantity')</label>
+                        <label for="stock" class=" control-label">@lang('user.Stock_quantity') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <input name="stock" value="{{old('stock')}}" type="number" class="form-control"
                             placeholder="@lang('user.Stock_quantity')" required>
                     </div>
                 </div>
-                <div class="form-group row required">
+                <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="purchase_price" class=" control-label">@lang('user.Purchase_price')</label>
+                        <label for="purchase_price" class=" control-label">@lang('user.Purchase_price') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <input name="purchase_price" type="number" class="form-control" step="0.00"
                             placeholder="@lang('user.Purchase_price')" value="{{old('purchase_price')}}" required>
                     </div>
                 </div>
-                <div class="form-group row required">
+                <div class="form-group row ">
                     <div class="col-md-3">
-                        <label for="sale_price" class=" control-label">@lang('user.Regular_price')</label>
+                        <label for="sale_price" class=" control-label">@lang('user.Regular_price') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <input name="sale_price" type="number" class="form-control" step="0.00"
@@ -179,7 +179,7 @@
                 <div class="form-group row">
                     <div class="col-md-3">
                         <label for="short_description" class=" control-label">@lang('user.Short_Description_in_'.
-                            $properties['name'])</label>
+                            $properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
                     </div>
                     <div class="col-md-9">
                         <textarea name="short_description_{{$localeCode}}" class="form-control"
@@ -194,7 +194,7 @@
                 <div class="form-group row">
                     <div class="col-md-3">
                         <label for="description" class=" control-label">@lang('user.Description_in_'.
-                            $properties['name'])</label>
+                            $properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
                     </div>
                     <div class="col-md-9">
                         <textarea name="description_{{$localeCode}}" class="form-control"
@@ -206,10 +206,10 @@
                 @endforeach
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 
-                <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                <div class="form-group row">
                     <div class="col-md-3">
                         <label for="description" class=" control-label">@lang('user.Tags_in_'.
-                            $properties['name'])</label>
+                            $properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
                     </div>
                     <div class="col-md-9">
                         <input type="text" name="tags_{{$localeCode}}" placeholder="@lang('user.Tags_in_'.
@@ -218,18 +218,18 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="form-group row required">
+                <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="category_id" class=" control-label">@lang('user.Category')</label>
+                        <label for="category_id" class=" control-label">@lang('user.Category') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         {!! Form::select('category_id', \App\Category::pluck('name','id')
                         ,old('category_id'),['class'=>'form-control','required' => 'required']) !!}
                     </div>
                 </div>
-                <div class="form-group row required">
+                <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="tradmark_id" class=" control-label">@lang('user.Brands')</label>
+                        <label for="tradmark_id" class=" control-label">@lang('user.Brands') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         {!! Form::select('tradmark_id', \App\Tradmark::pluck('name','id')
@@ -249,7 +249,7 @@
                 </div>
                 <div class="form-group row required">
                     <div class="col-md-3">
-                        <label for="shipping_id" class=" control-label">@lang('user.shipping')</label>
+                        <label for="shipping_id" class=" control-label">@lang('user.shipping') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <select class="js-example-basic-multiple" style="width:100%;" name="shippings[]"
@@ -288,9 +288,9 @@
             </div>
             <div class="tab-pane fade" id="variable" v-show="variant == 'variable'" role="tabpanel"
                 aria-labelledby="variable-tab">
-                <div class="form-group row required">
+                <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="attributes" class="control-label">@lang('user.attribute')</label>
+                        <label for="attributes" class="control-label">@lang('user.attribute') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <select class="js-example-basic-multiple" style="width:100%;" name="attributes[]"
@@ -306,38 +306,38 @@
             <div class="tab-pane fade" id="Dimensions" role="tabpanel" aria-labelledby="Dimensions-tab">
                 <div>
                     <div class="col-md-12">
-                        <h3 class="h3">@lang('user.Dimensions')</h3>
+                        <h3 class="h3">@lang('user.Dimensions') <abbr title="required" class="required">*</abbr></h3>
                     </div>
-                    <div class="form-group row required">
+                    <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="attributes" class="control-label">@lang('user.length')</label>
+                            <label for="attributes" class="control-label">@lang('user.length') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
                             <input type="number" name="length" class="form-control mb-4" placeholder="@lang('user.length')"
                                 value="{{old('length')}}">
                         </div>
                     </div>
-                    <div class="form-group row required">
+                    <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="attributes" class="control-label">@lang('user.width')</label>
+                            <label for="attributes" class="control-label">@lang('user.width') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
                             <input type="number" name="width" class="form-control mb-4" placeholder="@lang('user.width')"
                                 value="{{old('width')}}">
                         </div>
                     </div>
-                    <div class="form-group row required">
+                    <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="attributes" class="control-label">@lang('user.height')</label>
+                            <label for="attributes" class="control-label">@lang('user.height') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
                             <input type="number" name="height" class="form-control mb-4" placeholder="@lang('user.height')"
                                 value="{{old('height')}}">
                         </div>
                     </div>
-                    <div class="form-group row required">
+                    <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="attributes" class="control-label">@lang('user.weight')</label>
+                            <label for="attributes" class="control-label">@lang('user.weight') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
                             <input type="number" name="weight" class="form-control mb-4" placeholder="@lang('user.weight')"
@@ -347,9 +347,9 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                <div class="form-group row required">
+                <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="in_stock" class=" control-label">@lang('user.status')</label>
+                        <label for="in_stock" class=" control-label">@lang('user.status') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <select name="in_stock" class="form-control" >
@@ -359,9 +359,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row required">
+                <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="stock" class=" control-label">@lang('user.visible')</label>
+                        <label for="stock" class=" control-label">@lang('user.visible') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <select name="visible" class="form-control" >
@@ -374,7 +374,7 @@
             </div>
             <div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                <div class="form-group row">
                     <div class="col-md-3">
                         <label for="meta_title_{{$localeCode}}" class=" control-label">@lang('user.meta_title_'.$properties['name'])
                             </label>
@@ -384,7 +384,7 @@
                             placeholder="@lang('user.meta_title_'.$properties['name'])" value="{{old('meta_title_'.$localeCode)}}">
                     </div>
                 </div>
-                <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                <div class="form-group row">
                     <div class="col-md-3">
                         <label for="meta_description_{{$localeCode}}"
                             class=" control-label">@lang('user.meta_description_'.$properties['name'])
@@ -396,7 +396,7 @@
                             value="{{old('meta_description_'.$localeCode)}}">
                     </div>
                 </div>
-                <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                <div class="form-group row">
                     <div class="col-md-3">
                         <label for="keywords_{{$localeCode}}" class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
                             </label>

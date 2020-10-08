@@ -64,4 +64,11 @@ class LoginController extends Controller
         Auth::login($login,true);
         return redirect()->route('home');
     }
+
+    public function redirectTo() {
+        if(auth()->user()->hasRole(['superadministrator', 'administrator'])) {
+            return '/admin/dashboard';
+        }
+        return '/';
+    }
 }

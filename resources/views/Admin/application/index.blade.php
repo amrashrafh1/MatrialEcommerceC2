@@ -17,7 +17,7 @@ trans('admin.new_seller_application')])
                             <h2>@lang('admin.new_seller_application')</h2>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="name">Name :</label>
+                                    <label for="name">@lang('user.name') :</label>
                                     <div id="name">{{$seller->name}}</div>
                                 </div>
                                 <div class="form-group">
@@ -26,58 +26,58 @@ trans('admin.new_seller_application')])
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="address">Address1 :</label>
+                                <label for="address">@lang('user.address1') :</label>
                                 <div id="address">{{$seller->seller_info->address1}}</div>
                             </div>
                             <div class="form-group">
-                                <label for="address">Address2 :</label>
+                                <label for="address">@lang('user.address2') :</label>
                                 <div id="address">{{$seller->seller_info->address2}}</div>
                             </div>
                             <div class="form-group">
-                                <label for="address">Address3 :</label>
+                                <label for="address">@lang('user.address3') :</label>
                                 <div id="address">{{$seller->seller_info->address3}}</div>
                             </div>
                             <div class="form-radio">
                                 <label for="gender" class="radio-label">@lang('user.business') :</label>
                                 <div class="form-radio-item">
                                     <input type="radio" name="gender" id="male" @if($seller->seller_info->business == 1) checked @endif>
-                                    <label for="individual" style="font-size:16px;">@lang('admin.individual')</label>
+                                    <label for="individual" style="font-size:16px;">@lang('user.individual')</label>
                                     <span class="check"></span>
                                 </div>
                                 <div class="form-radio-item">
                                     <input type="radio" name="gender" id="female" @if($seller->seller_info->business == 0) checked @endif>
-                                    <label for="business" style="font-size:16px;">@lang('admin.business')</label>
+                                    <label for="business" style="font-size:16px;">@lang('user.business')</label>
                                     <span class="check"></span>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="country">country :</label>
+                                    <label for="country">@lang('user.country') :</label>
                                     <div id="country">{{$seller->country->country_name}}</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="state">State :</label>
+                                    <label for="state">@lang('user.state') :</label>
                                     <div id="state">{{$seller->state}}</div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="city">city :</label>
+                                    <label for="city">@lang('user.city') :</label>
                                     <div id="city">{{$seller->city}}</div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="phone">phone1 :</label>
+                                <label for="phone">@lang('user.phone1') :</label>
                                 <div id="phone">{{$seller->seller_info->phone1}}</div>
                             </div>
                             <div class="form-group">
-                                <label for="phone2">phone2 :</label>
+                                <label for="phone2">@lang('user.phone2') :</label>
                                 <div id="phone2">{{$seller->seller_info->phone2}}</div>
                             </div>
                             <div class="form-group">
-                                <label for="phone">phone3 :</label>
+                                <label for="phone">@lang('user.phone3') :</label>
                                 <div id="phone">{{$seller->seller_info->phone3}}</div>
                             </div>
                             <div class="form-group">
-                                <label for="phone">about :</label>
+                                <label for="phone">@lang('user.About') :</label>
                                 <div id="phone">{{$seller->seller_info->description}}</div>
                             </div>
                             <div class="form-submit">

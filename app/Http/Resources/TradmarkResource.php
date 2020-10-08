@@ -17,7 +17,7 @@ class TradmarkResource extends JsonResource
         return [
             'name' => $this->name,
             'logo' => $this->logo,
-            //'slug' => $this->slug,
+            'slug' => $this->slug,
         ];
     }
 }

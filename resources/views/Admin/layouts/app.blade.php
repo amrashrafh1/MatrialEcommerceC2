@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-    dir="{{(\LaravelLocalization::setLocale() == 'ar') ? 'rtl' : 'ltr'}}">
+<html lang="{{LaravelLocalization::setLocale()}}"
+    dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
     <meta charset="utf-8" />
@@ -56,13 +56,13 @@
 
 
 
-    <div class="fixed-plugin" style="top:174px;">
+<div class="fixed-plugin" style="top:174px; {{($direction =='right')?'left:0;right:auto;':'right:0;left:auto;'}}">
         <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
                 <i class="fas fa-cloud fa-3x" style="color: #fff;"></i>
             </a>
-            <ul class="dropdown-menu">
-                <li class="header-title"> Weather</li>
+            <ul class="dropdown-menu" style="{{($direction =='right')?'right: -303px;:0;left:auto;':''}}">
+                <li class="header-title"> @lang('admin.Weather')</li>
                 <div class="adjustments-line d-block">
                     <div  id="app">
                         <weather></weather>
@@ -71,13 +71,13 @@
             </ul>
         </div>
     </div>
-    <div class="fixed-plugin">
+    <div class="fixed-plugin" style='{{($direction =='right')?'left:0;right:auto;':''}}'>
         <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
                 <i class="fa fa-cog fa-2x"> </i>
             </a>
-            <ul class="dropdown-menu">
-                <li class="header-title"> Sidebar Filters</li>
+            <ul class="dropdown-menu" style='{{($direction =='right')?'right: -303px;:0;left:auto;':''}}'>
+                <li class="header-title"> @lang('admin.Sidebar_Filters')</li>
                 <li class="adjustments-line">
                     <a href="javascript:void(0)" class="switch-trigger active-color">
                         <div class="badge-colors ml-auto mr-auto">

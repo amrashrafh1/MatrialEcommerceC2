@@ -38,4 +38,9 @@ class AddAccessories extends Component
     public function remove_accessories($id) {
         $this->product->accessories()->detach($id);
     }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
+    }
 }

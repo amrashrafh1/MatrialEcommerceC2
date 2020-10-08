@@ -46,4 +46,9 @@ class ProductSellerAccessories extends Component
             $this->product->accessories()->detach($rows->id);
         }
     }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
+    }
 }

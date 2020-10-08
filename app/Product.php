@@ -27,12 +27,12 @@ use Treestoneit\ShoppingCart\Models\CartItem;
 class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable,Viewable
 {
     use HasTranslations, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews;
-    protected $table = 'products';
-    protected $guarded = [];
-    protected $cachePrefix = "products-prefix";
+    protected $table               = 'products';
+    protected $guarded             = [];
+    protected $cachePrefix         = "products-prefix";
     protected $removeViewsOnDelete = true;
-
-    public $translatable = ['name', 'description', 'size', 'color'];
+    public    $translatable        = ['name', 'description', 'size', 'color', 'meta_tag',
+     'meta_description', 'meta_keyword'];
 
     /* attributes many to many */
 

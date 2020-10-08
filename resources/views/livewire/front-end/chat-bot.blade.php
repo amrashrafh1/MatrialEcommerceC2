@@ -2,7 +2,9 @@
     <div id="sidepanel">
         <div id="profile" wire:ignore>
             <div class="wrap">
-                <img id="profile-img" src="{{(auth()->user()->image)? Storage::url(auth()->user()->image) :url('/img/avatar.jpg')}}" class="
+                <img id="profile-img"
+                    src="{{(auth()->user()->image)? Storage::url(auth()->user()->image) :url('/img/avatar.jpg')}}"
+                    class="
                 @if(auth()->user()->chat_status === 'online')
                 online
                 @elseif(auth()->user()->chat_status === 'offline')
@@ -17,16 +19,13 @@
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
                     <ul>
-                        <li id="status-online" class="chat_status active"><span
-                                class="status-circle"></span>
+                        <li id="status-online" class="chat_status active"><span class="status-circle"></span>
                             <p>@lang('user.online')</p>
                         </li>
-                        <li id="status-away" class="chat_status "><span
-                                class="status-circle"></span>
+                        <li id="status-away" class="chat_status "><span class="status-circle"></span>
                             <p>@lang('user.Away')</p>
                         </li>
-                        <li id="status-busy" class="chat_status "><span
-                                class="status-circle"></span>
+                        <li id="status-busy" class="chat_status "><span class="status-circle"></span>
                             <p>@lang('user.Busy')</p>
                         </li>
                         <li id="status-offline" class="chat_status ">
@@ -35,14 +34,7 @@
                         </li>
                     </ul>
                 </div>
-                <div id="expanded">
-                    <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="mikeross" />
-                    <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="ross81" />
-                    <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="mike.ross" />
-                </div>
+
             </div>
         </div>
 
@@ -51,25 +43,34 @@
 
                 @foreach($this->contacts as $contact)
                 @php
-                $cont    = \App\Conversation::find($contact);
+                $cont = \App\Conversation::find($contact);
                 $user_id = ($cont->user_1 != auth()->user()->id)?$cont->user_1:$cont->user_2;
-                $user    = \App\User::where('id', $user_id)->first();
+                $user = \App\User::where('id', $user_id)->first();
+                $messages_count = $conv->messages->where('m_from', '!=', auth()->user()->id)->where('is_read',
+                '0')->count();
                 @endphp
-                <li class="contact contact{{$cont->id}} {{($cont->id === $this->conv->id)?'active':''}}"
-                    >
+                <li class="contact contact{{$cont->id}} {{($cont->id === $this->conv->id)?'active':''}}">
                     <a href='{{route('show_chat',$cont->id)}}' style='color:#fff;'>
-                    <div class="wrap">
-                    <span class="contact-status {{$user->chat_status}}"></span>
-                        <img src="{{$user->image?Storage::url($user->image):url('/img/avatar.jpg')}}" alt="" />
-                        <div class="meta">
-                            <p class="name">{{$user->name}}</p>
-                            <p class="preview">
-                                @php
-                                $mess = $user->messages->where('m_to', auth()->user()->id)->last();
-                                @endphp
-                                {{($mess)?(count($mess->gallery) > 0)?'':'':''}}</p>
+                        <div class="wrap">
+                            <span class="contact-status {{$user->chat_status}}"></span>
+                            <img src="{{$user->image?Storage::url($user->image):url('/img/avatar.jpg')}}" alt="" />
+                            <div class="meta">
+                                <p class="name">{{$user->name}}</p>
+                                <p class="preview">
+                                    @php
+                                    $mess = $user->messages->where('m_to', auth()->user()->id)->last();
+                                    @endphp
+                                    {{($mess)?(count($mess->gallery) > 0)?'':'':''}}</p>
+                            </div>
+                            @if($messages_count)
+                                <p style='position: absolute;
+                                background: red;
+                                padding: 7px;
+                                top: 0;
+                                right: 0;
+                                border-radius: 40%;'>{{$messages_count}}</p>
+                            @endif
                         </div>
-                    </div>
                     </a>
                 </li>
                 @endforeach
@@ -81,11 +82,8 @@
         <div class="contact-profile" wire:ignore>
             <img src="{{Storage::url($conv_user->image)}}" alt="" />
             <p>{{$conv_user->name}}</p>
-            <div class="social-media">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-            </div>
+            <span class='connected'
+                style='margin-left:30%; color:#3ca73c; overflow:{{$conv_user->chat_status == 'online'?'visible':'hidden'}};'>@lang('user.'.$conv_user->chat_status)</span>
         </div>
         @if($messages_count > $this->paginate_var)
         <div class='position-relative p-3'>
@@ -95,7 +93,7 @@
             left: 0;'><i class='fa fa-spinner'></i> @lang('user.Load_more')</button>
         </div>
         @endif
-        <div id='messages' class="messages"  style='padding-bottom:30px;'>
+        <div id='messages' class="messages" style='padding-bottom:30px;'>
             <ul>
                 @foreach($messeges as $message)
                 @if($message->m_from === auth()->user()->id)
@@ -104,19 +102,19 @@
                     <img src="{{Storage::url(auth()->user()->image)}}" alt="" />
                     <p style="overflow-wrap: break-word;" id='imageContainer'>
                         @if(count($message->gallery) > 0)
-                            @foreach($message->gallery as $file)
-                            <img src="{{Storage::url($file->file)}}" alt="" class='image'  />
-                            @endforeach
+                        @foreach($message->gallery as $file)
+                        <img src="{{Storage::url($file->file)}}" alt="" class='image' />
+                        @endforeach
                         @else
                         {{$message->message}}
                         @endif
                         <br /> <span
                             style="font-size:12px; float:right;">{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
-                            @if($message->is_read)
-                            <br/>
-                            <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                            </span>
-                            @endif
+                        @if($message->is_read)
+                        <br />
+                        <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
+                        </span>
+                        @endif
                     </p>
                 </li>
                 @else
@@ -124,22 +122,21 @@
                     <img src="{{Storage::url(auth()->user()->image)}}" alt="" />
                     <p style="overflow-wrap: break-word;">
                         <a href='{{route('show_product', $message->product->slug)}}'>
-                            <img src='{{Storage::url($message->product->image)}}' class='image'
-                                >
+                            <img src='{{Storage::url($message->product->image)}}' class='image'>
                             <br />
                             <span style='font-size:16px; color:black'>{{$message->product->name}}</span>
                         </a>
                         <br />
-                        <span
-                            style="font-size:12px; float:right;
+                        <span style="font-size:12px; float:right;
                             padding: 5px;
-                            border-radius: 10%;" wire:poll.120000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
-                    @if($message->is_read)
-                    <br/>
-                    <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
-                    </span>
-                    @endif
-                </p>
+                            border-radius: 10%;"
+                            wire:poll.120000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                        @if($message->is_read)
+                        <br />
+                        <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
+                        </span>
+                        @endif
+                    </p>
                 </li>
                 @endif
                 @else
@@ -148,14 +145,14 @@
                     <img src="{{Storage::url($conv_user->image)}}" alt="" />
                     <p style="overflow-wrap: break-word;" id='imageContainer'>
                         @if(count($message->gallery) > 0)
-                            @foreach($message->gallery as $file)
-                            <img src="{{Storage::url($file->file)}}" alt=""  class='image' wire:ignore/>
-                            @endforeach
+                        @foreach($message->gallery as $file)
+                        <img src="{{Storage::url($file->file)}}" alt="" class='image' wire:ignore />
+                        @endforeach
                         @else
                         {{$message->message}}
-                        @endif <br /> <span
-                            style="font-size:12px;float:right;" wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
-                        </p>
+                        @endif <br /> <span style="font-size:12px;float:right;"
+                            wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                    </p>
                 </li>
                 @else
                 <li class="sent">
@@ -164,13 +161,13 @@
                             href='{{route('show_product', $message->product->slug)}}'>
                             <img src='{{Storage::url($message->product->image)}}' style='height:200px; width:200px;
                             border-radius:10%; margin-bottom:15px;
-                                ' >
+                                '>
                             <br />
                             <span style='font-size:16px; color:black'>{{$message->product->name}}</span>
-                        </a><br /> <span
-                            style="font-size:12px; float:right;
+                        </a><br /> <span style="font-size:12px; float:right;
                             padding: 5px;
-                            border-radius: 10%;" wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                            border-radius: 10%;"
+                            wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
                     </p>
                 </li>
                 @endif
@@ -178,17 +175,23 @@
                 @endforeach
             </ul>
         </div>
-        <div class="message-input" >
+        <div class="message-input">
             <div class="wrap">
                 <form wire:submit.prevent='sendMesseges' class='submit_form' enctype="multipart/form-data">
-                    <input type="text"  name='message' autocomplete='off' wire:model.lazy='message' placeholder="Write your message..." id='message' style='width:80%;'/>
-                    <input type="file" id="image-upload" name="image_upload[]" style='display:none' enctype="multipart/form-data" multiple>
-
+                    <input type="text" name='message' autocomplete='off' wire:model.lazy='message'
+                        placeholder="@lang('user.Write_your_message...')" id='message' style='width:80%;' />
+                    <input type="file" id="image-upload" name="image_upload[]" style='display:none'
+                        enctype="multipart/form-data" multiple>
+                    <div class="form-group" style="display: none;">
+                        <label for="faxonly">Fax Only
+                            <input type="checkbox" name="faxonly" id="faxonly" wire:model.lazy='faxonly'/>
+                        </label>
+                    </div>
                     <i class="fa fa-paperclip attachment" aria-hidden="true" style='margin-right: 35px;'
-                    onclick='document.getElementById("image-upload").click();'></i>
+                        onclick='document.getElementById("image-upload").click();'></i>
                     <button class="submit" style='margin-right: 15px;' type="submit"><i class="fa fa-paper-plane"
                             aria-hidden="true"></i>
-                        </button>
+                    </button>
                 </form>
 
             </div>
@@ -261,13 +264,14 @@
         .joining((user) => {
 
             @this.call('changeStatus', 'online');
+            $('.connected').show();
             $('.contact{{$this->conv->id}} .contact-status').addClass('online');
             $('.contact{{$this->conv->id}} .contact-status').removeClass('away');
             $('.contact{{$this->conv->id}} .contact-status').removeClass('offline');
             $('.contact{{$this->conv->id}} .contact-status').removeClass('busy');
         })
         .leaving((user) => {
-
+            $('.connected').hide();
             @this.call('changeStatus', 'offline');
             $('.contact{{$this->conv->id}} .contact-status').removeClass('online');
             $('.contact{{$this->conv->id}} .contact-status').removeClass('away');
@@ -283,7 +287,6 @@
             if ($.trim(message) == '') {
                 return false;
             }
-            console.log('listen');
 
             $('<li class="sent"><img src="{{Storage::url($conv_user->image)}}" alt="" /><p>' +
                 message +
@@ -301,128 +304,131 @@
         $('#contacts li.active').removeClass('active');
         $(this).addClass('active');
     });
-    $('#messages').scroll(function() {
-   var top = $('#messages').scrollTop();
-       if ( top == 0) {
-        @this.call('loadMore');
+    $('#messages').scroll(function () {
+        var top = $('#messages').scrollTop();
+        if (top == 0) {
+            @this.call('loadMore');
         }
-});
-$(document).ready(function(){
-    $('.chat_status').on('click', function(e) {
-        localStorage.setItem('chat_status', $(this).attr('id').replace('status-',''));
-        @this.call('changeStatus');
     });
-    var chat_status = localStorage.getItem('chat_status');
-    if(chat_status){
-        $('#status-' + chat_status).addClass('active');
-        $('#status-' + chat_status).siblings().removeClass('active');
-    }
-});
-
-/*  change status event  */
-Echo.private(`status`)
-    .listen('StatusEvent', (e) => {
-        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('online');
-        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('away');
-        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('offline');
-        $('.contact' + e.data['user_id'] +' .contact-status').removeClass('busy');
-        $('.contact' + e.data['user_id'] +' .contact-status').addClass(e.data['status']);
-        //console.log(e.data['status']);
-});
-
-
-$.ajaxSetup({
-     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
- });
-
-$('#image-upload').change(function () {
-    event.preventDefault();
-    let image_upload = new FormData();
-    let TotalImages = $('#image-upload')[0].files.length;  //Total Images
-    let images = $('#image-upload')[0];
-    //let message = $('#message').val();
-
-    for (let i = 0; i < TotalImages; i++) {
-    image_upload.append('images[]', images.files[i]);
-    }
-   // image_upload.append('message', message);
-
-    $.ajax({
-        method     : 'POST',
-        url        : '{{route("sendMessage", $this->conv->id)}}',
-        data       : image_upload,
-        contentType: false,
-        processData: false,
-        success    : function (images) {
-
-            /* if ($.trim(images) == '') {
-                return false;
-            }
-            var i;
-            for (i = 0; i < images.length; ++i) {
-            console.log(images[i]);
-            $('<li class="replies"><p style="overflow-wrap: break-word; margin-right:25px;" id="imageContainer"><img src="'+images[i]+'" class="image" alt="" />'+
-                '<br /> <span style="font-size:12px; float:right;"></span></p></li>').appendTo($('.messages ul'));
-            $('.message-input input').val(null);
-            $(".messages").animate({
-                scrollTop: $(document).height() + 10000000
-            }, "fast");
-            } */
-
-            window.livewire.emit('chatUpdated');
-        },
-        error: function () {
-          console.log(`Failed`)
+    $(document).ready(function () {
+        $('.chat_status').on('click', function (e) {
+            localStorage.setItem('chat_status', $(this).attr('id').replace('status-', ''));
+            @this.call('changeStatus');
+        });
+        var chat_status = localStorage.getItem('chat_status');
+        if (chat_status) {
+            $('#status-' + chat_status).addClass('active');
+            $('#status-' + chat_status).siblings().removeClass('active');
         }
-    })
+    });
 
-});
+    /*  change status event  */
+    Echo.private(`status`)
+        .listen('StatusEvent', (e) => {
+            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('online');
+            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('away');
+            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('offline');
+            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('busy');
+            $('.contact' + e.data['user_id'] + ' .contact-status').addClass(e.data['status']);
+            //console.log(e.data['status']);
+        });
 
 
-// function for time
-/* function get_time() {
-    t = new Date().getSeconds();
-    if(t > 86400) {
-    return Math.floor(t / 86400) + ' days ago';
-    } else if(t > 3600) {
-        return Math.floor(t / 3600) + ' hours ago';
-    } else if(t > 60) {
-        return Math.floor(t / 60) + ' minutes ago';
-    } else {
-        return t + ' seconds ago';
-    }
-} */
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-$('#imageContainer img').each(function (index) {
-    if ($(this).attr('onclick') != null) {
-        if ($(this).attr('onclick').indexOf("runThis()") == -1) {
+    $('#image-upload').change(function () {
+        event.preventDefault();
+        let image_upload = new FormData();
+        let TotalImages = $('#image-upload')[0].files.length; //Total Images
+        let images = $('#image-upload')[0];
+        //let message = $('#message').val();
+
+        for (let i = 0; i < TotalImages; i++) {
+            image_upload.append('images[]', images.files[i]);
+        }
+        // image_upload.append('message', message);
+
+        $.ajax({
+            method: 'POST',
+            url: '{{route("sendMessage", $this->conv->id)}}',
+            data: image_upload,
+            contentType: false,
+            processData: false,
+            success: function (images) {
+
+                /* if ($.trim(images) == '') {
+                    return false;
+                }
+                var i;
+                for (i = 0; i < images.length; ++i) {
+                console.log(images[i]);
+                $('<li class="replies"><p style="overflow-wrap: break-word; margin-right:25px;" id="imageContainer"><img src="'+images[i]+'" class="image" alt="" />'+
+                    '<br /> <span style="font-size:12px; float:right;"></span></p></li>').appendTo($('.messages ul'));
+                $('.message-input input').val(null);
+                $(".messages").animate({
+                    scrollTop: $(document).height() + 10000000
+                }, "fast");
+                } */
+
+                window.livewire.emit('chatUpdated');
+            },
+            error: function () {
+                console.log(`Failed`)
+            }
+        })
+
+    });
+
+
+    // function for time
+    /* function get_time() {
+        t = new Date().getSeconds();
+        if(t > 86400) {
+        return Math.floor(t / 86400) + ' days ago';
+        } else if(t > 3600) {
+            return Math.floor(t / 3600) + ' hours ago';
+        } else if(t > 60) {
+            return Math.floor(t / 60) + ' minutes ago';
+        } else {
+            return t + ' seconds ago';
+        }
+    } */
+
+    $('#imageContainer img').each(function (index) {
+        if ($(this).attr('onclick') != null) {
+            if ($(this).attr('onclick').indexOf("runThis()") == -1) {
+                $(this).click(function () {
+                    $(this).attr('onclick');
+                    var src = $(this).attr("src");
+                    ShowLargeImage(src);
+                });
+            }
+        } else {
             $(this).click(function () {
-                $(this).attr('onclick');
                 var src = $(this).attr("src");
                 ShowLargeImage(src);
             });
         }
+    });
+
+    $('body').on('click', '.modal-overlay', function () {
+        $('.modal-overlay, .modal-img').remove();
+    });
+
+    function ShowLargeImage(imagePath) {
+        console.log('zoomed');
+        $('body').append('<div class="modal-overlay"></div><div class="modal-img"><img src="' + imagePath.replace(
+            "small", "large") + '" /></div>');
     }
-    else {
-        $(this).click(function () {
-            var src = $(this).attr("src");
-            ShowLargeImage(src);
-        });
-    }
-});
 
-$('body').on('click', '.modal-overlay', function () {
-    $('.modal-overlay, .modal-img').remove();
-});
+    /* window.livewire.on('scroll', function()  {
+          $('#messages').animate({
+              scrollTop: $('#messages')[0].scrollHeight}, "slow");
+    }) */
 
-function ShowLargeImage(imagePath) {
-    console.log('zoomed');
-    $('body').append('<div class="modal-overlay"></div><div class="modal-img"><img src="' + imagePath.replace("small","large") + '" /></div>');
-}
-
-/* window.livewire.on('scroll', function()  {
-      $('#messages').animate({
-          scrollTop: $('#messages')[0].scrollHeight}, "slow");
-}) */
 </script>
 @endpush

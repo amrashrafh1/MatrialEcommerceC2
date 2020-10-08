@@ -27,4 +27,9 @@ class WishlistsPage extends Component
             event(new cartEvent(trans('user.Your_wishlists_has_been_saved')));
         }
     }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
+    }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1856c90074fc2293b91f1f37f1acf1c",
+    "content-hash": "da283988e5a4c0fee9adde2a08824068",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -2352,6 +2352,73 @@
                 "laravel"
             ],
             "time": "2020-09-07T13:29:37+00:00"
+        },
+        {
+            "name": "laravel-at/laravel-image-sanitize",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-at/laravel-image-sanitize.git",
+                "reference": "73681dd91cc575888088661b5749d8c585707527"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-at/laravel-image-sanitize/zipball/73681dd91cc575888088661b5749d8c585707527",
+                "reference": "73681dd91cc575888088661b5749d8c585707527",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "illuminate/container": "~5.8|^6.0|^7.0|^8.0",
+                "illuminate/contracts": "~5.8|^6.0|^7.0|^8.0",
+                "illuminate/support": "~5.8|^6.0|^7.0|^8.0",
+                "intervention/image": "^2.5",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.8|^4.0|^5.0|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelAt\\ImageSanitize\\ServiceProviders\\ImageSanitizeServiceProvider"
+                    ],
+                    "aliases": {
+                        "ImageSanitize": "LaravelAt\\ImageSanitize\\Facades\\ImageSanitizeFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelAt\\ImageSanitize\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adrian Nürnberger",
+                    "email": "adrian@nuernberger.me",
+                    "homepage": "https://nuernberger.me",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mathias Onea",
+                    "email": "office@mathiasonea.at",
+                    "homepage": "https://www.mathiasonea.at",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A small but handy package to prevent malicious code execution coming into your application through uploaded image files.",
+            "homepage": "https://github.com/laravel-at/laravel-image-sanitize",
+            "keywords": [
+                "image",
+                "laravel-image-sanitize"
+            ],
+            "time": "2020-09-16T03:21:57+00:00"
         },
         {
             "name": "laravel-frontend-presets/material-dashboard",
@@ -5737,6 +5804,7 @@
             "keywords": [
                 "http"
             ],
+            "abandoned": "react/http",
             "time": "2020-01-14T08:36:16+00:00"
         },
         {
@@ -8592,12 +8660,12 @@
             "version": "v6.18.34",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tightenco/collect.git",
+                "url": "https://github.com/tighten/collect.git",
                 "reference": "624b86cde21f8d9ba14ec0e4974ef0aca3922a1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/collect/zipball/624b86cde21f8d9ba14ec0e4974ef0aca3922a1c",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/624b86cde21f8d9ba14ec0e4974ef0aca3922a1c",
                 "reference": "624b86cde21f8d9ba14ec0e4974ef0aca3922a1c",
                 "shasum": ""
             },

@@ -64,4 +64,9 @@ class AddReviews extends Component
         return redirect()->route('home');
            // ->withSuccess(trans('user.Your_form_has_been_submitted'));
     }
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
+    }
 }

@@ -122,6 +122,26 @@
                                 <i class="tm tm-order-tracking"></i>@lang('user.Track_Your_Order')</a>
                         </li>
                         @endrole
+                        @php
+                        $country = App\Country::where('id', session('country'))->first();
+                        @endphp
+                        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
+                            <a title="{{($country) ? $country->country_name : trans('user.select_country')}}"
+                                data-toggle="dropdown" class="dropdown-toggle"
+                                            aria-haspopup="true" href="#">
+                                            {{($country) ? $country->country_name : trans('user.select_country')}}
+                                            <span class="caret"></span>
+                                        </a>
+                            <ul role="menu" class=" dropdown-menu" style='overflow-y:scroll; height:250px;'>
+                                @foreach(App\Country::get() as  $country)
+                                <li
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
+                                    <a title="{{ $country->country_name }}"
+                                    href="{{'?country=' . $country->country_name}}">{{ $country->country_name }}</a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
                         <li
                             class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
                             <a title="{{ LaravelLocalization::getCurrentLocaleName() }}
@@ -244,16 +264,16 @@
                                                         <li class="nav-title">{{ $category->name }}</li>
                                                         <li><a href="{{ route('show_category',$category->slug) }}">@lang('user.all')
                                                                 {{ $category->name }}</a></li>
-                                                        @foreach ($category->categories->take(12) as $child)
+                                                        @foreach ($category->categories->where('status', 1)->take(12) as $child)
                                                         <li><a
                                                                 href="{{route('show_category',$child->slug) }}">{{ $child->name }}</a>
                                                         </li>
                                                         @endforeach
                                                         <li class="nav-divider"></li>
                                                         <li>
-                                                            <a href="#">
-                                                                <span class="nav-text">All Electronics</span>
-                                                                <span class="nav-subtext">Discover more products</span>
+                                                            <a href="{{route('show_category', $category->slug)}}">
+                                                                <span class="nav-text">{{$category->name}}</span>
+                                                                <span class="nav-subtext">@lang('user.Discover_more_products')</span>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -268,7 +288,7 @@
                                                 <div class="kc_text_block">
                                                     <ul>
                                                         <li class="nav-title"></li>
-                                                        @foreach ($category->categories->skip(12)->take(12) as $child)
+                                                        @foreach ($category->categories->where('status', 1)->skip(12)->take(12) as $child)
                                                         <li><a
                                                                 href="{{ route('show_category',$child->slug) }}">{{ $child->name }}</a>
                                                         </li>
@@ -386,6 +406,37 @@
                                     @endif</span>
                             </a>
                         </li>
+
+                        <div class="compare dropdown mr-4">
+                            <a href='#' class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-flag-o"></i>
+                            </a>
+                            <div class="dropdown-menu mt-4" aria-labelledby="dropdownMenuButton" style='overflow-y:scroll; height:250px; width:250px;'>
+                                @foreach(App\Country::get() as  $country)
+                                <li  class="dropdown-item">
+                                    <a title="{{ $country->country_name }}"
+                                    href="{{'?country=' . $country->country_name}}">{{ $country->country_name }}</a>
+                                </li>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="compare dropdown mr-4">
+                            <a href='#' class="dropdown-toggle" id="dropdownMenuLang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-language"></i>
+
+                            </a>
+                            <div class="dropdown-menu mt-4" aria-labelledby="dropdownMenuLang">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <li
+                                class="dropdown-item">
+                                    <a title="{{ $properties['native'] }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a>
+                                </li>
+                                @endforeach
+                            </div>
+                        </div>
+
                     </ul>
                     <!-- .columns-3 -->
                 </div>

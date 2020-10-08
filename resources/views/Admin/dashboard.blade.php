@@ -13,8 +13,8 @@
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-muted ls-1 mb-1">Chart</h6>
-                                <h2 class="mb-0">Profit chart</h2>
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">@lang('admin.chart')</h6>
+                                <h2 class="mb-0">@lang('admin.profit')</h2>
                             </div>
                         </div>
                     </div>
@@ -36,8 +36,7 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons text-danger">warning</i>
-                <a href="#pablo">Get More Space...</a>
+                <i class="material-icons text-danger">@lang('admin.warning')</i>
               </div>
             </div>
           </div>
@@ -48,7 +47,7 @@
               <div class="card-icon">
                 <i class="material-icons">store</i>
               </div>
-              <p class="card-category">Revenue</p>
+              <p class="card-category">@lang('admin.revenue')</p>
               <h3 class="card-title">$34,245</h3>
             </div>
             <div class="card-footer">
@@ -80,7 +79,7 @@
               <div class="card-icon">
                 <i class="fa fa-twitter"></i>
               </div>
-              <p class="card-category">Followers</p>
+              <p class="card-category">@lang('admin.Followers')</p>
               <h3 class="card-title">+245</h3>
             </div>
             <div class="card-footer">
@@ -101,7 +100,7 @@
             <div class="card-body">
               <h4 class="card-title">@lang('admin.Daily_Sales')</h4>
               <p class="card-category">
-                <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{$salesIncrease}}% </span> increase in today sales.</p>
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{$salesIncrease}}% </span> @lang('admin.increase_in_today_sales.')</p>
             </div>
             <div class="card-footer">
               <div class="stats">

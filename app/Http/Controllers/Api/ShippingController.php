@@ -25,7 +25,7 @@ class ShippingController extends Controller
     }
 
 
-    public function show($id) {
+    public function show($locale,$id) {
 
         $this->checkLang($locale);
 
@@ -47,7 +47,7 @@ class ShippingController extends Controller
     }
 
 
-    public function show_attributes($id) {
+    public function show_attributes($locale,$id) {
 
         $this->checkLang($locale);
 

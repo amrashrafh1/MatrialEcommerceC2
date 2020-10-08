@@ -24,6 +24,7 @@ class ShippingMethodResource extends JsonResource
             'value'            => $this->value,
             'status'           => $this->status,
             'display_text'     => $this->display_text,
+            'range'            => $this->rates,
             'shipping_company' => new ShippingCompanyResource($this->shippingcompany),
             'zone'             => new ShippingZoneResource($this->zone),
         ];

@@ -26,6 +26,7 @@
         "intervention/image": "^2.5",
         "joedixon/laravel-translation": "^1.0",
         "laracasts/utilities": "^3.0",
+        "laravel-at/laravel-image-sanitize": "^1.4",
         "laravel-frontend-presets/material-dashboard": "^1.0",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",

@@ -44,13 +44,13 @@
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                     <div class="form-group row">
                         <div class="col-md-2">
-                            <label for="sitename" class=" control-label">sitename in {{$properties['name']}}</label>
+                            <label for="sitename" class=" control-label">@lang('admin.sitename_in_'.$properties['name'])</label>
                         </div>
                         <div class="col-md-10">
 
                             <input type="text"
                                 name="sitename_{{$localeCode}}" class="form-control"
-                                placeholder="sitename in {{$properties['name']}}"
+                                placeholder="@lang('admin.sitename_in_'.$properties['name'])"
                                 value="{{(isset($rows))?($rows->getTranslation('sitename', $localeCode) !== null)?$rows->getTranslation('sitename', $localeCode):old('sitename_'.$localeCode):''}}"
                                 {{($localeCode === 'en') ? 'required':''}}>
                         </div>
@@ -266,12 +266,11 @@
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label for="system_message" class=" control-label">@lang('admin.system_message') in
-                                    {{$properties['name']}}</label>
+                                <label for="system_message" class=" control-label">@lang('admin.system_message_'. $properties['name'])</label>
                             </div>
                             <div class="col-md-10">
                                 <textarea name="system_message_{{$localeCode}}" class="form-control"
-                                    placeholder="short description in  {{$properties['name']}}"
+                                    placeholder="@lang('admin.system_message_'. $properties['name'])"
                                     id="system_message_{{$localeCode}}">{!! old('system_message_'.$localeCode) !!}</textarea>
                             </div>
                         </div>

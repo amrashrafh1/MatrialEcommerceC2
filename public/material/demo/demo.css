@@ -70,3 +70,7 @@
 {
   display:inline
 }
+
+abbr.required {
+    color:red;
+}

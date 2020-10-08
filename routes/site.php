@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 Route::put('/product/variation/add/cart/{slug}', 'FrontEnd\ProductController@add_cart')->name('product_variation_add_cart');
 Route::put('/product/add/accesssories', 'FrontEnd\ProductController@add_accesssories_cart')->name('product_add_accessories');
-Route::post('/chat/upload/photots/{id}', 'FrontEnd\ChatController@sendMessage')->name('sendMessage');
+Route::post('/chat/upload/photots/{id}', 'FrontEnd\ChatController@sendMessage')->name('sendMessage')->middleware('image-sanitize');
 
 Route::group(
     [
@@ -121,7 +121,7 @@ Route::get('/brand/{slug}','FrontEnd\BrandController@index')->name('brand');
 // Seller Application page
 Route::get('/seller/app', 'FrontEnd\SellerAppController@index')->name('seller_app');
 // Seller Application store form
-Route::post('/seller/app', 'FrontEnd\SellerAppController@store')->name('store_app');
+Route::post('/seller/app', 'FrontEnd\SellerAppController@store')->name('store_app')->middleware('image-sanitize');
 
 // Seller Dashboard
 Route::get('/seller/dashboard','FrontEnd\SellerController@index')->name('seller_dashboard');
@@ -131,12 +131,12 @@ Route::get('/seller/products','FrontEnd\SellerController@products')->name('selle
 // Seller products create page
 Route::get('/seller/products/create','FrontEnd\SellerController@create')->name('seller_frontend_products_create');
 // Seller products store
-Route::post('/seller/products/store','FrontEnd\SellerController@store')->name('seller_frontend_products_store');
+Route::post('/seller/products/store','FrontEnd\SellerController@store')->name('seller_frontend_products_store')->middleware('image-sanitize');;
 
 // Seller products edit page
 Route::get('/seller/products/edit/{slug}','FrontEnd\SellerController@edit')->name('seller_frontend_products_edit');
 // Seller products update
-Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->name('seller_frontend_products_update');
+Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->name('seller_frontend_products_update')->middleware('image-sanitize');;
 
 // Seller products delete
 Route::delete('/seller/products/delete/{slug}','FrontEnd\SellerController@destroy')->name('seller_frontend_products_delete');
@@ -216,7 +216,7 @@ Route::get('/chat', 'FrontEnd\ChatController@chat')->middleware('auth')->name('c
 
 // Profile Page
 Route::get('/profile','FrontEnd\ProfileController@index')->name('profile');
-Route::put('/profile/update','FrontEnd\ProfileController@update')->name('user_profile.update');
+Route::put('/profile/update','FrontEnd\ProfileController@update')->name('user_profile.update')->middleware('image-sanitize');;
 Route::put('/profile/password','FrontEnd\ProfileController@password')->name('user_profile.password');
 Route::get('/profile/order/{id}','FrontEnd\ProfileController@order')->name('profile.order.show');
 

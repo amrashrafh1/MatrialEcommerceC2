@@ -17,7 +17,7 @@ class DiscountDataTable extends DataTable
 
 	public function query()
     {
-        return Discount::orderBy('id', 'desc')->get();
+        return Discount::query()->orderBy('id', 'desc');
 
     }
 

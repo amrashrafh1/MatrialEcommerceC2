@@ -28,7 +28,6 @@ class CreateUsersTable extends Migration
             $table->string('postcode')->nullable();
             $table->integer('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-            $table->timestamp('last_login')->nullable();
             $table->enum('chat_status',['online','offline','away','busy'])->default('online');
             $table->rememberToken();
             $table->timestamps();

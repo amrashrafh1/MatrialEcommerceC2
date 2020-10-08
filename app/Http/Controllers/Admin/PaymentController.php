@@ -21,6 +21,7 @@ class PaymentController extends Controller
         $this->middleware(['permission:update-' . $this->path])->only('edit');
         $this->middleware(['permission:delete-' . $this->path])->only('destroy'); */
         $this->model = Payment::class;
+
     }
     /**
      * Display a listing of the resource.

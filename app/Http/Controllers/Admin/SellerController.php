@@ -25,6 +25,8 @@ class SellerController extends Controller
    //     $this->middleware(['permission:delete-sellers'])->only('destroy');
 
         $this->model = User::class;
+        $this->middleware('image-sanitize');
+
     }
     /**
      * Display a listing of the resource.

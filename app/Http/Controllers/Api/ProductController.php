@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\ApiResponse;
 use App\Http\Controllers\Api\LangApi;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Products\productsRequestStore;
 use App\Http\Resources\ProductResource;
 use App\Product;
-use Illuminate\Http\Request;
+use LaravelLocalization;
+use App\Jobs\DeleteCartItems;
+
 
 class ProductController extends Controller
 {
@@ -24,12 +27,15 @@ class ProductController extends Controller
 
     public function index($locale)
     {
+       // return $locale;
         // method for check the lang
         $this->checkLang($locale);
 
         return $this->sendResult('paginate 10 products',
             ProductResource::collection(
-                Product::with('variations')->with('attributes')->paginate(10)
+                Product::with('variations.attributes')
+                ->with('attributes')->with('category.categories')
+                ->paginate(10)
             ));
     }
 
@@ -47,6 +53,7 @@ class ProductController extends Controller
 
     public function store(productsRequestStore $request)
     {
+
         $shippings = $this->validate(request(), [
             'shippings.*' => 'required|numeric',
         ], [], [
@@ -57,8 +64,7 @@ class ProductController extends Controller
             $img = upload($request['image'], '/products');
         }
         try {
-            //$user_id = \App\User::where('id', auth()->user()->id)->whereRoleIs('seller')->first();
-            //if ($user_id) {
+
             $product = Product::create([
                 'sku'              => $request['sku'],
                 'section'          => 'none',
@@ -91,13 +97,13 @@ class ProductController extends Controller
             ]);
             if (!empty($request['tags_en'])) {
                 $data_en = explode(',', $request['tags_en']);
-                foreach (\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+                foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
                     ($localeCode == 'en') ? '' : ${'data_' . $localeCode} = explode(',', $request['tags_' . $localeCode]);
                 }
                 foreach ($data_en as $index => $att) {
-                    $product->attachTag($att);
-                    $tag = \Spatie\Tags\Tag::findOrCreate($att);
-                    foreach (\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+                    $product->attachTag($att, 'products');
+                    $tag = \Spatie\Tags\Tag::findOrCreate($att, 'products');
+                    foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
                         if ($localeCode != 'en') {
                             if (!empty(${'data_' . $localeCode}[$index])) {
                                 $tag->setTranslation('name', $localeCode, ${'data_' . $localeCode}[$index])->save();
@@ -105,8 +111,9 @@ class ProductController extends Controller
                         }
                     }
                 }
+                $product->tagsWithType('products');
             }
-            foreach (\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+            foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
                 $product->setTranslation('name', $localeCode, $request['name_' . $localeCode])->save();
                 (empty($request['description_' . $localeCode])) ?: $product->setTranslation('description', $localeCode, $request['description_' . $localeCode])->save();
                 (empty($request['size_' . $localeCode])) ?: $product->setTranslation('size', $localeCode, $request['size_' . $localeCode])->save();
@@ -122,7 +129,8 @@ class ProductController extends Controller
             }
             $product->methods()->attach($shippings['shippings']);
             if (!empty($request['gallery'])) {
-                multiple_uploads($request['gallery'], '/products', 'App\Product', $product->id, 600, 350);
+                multiple_uploads($request['gallery'], '/products', $product, 600, 350);
+
             }
             return $this->sendResult('show product', new ProductResource($product));
             //}
@@ -135,10 +143,10 @@ class ProductController extends Controller
     {
         try {
             $rows = Product::where('slug', $slug)->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first();
-            if ($rows !== null) {
+            if ($rows) {
                 $data = $this->validate(request(), [
-                    'sku'                  => 'sometimes|required|string|max:191|unique:products,sku,' . $rows->id,
-                    'slug'                 => 'sometimes|required|string|max:191|unique:products,slug,' . $rows->id,
+                    'sku'                  => 'required|string|max:191|unique:products,sku,' . $rows->id,
+                    'slug'                 => 'required|string|max:191|unique:products,slug,' . $rows->id,
                     'section'              => 'sometimes|nullable|string',
                     'product_type'         => 'required|string',
                     'purchase_price'       => 'required|numeric',
@@ -156,10 +164,10 @@ class ProductController extends Controller
                     'tags_en'              => 'sometimes|nullable|max:191',
                     'user_id'              => 'sometimes|nullable|numeric',
                     'owner'                => 'sometimes|nullable|in:for_seller,for_site_owner',
-                    'length_en'            => 'sometimes|nullable|max:191',
-                    'width_en'             => 'sometimes|nullable|max:191',
-                    'height_en'            => 'sometimes|nullable|max:191',
-                    'weight_en'            => 'sometimes|nullable|max:191',
+                    'length'               => 'sometimes|nullable|max:191',
+                    'width'                => 'sometimes|nullable|max:191',
+                    'height'               => 'sometimes|nullable|max:191',
+                    'weight'               => 'sometimes|nullable|max:191',
                     'name_en'              => 'required|string|max:191',
                     'size_en'              => 'sometimes|nullable|string',
                     'color_en'             => 'sometimes|nullable|string',
@@ -171,7 +179,7 @@ class ProductController extends Controller
                     'meta_keyword_en'      => 'sometimes|nullable|string',
                 ]);
                 $shippings = $this->validate(request(), [
-                    'shippings.*' => 'sometimes|nullable|numeric|exists:shippings,id',
+                    'shippings.*' => 'sometimes|nullable|numeric|exists:shipping_methods,id',
 
                 ], [], [
                     'shippings' => trans('admin.shippings'),
@@ -180,7 +188,7 @@ class ProductController extends Controller
                 if (!empty($request['image'])) {
                     $image = $rows->image;
                     \Storage::delete($image);
-                    $img = upload($request['image'], $this->path);
+                    $img = upload($request['image'], '/products');
                 } else {
                     $img = $rows->image;
                 }
@@ -248,7 +256,7 @@ class ProductController extends Controller
                 $rows->methods()->sync($shippings['shippings']);
 
                 if (!empty($request['gallery'])) {
-                    multiple_uploads($request['gallery'], $this->path, 'App\Product', $rows->id, 600, 350);
+                    multiple_uploads($request['gallery'], '/products', 'App\Product', $rows->id, 600, 350);
                 }
                 \Alert::success(trans('admin.updated'), trans('admin.updated_record'));
             }
@@ -262,4 +270,52 @@ class ProductController extends Controller
         return redirect()->route('seller_frontend_products');
     }
 
+
+
+    public function destroy($slug)
+    {
+        try {
+            $row = Product::where('slug', $slug)->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first();
+            if($row) {
+                \Storage::delete($row->image);
+                $row->carts()->chunk(50, function ($cart) {
+                    dispatch(new DeleteCartItems($cart));
+                });
+                $row->delete();
+            }
+            return $this->sendResult('success', null, null, true);
+        }
+        catch(\Exeption $e) {
+            return $this->sendResult($e->getMessage(), null, $e->getMessage(), false);
+        }
+    }
+    public function destory_all(Request $request)
+    {
+        try {
+        if(request()->has('item') && $request->item != '') {
+            if(is_array($request->item)) {
+                foreach($request->item as $d) {
+                    $row = Product::findOrFail($d);
+                    \Storage::delete($row->image);
+                    $row->carts()->chunk(50, function ($cart) {
+                        dispatch(new DeleteCartItems($cart));
+                    });
+                    @$row->delete();
+                }
+            } else {
+                $row = Product::findOrFail($request->item);
+                \Storage::delete($row->image);
+                $row->carts()->chunk(50, function ($cart) {
+                    dispatch(new DeleteCartItems($cart));
+                });
+                @$row->delete();
+            }
+        }
+        return $this->sendResult(count($request->item) . ' item Deleted successfuly', null, null, true);
+
+        }
+        catch(\Exeption $e) {
+            return $this->sendResult($e->getMessage(), null, $e->getMessage(), false);
+        }
+    }
 }

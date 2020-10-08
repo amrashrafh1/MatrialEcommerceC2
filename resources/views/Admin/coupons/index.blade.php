@@ -93,12 +93,12 @@
                     <br>
                     <div class="form-group row" id='user_id'>
                         <div class="col-md-12">
-                            {!! Form::label('user_id',trans('admin.user_id'),['class'=>'
+                            {!! Form::label('user_id',trans('admin.user_email'),['class'=>'
                             control-label']) !!}
                         </div>
                         <div class="col-md-12">
                             {!!
-                            Form::email('user_id',old('user_id'),['class'=>'form-control','id'=>'user_id','placeholder'=>trans('admin.user_id')])
+                            Form::email('user_id',old('user_id'),['class'=>'form-control','id'=>'user_id','placeholder'=>trans('admin.user_email')])
                             !!}
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                         <div class="col-md-12">
                             {!!
                             Form::dateTime('amount',old('amount'),['class'=>'form-control
-                            datetimepicker','placeholder'=>trans('admin.Number_of_promocodes_to_generate')])
+                            datetimepicker','placeholder'=>trans('admin.Number_of_promocodes_to_generate'), 'max' => 10000])
                             !!}
                         </div>
                     </div>

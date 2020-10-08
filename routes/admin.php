@@ -25,7 +25,7 @@ Route::group(
             Route::delete('users/destroy/all', 'Admin\UserController@destroy_all')->name('admins_destroy_all');
             /* Users Management End*/
             Route::get('profile', ['as' => 'profile.edit', 'uses' => 'Admin\ProfileController@edit']);
-            Route::put('profile', ['as' => 'profile.update', 'uses' => 'Admin\ProfileController@update']);
+            Route::put('profile', ['as' => 'profile.update', 'uses' => 'Admin\ProfileController@update'])->middleware('image-sanitize');;
             Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'Admin\ProfileController@password']);
 
             Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
@@ -83,7 +83,7 @@ Route::group(
                 '/categories'         => 'Admin\CategoryController',
                 '/seller'             => 'Admin\SellerController',
                 '/orders'             => 'Admin\OrderController',
-                '/payments'             => 'Admin\PaymentController',
+                '/payments'           => 'Admin\PaymentController',
             ]);
 
             Route::post('/categories/multi_delete', 'Admin\CategoryController@destory_all')->name('categories_destroy_all');
@@ -93,7 +93,7 @@ Route::group(
             Route::post('/payments/multi_delete', 'Admin\PaymentController@destory_all')->name('payments_destroy_all');
 
             Route::get('settings', 'Admin\SettingController@index')->name('settings');
-            Route::patch('settings', 'Admin\SettingController@update')->name('settings_update');
+            Route::patch('settings', 'Admin\SettingController@update')->name('settings_update')->middleware('image-sanitize');;
 
             Route::post('cmss/multi_delete', 'Admin\EventCategoryController@destory_all')->name('event_category_delete_all');
             Route::get('cmss/products/{id}', 'Admin\EventCategoryController@create_products')->name('cmss_create_products');

@@ -18,12 +18,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($locale)
     {
         $this->checkLang($locale);
 
         return $this->sendResult('paginate 10 Posts',
-        PostResource::collection(Post::paginate(10)));
+        PostResource::collection(Post::with('comments')->paginate(10)));
     }
 
     /**
@@ -47,7 +47,7 @@ class PostController extends Controller
 
         $this->checkLang($locale);
 
-        $Post = Post::where('slug',$slug)->first();
+        $Post = Post::where('slug',$slug)->with('comments')->first();
         if($Post) {
             return $this->sendResult('show Post',new PostResource($Post));
         }

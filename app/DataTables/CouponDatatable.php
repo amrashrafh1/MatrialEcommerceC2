@@ -11,12 +11,12 @@ class CouponDataTable extends DataTable
         return datatables($query)
             ->addColumn('checkbox', 'Admin.coupons.buttons.checkbox')
             ->addColumn('is_usd', 'Admin.coupons.buttons.is_usd')
-            ->rawColumns(['checkbox','is_usd','show_action','product','date']);
+            ->rawColumns(['checkbox','is_usd','show_action','date']);
     }
 
 	public function query()
     {
-        return Coupon::query();
+        return Coupon::query()->orderBy('id', 'desc');
 
     }
 
@@ -48,7 +48,7 @@ class CouponDataTable extends DataTable
                     ],
                 ],
                 'initComplete' => "function () {
-                this.api().columns([1,2,3,5]).every(function () {
+                this.api().columns([2,3,6,7,8]).every(function () {
                 var column = this;
                 var input = document.createElement(\"input\");
                 $(input).attr( 'style', 'width: 100%');
@@ -121,7 +121,7 @@ class CouponDataTable extends DataTable
                 'title' => trans('admin.reward'),
            ],
            [
-            'name'  => 'type',
+            'name'  => 'is_usd',
             'data'  => 'is_usd',
             'title' => trans('admin.type'),
         ],
@@ -129,11 +129,6 @@ class CouponDataTable extends DataTable
                 'name'  => 'quantity',
                 'data'  => 'quantity',
                 'title' => trans('admin.quantity'),
-            ],
-            [
-                'name'  => 'seller_id',
-                'data'  => 'seller_id',
-                'title' => trans('admin.seller_id'),
             ],
             [
                 'name'  => 'rules',

@@ -33,7 +33,7 @@ class DiscountController extends Controller
     public function create($id)
     {
         if (!isset(Product::where('id', $id)->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first()->discount)) {
-            $product = \App\Product::findOrFail($id);
+            $product = Product::findOrFail($id);
             return view('FrontEnd.sellers.discounts.create', ['id' => $product->id]);
         } else {
             return redirect()->route('seller_discount_edit', $id);
@@ -59,7 +59,7 @@ class DiscountController extends Controller
                 'max_quantity'   => 'required|numeric',
                 'buy_x_quantity' => 'sometimes|nullable|numeric',
                 'y_quantity'     => 'sometimes|nullable|numeric',
-                'product_y'      => 'sometimes|nullable|numeric',
+                'product_y'      => 'sometimes|nullable|numeric|exists:products,id',
 
             ], [], [
                 'condition'      => trans('admin.condition'),
@@ -72,9 +72,11 @@ class DiscountController extends Controller
                 'y_quantity'     => trans('admin.y_quantity'),
                 'product_y'      => trans('admin.product_y'),
             ]);
-            $product = \App\Product::findOrFail($id)->discount()->delete();
+            $product            = Product::findOrFail($id)->discount()->delete();
             $data['product_id'] = $id;
-            $create = $this->model::create($data);
+            $product_y = Product::where('id', $data['product_y'])->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first();
+            $data['product_y'] = $product_y?$product_y->id:NULL;
+            $create             = $this->model::create($data);
             Alert::success(trans('admin.added'), trans('admin.success_record'));
             return redirect()->route('seller_frontend_products');
         } else {
@@ -106,7 +108,7 @@ class DiscountController extends Controller
             'max_quantity'   => 'required|numeric',
             'buy_x_quantity' => 'sometimes|nullable|numeric',
             'y_quantity'     => 'sometimes|nullable|numeric',
-            'product_y'      => 'sometimes|nullable|numeric',
+            'product_y'      => 'sometimes|nullable|numeric|exists:products,id',
 
         ], [], [
             'condition'      => trans('admin.condition'),
@@ -120,7 +122,9 @@ class DiscountController extends Controller
             'product_y'      => trans('admin.product_y'),
         ]);
         $data['product_id'] = $id;
-        \App\Product::findOrFail($id)->discount()->update($data);
+        $product_y = Product::where('id', $data['product_y'])->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first();
+        $data['product_y'] = $product_y?$product_y->id:NULL;
+        Product::findOrFail($id)->discount()->update($data);
         Alert::success(trans('admin.saved'), trans('admin.success_record'));
         return redirect()->route('seller_frontend_products');
     }

@@ -11,6 +11,7 @@
         </thead>
         <tbody>
             @forelse($coupons as $coupon)
+            @if($coupon->already_used())
             <tr>
                 <th scope="row">{{$coupon->code}}</th>
                 <td>{{($coupon->is_usd)?currency()->getUserCurrency():trans('user.percentage')}}</td>
@@ -18,6 +19,7 @@
                 <td>{{$coupon->quantity}}</td>
                 <td>{{date('d-m-Y', strtotime($coupon->expires_at))}}</td>
             </tr>
+            @endif
             @empty
             <tr>
                 <td>

@@ -12,6 +12,9 @@ class CategoryResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
+
+
     public function toArray($request)
     {
         return [
@@ -20,8 +23,8 @@ class CategoryResource extends JsonResource
             'image'       => $this->image,
             'description' => $this->description,
             'status'      => $this->status,
-            'children'    => CategoryResource::collection($this->children),
-            'parent'      => new CategoryResource($this->parent),
+            'children'    => CategoryResource::collection($this->whenLoaded('categories')),
+            'parent'      => new CategoryResource($this->whenLoaded('parent')),
         ];
     }
 }

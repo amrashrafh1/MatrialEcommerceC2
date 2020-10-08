@@ -144,18 +144,8 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="form-group row" id="product_y">
-                                <div class="col-md-2">
-                                    {!! Form::label('product_y',trans('admin.product_y'),['class'=>'
-                                    control-label']) !!}
-                                </div>
-                                <div class="col-md-9">
-                                    {!!
-                                    Form::select('product_y',\App\Product::pluck('name',
-                                    'id'),old('product_y'),['class'=>'form-control js-example-basic-single'
-                                    ,'placeholder'=>trans('admin.product_y'), 'style' => 'width:100%'])
-                                    !!}
-                                </div>
+                            <div id='product_y'>
+                                @livewire('admin.discount.product-id', ['type'=>'product_y', 'owner' => 'for_seller'])
                             </div>
                             <br>
                             <div class="form-actions">

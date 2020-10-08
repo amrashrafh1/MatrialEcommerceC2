@@ -39,4 +39,10 @@ class AddProducts extends Component
     public function remove_products($id) {
         $this->cms->products()->detach($id);
     }
+
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
+    }
 }

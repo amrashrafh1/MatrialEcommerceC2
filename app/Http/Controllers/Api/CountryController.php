@@ -36,7 +36,7 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($locale,$id) {
+    public function show($locale ,$id) {
         $this->checkLang($locale);
 
         $Country = Country::where('id',$id)->first();
@@ -54,8 +54,10 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function category_index()
+    public function category_index($locale)
     {
+        $this->checkLang($locale);
+
         return $this->sendResult('paginate 10 Category',
         CategoryResource::collection(Category::paginate(10)));
     }
@@ -66,9 +68,11 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function category_show($slug)
+    public function category_show($locale,$slug)
     {
-        $Category = Category::where('slug',$slug)->first();
+        $this->checkLang($locale);
+
+        $Category = Category::where('slug',$slug)->with('categories')->with('parent')->first();
         if($Category) {
             return $this->sendResult('show Category',new CategoryResource($Category));
         }
@@ -76,8 +80,10 @@ class CountryController extends Controller
     }
 
 
-    public function brands_index()
+    public function brands_index($locale)
     {
+        $this->checkLang($locale);
+
         return $this->sendResult('paginate 10 brands',
         TradmarkResource::collection(Tradmark::paginate(10)));
     }
@@ -88,8 +94,10 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function brands_show($slug)
+    public function brands_show($locale,$slug)
     {
+        $this->checkLang($locale);
+
         $brands = Tradmark::where('slug',$slug)->first();
         if($brands) {
             return $this->sendResult('show brands',new TradmarkResource($brands));

@@ -21,6 +21,8 @@ class MallController extends Controller
         $this->middleware(['permission:update-'.$this->path])->only('edit');
         $this->middleware(['permission:delete-'.$this->path])->only('destroy');
         $this->model = Mall::class;
+        $this->middleware('image-sanitize');
+
     }
     /**
      * Display a listing of the resource.

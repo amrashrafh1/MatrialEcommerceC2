@@ -864,6 +864,9 @@
         width:100%;
 }
     }
+    #frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
+        {{$direction == 'right'? 'margin: -2px -12px 0 -3px !important;':''}}
+    }
     </style>
 </head>
 

@@ -5,8 +5,9 @@
 @endif
 @include('sweetalert::alert')
 @php
-    $last_adz = $advertizments->skip(3)->take(1)->first();
+    $last_adz  = $advertizments->skip(3)->take(1)->first();
     $first_adz = $advertizments->take(1)->first();
+
 @endphp
    <div id="content" class="site-content" tabindex="-1">
         <div class="col-full">
@@ -35,7 +36,7 @@
                             <div class="banners-block column-2-banners-block">
                                 @if($first_adz)
                                 <div class="banner text-in-left">
-                                    <a href="shop.html">
+                                <a href="{{$first_adz->link}}">
                                         <div style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($first_adz->image)}} ); height: 256px;" class="banner-bg">
                                             <div class="caption">
                                                 <div class="banner-info">
@@ -127,7 +128,7 @@
                                 @if($advertizments->count() >= 1)
                                 @foreach($advertizments->skip(1)->take(3) as $index => $adz)
                                 <div class="banner @if($index == 0 || $index == 2) small-banner text-in-left @else large-banner text-in-right @endif">
-                                    <a href="#">
+                                    <a href="{{$adz->link}}">
                                         <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($adz->image)}} ); height: 259px;">
                                             <div class="caption">
                                                 <div class="banner-info">
@@ -156,7 +157,7 @@
                         <!-- .section-products-carousel -->
                         @if($last_adz)
                         <div class="banner full-width-banner">
-                            <a href="shop.html">
+                            <a href="{{$last_adz->link}}">
                                 <div style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($last_adz->image)}} ); height: 236px;" class="banner-bg">
                                     <div class="caption">
                                         <div class="banner-info">

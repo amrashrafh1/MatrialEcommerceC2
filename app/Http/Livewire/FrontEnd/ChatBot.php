@@ -12,7 +12,7 @@ use Livewire\Component;
 class ChatBot extends Component
 {
 
-    public $message, $conv,$conv_id, $status,$contacts = [], $paginate_var = 15, $user_id,$chat_update = false;
+    public $message, $conv,$conv_id,$faxonly, $status,$contacts = [], $paginate_var = 15, $user_id,$chat_update = false;
 
     public function chatUpdated()
     {
@@ -30,6 +30,9 @@ class ChatBot extends Component
     {
         if(empty(trim($this->message))){
             return;
+        }
+        if ($this->faxonly) {
+            return $this->formResponse();
         }
         $data = $this->validate([
             'message' => 'required|string|min:1|max:255',
@@ -127,5 +130,11 @@ class ChatBot extends Component
     public function hydrate()
     {
         app()->setLocale(session('locale'));
+    }
+
+    protected function formResponse()
+    {
+        return redirect()->route('home');
+           // ->withSuccess(trans('user.Your_form_has_been_submitted'));
     }
 }

@@ -27,37 +27,79 @@ Route::group([
 
 });
 Route::group([
-
-    'prefix' => '{locale}',
-    'where' => ['locale' => '[a-zA-Z]{2}'],
     'middleware' => ['api']
 
 ], function ($router) {
 
-Route::get('products', 'Api\ProductController@index');
-Route::get('products/{slug}', 'Api\ProductController@show');
+Route::get('{locale}/products', 'Api\ProductController@index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/products/{slug}', 'Api\ProductController@show')->where('locale', '[a-zA-Z]{2}');
 Route::post('products/store','Api\ProductController@store');
 Route::put('products/update/{slug}','Api\ProductController@update');
-Route::delete('products/delete/{slug}','Api\SellerController@destroy');
+Route::delete('products/delete/{slug}','Api\ProductController@destroy');
+Route::post('products/multi_delete','Api\ProductController@destory_all');
 
 
-Route::get('shippings', 'Api\ShippingController@index');
-Route::get('shippings/{id}', 'Api\ShippingController@show');
+Route::get('{locale}/shippings', 'Api\ShippingController@index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/shippings/{id}', 'Api\ShippingController@show')->where('locale', '[a-zA-Z]{2}');
 
-Route::get('attributes', 'Api\ShippingController@index_attributes');
-Route::get('attributes/{id}', 'Api\ShippingController@show_attributes');
+Route::get('{locale}/attributes', 'Api\ShippingController@index_attributes')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/attributes/{id}', 'Api\ShippingController@show_attributes')->where('locale', '[a-zA-Z]{2}');
 
-Route::get('posts', 'Api\PostController@index');
-Route::get('posts/{slug}', 'Api\PostController@show');
-Route::get('countries', 'Api\CountryController@index');
-Route::get('countries/{id}', 'Api\CountryController@show');
+Route::get('{locale}/posts', 'Api\PostController@index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/posts/{slug}', 'Api\PostController@show')->where('locale', '[a-zA-Z]{2}');
 
-Route::get('categories', 'Api\CountryController@category_index');
-Route::get('categories/{slug}', 'Api\CountryController@category_show');
 
-Route::get('brands', 'Api\CountryController@brands_index');
-Route::get('brands/{slug}', 'Api\CountryController@brands_show');
+Route::get('{locale}/countries', 'Api\CountryController@index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/countries/{id}', 'Api\CountryController@show')->where('locale', '[a-zA-Z]{2}');
 
-Route::get('users/{id}', 'Api\UserController@show');
+Route::get('{locale}/categories', 'Api\CountryController@category_index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/categories/{slug}', 'Api\CountryController@category_show')->where('locale', '[a-zA-Z]{2}');
+
+Route::get('{locale}/brands', 'Api\CountryController@brands_index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/brands/{slug}', 'Api\CountryController@brands_show')->where('locale', '[a-zA-Z]{2}');
+
+
+Route::get('{locale}/adz/', 'Api\CountryController@adz_index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/adz/{slug}', 'Api\CountryController@adz_show')->where('locale', '[a-zA-Z]{2}');
+
+Route::get('{locale}/cms/', 'Api\CountryController@cms_index')->where('locale', '[a-zA-Z]{2}');
+Route::get('{locale}/cms/{slug}', 'Api\CountryController@cms_show')->where('locale', '[a-zA-Z]{2}');
+
+
+Route::get('/adz', 'Api\AdzController@index');
+Route::get('/adz/{slug}', 'Api\AdzController@show');
+
+
+Route::get('/ourworks', 'Api\OurworkController@index');
+Route::get('/ourworks/{id}', 'Api\OurworkController@show');
+
+
+Route::get('/payments', 'Api\PaymentController@index');
+Route::get('/payments/{id}', 'Api\PaymentController@show');
+
+
+Route::get('/sliders', 'Api\SliderController@index');
+Route::get('/sliders/{id}', 'Api\SliderController@show');
+
+
+Route::get('/teams', 'Api\TeamController@index');
+Route::get('/teams/{id}', 'Api\TeamController@show');
+
+
+Route::get('/testimonials', 'Api\TestimonialController@index');
+Route::get('/testimonials/{id}', 'Api\TestimonialController@show');
+
+
+Route::get('{locale}/settings', 'Api\SettingController@index')->where('locale', '[a-zA-Z]{2}');
+
+
+Route::post('contact-us', 'Api\ContactUsController@store');
+
+
+Route::post('coupons/{code}', 'Api\CouponController@check');
+//->where('code', '[A-Za-z]+');
+
+
+//Route::get('coupons/{id}', 'Api\UserController@show');
 
 });

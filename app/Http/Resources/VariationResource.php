@@ -21,7 +21,7 @@ class VariationResource extends JsonResource
             'stock'          => $this->stock,
             'in_stock'       => $this->in_stock,
             'visible'        => $this->visible,
-            'attributes'       => AttributeResource::collection($this->attributes),
+            'attributes'     => AttributeResource::collection($this->whenLoaded('attributes')),
         ];
     }
 }

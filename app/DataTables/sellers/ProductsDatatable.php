@@ -9,18 +9,18 @@ class ProductsDatatable extends DataTable
     public function dataTable(DataTables $dataTables, $query)
     {
         return datatables($query)
-        ->addColumn('actions', 'Admin.products.buttons.actions')
+        ->addColumn('actions', 'FrontEnd.sellers.products.buttons.actions')
         ->addColumn('image', 'Admin.products.buttons.image')
             ->addColumn('checkbox', 'Admin.products.buttons.checkbox-seller')
-            ->addColumn('discount', 'Admin.products.buttons.discount-seller')
+            ->addColumn('discount', 'FrontEnd.sellers.products.buttons.discount-seller')
             //->addColumn('name', 'Admin.products.buttons.name')
             ->addColumn('sold', 'Admin.products.buttons.sold')
-            ->rawColumns(['checkbox','show_action','disocunt','actions','sold','image','date']);
+            ->rawColumns(['checkbox','show_action','discount','actions','sold','image','date']);
     }
 
     public function query()
     {
-        return Product::query()->where('owner', 'for_seller')
+        return Product::query()->where('owner', 'for_seller')->where('user_id', auth()->user()->id)
         ->select('name->en as ss','image','product_type','id','has_accessories','sale_price','slug');
     }
 
@@ -133,6 +133,11 @@ class ProductsDatatable extends DataTable
                 'name'  => 'sold',
                 'data'  => 'sold',
                 'title' => trans('admin.sold'),
+            ],
+            [
+                'name'  => 'discount',
+                'data'  => 'discount',
+                'title' => trans('user.add_discount'),
             ],
 
             [
