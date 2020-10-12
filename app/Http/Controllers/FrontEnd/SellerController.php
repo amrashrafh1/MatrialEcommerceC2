@@ -27,6 +27,11 @@ class SellerController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','role:seller']);
+        $this->middleware(['permission:read-'.$this->path])->only('products');
+        $this->middleware(['permission:create-'.$this->path])->only('create');
+        $this->middleware(['permission:update-'.$this->path])->only('edit');
+        $this->middleware(['permission:delete-'.$this->path])->only('destroy');
+        $this->middleware(['permission:read-orders'])->only('orders');
     }
 
     public function index()
@@ -531,6 +536,9 @@ class SellerController extends Controller
     {
         return $datatable->render('FrontEnd.sellers.orders.index');
     }
+
+
+
     public function orders_show($id)
     {
         try {
@@ -541,6 +549,7 @@ class SellerController extends Controller
         }
         return view('FrontEnd.sellers.orders.show', ['title' => trans('user.order'), 'rows'=> $order]);
     }
+
 
     public function export_invoice($id) {
         $order  = Order::findOrfail($id);

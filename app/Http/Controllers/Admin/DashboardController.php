@@ -25,6 +25,10 @@ class DashboardController extends Controller
         , profit_calc(1), profit_calc(2), profit_calc(3), profit_calc(4), profit_calc(4), profit_calc(5),profit_calc(6)];
 
 
+        $revenues = [Sold::whereDate('created_at',today())->value(\DB::raw('SUM((sale_price * sold)  - coupon)'))
+        , revenue_calc(1), revenue_calc(2), revenue_calc(3), revenue_calc(4), revenue_calc(4), revenue_calc(5),revenue_calc(6)];
+
+
         /* Used Space */
         $disk_total_space = disk_total_space('/');
         $disk_free_space  = disk_free_space('/');
@@ -37,7 +41,7 @@ class DashboardController extends Controller
         $salesIncrease = getPercentageChange(($salesYesterday)?$salesYesterday:1, $salesToday);
 
        return view('Admin.dashboard', ['chart' => $chart, 'disk_total_space' => $disk_total_space,
-            'disk_free_space' => $disk_free_space, 'sales' => $sales,'profits' =>$profits
+            'disk_free_space' => $disk_free_space, 'sales' => $sales,'profits' =>$profits, 'revenues' => $revenues
             ,'sold' => $sold, 'salesIncrease' => $salesIncrease]);
     }
 }

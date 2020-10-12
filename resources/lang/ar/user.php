@@ -349,5 +349,6 @@ return [
     'Write_your_message...'                                                          => '...اكتب رسالتك',
     'simple'                                                                         => 'بسيط',
     'variable'                                                                       => 'متغير',
+    'Save'                                                                           => 'توفير',
 
 ];

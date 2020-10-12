@@ -393,5 +393,9 @@ return array (
     'sitename_in_Arabic'                                             => 'Site name in Arabic',
     'system_message_English'                                         => 'System message English',
     'system_message_Arabic'                                          => 'System message Arabic',
+    'increase_in_today_sales.'                                       => 'increase in today sales .',
+    'message'                                                        => 'Message',
+    'cmss'                                                           => 'Events',
+    'sellers-app'                                                    => 'sellers applications',
 
 );

@@ -162,15 +162,15 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
             if ($this->discount->condition === 'percentage_of_product_price') {
 
-                return $this->sale_price - ($this->discount->amount / 100 * $this->sale_price) + ($this->tax * $this->sale_price) / 100;
+                return ($this->sale_price - ($this->discount->amount / 100 * $this->sale_price)) + ($this->tax * $this->sale_price) / 100;
 
             } elseif ($this->discount->condition === 'fixed_amount') {
 
-                return $this->sale_price - $this->discount->amount + ($this->tax * $this->sale_price) / 100;
+                return ($this->sale_price - $this->discount->amount) + ($this->tax * $this->sale_price) / 100;
 
             }
         }
-        return $this->sale_price + ($this->tax * $this->sale_price) / 100;
+        return 0;
     }
 
     public function available_discount()

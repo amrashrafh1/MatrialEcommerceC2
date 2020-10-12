@@ -14,6 +14,7 @@ class ContactUsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $setting = \App\Setting::orderBy('id','desc')->first();

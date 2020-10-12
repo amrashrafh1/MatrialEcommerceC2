@@ -2,8 +2,80 @@
 
 @section('content')
 
-  <div class="content">
+<div class="content">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">content_copy</i>
+                            </div>
+                            <p class="card-category">@lang('admin.Used_Space')</p>
+                            <h4 class="card-title">
+                                <span>{{getSymbolByQuantity($disk_free_space)}}</span><br />/<span>{{getSymbolByQuantity($disk_total_space)}}</span>
+                            </h4>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-danger">@lang('admin.warning')</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">store</i>
+                            </div>
+                            <p class="card-category">@lang('admin.revenue')</p>
+                            <h3 class="card-title">
+                                ${{App\Sold::whereDate('created_at', today())->value(\DB::raw('SUM(sale_price * sold - coupon)'))}}
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">date_range</i> Last 24 Hours
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-danger card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">info_outline</i>
+                            </div>
+                            <p class="card-category">@lang('admin.error')</p>
+                            <h3 class="card-title">75</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Tracked from Github
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-twitter"></i>
+                            </div>
+                            <p class="card-category">@lang('admin.Followers')</p>
+                            <h3 class="card-title">+245</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">update</i> Just Updated
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card-chart">
             {!! $chart->container() !!}
         </div>
@@ -23,126 +95,78 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 row">
-        <div class="col-md-6 col-sm-12">
-          <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">content_copy</i>
-              </div>
-              <p class="card-category">@lang('admin.Used_Space')</p>
-              <h4 class="card-title"><span>{{getSymbolByQuantity($disk_free_space)}}</span><br/>/<span>{{getSymbolByQuantity($disk_total_space)}}</span>
-              </h4>
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-transparent">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">@lang('admin.chart')</h6>
+                                <h2 class="mb-0">@lang('admin.revenue')</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="Revenue" class="chartjs-render-monitor" style="height: 300px;"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-danger">@lang('admin.warning')</i>
-              </div>
-            </div>
-          </div>
+
         </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">store</i>
-              </div>
-              <p class="card-category">@lang('admin.revenue')</p>
-              <h3 class="card-title">$34,245</h3>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-success">
+                        <div class="ct-chart" id="dailySalesChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">@lang('admin.Daily_Sales')</h4>
+                        <p class="card-category">
+                            <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{$salesIncrease}}% </span>
+                            @lang('admin.increase_in_today_sales.')</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> @lang('admin.updated_sales')
+                            {{($sold)?\Carbon\Carbon::parse($sold->created_at)->diffForhumans():''}}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">date_range</i> Last 24 Hours
-              </div>
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-warning">
+                        <div class="ct-chart" id="websiteViewsChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Email Subscriptions</h4>
+                        <p class="card-category">Last Campaign Performance</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-danger">
+                        <div class="ct-chart" id="completedTasksChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Completed Tasks</h4>
+                        <p class="card-category">Last Campaign Performance</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">info_outline</i>
-              </div>
-              <p class="card-category">@lang('admin.error')</p>
-              <h3 class="card-title">75</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">local_offer</i> Tracked from Github
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-              <div class="card-icon">
-                <i class="fa fa-twitter"></i>
-              </div>
-              <p class="card-category">@lang('admin.Followers')</p>
-              <h3 class="card-title">+245</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">update</i> Just Updated
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-success">
-              <div class="ct-chart" id="dailySalesChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">@lang('admin.Daily_Sales')</h4>
-              <p class="card-category">
-                <span class="text-success"><i class="fa fa-long-arrow-up"></i> {{$salesIncrease}}% </span> @lang('admin.increase_in_today_sales.')</p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> @lang('admin.updated_sales') {{($sold)?\Carbon\Carbon::parse($sold->created_at)->diffForhumans():''}}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-warning">
-              <div class="ct-chart" id="websiteViewsChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Email Subscriptions</h4>
-              <p class="card-category">Last Campaign Performance</p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> campaign sent 2 days ago
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-danger">
-              <div class="ct-chart" id="completedTasksChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Completed Tasks</h4>
-              <p class="card-category">Last Campaign Performance</p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> campaign sent 2 days ago
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
+        {{-- <div class="row">
         <div class="col-lg-6 col-md-12">
           <div class="card">
             <div class="card-header card-header-tabs card-header-primary">
@@ -432,25 +456,73 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
-  </div>
+</div>
 @endsection
 
 @push('js')
-    <script src="{{url('/')}}/js/chart.js/dist/Chart.min.js"></script>
-    {!! $chart->script() !!}
-    <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
+<script src="{{url('/')}}/js/chart.js/dist/Chart.min.js"></script>
+{!! $chart->script() !!}
+<script>
+    $(document).ready(function () {
+        // Javascript method's body can be found in assets/js/demos.js
+        md.initDashboardPageCharts();
     });
+    var ctx = document.getElementById("Revenue").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["@lang('admin.Today')", "@lang('admin.yesterday')", "@lang('admin.2days_ago')",
+                "@lang('admin.3days_ago')",
+                "@lang('admin.4days_ago')", "@lang('admin.5days_ago')", "@lang('admin.6days_ago')",
+                "@lang('admin.7days_ago')"
+            ],
+            datasets: [{
+                label: 'Revenues',
+                data: @json($revenues),
+                borderWidth: 2,
+                backgroundColor: 'transparent',
+                borderColor: '#00c3ed',
+                borderWidth: 4,
+                pointBackgroundColor: '#ffffff',
+                pointRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: true
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 150
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        display: true
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+        }
+    });
+
     var ctx = document.getElementById("Chart").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["@lang('admin.Today')", "@lang('admin.yesterday')", "@lang('admin.2days_ago')", "@lang('admin.3days_ago')",
-             "@lang('admin.4days_ago')", "@lang('admin.5days_ago')", "@lang('admin.6days_ago')","@lang('admin.7days_ago')"],
+            labels: ["@lang('admin.Today')", "@lang('admin.yesterday')", "@lang('admin.2days_ago')",
+                "@lang('admin.3days_ago')",
+                "@lang('admin.4days_ago')", "@lang('admin.5days_ago')", "@lang('admin.6days_ago')",
+                "@lang('admin.7days_ago')"
+            ],
             datasets: [{
                 label: 'Profits',
                 data: @json($profits),
@@ -487,34 +559,36 @@
         }
     });
 
-        if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
-      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+    if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
+        /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
-      dataDailySalesChart = {
-        labels: ["@lang('admin.Tod')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
-             "@lang('admin.4d')", "@lang('admin.5d')", "@lang('admin.6d')","@lang('admin.7d')"],
-        series: [
-            @json($sales),
-        ]
-      };
+        dataDailySalesChart = {
+            labels: ["@lang('admin.Tod')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
+                "@lang('admin.4d')", "@lang('admin.5d')", "@lang('admin.6d')", "@lang('admin.7d')"
+            ],
+            series: [
+                @json($sales),
+            ]
+        };
 
-      optionsDailySalesChart = {
-        lineSmooth: Chartist.Interpolation.cardinal({
-          tension: 0
-        }),
-        low: 0,
-        high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-        chartPadding: {
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0
-        },
-      }
+        optionsDailySalesChart = {
+            lineSmooth: Chartist.Interpolation.cardinal({
+                tension: 0
+            }),
+            low: 0,
+            high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            },
+        }
 
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+        var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
-      var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
+        var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
     }
-  </script>
+
+</script>
 @endpush

@@ -148,7 +148,7 @@ class CategoryController extends Controller
     {
         $data = $this->validate(request(), [
             'name_en'        => 'required|string|max:255',
-            'category_id'         => 'sometimes|nullable|string|max:191',
+            'category_id'    => 'sometimes|nullable|string|max:191',
             'slug'           => 'required|string|max:191|unique:categories,slug,'.$id,
             'description_en' => 'required|string',
             'status'         => 'required|numeric',
@@ -178,8 +178,9 @@ class CategoryController extends Controller
         ]);
         $update = $this->model::find($id);
         foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-            (empty($request['name' . $localeCode])) ?: $update->setTranslation('name', $localeCode, $request['name' . $localeCode])->save();
+            $update->setTranslation('name', $localeCode, $request['name_' . $localeCode])->save();
             (empty($request['description_' . $localeCode])) ?: $update->setTranslation('description', $localeCode, $request['description_' . $localeCode])->save();
+
         };
         Alert::success(trans('admin.updated'), trans('admin.success_record'));
         return redirect()->route($this->path . '.index');

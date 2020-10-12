@@ -37,6 +37,7 @@
     || Route::current()->getName() == 'product_variations'
     || Route::current()->getName() == 'add_accessories'
     || Route::current()->getName() == 'discounts.create'
+    || Route::current()->getName() == 'discounts.edit'
     || Route::current()->getName() == 'attributes.create' )
     @livewireStyles
     @livewireScripts

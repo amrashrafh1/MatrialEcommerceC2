@@ -12,7 +12,13 @@ class ApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+
+    public function __construct() {
+        $this->middleware(['permission:read-sellers-app'])->only('index');
+        $this->middleware(['permission:create-sellers-app'])->only('accept');
+    }
+
+     public function index($id)
     {
         $seller = User::findOrFail($id);
         return view('Admin.application.index', ['title' => trans('admin.new_seller_application'), 'seller' => $seller]);

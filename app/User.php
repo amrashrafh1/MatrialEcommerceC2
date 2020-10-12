@@ -13,9 +13,10 @@ use Spatie\Searchable\SearchResult;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Product;
 use App\SellerInfo;
+
 use Gabievi\Promocodes\Traits\Rewardable;
 
-class User extends Authenticatable implements Searchable, JWTSubject
+class User extends Authenticatable implements Searchable, JWTSubject, MustVerifyEmail
 {
     //use \HighIdeas\UsersOnline\Traits\UsersOnlineTrait;
     use LaratrustUserTrait;

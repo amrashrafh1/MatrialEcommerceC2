@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Admin\Discount;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-
+use App\Product;
 class ProductId extends Component
 {
     use WithPagination;

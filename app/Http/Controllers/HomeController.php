@@ -17,7 +17,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
         $catalog = Category::orderByViews()->get();
 

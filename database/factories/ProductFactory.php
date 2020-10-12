@@ -18,7 +18,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'color'             => \Str::random(6),
         'description'       => $faker->text,
         'short_description' => $faker->text,
-        'image'             => 'public/products/thumbnail/1_1597427927.jpg',
+        'image'             => 'public/products/thumbnail/'.rand(1, 17).'.jpg',
         'tradmark_id'       => 1,
         'user_id'           => 4,
         'owner'             => 'for_seller',

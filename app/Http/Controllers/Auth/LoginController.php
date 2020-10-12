@@ -42,17 +42,16 @@ class LoginController extends Controller
     }
 
 
-    public function redirectToProvider()
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('github')->redirect();
+            return Socialite::driver($provider)->redirect();
     }
 
 
-    public function handleProviderCallback()
+    public function handleProviderCallback($provider)
     {
-        $user = Socialite::driver('github')->user();
+        $user = Socialite::driver($provider)->user();
 
-        // $user->token;
         $login = User::firstOrCreate([
             'email' => $user->email
         ],[
@@ -60,10 +59,14 @@ class LoginController extends Controller
             'email'    => $user->email,
             'password' => Hash::make(Str::random(24))
         ]);
+        if ($login->wasRecentlyCreated) {
+            $login->attachRole('user');
 
+        }
         Auth::login($login,true);
         return redirect()->route('home');
     }
+
 
     public function redirectTo() {
         if(auth()->user()->hasRole(['superadministrator', 'administrator'])) {

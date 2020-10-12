@@ -24,10 +24,11 @@ Route::group(
  /* FrontEnd route */
 
 
-Auth::routes();
-Route::get('login/github', 'Auth\LoginController@redirectToProvider');
-Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+Auth::routes(['verify' => true]);
 
+// login with socialite
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('login_with_social');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 // Home page
 Route::get('/', 'HomeController@index')->name('home');
@@ -119,49 +120,49 @@ Route::get('/tag/{slug}','FrontEnd\TagController@index')->name('tags');
 Route::get('/brand/{slug}','FrontEnd\BrandController@index')->name('brand');
 
 // Seller Application page
-Route::get('/seller/app', 'FrontEnd\SellerAppController@index')->name('seller_app');
+Route::get('/seller/app', 'FrontEnd\SellerAppController@index')->middleware('verified')->name('seller_app');
 // Seller Application store form
-Route::post('/seller/app', 'FrontEnd\SellerAppController@store')->name('store_app')->middleware('image-sanitize');
+Route::post('/seller/app', 'FrontEnd\SellerAppController@store')->middleware('verified')->name('store_app')->middleware('image-sanitize');
 
 // Seller Dashboard
-Route::get('/seller/dashboard','FrontEnd\SellerController@index')->name('seller_dashboard');
+Route::get('/seller/dashboard','FrontEnd\SellerController@index')->middleware('verified')->name('seller_dashboard');
 // Seller products
-Route::get('/seller/products','FrontEnd\SellerController@products')->name('seller_frontend_products');
+Route::get('/seller/products','FrontEnd\SellerController@products')->middleware('verified')->name('seller_frontend_products');
 
 // Seller products create page
-Route::get('/seller/products/create','FrontEnd\SellerController@create')->name('seller_frontend_products_create');
+Route::get('/seller/products/create','FrontEnd\SellerController@create')->middleware('verified')->name('seller_frontend_products_create');
 // Seller products store
-Route::post('/seller/products/store','FrontEnd\SellerController@store')->name('seller_frontend_products_store')->middleware('image-sanitize');;
+Route::post('/seller/products/store','FrontEnd\SellerController@store')->middleware('verified')->name('seller_frontend_products_store')->middleware('image-sanitize');;
 
 // Seller products edit page
-Route::get('/seller/products/edit/{slug}','FrontEnd\SellerController@edit')->name('seller_frontend_products_edit');
+Route::get('/seller/products/edit/{slug}','FrontEnd\SellerController@edit')->middleware('verified')->name('seller_frontend_products_edit');
 // Seller products update
-Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->name('seller_frontend_products_update')->middleware('image-sanitize');;
+Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->middleware('verified')->name('seller_frontend_products_update')->middleware('image-sanitize');;
 
 // Seller products delete
-Route::delete('/seller/products/delete/{slug}','FrontEnd\SellerController@destroy')->name('seller_frontend_products_delete');
+Route::delete('/seller/products/delete/{slug}','FrontEnd\SellerController@destroy')->middleware('verified')->name('seller_frontend_products_delete');
 
 // Seller products delete all
-Route::delete('/seller/products/destroy/all', 'FrontEnd\SellerController@destory_all')->name('seller_frontend_products_destroy_all');
+Route::delete('/seller/products/destroy/all', 'FrontEnd\SellerController@destory_all')->middleware('verified')->name('seller_frontend_products_destroy_all');
 
 
 // Seller products variations page
-Route::get('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations')->name('seller_frontend_products_variations');
+Route::get('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations')->middleware('verified')->name('seller_frontend_products_variations');
 
 // Seller products variations store
-Route::post('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations_store')->name('seller_frontend_products_variations_store');
+Route::post('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations_store')->middleware('verified')->name('seller_frontend_products_variations_store');
 
 // Seller products variations update
-Route::post('/seller/products/variations/update/{slug}', 'FrontEnd\SellerController@variation_update')->name('seller_frontend_products_variations_update');
+Route::post('/seller/products/variations/update/{slug}', 'FrontEnd\SellerController@variation_update')->middleware('verified')->name('seller_frontend_products_variations_update');
 
 // Seller products accessories page
-Route::get('/seller/products/accessories/{slug}', 'FrontEnd\SellerController@accessories')->name('seller_frontend_products_accessories');
+Route::get('/seller/products/accessories/{slug}', 'FrontEnd\SellerController@accessories')->middleware('verified')->name('seller_frontend_products_accessories');
 
 // Seller orders page
-Route::get('/seller/orders', 'FrontEnd\SellerController@orders')->name('seller_frontend_orders');
+Route::get('/seller/orders', 'FrontEnd\SellerController@orders')->middleware('verified')->name('seller_frontend_orders');
 
 // Seller show order page
-Route::get('/seller/orders/show/{id}', 'FrontEnd\SellerController@orders_show')->name('seller_frontend_orders_show');
+Route::get('/seller/orders/show/{id}', 'FrontEnd\SellerController@orders_show')->middleware('verified')->name('seller_frontend_orders_show');
 
 /*
  *    _____      _ _             _____
@@ -191,16 +192,16 @@ Route::get('/event/show/{slug}', 'FrontEnd\EventController@cms_show')->name('cms
  */
 
  // Seller Discount create page
- Route::get('/seller/discount/{id}', 'FrontEnd\DiscountController@create')->name('seller_add_discount');
+ Route::get('/seller/discount/{id}', 'FrontEnd\DiscountController@create')->middleware('verified')->name('seller_add_discount');
 
  // Seller Discount store
- Route::post('/seller/discount/store/{id}', 'FrontEnd\DiscountController@store')->name('seller_discount_store');
+ Route::post('/seller/discount/store/{id}', 'FrontEnd\DiscountController@store')->middleware('verified')->name('seller_discount_store');
 
  // Seller Discount edit page
- Route::get('/seller/discount/edit/{id}', 'FrontEnd\DiscountController@edit')->name('seller_discount_edit');
+ Route::get('/seller/discount/edit/{id}', 'FrontEnd\DiscountController@edit')->middleware('verified')->name('seller_discount_edit');
 
  // Seller Discount update
-Route::post('/seller/discount/update/{id}', 'FrontEnd\DiscountController@update')->name('seller_discount_update');
+Route::post('/seller/discount/update/{id}', 'FrontEnd\DiscountController@update')->middleware('verified')->name('seller_discount_update');
 
 /* End seller Discount */
 
@@ -211,14 +212,14 @@ Route::get('/seller/store/{id}', 'FrontEnd\SellerProfileController@show_seller')
 
 
 /* Chat (Seller & Customer) */
-Route::get('/chat/{slug}', 'FrontEnd\ChatController@seller')->middleware('auth')->name('show_chat');
-Route::get('/chat', 'FrontEnd\ChatController@chat')->middleware('auth')->name('chat');
+Route::get('/chat/{slug}', 'FrontEnd\ChatController@seller')->middleware(['auth','verified'])->name('show_chat');
+Route::get('/chat', 'FrontEnd\ChatController@chat')->middleware(['auth','verified'])->name('chat');
 
 // Profile Page
-Route::get('/profile','FrontEnd\ProfileController@index')->name('profile');
-Route::put('/profile/update','FrontEnd\ProfileController@update')->name('user_profile.update')->middleware('image-sanitize');;
-Route::put('/profile/password','FrontEnd\ProfileController@password')->name('user_profile.password');
-Route::get('/profile/order/{id}','FrontEnd\ProfileController@order')->name('profile.order.show');
+Route::get('/profile','FrontEnd\ProfileController@index')->middleware('verified')->name('profile');
+Route::put('/profile/update','FrontEnd\ProfileController@update')->middleware('verified')->name('user_profile.update')->middleware('image-sanitize');;
+Route::put('/profile/password','FrontEnd\ProfileController@password')->middleware('verified')->name('user_profile.password');
+Route::get('/profile/order/{id}','FrontEnd\ProfileController@order')->middleware('verified')->name('profile.order.show');
 
 
 

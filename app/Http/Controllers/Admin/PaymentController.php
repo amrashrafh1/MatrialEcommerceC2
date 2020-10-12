@@ -11,15 +11,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 class PaymentController extends Controller
 {
     protected $model = '';
-    protected $path = 'payments';
+    protected $path  = 'payments';
     protected $route = 'payments';
 
     public function __construct()
     {
-        /* $this->middleware(['permission:read-' . $this->path])->only('index');
+        $this->middleware(['permission:read-' . $this->path])->only('index');
         $this->middleware(['permission:create-' . $this->path])->only('create');
         $this->middleware(['permission:update-' . $this->path])->only('edit');
-        $this->middleware(['permission:delete-' . $this->path])->only('destroy'); */
+        $this->middleware(['permission:delete-' . $this->path])->only('destroy');
         $this->model = Payment::class;
 
     }

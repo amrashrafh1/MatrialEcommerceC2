@@ -794,6 +794,8 @@
 
         if(listProducts){
             @this.set('tab', listProducts);
+        } else {
+            @this.set('tab', 'grid-extended');
         }
     });
 </script>

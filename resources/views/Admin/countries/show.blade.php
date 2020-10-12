@@ -55,7 +55,7 @@
                         <li class="list-group-item"><span style="font-weight: 700">@lang('admin.name') :</span> {{$rows->country_name}}</li>
                         <li class="list-group-item border-bottom"><span style="font-weight: 700">@lang('admin.nativeName') :</span> {{$rows->nativeName}}</li>
                         <li class="list-group-item border-bottom"><span style="font-weight: 700">@lang('admin.callingCodes') :</span>
-                        @foreach(json_decode($rows->callingCodes) as $code)
+                        @foreach($rows->callingCodes as $code)
                             +{{ $code}}
                         @endforeach
                     </li>
@@ -69,11 +69,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach(json_decode($rows->currencies) as $currency)
+                                    @foreach($rows->currencies as $currency)
                                         <tr>
-                                            <th scope="row">{{ $currency->code}}</th>
-                                            <td>{{ $currency->name}}</td>
-                                            <td>{{ $currency->symbol}}</td>
+                                            <th scope="row">{{ $currency['code']}}</th>
+                                            <td>{{ $currency['name']}}</td>
+                                            <td>{{ $currency['symbol']}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -93,12 +93,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach(json_decode($rows->languages) as $lang)
+                            @foreach($rows->languages as $lang)
                                 <tr>
-                                    <th scope="row">{{ $lang->iso639_1}}</th>
-                                    <td>{{ $lang->iso639_2}}</td>
-                                    <td>{{ $lang->name}}</td>
-                                    <td>{{ $lang->nativeName}}</td>
+                                    <th scope="row">{{ $lang['iso639_1']}}</th>
+                                    <td>{{ $lang['iso639_2']}}</td>
+                                    <td>{{ $lang['name']}}</td>
+                                    <td>{{ $lang['nativeName']}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

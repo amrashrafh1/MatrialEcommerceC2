@@ -37,6 +37,7 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
                 </div> --}}
                 <!-- .footer-newsletter -->
                 <div class="footer-social-icons">
+                    @if($setting)
                     <ul class="social-icons nav">
                         @if($setting->facebook)
                         <li class="nav-item">
@@ -51,6 +52,7 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
                         </li>
                         @endif
                     </ul>
+                    @endif
                 </div>
                 <!-- .footer-social-icons -->
             </div>
@@ -97,7 +99,7 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
                                 <polygon class="cls-1" points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
                                 <rect class="cls-2" y="0.44" width="7.19" height="5.13" />
                             </svg> --}}
-                            <img src='{{Storage::url($setting->logo)}}'>
+                            <img src='{{$setting?Storage::url($setting->logo):''}}'>
                         </a>
                     </div>
                     <!-- .footer-logo -->
@@ -109,8 +111,8 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
                                             </span>
                                 <div class="media-body">
                                     <span class="call-us-title">Got Questions ? Call us 24/7!</span>
-                                    <span class="call-us-text">{{$setting->mobile}}</span>
-                                    <address class="footer-contact-address">{{$setting->location}}</address>
+                                    <span class="call-us-text">{{$setting?$setting->mobile:''}}</span>
+                                    <address class="footer-contact-address">{{$setting?$setting->location:''}}</address>
 
                                 </div>
                                 <!-- .media-body -->

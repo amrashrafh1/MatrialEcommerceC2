@@ -37,7 +37,7 @@
                                                 <!-- /.price-and-title -->
                                                 <div class="sale-label-outer">
                                                     <div class="sale-saved-label">
-                                                        <span class="saved-label-text">Save</span>
+                                                        <span class="saved-label-text">@lang('user.Save')</span>
                                                         <span class="saved-label-amount">
                                                                     <span class="woocommerce-Price-amount amount">
                                                                         {!! curr($random->product->calc_price() - $random->product->priceDiscount()) !!}</span>
@@ -48,13 +48,13 @@
                                                 <!-- /.sale-label-outer -->
                                             </div>
                                             <!-- /.sale-product-with-timer-header -->
-                                            <img width="224" height="197" alt="" class="wp-post-image" src="{{ url('/') }}/FrontEnd/images/products/6-1-6-center.jpg">
+                                            <img width="224" height="197" alt="" class="wp-post-image" src="{{Storage::url($random->product->image)}}">
                                             <div class="deal-progress">
                                                 <div class="deal-stock">
-                                                    <div class="stock-sold">Already Sold:
+                                                    <div class="stock-sold">@lang('user.already_sold:')
                                                         <strong>{{$random->product->already_sold()}}</strong>
                                                     </div>
-                                                    <div class="stock-available">Available:
+                                                    <div class="stock-available">@lang('user.available:')
                                                         <strong>{{$random->product->stock}}</strong>
                                                     </div>
                                                 </div>
@@ -67,8 +67,8 @@
                                             <!-- /.deal-progress -->
                                             <div class="deal-countdown-timer">
                                                 <div class="marketing-text">
-                                                    <span class="line-1">Hurry up!</span>
-                                                    <span class="line-2">Offers ends in:</span>
+                                                    <span class="line-1">@lang('user.Hurry_up!')</span>
+                                                    <span class="line-2">@lang('user.Offers_ends_in:')</span>
                                                 </div>
                                                 @php
                                                 $now = Carbon\Carbon::now();

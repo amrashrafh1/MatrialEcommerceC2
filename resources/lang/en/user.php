@@ -273,6 +273,7 @@ return [
     'Confirm_New_Password'                                                                                                                                                                        => 'Confirm New Password',
     'Change password'                                                                                                                                                                             => 'Change password',
     'save'                                                                                                                                                                                        => 'Save',
+    'Save'                                                                                                                                                                                        => 'Save',
     'Edit_Profile'                                                                                                                                                                                => 'Edit Profile',
     'User_information'                                                                                                                                                                            => 'User information',
     'Share_on:'                                                                                                                                                                                   => 'Share on:',
@@ -362,4 +363,8 @@ return [
     'Write_your_message...'                                                                                                                                                                       => 'Write your message...',
     'Overview'                                                                                                                                                                                    => 'Overview',
     'Discover_more_products'                                                                                                                                                                      => 'Discover more products',
+    'already_sold:'                                                                                                                                                                               => 'Already Sold:',
+    'available:'                                                                                                                                                                                  => 'Available:',
+    'Hurry_up!'                                                                                                                                                                                   => 'Hurry up!',
+    'Offers_ends_in:'                                                                                                                                                                             => 'Offers ends in:',
 ];

@@ -21,25 +21,25 @@
                     <div class="kpx_login m-3">
                         @if($setting)
                         <div class="row kpx_row-sm-offset-3 kpx_socialButtons justify-content-center">
-                            @if($setting->login_github)
+                            @if($setting->github)
                             <div class="col-xs-2 col-sm-2">
-                                <a href="{{url('/login/github')}}" class="btn  btn-block kpx_btn-github"
+                                <a href="{{route('login_with_social','github')}}" class="btn  btn-block kpx_btn-github"
                                     data-toggle="tooltip" data-placement="top" title="GitHub">
                                     <i class="fa fa-github fa-2x"></i>
                                     <span class="hidden-xs"></span>
                                 </a>
                             </div>
                             @endif
-                            @if($setting->login_facebook)
+                            @if($setting->facebook_login)
                             <div class="col-xs-2 col-sm-2">
-                                <a href="#" class="btn  btn-block kpx_btn-facebook" data-toggle="tooltip"
+                                <a href="{{route('login_with_social','facebook')}}" class="btn  btn-block kpx_btn-facebook" data-toggle="tooltip"
                                     data-placement="top" title="Facebook">
                                     <i class="fa fa-facebook fa-2x"></i>
                                     <span class="hidden-xs"></span>
                                 </a>
                             </div>
                             @endif
-                            @if($setting->login_twitter)
+                            @if($setting->twitter_login)
                             <div class="col-xs-2 col-sm-2">
                                 <a href="#" class="btn  btn-block kpx_btn-twitter" data-toggle="tooltip"
                                     data-placement="top" title="Twitter">
@@ -48,7 +48,7 @@
                                 </a>
                             </div>
                             @endif
-                            @if($setting->login_google)
+                            @if($setting->google_login)
                             <div class="col-xs-2 col-sm-2">
                                 <a href="#" class="btn  btn-block kpx_btn-google-plus" data-toggle="tooltip"
                                     data-placement="top" title="Google Plus">
@@ -86,8 +86,6 @@
                                                         id="password" />
                                                 </p>
                                                 <p class="form-row">
-                                                    <input class="woocommerce-Button button" type="submit"
-                                                        value="Login">
                                                     <label for="rememberme" style="margin-top:20px;"
                                                         class="woocommerce-form__label woocommerce-form__label-for-checkbox inline">
                                                         <input
@@ -95,6 +93,8 @@
                                                             name="remember" {{ old('remember') ? 'checked' : '' }}
                                                             type="checkbox" id="rememberme" /> {{ __('Remember Me') }}
                                                     </label>
+                                                    <input class="woocommerce-Button button" type="submit"
+                                                        value="Login" style='margin-left: 25px;'>
                                                 </p>
                                                 <p class="woocommerce-LostPassword lost_password">
                                                     @if (Route::has('password.request'))
@@ -108,12 +108,9 @@
                                         </div>
                                         <!-- .col-1 -->
                                         <div class="u-column2 col-2">
-                                            <h2>Register</h2>
+                                            <h2>@lang('user.register')</h2>
                                             <form class="register" method="POST" action="{{ route('register') }}">
                                                 @csrf
-                                                <p class="before-register-text">
-                                                    @lang('user.Create_new_account_today_to_reap_the_benefits_of_a_personalized_shopping_experience._Praesent_placerat,_est_sed_aliquet_finibus.')
-                                                </p>
                                                 <p class="form-row form-row-wide">
                                                     <label for="reg_name">@lang('admin.name')
                                                         <span class="required">*</span>
@@ -521,6 +518,16 @@
             margin-top: 10px;
         }
     }
+    @media (min-width: 1200px) and (max-width: 1589px) {
+  .left-sidebar #content #primary,
+  .right-sidebar #content #primary {
+    flex: 0 0 100%;
+    max-width: 100%; } }
+    @media (min-width: 992px) and (max-width: 1199px) {
+  .left-sidebar #content #primary,
+  .right-sidebar #content #primary {
+    flex: 0 0 100%;
+    max-width: 100%; } }
 
 </style>
 @endsection

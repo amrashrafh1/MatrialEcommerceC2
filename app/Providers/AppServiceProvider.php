@@ -31,16 +31,18 @@ class AppServiceProvider extends ServiceProvider
         $direction           = (LaravelLocalization::getCurrentLocaleDirection() === 'rtl') ? 'right' :'left';
         $setting             = Setting::latest('id')->first();
         $categories          = Category::where('status', 1)->where('category_id', NULL)->with('categories')->get();
-        $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):collect();
-        $compare             = (session()->get('compare'))?session()->get('compare'):[];
 
+        \View::composer('*', function ($view) {
+            $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):collect();
+            $compare             = (session()->get('compare'))?session()->get('compare'):[];
+            view()->share('wishlist_product_id', $wishlist_product_id);
+            view()->share('compare', $compare);
+        });
         \Config::set('app.setting', $setting);
 
         view()->share('direction', $direction);
         view()->share('setting', $setting);
         view()->share('categories', $categories);
-        view()->share('wishlist_product_id', $wishlist_product_id);
-        view()->share('compare', $compare);
 
     }
 }

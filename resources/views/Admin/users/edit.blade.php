@@ -178,11 +178,19 @@
                         'cities',
                         'shippingCompanies',
                         'manufacturers',
-                         'settings',
-                         'orders',
-                         'methods',
-                         'zones',
-                         'attribute_families'
+                        'settings',
+                        'orders',
+                        'methods',
+                        'zones',
+                        'attribute_families',
+                        'adzs',
+                        'sliders',
+                        'contact_us',
+                        'ourworks',
+                        'cmss',
+                        'discounts',
+                        'payments',
+                        'sellers-app',
                          ];
                         $permissions = ['read','create', 'update', 'delete']
                         @endphp

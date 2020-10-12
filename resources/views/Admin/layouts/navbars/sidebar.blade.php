@@ -212,7 +212,7 @@
                     <p>{{ trans('admin.languages') }}</p>
                 </a>
             </li>
-            <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
+            {{-- <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('table') }}">
                     <i class="material-icons">content_paste</i>
                     <p>{{ __('Table List') }}</p>
@@ -247,7 +247,7 @@
                     <i class="material-icons">language</i>
                     <p>{{ __('RTL Support') }}</p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>
