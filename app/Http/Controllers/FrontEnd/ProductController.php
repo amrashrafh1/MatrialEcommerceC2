@@ -10,6 +10,7 @@ use App\Attribute_Family;
 use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOTools;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Setting;
 
 class ProductController extends Controller
 {
@@ -54,15 +55,16 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->where('visible','visible')->first();
         if($product) {
-        views($product)->record();
+            views($product)->record();
 
-        SEOTools::setTitle(($product->meta_tag)?$product->meta_tag:$product->name);
-        SEOTools::setDescription(($product->meta_description)?$product->meta_description:$product->name);
-        SEOTools::opengraph()->setUrl('http://current.url.com');
-        SEOTools::setCanonical('https://codecasts.com.br/lesson');
-        SEOTools::opengraph()->addProperty('type', 'store');
-        SEOTools::twitter()->setSite('@LuizVinicius73');
-        SEOTools::jsonLd()->addImage(\Storage::url($product->image));
+            $setting             = Setting::latest('id')->first();
+            SEOTools::setTitle($product->name);
+            SEOTools::setDescription($product->meta_description);
+            SEOTools::opengraph()->setUrl(route('show_product', $product->slug));
+            SEOTools::setCanonical(route('shop'));
+            SEOTools::opengraph()->addProperty('type', 'site');
+            SEOTools::twitter()->setSite($setting?$setting->twitter:'');
+            SEOTools::jsonLd()->addImage(\Storage::url($product->image));
 
         if(session()->get('recently_viewed') !== null) {
             if(!in_array($product->id, session()->get('recently_viewed'))) {

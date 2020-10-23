@@ -64,7 +64,7 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
                 <div class="footer-contact">
                     <div class="footer-logo">
                         <a href="{{route('home')}}" class="custom-logo-link" rel="home">
-                            {{-- <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
+                            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 28">
                                 <defs>
                                     <style>
                                         .cls-1,
@@ -98,9 +98,9 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
                                 <polygon class="cls-1" points="32.85 27.56 28.6 27.56 28.6 5.42 28.6 3.96 28.6 0.44 47.95 0.44 47.95 5.42 34.46 5.42 34.46 22.72 48.25 22.72 48.25 27.56 34.46 27.56 32.85 27.56" />
                                 <polygon class="cls-1" points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
                                 <rect class="cls-2" y="0.44" width="7.19" height="5.13" />
-                            </svg> --}}
-                            <img src='{{$setting?Storage::url($setting->logo):''}}'>
-                        </a>
+                            </svg>
+{{--                             <img src='{{$setting?Storage::url($setting->logo):''}}'>
+ --}}                        </a>
                     </div>
                     <!-- .footer-logo -->
                     <div class="contact-payment-wrap">

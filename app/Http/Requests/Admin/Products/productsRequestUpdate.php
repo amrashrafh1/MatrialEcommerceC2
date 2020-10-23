@@ -53,6 +53,8 @@ class productsRequestUpdate extends FormRequest
             'size_en'              => 'sometimes|nullable|string',
             'color_en'             => 'sometimes|nullable|string',
             'shippings'            => 'required',
+            'value.*'              => 'sometimes|nullable',
+            'key.*'                => 'sometimes|nullable',
             'attributes.*'         => 'sometimes|nullable|numeric|max:191',
             'has_accessories'      => 'required|string|max:191',
             'meta_tag_en'          => 'sometimes|nullable|string',

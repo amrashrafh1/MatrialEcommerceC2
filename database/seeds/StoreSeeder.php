@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Category;
 use Illuminate\Support\Str;
 use App\Country;
+use App\Tradmark;
 class StoreSeeder extends Seeder
 {
     /**
@@ -13,13 +14,30 @@ class StoreSeeder extends Seeder
      */
     public function run()
     {
-        Category::create([
-            'name'        => Str::random(10),
-            'slug'        => Str::random(10),
-            'description' => Str::random(190),
-            'slug'        => Str::random(10),
-            'category_id'      => null
-        ]);
+        $categories = [
+            ' All in One PC','TV & Audio','Smart Phones & Tablets','Computers & Laptops',
+            'Desktop PCs','Cameras & Photo','Video Games & Consoles'
+        ];
+        foreach($categories as $index => $category) {
+            $num = $index + 1;
+            Category::create([
+                'name'        => $category,
+                'slug'        => Str::random(10),
+                'description' => Str::random(190),
+                'image'       => 'public/categories/thumbnail/sm-'. $num .'.png',
+                'category_id' => null
+                ]);
+        }
+
+        $brands = ['Codecanyon','Themforest','3docean','videohive','graphicriver','activeden','photodune'];
+        foreach($brands as $index => $brand) {
+            $num = $index + 1;
+            Tradmark::create([
+                'name' => $brand,
+                'slug' => Str::random(10),
+                'logo' => 'public/tradmarks/thumbnail/'. $num .'.png',
+                ]);
+        }
        $country =  Country::find(1);
         \App\City::create([
             'city_name'  => Str::random(10),
@@ -51,5 +69,27 @@ class StoreSeeder extends Seeder
             'company_id' => $shipping->id,
             'zone_id'    => $zone->id,
         ]);
+        foreach(['size', 'color', 'length','width'] as $family) {
+
+            $attribute_family = \App\Attribute_Family::create([
+                'name'       => $family,
+            ]);
+            $attributes = [];
+            if($family == 'size') {
+                $attributes = ['XXL','XL','L','M'];
+            } elseif($family == 'color') {
+                $attributes = ['Red','Yellow','Black','Blue'];
+            }elseif($family == 'length') {
+                $attributes = ['100Cm','50Cm','75Cm','25Cm'];
+            } elseif($family == 'width') {
+                $attributes = ['250Cm','500Cm','750Cm','125Cm'];
+            }
+                foreach($attributes as $attribute) {
+                    $attribute_family->attributes()->create([
+                        'name' => $attribute
+                    ]);
+                }
+
+        }
     }
 }

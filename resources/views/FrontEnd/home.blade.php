@@ -127,7 +127,7 @@
                             <div class="row">
                                 @if($advertizments->count() >= 1)
                                 @foreach($advertizments->skip(1)->take(3) as $index => $adz)
-                                <div class="banner @if($index == 0 || $index == 2) small-banner text-in-left @else large-banner text-in-right @endif">
+                                <div class="banner @if($loop->first || $loop->last) small-banner text-in-left @else large-banner text-in-right @endif">
                                     <a href="{{$adz->link}}">
                                         <div class="banner-bg" style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($adz->image)}} ); height: 259px;">
                                             <div class="caption">

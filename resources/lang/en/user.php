@@ -367,4 +367,7 @@ return [
     'available:'                                                                                                                                                                                  => 'Available:',
     'Hurry_up!'                                                                                                                                                                                   => 'Hurry up!',
     'Offers_ends_in:'                                                                                                                                                                             => 'Offers ends in:',
+    'We&rsquo;ll_be_back_soon!'                                                                                                                                                                   => 'We&rsquo;ll be back soon!',
+    'Thank_you_for_your_review'                                                                                                                                                                   => 'Thank you for your review',
+    'specification'                                                                                                                                                                               => 'Specification',
 ];

@@ -35,7 +35,9 @@ class CreateSettingsTable extends Migration
             $table->boolean('github')->default(0);
             $table->unsignedInteger('shipping_method')->nullable();
             $table->foreign('shipping_method')->references('id')->on('shipping_methods')->onDelete('cascade');
-
+            $table->string('meta_tag')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->string('meta_description')->nullable();
         });
     }
 

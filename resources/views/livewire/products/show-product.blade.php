@@ -241,6 +241,8 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                             @livewire('product-actions', ['product'=>$this->product])
 
                         <!-- .single-product-wrapper -->
+
+
                         <div class="techmarket-tabs techmarket-tabs-wrapper wc-tabs-wrapper">
                             <div id="tab-accessories" class="techmarket-tab">
                                 <div class="tab-content">
@@ -250,6 +252,9 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                         </li>
                                         <li class="description_tab">
                                             <a href="#tab-description">@lang('admin.description')</a>
+                                        </li>
+                                        <li class="specification_tab">
+                                            <a href="#tab-specification">@lang('user.specification')</a>
                                         </li>
                                         <li class="reviews_tab">
                                             <a href="#tab-reviews">@lang('user.Reviews') ({{$reviewCount}})</a>
@@ -362,6 +367,9 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                         <li class="description_tab active">
                                             <a href="#tab-description">@lang('admin.description')</a>
                                         </li>
+                                        <li class="specification_tab">
+                                            <a href="#tab-specification">@lang('user.specification')</a>
+                                        </li>
                                         <li class="reviews_tab">
                                             <a href="#tab-reviews">@lang('user.Reviews') ({{$reviewCount}})</a>
                                         </li>
@@ -374,7 +382,44 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 <!-- .tab-content -->
                             </div>
                             <!-- .techmarket-tab -->
-
+                            <div id="tab-specification" class="techmarket-tab">
+                                <div class="tab-content">
+                                    <ul role="tablist" class="nav tm-tabs">
+                                        <li class="accessories_tab">
+                                            <a href="#tab-accessories">@lang('user.Accessories')</a>
+                                        </li>
+                                        <li class="description_tab">
+                                            <a href="#tab-description">@lang('admin.description')</a>
+                                        </li>
+                                        <li class="specification_tab active">
+                                            <a href="#tab-specification">@lang('user.specification')</a>
+                                        </li>
+                                        <li class="reviews_tab">
+                                            <a href="#tab-reviews">@lang('user.Reviews') ({{$reviewCount}})</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.ec-tabs -->
+                                    <div class="tm-shop-attributes-detail like-column columns-3">
+                                        <table class="shop_attributes">
+                                            <tbody>
+                                                @if($this->product->data)
+                                                @foreach($this->product->data as $value)
+                                                <tr>
+                                                    <th>{{key($value)}}</th>
+                                                    <td>
+                                                        <p><a href="#" rel="tag">{{$value[key($value)]}}</a></p>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                        <!-- /.shop_attributes -->
+                                    </div>
+                                    <!-- /.tm-shop-attributes-detail -->
+                                </div>
+                                <!-- .tab-content -->
+                            </div>
                             <!-- .techmarket-tab -->
                             <div id="tab-reviews" class="techmarket-tab">
                                 <div class="tab-content">
@@ -384,6 +429,9 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                         </li>
                                         <li class="description_tab">
                                             <a href="#tab-description">@lang('admin.description')</a>
+                                        </li>
+                                        <li class="specification_tab">
+                                            <a href="#tab-specification">@lang('user.specification')</a>
                                         </li>
                                         <li class="reviews_tab active">
                                             <a href="#tab-reviews">@lang('user.Reviews') ({{$reviewCount}})</a>

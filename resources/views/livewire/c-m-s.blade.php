@@ -15,23 +15,21 @@
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area">
                 <main id="main" class="site-main">
-                    @if(!empty($this->category))
                     <div class="shop-archive-header" wire:ignore>
                         <div class="jumbotron">
                             <div class="jumbotron-img">
-                                <img width="416" height="283" alt="" src="{{Storage::url($this->category->image)}}" class="jumbo-image alignright">
+                                <img width="416" height="283" alt="" src="{{Storage::url($this->cms->image)}}" class="jumbo-image alignright">
                             </div>
                             <div class="jumbotron-caption">
-                                <h3 class="jumbo-title">{{$this->category->name}}</h3>
+                                <h3 class="jumbo-title">{{$this->cms->menuTitle}}</h3>
                                 <p class="jumbo-subtitle">
-                                    {!! $this->category->description !!}
+                                    {!! $this->cms->content !!}
                                 </p>
                             </div>
                             <!-- .jumbotron-caption -->
                         </div>
                         <!-- .jumbotron -->
                     </div>
-                    @endif
                     <!-- .shop-archive-header -->
                     <div class="shop-control-bar">
                         <div class="handheld-sidebar-toggle">
@@ -701,7 +699,7 @@
                                                             @endif
                                                         </span>
                                                         <!-- .price -->
-                                                        <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                                        <span class='product_shipping'>{{product_shipping($latest)}}</span>
                                                         <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">

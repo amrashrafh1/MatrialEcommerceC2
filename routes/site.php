@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Http\Request;
+use Artesaos\SEOTools\Facades\SEOTools;
+use App\Setting;
 //use Illuminate\Support\Facades\Hash;
 
 /*
@@ -97,6 +99,16 @@ Route::get('/wishlists', function () {
 
 // Shop Page
 Route::get('/shop', function () {
+    $setting             = Setting::latest('id')->first();
+
+    SEOTools::setTitle($setting?$setting->sitename:config('app.name'));
+    SEOTools::setDescription($setting?$setting->meta_description:config('app.name'));
+    SEOTools::opengraph()->setUrl(url('/'));
+    SEOTools::setCanonical(url('/'));
+    SEOTools::opengraph()->addProperty('type', 'site');
+    SEOTools::twitter()->setSite($setting?$setting->twitter:'');
+    SEOTools::jsonLd()->addImage($setting?\Storage::url($setting->image):'');
+
     return view('FrontEnd.shop');
 })->name('shop');
 
@@ -177,7 +189,7 @@ Route::get('/seller/orders/show/{id}', 'FrontEnd\SellerController@orders_show')-
  */
 
 // Event page
-Route::get('/event/show/{slug}', 'FrontEnd\EventController@cms_show')->name('cms_show');
+Route::get('/event/{slug}', 'FrontEnd\EventController@cms_show')->name('cms_show');
 
 /*
  *    _____      _ _             _____  _                           _

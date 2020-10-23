@@ -71,6 +71,9 @@
                 <div id="review_form">
                     <div class="comment-respond" id="respond">
                         <h3 class="comment-reply-title" id="reply-title">@lang('user.Add_a_review')</h3>
+                        @if($this->message)
+                        <div class="alert alert-success">{{$this->message}}</div>
+                        @endif
                         <form class="comment-form" id="commentform" wire:submit.prevent='addReview'>
                             <div class="comment-form-rating">
                                 <label>@lang('user.Your_Rating')</label>

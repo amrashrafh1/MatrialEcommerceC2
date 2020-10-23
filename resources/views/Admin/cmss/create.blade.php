@@ -121,52 +121,6 @@
                         </div>
                     </div>
                     <br>
-                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                        <div class="form-group row">
-                            <div class="col-md-2">
-                                {!! Form::label('content_'.$localeCode,trans('admin.content')  .' ('. $properties['native'] .
-                                ')',['class'=>'control-label']) !!}
-                            </div>
-                            <div class="col-md-9">
-                                {!!
-                                Form::textarea('content_'.$localeCode,old('content_'.$localeCode),['class'=>'form-control','placeholder'=>trans('admin.content') .' ('. $properties['native'] .
-                            ')'])
-                                !!}
-                            </div>
-                        </div>
-                        <br>
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <label for="meta_tag_{{$localeCode}}" class=" control-label">@lang('admin.meta_tag')
-                                {{$properties['name']}}</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
-                                placeholder="@lang('admin.meta_tag')" value="{{old('meta_tag_'.$localeCode)}}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <label for="meta_description_{{$localeCode}}"
-                                class=" control-label">@lang('admin.meta_description')
-                                {{$properties['name']}}</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" name="meta_description_{{$localeCode}}" class="form-control mb-4"
-                                placeholder="@lang('admin.meta_description')"
-                                value="{{old('meta_description_'.$localeCode)}}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <label for="keywords_{{$localeCode}}" class=" control-label">@lang('admin.meta_keywords')
-                                {{$properties['name']}}</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" name="meta_keyword_{{$localeCode}}" value="" data-role="tagsinput">
-                        </div>
-                    </div>
-                    @endforeach
                     <div class="form-group row">
                         <div class="col-md-2">
                             <label for="image" class=" control-label">Main Image</label>
@@ -178,6 +132,53 @@
                             </div>
                         </div>
                     </div>
+                    <br/>
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                {!! Form::label('content_'.$localeCode,trans('admin.content')  .' ('. $properties['native'] .
+                                ')',['class'=>'control-label']) !!}
+                            </div>
+                            <div class="col-md-10">
+                                {!!
+                                Form::textarea('content_'.$localeCode,old('content_'.$localeCode),['class'=>'form-control','placeholder'=>trans('admin.content') .' ('. $properties['native'] .
+                            ')'])
+                                !!}
+                            </div>
+                        </div>
+                        <br>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="meta_tag_{{$localeCode}}" class=" control-label">@lang('admin.meta_tag_'.$properties['name'])
+                                </label>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
+                                placeholder="@lang('admin.meta_tag_'.$properties['name'])" value="{{old('meta_tag_'.$localeCode)}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="meta_description_{{$localeCode}}"
+                                class=" control-label">@lang('admin.meta_description_'.$properties['name'])
+                                </label>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" name="meta_description_{{$localeCode}}" class="form-control mb-4"
+                                placeholder="@lang('admin.meta_description_'.$properties['name'])"
+                                value="{{old('meta_description_'.$localeCode)}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="keywords_{{$localeCode}}" class=" control-label">@lang('admin.meta_keywords_'.$properties['name'])
+                                </label>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" name="meta_keyword_{{$localeCode}}" value="" data-role="tagsinput">
+                        </div>
+                    </div>
+                    @endforeach
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-12">

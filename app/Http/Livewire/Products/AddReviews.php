@@ -8,7 +8,7 @@ use Livewire\Component;
 class AddReviews extends Component
 {
 
-    public $product,$name, $email,$comment, $review, $faxonly = false;
+    public $product,$name, $email,$comment, $review,$message, $faxonly = false;
 
     public function mount($product)
     {
@@ -55,7 +55,8 @@ class AddReviews extends Component
                     'approved'                => false,
                 ], auth()->user());
                 $this->comment = '';
-                $this->review = 0;
+                $this->review  = 0;
+                $this->message = trans('user.Thank_you_for_your_review');
 
         }
     }

@@ -14,7 +14,8 @@ class Category extends Model implements Searchable, Viewable
     use HasTranslations, Cachable, InteractsWithViews;
     protected $table = 'categories';
     protected $guarded = [];
-    public $translatable = ['name', 'description'];
+    public $translatable = ['name', 'description', 'meta_tag',
+    'meta_description', 'meta_keyword'];
     protected $removeViewsOnDelete = true;
 
 

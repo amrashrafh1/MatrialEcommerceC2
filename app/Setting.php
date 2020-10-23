@@ -12,9 +12,9 @@ class Setting extends Model
     protected $table = 'settings';
     protected $guarded = [];
 
-    public $translatable = ['sitename','system_message'];
+    public $translatable = ['sitename','system_message', 'meta_tag',
+    'meta_description', 'meta_keyword'];
     public $timestamps = false;
-
 
     public function seller_countries()
     {

@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Country;
 use Closure;
 use Illuminate\Http\Request;
-use App\Country;
 
 class ChangeCountry
 {
@@ -17,29 +17,30 @@ class ChangeCountry
      */
     public function handle(Request $request, Closure $next)
     {
-        //session()->forget('country');
-        if (! $request->get('country') &&
-        ! $request->getSession()->get('country')) {
+       // session()->forget('country');
 
-          $clientIP     = $request->getClientIp();
-          $localCountry = geoip($clientIP)->getAttribute('country');
-          $country      = Country::where('country_name','LIKE', '%' . $localCountry . '%')->first();
-          if($country) {
-              $request->getSession()->put([
-                  'country' => $country->id,
-                  ]);
-           }
-      } elseif($request->get('country')) {
+        if (!$request->get('country') &&
+            !$request->getSession()->get('country')) {
 
-        $country = Country::where('country_name','LIKE', '%' . $request->get('country') . '%')->first();
-        if($country) {
+            $clientIP     = $request->getClientIp();
+            $localCountry = geoip($clientIP)->getAttribute('country');
+            $country      = Country::where('country_name', 'LIKE', '%' . $localCountry . '%')->first();
+            if ($country) {
+                $request->getSession()->put([
+                    'country' => $country->id,
+                ]);
+            }
+        } elseif ($request->get('country')) {
 
-        $request->getSession()->put([
-            'country' => $country->id,
-            ]);
+            $country = Country::where('country_name', 'LIKE', '%' . $request->get('country') . '%')->first();
+            if ($country) {
+
+                $request->getSession()->put([
+                    'country' => $country->id,
+                ]);
+            }
         }
-      }
 
-      return $next($request);
+        return $next($request);
     }
 }

@@ -54,27 +54,33 @@ class SettingController extends Controller
             'github'            => 'sometimes|nullable|in:1,0',
             'default_shipping'  => 'required|numeric',
             'shipping_method'   => 'required|numeric',
+            'meta_tag_en'          => 'sometimes|nullable|string',
+            'meta_description_en'  => 'sometimes|nullable|string',
+            'meta_keyword_en'      => 'sometimes|nullable|string',
         ],[],[
-            'sitename_en'       => trans('admin.sitename'),
-            'country_id'        => trans('admin.country_id'),
-            'logo'              => trans('admin.logo'),
-            'email'             => trans('admin.email'),
-            'icon'              => trans('admin.icon'),
-            'system_status'     => trans('admin.system_status'),
-            'system_message_en' => trans('admin.system_message'),
-            'location'          => trans('admin.location'),
-            'mobile'            => trans('admin.mobile'),
-            'shipping_method'   => trans('admin.shipping_method'),
-            'default_shipping'  => trans('admin.default_shipping'),
-            'fees'              => trans('admin.fees'),
-            'paypal'            => trans('admin.paypal'),
-            'stripe'            => trans('admin.stripe'),
-            'facebook'          => trans('admin.facebook'),
-            'twitter'           => trans('admin.twitter'),
-            'google_login'      => trans('admin.google_login'),
-            'facebook_login'    => trans('admin.facebook_login'),
-            'github'            => trans('admin.github'),
-            'twitter_login'     => trans('admin.twitter_login'),
+            'sitename_en'         => trans('admin.sitename'),
+            'country_id'          => trans('admin.country_id'),
+            'logo'                => trans('admin.logo'),
+            'email'               => trans('admin.email'),
+            'icon'                => trans('admin.icon'),
+            'system_status'       => trans('admin.system_status'),
+            'system_message_en'   => trans('admin.system_message'),
+            'location'            => trans('admin.location'),
+            'mobile'              => trans('admin.mobile'),
+            'shipping_method'     => trans('admin.shipping_method'),
+            'default_shipping'    => trans('admin.default_shipping'),
+            'fees'                => trans('admin.fees'),
+            'paypal'              => trans('admin.paypal'),
+            'stripe'              => trans('admin.stripe'),
+            'facebook'            => trans('admin.facebook'),
+            'twitter'             => trans('admin.twitter'),
+            'google_login'        => trans('admin.google_login'),
+            'facebook_login'      => trans('admin.facebook_login'),
+            'github'              => trans('admin.github'),
+            'twitter_login'       => trans('admin.twitter_login'),
+            'meta_tag_en'         => trans('admin.meta_tag_English'),
+            'meta_description_en' => trans('admin.meta_description_English'),
+            'meta_keyword_en'     => trans('admin.meta_keyword_English'),
         ]);
         if(!empty($data['icon'])) {
             $data['icon'] = upload($data['icon'], 'settings', 32,32);
@@ -109,6 +115,10 @@ class SettingController extends Controller
             foreach (\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
                 (empty($request['sitename_' . $localeCode])) ?: $da->setTranslation('sitename', $localeCode, $request['sitename_' . $localeCode])->save();
                 (empty($request['system_message_' . $localeCode])) ?: $da->setTranslation('system_message', $localeCode, $request['system_message_' . $localeCode])->save();
+                (empty($request['meta_tag_' . $localeCode])) ?: $da->setTranslation('meta_tag', $localeCode, $request['meta_tag_' . $localeCode])->save();
+                (empty($request['meta_description_' . $localeCode])) ?: $da->setTranslation('meta_description', $localeCode, $request['meta_description_' . $localeCode])->save();
+                (empty($request['meta_keyword_' . $localeCode])) ?: $da->setTranslation('meta_keyword', $localeCode, $request['meta_keyword_' . $localeCode])->save();
+
             };
             (count($da->seller_countries) > 0)?SellerCountries::whereIn('id', $da->seller_countries->pluck('id'))->delete():'';
             foreach($data['country_id'] as $country) {
@@ -138,9 +148,17 @@ class SettingController extends Controller
                 'github'           => $data['github'],
                 'default_shipping' => $data['default_shipping'],
                 'shipping_method'  => $data['shipping_method'],
+                'meta_tag'         => (empty($request['meta_tag_en'])) ? null : $request['meta_tag_en'],
+                'meta_description' => (empty($request['meta_description_en'])) ? null : $request['meta_description_en'],
+                'meta_keyword'     => (empty($request['meta_keyword_en'])) ? null : $request['meta_keyword_en'],
+
             ]);
             foreach(\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
                 $setting->setTranslation('sitename', $localeCode, $request['sitename_'.$localeCode])->save();
+                (empty($request['meta_tag_' . $localeCode])) ?: $setting->setTranslation('meta_tag', $localeCode, $request['meta_tag_' . $localeCode])->save();
+                (empty($request['meta_description_' . $localeCode])) ?: $setting->setTranslation('meta_description', $localeCode, $request['meta_description_' . $localeCode])->save();
+                (empty($request['meta_keyword_' . $localeCode])) ?: $setting->setTranslation('meta_keyword', $localeCode, $request['meta_keyword_' . $localeCode])->save();
+                (empty($request['system_message_' . $localeCode])) ?: $da->setTranslation('system_message', $localeCode, $request['system_message_' . $localeCode])->save();
             };
             foreach($data['country_id'] as $country) {
                 SellerCountries::create([
@@ -151,6 +169,12 @@ class SettingController extends Controller
         }
         Alert::success(trans('admin.updated'), trans('admin.success_record'));
         $rows = Setting::latest('id')->first();
+
+        if($data['system_status'] == 'open') {
+            \Artisan::call('up');
+        } elseif($data['system_status'] == 'close') {
+            \Artisan::call('down');
+        }
         return view('Admin.'. $this->path.'.create',['title' => 'Setting', 'rows' => $rows]);
     }
 }

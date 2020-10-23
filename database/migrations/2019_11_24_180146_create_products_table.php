@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->string('color')->nullable();
             $table->string('short_description', 255)->nullable();
             $table->text('description')->nullable();
+            $table->json('data')->nullable();
             $table->string('image')->nullable();
             $table->bigInteger('tradmark_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned();

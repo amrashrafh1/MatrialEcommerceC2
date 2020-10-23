@@ -18,7 +18,6 @@ class SellerStore extends Component
     public function mount($seller) {
         $this->seller = $seller;
         if(Auth::check()) {
-
             if(!auth()->user()->followee()->pluck('id')->contains($seller->id)) {
                 $this->isFollow = false;
             } else {
@@ -54,5 +53,9 @@ class SellerStore extends Component
                 $this->emit('cartAdded');
             }
         }
+    }
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
     }
 }

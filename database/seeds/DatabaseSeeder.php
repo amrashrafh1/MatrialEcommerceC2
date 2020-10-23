@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         //$this->call([CurrencySeeder::class]);
         $this->call([CountrySeeder::class]);
         $this->call([StoreSeeder::class]);
-        $this->call([UsersTableSeeder::class]);
+       // $this->call([UsersTableSeeder::class]);
         $this->call([LaratrustSeeder::class]);
     }
 }

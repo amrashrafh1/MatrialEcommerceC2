@@ -22,6 +22,9 @@ class CreateCategoriesTable extends Migration
             $table->boolean('status')->default(1);
             $table->bigInteger('category_id')->nullable()->unsigned();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->string('meta_tag')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->string('meta_description')->nullable();
             $table->timestamps();
         });
     }

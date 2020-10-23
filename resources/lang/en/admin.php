@@ -166,9 +166,12 @@ return array (
     'marketplace'                                                    => 'Marketplace',
     'max_quantity'                                                   => 'Max quantity',
     'menuTitle'                                                      => 'Menu Title',
-    'meta_description'                                               => 'Meta description',
-    'meta_keywords'                                                  => 'Meta keywords',
-    'meta_title'                                                     => 'Meta title',
+    'meta_description_English'                                       => 'Meta description in english',
+    'meta_keywords_English'                                          => 'Meta keywords in english',
+    'meta_tag_English'                                               => 'Meta tag in english',
+    'meta_description_Arabic'                                        => 'Meta description in arabic',
+    'meta_keywords_Arabic'                                           => 'Meta keywords in arabic',
+    'meta_tag_Arabic'                                                => 'Meta tag in arabic',
     'method'                                                         => 'shipping method',
     'methods'                                                        => 'Shipping Methods',
     'mob'                                                            => 'Mobile code',
@@ -397,5 +400,7 @@ return array (
     'message'                                                        => 'Message',
     'cmss'                                                           => 'Events',
     'sellers-app'                                                    => 'sellers applications',
+    'Data'                                                           => 'Data',
+    'key'                                                            => 'Key',
 
 );

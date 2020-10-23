@@ -44,6 +44,12 @@
                                     </i>@lang('admin.Dimensions')</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="Data-tab" data-toggle="tab" href="#Data" role="tab"
+                                    aria-controls="Data" aria-selected="false"><i class="material-icons">
+                                        height
+                                    </i>@lang('admin.Data')</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
                                     aria-controls="settings" aria-selected="false">
                                     <i class="material-icons">build</i>
@@ -383,6 +389,30 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="Data" role="tabpanel" aria-labelledby="Data-tab">
+                <div>
+                    <div class="col-md-12">
+                        <h3 class="h3">@lang('admin.Data')</h3>
+                    </div>
+                    <ol id="list">
+                        <li class="list_var">
+                            <div class="form-group">
+                                <div class="col-md-12 row" id='list_0'>
+                                    <div class='col m-1'>
+                                        <input type='text' value='{{old('key.0')}}' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'>
+                                    </div>
+                                    <div class='col m-1'>
+                                        <input type='text' value='{{old('value.0')}}' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <button class="list_del btn btn-danger"><i class='fa fa-trash'></i></button> --}}
+                        </li>
+                    </ol>
+                    <button type='button' class="list_add btn btn-primary"><i class='fa fa-plus'></i></button>
+                    <br />
+                </div>
+            </div>
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                 <div class="form-group row">
                     <div class="col-md-3">
@@ -413,12 +443,12 @@
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="meta_title_{{$localeCode}}" class=" control-label">@lang('user.meta_title_'.$properties['name'])
+                        <label for="meta_tag_{{$localeCode}}" class=" control-label">@lang('user.meta_tag_'.$properties['name'])
                             </label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" name="meta_title_{{$localeCode}}" class="form-control mb-4"
-                            placeholder="@lang('user.meta_title_'.$properties['name'])" value="{{old('meta_title_'.$localeCode)}}">
+                        <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
+                            placeholder="@lang('user.meta_tag_'.$properties['name'])" value="{{old('meta_tag_'.$localeCode)}}">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -435,11 +465,11 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="keywords_{{$localeCode}}" class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
+                        <label for="meta_keyword_{{$localeCode}}" class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
                             </label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" name="keywords" value="" data-role="tagsinput">
+                        <input type="text" name="meta_keyword_{{$localeCode}}" value="" data-role="tagsinput">
                     </div>
                 </div>
                 @endforeach
@@ -554,7 +584,27 @@
     });
 
 </script>
+<script type="text/javascript" src="{{ asset('/js/add-input-area.min.js')}}"></script>
+<script>
+$(document).ready(function() {
+	var max_fields      = 20; //maximum input boxes allowed
+	var wrapper   		= $("#list"); //Fields wrapper
+	var add_button      = $(".list_add"); //Add button ID
 
+	var x = 1; //initlal text box count
+	$(add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+		if(x < max_fields){ //max input box allowed
+			x++; //text box increment
+			$(wrapper).append("<li class='list_var'><div class='form-group'><div class='col-md-12 row' id='list_0'><div class='col m-1'><input type='text' value='' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'></div><div class='col m-1'><input type='text' value='' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'></div>"); //add input box
+		}
+	});
+
+	$(wrapper).on("click",".list_del", function(e){ //user click on remove text
+		e.preventDefault(); $(this).parent('li').remove(); x--;
+	})
+});
+</script>
 @livewireAssets
 
 @endpush

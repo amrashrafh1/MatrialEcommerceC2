@@ -11,6 +11,10 @@ class SellerProfileController extends Controller
     public function show_seller($id)
     {
         $seller = User::where('id',$id)->whereRoleIs('seller')->first();
-        return view('FrontEnd.seller-profile', ['seller' => $seller]);
+        if($seller) {
+
+            return view('FrontEnd.seller-profile', ['seller' => $seller]);
+        }
+        return redirect()->route('home');
     }
 }

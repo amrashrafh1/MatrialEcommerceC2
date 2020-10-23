@@ -219,7 +219,7 @@
                                                                                                                                 alt=""
                                                                                                                                 data-proportionally-constrained="true"
                                                                                                                                 data-responsive="false"
-                                                                                                                                src="http://cdn.mcauto-images-production.sendgrid.net/954c252fedab403f/14815610-37b1-409c-ada6-acbc5352d36d/140x40.png"
+                                                                                                                                src="{{($setting)?Storage::url($setting->image):''}}"
                                                                                                                                 height="40">
                                                                                                                         </td>
                                                                                                                     </tr>

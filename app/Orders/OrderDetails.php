@@ -7,8 +7,10 @@ use App\Product;
 use App\Sold;
 use App\Order_lines;
 use App\Setting;
+use App\Shipping_methods;
 use Cart;
 use App\Mail\SendOrder;
+use App\Events\NewOrder;
 use Mail;
 use NumberFormatter;
 class OrderDetails
@@ -148,7 +150,6 @@ class OrderDetails
                     'options'        => ($cc->buyable->product_type === 'variable') ? json_encode($cc->options) : null,
                 ]);
                 Product::find($cc->buyable->id)->decrement('stock', $cc->quantity);
-
             }
 
         } else {
@@ -193,6 +194,7 @@ class OrderDetails
             }
         }
         Mail::to($validate['billing_email'])->send(new SendOrder($order));
+        event(new NewOrder(trans('admin.new_Order')));
 
         session()->forget('order');
         session()->forget('coupon');

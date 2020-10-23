@@ -31,9 +31,12 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     protected $guarded             = [];
     protected $cachePrefix         = "products-prefix";
     protected $removeViewsOnDelete = true;
-    public    $translatable        = ['name', 'description', 'size', 'color', 'meta_tag',
+    public    $translatable        = ['name', 'description','short_description', 'size', 'color', 'meta_tag',
      'meta_description', 'meta_keyword'];
 
+     protected $casts = [
+        'data' => 'array',   // Will convarted to (Array)
+    ];
     /* attributes many to many */
 
     public function attributes()

@@ -93,6 +93,42 @@
                                     !!}
                                 </div>
                             </div>
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="meta_tag_{{$localeCode}}"
+                                class=" control-label">@lang('admin.meta_tag_'.$properties['name'])
+                            </label>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
+                                placeholder="@lang('admin.meta_tag_'.$properties['name'])"
+                                value="{{old('meta_tag_'.$localeCode)}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="meta_description_{{$localeCode}}"
+                                class=" control-label">@lang('admin.meta_description_'.$properties['name'])
+                            </label>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" name="meta_description_{{$localeCode}}" class="form-control mb-4"
+                                placeholder="@lang('admin.meta_description_'.$properties['name'])"
+                                value="{{old('meta_description_'.$localeCode)}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label for="keywords_{{$localeCode}}"
+                                class=" control-label">@lang('admin.meta_keywords_'.$properties['name'])
+                            </label>
+                        </div>
+                        <div class="col-md-10">
+                        <input type="text" name="meta_keyword_{{$localeCode}}" value="{{old('meta_keyword_'.$localeCode)}}" data-role="tagsinput">
+                        </div>
+                    </div>
+                    @endforeach
                             <br>
                             <div class="form-actions">
                                 <div class="row">
@@ -113,6 +149,8 @@
     </div>
 </div>
 @push('js')
+<link rel="stylesheet" href="{{url('/')}}/css/bootstrap-tagsinput.css">
+<script src="{{url('/')}}/js/bootstrap-tagsinput.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     {!! $validatorCategoryForm->selector('#create-category') !!}
@@ -130,6 +168,11 @@
                     console.error( error );
                 } );
         <?php } ?>
+        $('form').keypress(function(e){
+      if(e.keyCode==13)
+      //$('#linkadd').click();
+      e.preventDefault();
+    });
 </script>
 @endpush
 @stop

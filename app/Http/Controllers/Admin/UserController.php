@@ -92,14 +92,16 @@ class UserController extends Controller
             'last_name' => $data['last_name']
         ]);
         $user->attachRole($request->role);
+        $user->email_verified_at = \Carbon\Carbon::now()->toDateTimeString();
+        $user->save();
         if($request->permissions != NULL) {
             if($request->role == 'administrator') {
                 $user->attachPermissions($request->permissions);
             }
         }
-        $users = User::whereRoleIs('superadministrator')->orWhereRoleIs('administrator')->get();
+        /* $users = User::whereRoleIs('superadministrator')->orWhereRoleIs('administrator')->get();
         Notification::send($users, new NotificationSent('New User was created'));
-        event(new notificationEvent('New User was created'));
+        event(new notificationEvent('New User was created')); */
         Alert::success(trans('admin.added'), trans('admin.success_record'));
         return redirect()->route($this->route.'.index');
     }

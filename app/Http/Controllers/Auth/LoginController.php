@@ -61,7 +61,8 @@ class LoginController extends Controller
         ]);
         if ($login->wasRecentlyCreated) {
             $login->attachRole('user');
-
+            $login->email_verified_at = \Carbon\Carbon::now()->toDateTimeString();
+            $login->save();
         }
         Auth::login($login,true);
         return redirect()->route('home');

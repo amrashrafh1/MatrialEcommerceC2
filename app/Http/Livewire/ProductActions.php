@@ -64,7 +64,6 @@ class ProductActions extends Component
     public function add_cart($submit) {
         //$this->options = $attrs;
     $opts = [];
-    dd($submit['attributes[]']);
         $data = $this->validate([
             'quantity'  => 'required|numeric',
             'options'   => 'required|array',

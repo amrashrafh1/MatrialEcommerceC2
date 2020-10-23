@@ -29,7 +29,7 @@ class Shipping
         } else {
             $ship                 = $this->calcShipping();
             $this->shipping_total = round($ship);
-            $shipping_name        = $shipping_method->name;
+            $shipping_name        = $this->shipping->name;
         }
 
         return [
@@ -44,31 +44,31 @@ class Shipping
         if ($this->shipping->rule === 'flat_rate_per_order') {
 
             return $this->shipping->value;
-
         } elseif ($this->shipping->rule === 'quantity_based_per_order') {
 
-            return $this->shipping->value * ($this->qty / $this->shipping->weight);
+            return quantity_based_per_order($this->shipping, $qty);
 
         } elseif ($this->shipping->rule === 'price_based_per_order') {
 
-            return $this->shipping->value / 100 * $this->price;
+            return $this->shipping->value / 100 * $this->sale_price;
 
         } elseif ($this->shipping->rule === 'flat_rate_per_item') {
 
-            return $this->shipping->value * $this->qty;
+            return $this->shipping->value * $qty;
 
         } elseif ($this->shipping->rule === 'weight_based_per_item') {
 
-            return (floatval($weight) * $this->qty / $this->shipping->weight) * $this->shipping->value;
+            return (floatval($this->weight) * $qty) * $this->shipping->value;
 
         } elseif ($this->shipping->rule === 'weight_based_per_order') {
 
-            return (floatval($weight) * $this->qty / $this->shipping->weight) * $this->shipping->value;
+            return weight_based_per_order($this->weight, $this->shipping, $qty);
 
         } elseif ($this->shipping->rule === 'price_based_per_item') {
 
-            return ($this->shipping->value / 100 * $this->price) * $this->qty;
+            return ($this->shipping->value / 100 * $this->sale_price) * $qty;
         }
+
     }
 
     public function settingMethod()

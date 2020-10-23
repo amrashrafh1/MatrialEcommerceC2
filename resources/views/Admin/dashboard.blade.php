@@ -563,7 +563,7 @@
         /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
         dataDailySalesChart = {
-            labels: ["@lang('admin.Tod')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
+            labels: ["@lang('admin.Today')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
                 "@lang('admin.4d')", "@lang('admin.5d')", "@lang('admin.6d')", "@lang('admin.7d')"
             ],
             series: [

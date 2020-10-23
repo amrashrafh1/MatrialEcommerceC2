@@ -39,13 +39,16 @@ class Shop extends Component
         if ($this->category) {
 
             $cat_id     = $this->category->id;
+            $cats_id    = Category::where('id', $cat_id)
+            ->with('categories.childrenCategories')
+            ->first()->pluck('id');
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
-            $brands     = Tradmark::whereHas('products', function ($q) use ($cat_id) {
-                $q->where('category_id', $cat_id)->where('visible', 'visible')->where('approved', 1);
+            $brands     = Tradmark::whereHas('products', function ($q) use ($cats_id) {
+                $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
             })->inRandomOrder('id')->get();
 
-            $attributes = Attribute::whereHas('products', function ($q) use ($cat_id) {
-                    $q->where('category_id', $cat_id)
+            $attributes = Attribute::whereHas('products', function ($q) use ($cats_id) {
+                    $q->whereIn('category_id', $cats_id)
                     ->where('visible', 'visible')->where('approved', 1)
                     ->select('name','approved','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
             })->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
@@ -60,7 +63,7 @@ class Shop extends Component
                     array_push($family, $ff);
                 }
             }
-            $products = shop_sort($cat_id,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+            $products = shop_sort($cats_id,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         } else {
             /*
              *    _____ _                   _____
@@ -74,9 +77,9 @@ class Shop extends Component
              *
              */
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
-            $brands = Tradmark::inRandomOrder('id')->get();
+            $brands     = Tradmark::inRandomOrder('id')->get();
             $attributes = Attribute::get();
-            $family = [];
+            $family     = [];
             foreach ($attributes as $attr) {
                 $id = $attr->id;
                 $ff = Attribute_Family::whereHas('attributes', function ($q) use ($id) {

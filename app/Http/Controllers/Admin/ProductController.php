@@ -56,27 +56,40 @@ class ProductController extends Controller
     public function create()
     {
         $validatorCategoryForm = \JsValidator::make([
-            'sku'            => 'required|string|max:191|unique:products',
-            'slug'           => 'required|string|max:191|unique:products',
-            'product_type'   => 'required|string',
-            'purchase_price' => 'required|numeric',
-            'sale_price'     => 'required|numeric',
-            'in_stock'       => 'required|string',
-            'tradmark_id'    => 'required|numeric',
-            'stock'          => 'required|numeric',
-            'visible'        => 'required|string|max:191',
-            'tax'            => 'required|numeric',
-            'category_id'    => 'required|numeric',
-            'image'          => 'required|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
-            'description_en' => 'sometimes|nullable|string',
-            'length_en'      => 'sometimes|nullable|max:191',
-            'width_en'       => 'sometimes|nullable|max:191',
-            'height_en'      => 'sometimes|nullable|max:191',
-            'weight_en'      => 'sometimes|nullable|max:191',
-            'name_en'        => 'required|string|max:191',
-            'size_en'        => 'sometimes|nullable|string',
-            'color_en'       => 'sometimes|nullable|string',
-            'shippings'      => 'required',
+            'sku'                  => 'required|string|max:191|unique:products',
+            'slug'                 => 'required|string|max:191|unique:products',
+            'section'              => 'sometimes|nullable|string',
+            'product_type'         => 'required|string',
+            'purchase_price'       => 'required|numeric',
+            'sale_price'           => 'required|numeric',
+            'in_stock'             => 'required|string',
+            'tradmark_id'          => 'required|numeric|exists:tradmarks,id',
+            'stock'                => 'required|numeric',
+            'visible'              => 'required|string|max:191',
+            'tax'                  => 'required|numeric',
+            'category_id'          => 'required|numeric|exists:categories,id',
+            'user_id'              => 'sometimes|nullable|numeric|exists:users,id',
+            'owner'                => 'sometimes|nullable|in:for_seller,for_site_owner',
+            'image'                => 'required|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
+            'gallery.*'            => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
+            'description_en'       => 'sometimes|nullable|string',
+            'short_description_en' => 'sometimes|nullable|string|max:255',
+            'tags_en'              => 'sometimes|nullable|max:191',
+            'length'               => 'sometimes|nullable|max:191',
+            'width'                => 'sometimes|nullable|max:191',
+            'height'               => 'sometimes|nullable|max:191',
+            'weight'               => 'sometimes|nullable|max:191',
+            'name_en'              => 'required|string|max:191',
+            'size_en'              => 'sometimes|nullable|string',
+            'color_en'             => 'sometimes|nullable|string',
+            'shippings'            => 'required|exists:shipping_methods,id',
+            'attributes.*'         => 'sometimes|nullable|exists:attributes,id',
+            'key.*'                => 'sometimes|nullable',
+            'value.*'              => 'sometimes|nullable',
+            'has_accessories'      => 'required|string|max:191',
+            'meta_tag_en'          => 'sometimes|nullable|string',
+            'meta_description_en'  => 'sometimes|nullable|string',
+            'meta_keyword_en'      => 'sometimes|nullable|string',
         ]);
         return view('Admin.' . $this->path . '.create', ['title' => 'Create ' . $this->path,
             'Validator' => $validatorCategoryForm,
@@ -104,36 +117,43 @@ class ProductController extends Controller
         if ($request['owner'] == 'for_site_owner') {
             $request['user_id'] = 1;
         }
-
+        $data_spec = [];
+        if($request['key']) {
+            foreach($request['key'] as $index => $key) {
+                array_push($data_spec,[$key => $request['value'][$index]]);
+            }
+         }
         $product = $this->model::create([
-            'sku'              => $request['sku'],
-            'section'          => $request['section'],
-            'product_type'     => $request['product_type'],
-            'purchase_price'   => $request['purchase_price'],
-            'sale_price'       => $request['sale_price'],
-            'in_stock'         => $request['in_stock'],
-            'tradmark_id'      => $request['tradmark_id'],
-            'owner'            => $request['owner'],
-            'user_id'          => $request['user_id'],
-            'stock'            => $request['stock'],
-            'visible'          => $request['visible'],
-            'tax'              => $request['tax'],
-            'category_id'      => $request['category_id'],
-            'approved'         => 1,
-            'image'            => $img,
-            'description'      => $request['description_en'],
-            'slug'             => \Str::slug($request['slug']),
-            'length'           => (empty($request['length'])) ? null : $request['length'],
-            'width'            => (empty($request['width'])) ? null : $request['width'],
-            'height'           => (empty($request['height'])) ? null : $request['height'],
-            'weight'           => (empty($request['weight'])) ? null : $request['weight'],
-            'name'             => $request['name_en'],
-            'size'             => (empty($request['size_en'])) ? null : $request['size_en'],
-            'color'            => (empty($request['color_en'])) ? null : $request['color_en'],
-            'has_accessories'  => $request['has_accessories'],
-            'meta_tag'         => (empty($request['meta_tag_en'])) ? null : $request['meta_tag_en'],
-            'meta_description' => (empty($request['meta_description_en'])) ? null : $request['meta_description_en'],
-            'meta_keyword'     => (empty($request['meta_keyword_en'])) ? null : $request['meta_keyword_en'],
+            'sku'               => $request['sku'],
+            'section'           => $request['section'],
+            'product_type'      => $request['product_type'],
+            'purchase_price'    => $request['purchase_price'],
+            'sale_price'        => $request['sale_price'],
+            'in_stock'          => $request['in_stock'],
+            'tradmark_id'       => $request['tradmark_id'],
+            'owner'             => $request['owner'],
+            'user_id'           => $request['user_id'],
+            'stock'             => $request['stock'],
+            'visible'           => $request['visible'],
+            'tax'               => $request['tax'],
+            'category_id'       => $request['category_id'],
+            'approved'          => 1,
+            'image'             => $img,
+            'description'       => $request['description_en'],
+            'short_description' => $request['short_description_en'],
+            'slug'              => \Str::slug($request['slug']),
+            'data'              => ($data_spec)? $data_spec: NULL,
+            'length'            => (empty($request['length'])) ? null : $request['length'],
+            'width'             => (empty($request['width'])) ? null : $request['width'],
+            'height'            => (empty($request['height'])) ? null : $request['height'],
+            'weight'            => (empty($request['weight'])) ? null : $request['weight'],
+            'name'              => $request['name_en'],
+            'size'              => (empty($request['size_en'])) ? null : $request['size_en'],
+            'color'             => (empty($request['color_en'])) ? null : $request['color_en'],
+            'has_accessories'   => $request['has_accessories'],
+            'meta_tag'          => (empty($request['meta_tag_en'])) ? null : $request['meta_tag_en'],
+            'meta_description'  => (empty($request['meta_description_en'])) ? null : $request['meta_description_en'],
+            'meta_keyword'      => (empty($request['meta_keyword_en'])) ? null : $request['meta_keyword_en'],
         ]);
         if (!empty($request['tags_en'])) {
             $data_en = explode(',', $request['tags_en']);
@@ -156,6 +176,7 @@ class ProductController extends Controller
         foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
             $product->setTranslation('name', $localeCode, $request['name_' . $localeCode])->save();
             (empty($request['description_' . $localeCode])) ?: $product->setTranslation('description', $localeCode, $request['description_' . $localeCode])->save();
+            (empty($request['short_description_' . $localeCode])) ?: $product->setTranslation('short_description', $localeCode, $request['short_description_' . $localeCode])->save();
             (empty($request['size_' . $localeCode])) ?: $product->setTranslation('size', $localeCode, $request['size_' . $localeCode])->save();
             (empty($request['color_' . $localeCode])) ?: $product->setTranslation('color', $localeCode, $request['color_' . $localeCode])->save();
             (empty($request['meta_tag_' . $localeCode])) ?: $product->setTranslation('meta_tag', $localeCode, $request['meta_tag_' . $localeCode])->save();
@@ -255,6 +276,12 @@ class ProductController extends Controller
         } else {
             $img = $this->model::find($id)->image;
         }
+        $data_spec = [];
+        if($request['key']) {
+            foreach($request['key'] as $index => $key) {
+                array_push($data_spec,[$key => $request['value'][$index]]);
+            }
+        }
         $this->model::where('id', $id)->update([
             'sku'             => $request['sku'],
             'section'         => $request['section'],
@@ -269,6 +296,7 @@ class ProductController extends Controller
             'category_id'     => $request['category_id'],
             'image'           => $img,
             'slug'            => \Str::slug($request['slug']),
+            'data'            => $data_spec,
             'length'          => (empty($request['length'])) ? null : $request['length'],
             'width'           => (empty($request['width'])) ? null : $request['width'],
             'height'          => (empty($request['height'])) ? null : $request['height'],
@@ -303,6 +331,7 @@ class ProductController extends Controller
         foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
             $product->setTranslation('name', $localeCode, $request['name_' . $localeCode])->save();
             (empty($request['description_' . $localeCode])) ?: $product->setTranslation('description', $localeCode, $request['description_' . $localeCode])->save();
+            (empty($request['short_description_' . $localeCode])) ?: $product->setTranslation('short_description', $localeCode, $request['short_description_' . $localeCode])->save();
             (empty($request['size_' . $localeCode])) ?: $product->setTranslation('size', $localeCode, $request['size_' . $localeCode])->save();
             (empty($request['color_' . $localeCode])) ?: $product->setTranslation('color', $localeCode, $request['color_' . $localeCode])->save();
             (empty($request['meta_tag_' . $localeCode])) ?: $product->setTranslation('meta_tag', $localeCode, $request['meta_tag_' . $localeCode])->save();
