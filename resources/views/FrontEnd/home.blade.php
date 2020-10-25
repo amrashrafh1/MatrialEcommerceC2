@@ -66,7 +66,7 @@
                                                 <span class="price">
                                                     @if($randomProduct->available_discount())
                                                     <ins>
-                                                        <span class="amount">{!! curr($randomProduct->priceDiscount()) !!}</span>
+                                                        <span class="amount">{!! curr($randomProduct->discount->price()) !!}</span>
                                                     </ins>
                                                     <del>
                                                         <span class="amount">{!! curr($randomProduct->calc_price()) !!}</span>
@@ -77,7 +77,7 @@
                                                     </ins>
                                                 @endif
                                                 </span>
-                                                <span class='product_shipping'>{{product_shipping($randomProduct)}}</span>
+                                                <span class='product_shipping'>{{$randomProduct->calc_shippings($country)}}</span>
 
                                             </div>
                                             <!-- .caption -->

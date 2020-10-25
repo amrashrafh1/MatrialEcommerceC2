@@ -24,7 +24,7 @@ class ChangeCountry
 
             $clientIP     = $request->getClientIp();
             $localCountry = geoip($clientIP)->getAttribute('country');
-            $country      = Country::where('country_name', 'LIKE', '%' . $localCountry . '%')->first();
+            $country      = \DB::table('countries')->where('country_name', 'LIKE', '%' . $localCountry . '%')->first();
             if ($country) {
                 $request->getSession()->put([
                     'country' => $country->id,
@@ -32,7 +32,7 @@ class ChangeCountry
             }
         } elseif ($request->get('country')) {
 
-            $country = Country::where('country_name', 'LIKE', '%' . $request->get('country') . '%')->first();
+            $country = \DB::table('countries')->where('country_name', 'LIKE', '%' . $request->get('country') . '%')->first();
             if ($country) {
 
                 $request->getSession()->put([

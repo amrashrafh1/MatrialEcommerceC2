@@ -15,12 +15,20 @@ class Deals extends Component
     public function render()
     {
 
-        $discountProducts = Discount::where('daily', 'daily_deals')->discountAvailable()
 
-            ->with('product:name,slug,product_type,id,sale_price,image')->paginate(12);
-
-        $random = Discount::where('daily', 'daily_deals')->discountAvailable()
-            ->with('product:name,slug,product_type,id,sale_price,image,stock')->first();
+        $discountProducts = Discount::discountAvailable()
+        ->where('daily', 'daily_deals')
+        ->whereHas('product' , function ($query) {
+            $query->where('visible', 'visible')->where('approved', 1)
+            ->select('id','slug','product_type','image','name','sale_price');
+        })->paginate(12);
+        
+        $random = Discount::discountAvailable()
+            ->where('daily', 'daily_deals')
+            ->whereHas('product' , function ($query) {
+                $query->where('visible', 'visible')->where('approved', 1)
+                ->select('id','slug','product_type','image','name','sale_price');
+            })->first();
 
         return view('livewire.deals', ['discountProducts' => $discountProducts, 'random' => $random,
         ]);

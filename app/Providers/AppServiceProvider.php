@@ -33,10 +33,13 @@ class AppServiceProvider extends ServiceProvider
         $categories          = Category::where('status', 1)->where('category_id', NULL)->with('categories')->get();
 
         \View::composer('*', function ($view) {
-            $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):collect();
+            $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->with('products')->disableCache()->pluck('product_id'):collect();
             $compare             = (session()->get('compare'))?session()->get('compare'):[];
+            $country_id          = (session('country'))?session('country'):1;
+            $country             = \DB::table('countries')->where('id', $country_id)->first();
             view()->share('wishlist_product_id', $wishlist_product_id);
             view()->share('compare', $compare);
+            view()->share('country', $country);
         });
         \Config::set('app.setting', $setting);
 

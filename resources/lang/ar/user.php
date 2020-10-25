@@ -340,7 +340,7 @@ return array (
   'services' => 'خدمات',
   'shipped_to' => 'تم شحنها إلي',
   'shipping' => 'الشحن',
-  'shipping:' => ':الشحن',
+  '+shipping:' => '+ الشحن :',
   'shipping_not_available_in' => 'الشحن غير متوفر في',
   'shipping_to' => 'يشحن إلى',
   'shippings' => 'مصاريف الشحن',
@@ -386,5 +386,8 @@ return array (
   ),
   'Thank_you_for_your_review' => 'شكرا لك، لمراجعتك',
   'specification'             => 'تخصيص',
+  'there_is_no_specification' => 'لا توجد مواصفات',
+  'show_more'                 => 'أظهر المزيد',
+  'show_less'                 => 'أظهر الاقل',
 
 );

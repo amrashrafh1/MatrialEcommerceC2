@@ -163,7 +163,7 @@
                                         </ins>
                                         @endif
                                     </span>
-                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                    <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                     <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                 </a>
@@ -302,7 +302,7 @@
                                                 </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                             <!-- .price -->
                                             @if($product->IsVariable())
@@ -426,7 +426,7 @@
                                                 </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                             <!-- .price -->
                                             @if($product->IsVariable())
@@ -539,7 +539,7 @@
                                                 </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                             <!-- .price -->
                                             @if($product->IsVariable())
@@ -676,38 +676,41 @@
                             </div>
                             <div id="slider-range" class="price_slider"></div>
                     </div> --}}
-            <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-2" wire:ignore>
+            <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-0" wire:ignore>
                 <span class="gamma widget-title">@lang('user.Brands')</span>
                 <ul>
-
                     @foreach($brands as $brand)
-                    <div class="custom-control custom-radio custom-control-block mb-2">
+                    <li class="wc-layered-nav-term custom-control custom-radio custom-control-block mb-2">
                         <input type="radio" class="custom-control-input" wire:model='assId' value="{{$brand->id}}"
                             id="customRadio{{$brand->id}}">
                         <label class="custom-control-label" for="customRadio{{$brand->id}}">
                             {{$brand->name}}
-                            ({{$brand->products->where('visible', 'visible')->where('approved', 1)->count()}})
+                            @if($this->category)
+                            ({{$brand->products()->IsApproved()->where('category_id', $this->category->id)->count()}})
+                            @else
+                            ({{$brand->products()->IsApproved()->count()}})
+                            @endif
                         </label>
-                    </div>
+                    </li>
                     @endforeach
                 </ul>
             </div>
             <!-- .woocommerce widget_layered_nav -->
-            <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-3" wire:ignore>
-                @foreach($family as $fam)
+            @foreach($family as $index => $fam)
+            <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-{{$index + 1}}" wire:ignore>
                 <span class="gamma widget-title">{{$fam->name}}</span>
                 <ul>
                     @foreach($fam->attributes()->whereIn('id',$attributes->pluck('id'))->get() as $attribute)
-                    <div class="custom-control custom-checkbox">
+                    <li class="wc-layered-nav-term custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" wire:model='ass_attrs' name="attributes[]"
                             value="{{$attribute->id}}" id="customCheck{{$attribute->id}}">
                         <label class="custom-control-label"
                             for="customCheck{{$attribute->id}}">{{$attribute->name}}</label>
-                    </div>
+                    </li>
                     @endforeach
                 </ul>
-                @endforeach
             </div>
+            @endforeach
             <!-- .woocommerce widget_layered_nav -->
         </div>
         <div class="widget widget_techmarket_products_carousel_widget" wire:ignore>
@@ -718,7 +721,7 @@
                 </header>
                 <!-- .section-header -->
                 <div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products"
-                    data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;rows&quot;:2,&quot;slidesPerRow&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#single-sidebar-carousel .custom-slick-nav&quot;}">
+                    data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;rows&quot;:2,&quot;slidesPerRow&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-{{$direction == 'right'?'right':'left'}}\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-{{$direction == 'right'?'left':'right'}}\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#single-sidebar-carousel .custom-slick-nav&quot;}">
                     <div class="container-fluid">
                         <div class="woocommerce columns-1">
                             <div class="products">
@@ -744,7 +747,7 @@
                                                     </ins>
                                                     @endif
                                                 </span>
-                                                <span class='product_shipping'>{{product_shipping($latest)}}</span>
+                                                <span class='product_shipping'>{{$latest->calc_shippings($country)}}</span>
 
                                                 <!-- .price -->
                                                 <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>

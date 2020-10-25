@@ -457,6 +457,7 @@
                     <h3 class="h3">@lang('admin.Data')</h3>
                 </div>
                 <ol id="list">
+                    @if($this->rows->data)
                     @foreach($this->rows->data as $index => $value)
                     <li class="list_var">
                         <div class="form-group">
@@ -472,6 +473,7 @@
                         <button class="list_del btn btn-danger"><i class='fa fa-trash'></i></button>
                     </li>
                     @endforeach
+                    @endif
                 </ol>
                 <button type='button' class="list_add btn btn-primary"><i class='fa fa-plus'></i></button>
                 <br />
@@ -685,7 +687,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		if(x < max_fields){ //max input box allowed
 			x++; //text box increment
-			$(wrapper).append("<li class='list_var'><div class='form-group'><div class='col-md-12 row' id='list_0'><div class='col m-1'><input type='text' value='' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'></div><div class='col m-1'><input type='text' value='' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'></div>"); //add input box
+			$(wrapper).append("<li class='list_var'><div class='form-group'><div class='col-md-12 row' id='list_0'><div class='col m-1'><input type='text' value='' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'></div><div class='col m-1'><input type='text' value='' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'></div></div></div><button class='list_del btn btn-danger'><i class='fa fa-trash'></i></button></li>"); //add input box
 		}
 	});
 

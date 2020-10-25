@@ -6,6 +6,7 @@ use App\Tradmark;
 use App\User;
 use App\Setting;
 use App\Country;
+use Illuminate\Support\Facades\DB;
 use App\Shipping_methods;
 
 // /Admin url
@@ -173,34 +174,34 @@ if (!function_exists('seller_sales_charts')) {
         $user_id = auth()->user()->id;
         if ($period == 'days') {
             $solds = [
-                Sold::whereDate('created_at', today())->whereHas('product', function ($query) use ($user_id) {
+                DB::table('solds')->whereDate('created_at', today())->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->sum('sold'),
             ];
             for ($i = 1; $i <= $day; $i++) {
-                array_push($solds, Sold::whereDate('created_at', today()->subDays($i))->whereHas('product', function ($query) use ($user_id) {
+                array_push($solds, DB::table('solds')->whereDate('created_at', today()->subDays($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->sum('sold'));
             }
         } elseif ($period == 'months') {
             $solds = [
-                Sold::whereMonth('created_at', \Carbon\Carbon::now()->month)->whereHas('product', function ($query) use ($user_id) {
+                DB::table('solds')->whereMonth('created_at', \Carbon\Carbon::now()->month)->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->sum('sold'),
             ];
             for ($i = 1; $i <= $day; $i++) {
-                array_push($solds, Sold::whereDate('created_at', \Carbon\Carbon::now()->startOfMonth($i))->whereHas('product', function ($query) use ($user_id) {
+                array_push($solds, DB::table('solds')->whereDate('created_at', \Carbon\Carbon::now()->startOfMonth($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->sum('sold'));
             }
         } else {
             $solds = [
-                Sold::whereYear('created_at', \Carbon\Carbon::now()->year)->whereHas('product', function ($query) use ($user_id) {
+                DB::table('solds')->whereYear('created_at', \Carbon\Carbon::now()->year)->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->sum('sold'),
             ];
             for ($i = 1; $i <= $day; $i++) {
-                array_push($solds, Sold::whereDate('created_at', \Carbon\Carbon::now()->subYear($i))->whereHas('product', function ($query) use ($user_id) {
+                array_push($solds, DB::table('solds')->whereDate('created_at', \Carbon\Carbon::now()->subYear($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->sum('sold'));
             }
@@ -217,34 +218,34 @@ if (!function_exists('revenue_chart')) {
         $user_id = auth()->user()->id;
         if ($period == 'days') {
             $solds = [
-                Sold::whereDate('created_at', today())->whereHas('product', function ($query) use ($user_id) {
+                DB::table('solds')->whereDate('created_at', today())->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->value(DB::raw('SUM((sale_price * sold )  - coupon)')),
             ];
             for ($i = 1; $i <= $day; $i++) {
-                array_push($solds, Sold::whereDate('created_at', today()->subDays($i))->whereHas('product', function ($query) use ($user_id) {
+                array_push($solds, DB::table('solds')->whereDate('created_at', today()->subDays($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->value(DB::raw('SUM((sale_price * sold )  - coupon)')));
             }
         } elseif ($period == 'months') {
             $solds = [
-                Sold::whereMonth('created_at', \Carbon\Carbon::now()->month)->whereHas('product', function ($query) use ($user_id) {
+                DB::table('solds')->whereMonth('created_at', \Carbon\Carbon::now()->month)->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->value(DB::raw('SUM((sale_price * sold )  - coupon)')),
             ];
             for ($i = 1; $i <= $day; $i++) {
-                array_push($solds, Sold::whereDate('created_at', \Carbon\Carbon::now()->startOfMonth($i))->whereHas('product', function ($query) use ($user_id) {
+                array_push($solds, DB::table('solds')->whereDate('created_at', \Carbon\Carbon::now()->startOfMonth($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->value(DB::raw('SUM((sale_price * sold )  - coupon)')));
             }
         } else {
             $solds = [
-                Sold::whereYear('created_at', \Carbon\Carbon::now()->year)->whereHas('product', function ($query) use ($user_id) {
+                DB::table('solds')->whereYear('created_at', \Carbon\Carbon::now()->year)->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->value(DB::raw('SUM((sale_price * sold )  - coupon)')),
             ];
             for ($i = 1; $i <= $day; $i++) {
-                array_push($solds, Sold::whereDate('created_at', \Carbon\Carbon::now()->subYear($i))->whereHas('product', function ($query) use ($user_id) {
+                array_push($solds, DB::table('solds')->whereDate('created_at', \Carbon\Carbon::now()->subYear($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })->value(DB::raw('SUM((sale_price * sold )  - coupon)')));
             }
@@ -264,34 +265,34 @@ if (!function_exists('profit_chart')) {
             $solds = [
                 Sold::whereDate('created_at', today())->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
-                })->value(\DB::raw('SUM(sale_price - purchase_price)')),
+                })->value(DB::raw('SUM(sale_price - purchase_price)')),
             ];
             for ($i = 1; $i <= $day; $i++) {
                 array_push($solds, Sold::whereDate('created_at', today()->subDays($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
-                })->value(\DB::raw('SUM(sale_price - purchase_price)')));
+                })->value(DB::raw('SUM(sale_price - purchase_price)')));
             }
         } elseif ($period == 'months') {
             $solds = [
                 Sold::whereMonth('created_at', \Carbon\Carbon::now()->month)->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
-                })->value(\DB::raw('SUM(sale_price - purchase_price)')),
+                })->value(DB::raw('SUM(sale_price - purchase_price)')),
             ];
             for ($i = 1; $i <= $day; $i++) {
                 array_push($solds, Sold::whereDate('created_at', \Carbon\Carbon::now()->startOfMonth($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
-                })->value(\DB::raw('SUM(sale_price - purchase_price)')));
+                })->value(DB::raw('SUM(sale_price - purchase_price)')));
             }
         } else {
             $solds = [
                 Sold::whereYear('created_at', \Carbon\Carbon::now()->year)->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
-                })->value(\DB::raw('SUM(sale_price - purchase_price)')),
+                })->value(DB::raw('SUM(sale_price - purchase_price)')),
             ];
             for ($i = 1; $i <= $day; $i++) {
                 array_push($solds, Sold::whereDate('created_at', \Carbon\Carbon::now()->subYear($i))->whereHas('product', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
-                })->value(\DB::raw('SUM(sale_price - purchase_price)')));
+                })->value(DB::raw('SUM(sale_price - purchase_price)')));
             }
         }
         return $solds;
@@ -496,20 +497,20 @@ if (!function_exists('get_purchase_price')) {
 if (!function_exists('profit_calc')) {
     function profit_calc($days)
     {
-        return Sold::whereDate('created_at', today()->subDays($days))->value(DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)'));
+        return DB::table('solds')->whereDate('created_at', today()->subDays($days))->value(DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)'));
     }
 }
 
 if (!function_exists('revenue_calc')) {
     function revenue_calc($days)
     {
-        return Sold::whereDate('created_at', today()->subDays($days))->value(DB::raw('SUM((sale_price * sold )  - coupon)'));
+        return DB::table('solds')->whereDate('created_at', today()->subDays($days))->value(DB::raw('SUM((sale_price * sold )  - coupon)'));
     }
 }
 if (!function_exists('sales_calc')) {
     function sales_calc($days)
     {
-        return Sold::whereDate('created_at', today()->subDays($days))->sum('sold');
+        return DB::table('solds')->whereDate('created_at', today()->subDays($days))->sum('sold');
     }
 }
 
@@ -613,9 +614,9 @@ if (!function_exists('tradmark_not_exist')) {
 
 if(!function_exists('product_shipping')) {
     function product_shipping(Product $product) {
-        $shippings  = [];
+       /*  $shippings  = [];
         $country_id = (session('country'))?session('country'):1;
-        $country    = Country::where('id', $country_id)->first();
+        $country    = DB::table('countries')->where('id', $country_id)->first();
 
         $methods    = $product->methods()->whereHas('zone', function ($q) use ($country_id) {
             $q->whereHas('countries', function ($query) use ($country_id) {
@@ -653,13 +654,13 @@ if(!function_exists('product_shipping')) {
             }
         }
         if(count($shippings) > 0) {
-            return  (min($shippings) == 0)?trans('user.free_shipping'):  '+'.trans('user.shipping:') . curr(min($shippings)) ;
+            return  (min($shippings) == 0)?trans('user.free_shipping'): trans('user.+shipping:') . curr(min($shippings)) ;
 
         } else {
             return trans('user.shipping_not_available_in') . $country->country_name;
-        }
+        } */
+        return 0;
     }
-
 
     if(!function_exists('quantity_based_per_order')) {
         function quantity_based_per_order(Shipping_methods $method, $qty) {

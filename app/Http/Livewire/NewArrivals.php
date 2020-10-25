@@ -14,13 +14,23 @@ class NewArrivals extends Component
     public function render()
     {
         $products = Product::IsApproved()->where('section','hot_new_arrivals')
-        ->select('id','slug','product_type','image','name','sale_price')->latest()->take(20)->get();
+        ->select('id','slug','product_type','image','name','sale_price')->with(['discount', 'methods'])->latest()->take(20)->get();
 
 
         $categories = Category::inRandomOrder()->select('name', 'id', 'slug')
-        ->whereHas('products', function ($query) {
-            $query->where('visible', 'visible')->where('approved', 1);
-        })->take(4)->get();
+        ->whereHas('products', function ($q) {
+            $q->where('visible', 'visible')->where('approved', 1)
+            ->where('section','hot_new_arrivals')
+            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
+            ->take(20);
+        })
+        ->with(['products'=> function ($q) {
+            $q->where('visible', 'visible')->where('approved', 1)
+            ->where('section','hot_new_arrivals')
+            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
+            ->take(20);
+        }])
+        ->take(4)->get();
 
         return view('livewire.new-arrivals',['products' => $products,
          'categories' => $categories]);

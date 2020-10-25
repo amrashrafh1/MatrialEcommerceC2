@@ -402,8 +402,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                     <div class="tm-shop-attributes-detail like-column columns-3">
                                         <table class="shop_attributes">
                                             <tbody>
-                                                @if($this->product->data)
-                                                @foreach($this->product->data as $value)
+                                                @foreach($this->product->data?$this->product->data:[] as $value)
                                                 <tr>
                                                     <th>{{key($value)}}</th>
                                                     <td>
@@ -411,7 +410,30 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                                     </td>
                                                 </tr>
                                                 @endforeach
-                                                @endif
+                                                <tr>
+                                                    <th>@lang('user.width')</th>
+                                                    <td>
+                                                        <p><a href="#" rel="tag">{{$this->product->width}}</a></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>@lang('user.height')</th>
+                                                    <td>
+                                                        <p><a href="#" rel="tag">{{$this->product->height}}</a></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>@lang('user.weight')</th>
+                                                    <td>
+                                                        <p><a href="#" rel="tag">{{$this->product->weight}}</a></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>@lang('user.length')</th>
+                                                    <td>
+                                                        <p><a href="#" rel="tag">{{$this->product->length}}</a></p>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                         <!-- /.shop_attributes -->

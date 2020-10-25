@@ -11,7 +11,8 @@ class Dreams extends Component
     public function render()
     {
 
-        $products = Product::where('section','make_dreams_your_reality')
+        $products = Product::IsApproved()->where('section','make_dreams_your_reality')
+        ->with(['discount', 'methods'])
         ->select('id','slug','product_type','name','sale_price', 'image')->orderBy('id','desc')->take(20)->get();
 
         return view('livewire.dreams', ['products' => $products]);

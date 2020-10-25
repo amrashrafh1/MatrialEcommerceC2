@@ -361,7 +361,14 @@
 			}
 
 			if( $slick_target ) {
-				$slick_target.slick();
+                if(direction == 'right') {
+
+                    $slick_target.slick({
+                         rtl:true
+                    });
+                } else {
+                    $slick_target.slick();
+                }
 			}
 		});
 
@@ -651,10 +658,10 @@
 
 	$(document).ready(function() {
 	    $('.maxlist-more ul').hideMaxListItems({
-	        'max': 5,
+	        'max': 2,
 	        'speed': 500,
-	    	'moreText': '+ Show more',
-			'lessText': '- Show less',
+	    	'moreText': '+ ' + show_more,
+			'lessText': '- ' + show_less,
 	        'moreHTML': '<p class="maxlist-more"><a href="#"></a></p>'
 	    });
 

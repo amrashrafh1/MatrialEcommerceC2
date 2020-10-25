@@ -23,6 +23,7 @@ use Treestoneit\ShoppingCart\Taxable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use Treestoneit\ShoppingCart\Models\CartItem;
+use DB;
 
 class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable,Viewable
 {
@@ -146,10 +147,10 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     {
         return $query->where('visible', 'visible')->where('approved', 1)
         ->whereHas('discount', function ($d) {
-            $d->where('condition', 'percentage_of_product_price')
-                ->orWhere('condition', 'fixed_amount')
-                ->where('start_at', '<=', \Carbon\Carbon::now())
-                ->where('expire_at', '>', \Carbon\Carbon::now())->orderBy('id', 'desc');
+                $d->where([['start_at', '<=', \Carbon\Carbon::now()], ['expire_at', '>', \Carbon\Carbon::now()],
+                ['condition', 'percentage_of_product_price']])
+                ->orWhere([['start_at', '<=', \Carbon\Carbon::now()],['condition', 'fixed_amount'],
+                ['expire_at', '>', \Carbon\Carbon::now()]])->orderBy('id', 'desc');
         });
     }
 
@@ -159,6 +160,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     {
         return $this->sale_price + ($this->tax * $this->sale_price) / 100;
     }
+
     public function priceDiscount()
     {
         if ($this->available_discount()) {
@@ -387,4 +389,50 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
 
 
+
+    public function calc_shippings($country) {
+        $shippings  = [];
+        $country_id = $country->id;
+        $methods    = $this->methods()->whereHas('zone', function ($q) use ($country_id) {
+            $q->whereHas('countries', function ($query) use ($country_id) {
+                $query->where('id', $country_id);
+        });
+        })->get();
+        if (count($methods) <= 0) {
+            // will get the default shipping method if has this country
+            $defaultShipping = config('app.setting');
+            if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
+
+                    $isDefaultMethod = $defaultShipping->shipping()->whereHas('zone', function ($q) use ($country_id) {
+                        $q->whereHas('countries', function ($query) use ($country_id) {
+                            $query->where('id', $country_id);
+                        });
+                    })->first();
+                    // push $defaultShipping to shippings array
+                    if ($isDefaultMethod !== null) {
+                        array_push($shippings, $this->calcShipping($isDefaultMethod, 1));
+                    } else {
+                        // if $defaultShipping empty remove this item from items array
+                        return trans('user.shipping_not_available_in') . $country->country_name;
+                    }
+
+
+            }
+            // if $defaultShipping empty remove this item from items array
+            if ($defaultShipping->default_shipping != 1 || $defaultShipping->shipping == null) {
+                return trans('user.shipping_not_available_in') . $country->country_name;
+            }
+        } else {
+
+            foreach($methods as $method) {
+                array_push($shippings, $this->calcShipping($method, 1));
+            }
+        }
+        if(count($shippings) > 0) {
+            return  (min($shippings) == 0)?trans('user.free_shipping'): trans('user.+shipping:') . curr(min($shippings)) ;
+
+        } else {
+            return trans('user.shipping_not_available_in') . $country->country_name;
+        }
+    }
 }

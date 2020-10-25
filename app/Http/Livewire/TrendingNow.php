@@ -12,18 +12,25 @@ class TrendingNow extends Component
     public function render()
     {
         // get top 20 trending now
-        $products = Product::where('section','trending_now')
+        $products = Product::where('section','trending_now')->with('discount')
         ->select('id','slug','image','product_type','name','sale_price')->inRandomOrder()->take(20)->get();
 
         // get random trending now categories
         $categories = Category::inRandomOrder()->select('name', 'id', 'slug')
         ->whereHas('products', function ($q) {
-            $q->where('section','trending_now');
+            $q->where('visible', 'visible')->where('approved', 1)
+            ->where('section','hot_new_arrivals')
+            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
+            ->take(20);
         })
         ->with(['products'=> function ($q) {
-            $q->where('section','trending_now');
-        }])->take(4)->get();
-
+            $q->where('visible', 'visible')->where('approved', 1)
+            ->where('section','hot_new_arrivals')
+            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
+            ->take(20);
+        }])
+        ->take(4)->get();
+        
         return view('livewire.trending-now',['products' => $products, 'categories' => $categories
         ]);
     }

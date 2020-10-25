@@ -253,5 +253,6 @@ Route::post('track-your-order-send', 'FrontEnd\TrackYourOrderController@send')->
 
 /* ChatBOt Route */
 
+Route::get('testing', 'TestController@index');
 });
 Route::match(['get', 'post'], '/botman', 'ChatBoxController@enterRequest');

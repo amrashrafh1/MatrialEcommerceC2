@@ -15,19 +15,34 @@ class SpecialOffers extends Component
     {
         $categories = Category::where('status', 1)->select('name', 'id', 'slug')
         ->whereHas('products', function ($q) {
-            $q->whereHas('discount', function ($s) {
-                $s->where('start_at', '<=',\Carbon\Carbon::now())
-                ->where('expire_at', '>',\Carbon\Carbon::now())
-                ->where('daily', 'special_offers');
+            $q->whereHas('discount', function ($d) {
+                $d->where([
+                ['condition', 'percentage_of_product_price'],['daily', 'special_offers'],
+                ['start_at', '<=', \Carbon\Carbon::now()],
+                ['expire_at', '>', \Carbon\Carbon::now()]])
+
+                ->orWhere([
+                    
+                ['condition', 'fixed_amount'],['daily', 'special_offers'],
+                ['start_at', '<=', \Carbon\Carbon::now()],
+                ['expire_at', '>', \Carbon\Carbon::now()]])->take(9);
             });
         })
         ->with(['products'=> function ($q) {
-            $q->whereHas('discount', function ($s) {
-                $s->where('start_at', '<=',\Carbon\Carbon::now())
-                ->where('expire_at', '>',\Carbon\Carbon::now())
-                ->where('daily', 'special_offers');
+            $q->whereHas('discount', function ($d) {
+                $d->where([
+                ['condition', 'percentage_of_product_price'],['daily', 'special_offers'],
+                ['start_at', '<=', \Carbon\Carbon::now()],
+                 ['expire_at', '>', \Carbon\Carbon::now()]])
+
+                ->orWhere([
+                    
+                ['condition', 'fixed_amount'],['daily', 'special_offers'],
+                ['start_at', '<=', \Carbon\Carbon::now()],
+                ['expire_at', '>', \Carbon\Carbon::now()]])->take(9);
             });
-        }])->take(8)->get();
+        }])
+        ->take(7)->get();
 
 
         return view('livewire.special-offers', ['categories' => $categories]);

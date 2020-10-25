@@ -1,3 +1,7 @@
+@php 
+ $countries = \DB::table('countries')->get();
+ $country   = \DB::table('countries')->where('id', session('country'))->first();
+@endphp
 <header id="masthead" class="site-header header-v1" style="background-image: none; ">
     <div class="col-full desktop-only">
         <div class="techmarket-sticky-wrap">
@@ -122,9 +126,6 @@
                                 <i class="tm tm-order-tracking"></i>@lang('user.Track_Your_Order')</a>
                         </li>
                         @endrole
-                        @php
-                        $country = App\Country::where('id', session('country'))->first();
-                        @endphp
                         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
                             <a title="{{($country) ? $country->country_name : trans('user.select_country')}}"
                                 data-toggle="dropdown" class="dropdown-toggle"
@@ -133,7 +134,7 @@
                                             <span class="caret"></span>
                                         </a>
                             <ul role="menu" class=" dropdown-menu" style='overflow-y:scroll; height:250px;'>
-                                @foreach(App\Country::get() as  $country)
+                                @foreach($countries as  $country)
                                 <li
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
                                     <a title="{{ $country->country_name }}"
@@ -415,7 +416,7 @@
                                 <i class="fa fa-flag-o"></i>
                             </a>
                             <div class="dropdown-menu mt-4" aria-labelledby="dropdownMenuButton" style='overflow-y:scroll; height:250px; width:250px;'>
-                                @foreach(App\Country::get() as  $country)
+                                @foreach($countries as  $country)
                                 <li  class="dropdown-item">
                                     <a title="{{ $country->country_name }}"
                                     href="{{'?country=' . $country->country_name}}">{{ $country->country_name }}</a>

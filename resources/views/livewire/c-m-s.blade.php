@@ -146,7 +146,7 @@
                                                 </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                             <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                         </a>
@@ -288,7 +288,7 @@
                                                         @endif
                                                     </span>
                                                     <!-- .price -->
-                                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                                    <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
@@ -414,7 +414,7 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                                    <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
@@ -529,7 +529,7 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                                    <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
@@ -699,7 +699,7 @@
                                                             @endif
                                                         </span>
                                                         <!-- .price -->
-                                                        <span class='product_shipping'>{{product_shipping($latest)}}</span>
+                                                        <span class='product_shipping'>{{$latest->calc_shippings($country)}}</span>
                                                         <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 0 out of 5" class="star-rating">

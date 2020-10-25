@@ -11,6 +11,7 @@ class RecentlyProduct extends Component
         $sessions = session()->get('recently_viewed');
         if($sessions !== null) {
             $recently_viewed = Product::whereIn('id',$sessions)
+            ->with('discount')
             ->select('id','slug','product_type','name','image','sale_price')->take(40)->get();
         } else {
             $recently_viewed = collect();

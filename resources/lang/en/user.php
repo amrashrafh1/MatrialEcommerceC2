@@ -352,7 +352,7 @@ return [
     'select_country'                                                                                                                                                                              => 'Select country',
     'free_shipping'                                                                                                                                                                               => 'Free shipping',
     'shipping_not_available_in'                                                                                                                                                                   => 'Shipping not available in ',
-    'shipping:'                                                                                                                                                                                   => 'Shipping: ',
+    '+shipping:'                                                                                                                                                                                   => '+ Shipping: ',
     'online'                                                                                                                                                                                      => 'Online',
     'Offline'                                                                                                                                                                                     => 'Offline',
     'Away'                                                                                                                                                                                        => 'Away',
@@ -370,4 +370,8 @@ return [
     'We&rsquo;ll_be_back_soon!'                                                                                                                                                                   => 'We&rsquo;ll be back soon!',
     'Thank_you_for_your_review'                                                                                                                                                                   => 'Thank you for your review',
     'specification'                                                                                                                                                                               => 'Specification',
+    'there_is_no_specification'                                                                                                                                                                   => 'There is no specification',
+    'your_favorite_sellers_and_stores'                                                                                                                                                            => 'Your favorite sellers & stores',
+    'show_more'                                                                                                                                                            => 'Show More',
+    'show_less'                                                                                                                                                            => 'Show Less',
 ];

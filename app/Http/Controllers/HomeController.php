@@ -21,10 +21,9 @@ class HomeController extends Controller
     {
         $catalog = Category::orderByViews()->get();
 
-        $adzs = Adz::available()->inRandomOrder('id')->get();
-        $randomProduct = Product::isApproved()->inRandomOrder('id')->first();
-
-        $sliders = Slider::isActive()->get();
+        $adzs          = Adz::available()->inRandomOrder('id')->get();
+        $randomProduct = Product::isApproved()->orderBy('id','desc')->with('discount')->first();
+        $sliders       = Slider::isActive()->get();
 
         //currency()->setUserCurrency('EUR');
 

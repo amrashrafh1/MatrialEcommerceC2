@@ -293,6 +293,11 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/waypoints-sticky.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/pace.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/slick.min.js"></script>
+<script type="text/javascript">
+    var direction = '{{$direction}}';
+    var show_more = '@lang("user.show_more")';
+    var show_less = '@lang("user.show_less")';
+</script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/scripts.js"></script>
 <script src="{{ asset('material') }}/js/plugins/sweetalert2.js"></script>
 <script src="{{ url('') }}/js/app.js"></script>

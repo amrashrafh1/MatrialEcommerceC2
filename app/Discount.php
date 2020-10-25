@@ -25,20 +25,27 @@ class Discount extends Model
 
         if($this->condition == 'percentage_of_product_price') {
 
-            return  $this->product->sale_price - ($this->amount/100 * $this->sale_price);
+            return ($this->product->sale_price - ($this->amount / 100 * $this->product->sale_price)) + ($this->product->tax * $this->product->sale_price) / 100;
 
         } elseif($this->condition == 'fixed_amount') {
 
-            return $this->product->sale_price - $this->amount;
-
+            return ($this->product->sale_price - $this->amount) + ($this->product->tax * $this->product->sale_price) / 100;
+        
         }
     }
 
     public function scopeDiscountAvailable($query) {
-        return $query->where('condition', 'percentage_of_product_price')
-        ->orWhere('condition', 'fixed_amount')
-        ->where('start_at', '<=', \Carbon\Carbon::now())
-        ->where('expire_at', '>', \Carbon\Carbon::now())
+        return $query
+        ->where(
+        [['condition', 'percentage_of_product_price'],
+        ['start_at', '<=', \Carbon\Carbon::now()],
+        ['expire_at', '>', \Carbon\Carbon::now()]])
+
+        ->orWhere([
+        ['condition', 'fixed_amount'],
+        ['start_at', '<=', \Carbon\Carbon::now()],
+        ['expire_at', '>', \Carbon\Carbon::now()]
+        ])
         ->select('start_at', 'expire_at', 'condition', 'daily', 'product_id', 'id', 'amount');
     }
 }

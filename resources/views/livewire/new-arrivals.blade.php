@@ -62,7 +62,7 @@
                                                     </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                             <!-- /.price -->
                                             <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
@@ -153,7 +153,7 @@
                                                     </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{product_shipping($product)}}</span>
+                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
                                             <!-- /.price -->
                                             <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
                                         </a>
