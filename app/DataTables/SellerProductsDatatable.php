@@ -20,7 +20,8 @@ class SellerProductsDatatable extends DataTable
     public function query()
     {
         return Product::query()->where('owner', 'for_seller')
-        ->select('name->en as ss','image','approved','slug','product_type','id','has_accessories','user_id','sale_price');
+        ->select('name->en as ss','image','approved','slug','owner','product_type','id',
+        'has_accessories','user_id','sale_price');
     }
 
 

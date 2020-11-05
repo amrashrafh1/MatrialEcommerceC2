@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title',100);
             $table->dateTime('publish_at')->nullable();
             $table->string('slug')->unique();
-            $table->longText('content');
+            $table->text('content');
             $table->string('image');
             $table->integer('commentable')->unsigned()->default(0);
             $table->bigInteger('user_id')->unsigned();

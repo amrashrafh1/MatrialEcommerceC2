@@ -22,7 +22,7 @@ class CreateSettingsTable extends Migration
             $table->string('logo')->nullable();
             $table->string('icon')->nullable();
             $table->enum('system_status', ['open', 'close'])->default('open');
-            $table->longtext('system_message')->nullable();
+            $table->text('system_message')->nullable();
             $table->tinyInteger('fees');
             $table->boolean('default_shipping')->default(1);
             $table->boolean('paypal')->default(1);

@@ -16,7 +16,7 @@ class CreateOurworksTable extends Migration
         Schema::create('ourworks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 199);
-            $table->longText('description');
+            $table->text('description');
             $table->string('image', 255);
             $table->string('link', 199);
             $table->timestamps();

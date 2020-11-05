@@ -118,22 +118,22 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="owner" class=" control-label">Product Owner</label>
+                        <label for="owner" class=" control-label">@lang('admin.Product_Owner')</label>
                     </div>
                     <div class="col-md-9">
                         <select name="owner" class="form-control" v-model="owner" required>
-                            <option value="for_seller">For Seller</option>
-                            <option value="for_site_owner">Owner</option>
+                            <option value="for_seller">@lang('admin.for_seller')</option>
+                            <option value="for_site_owner">@lang('admin.owner')</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row" v-show="owner == 'for_seller'">
                     <div class="col-md-3">
-                        <label for="user_id" class="control-label">Seller</label>
+                        <label for="seller_id" class="control-label">@lang('admin.Seller')</label>
                     </div>
                     <div class="col-md-9">
-                        {!! Form::select('user_id', \App\User::whereRoleIs('seller')->pluck('email','id')
-                        ,$this->rows->user_id,['class'=>'form-control']) !!}
+                        {!! Form::select('seller_id', \App\SellerInfo::where('approved',1)->pluck('name','id')
+                        ,$this->rows->seller_id,['class'=>'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -509,30 +509,29 @@
             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
             <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
                 <div class="col-md-3">
-                    <label for="meta_tag_{{$localeCode}}" class=" control-label">@lang('admin.meta_tag')
-                        {{$properties['name']}}</label>
+                    <label for="meta_tag_{{$localeCode}}" class=" control-label">@lang('user.meta_tag_'.$properties['name'])
+                        </label>
                 </div>
                 <div class="col-md-9">
                     <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
-                        placeholder="@lang('admin.meta_tag')"
+                        placeholder="@lang('user.meta_tag_'.$properties['name'])"
                         value="{{(!empty($this->rows->meta_tag))?$this->rows->getTranslation('meta_tag', $localeCode):''}}">
                 </div>
             </div>
             <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
                 <div class="col-md-3">
-                    <label for="meta_description_{{$localeCode}}" class=" control-label">@lang('admin.meta_description')
-                        {{$properties['name']}}</label>
+                    <label for="meta_description_{{$localeCode}}" class=" control-label">@lang('user.meta_description_'.$properties['name'])</label>
                 </div>
                 <div class="col-md-9">
                     <input type="text" name="meta_description" class="form-control mb-4"
-                        placeholder="@lang('admin.meta_description')"
+                        placeholder="@lang('user.meta_description_'.$properties['name'])"
                         value="{{(!empty($this->rows->meta_description))?$this->rows->getTranslation('meta_description', $localeCode):''}}">
                 </div>
             </div>
             <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
                 <div class="col-md-3">
-                    <label for="meta_keyword_{{$localeCode}}" class=" control-label">@lang('admin.meta_keywords')
-                        {{$properties['name']}}</label>
+                    <label for="meta_keyword_{{$localeCode}}" class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
+                        </label>
                 </div>
                 <div class="col-md-9">
                     <input type="text" name="meta_keyword_{{$localeCode}}"

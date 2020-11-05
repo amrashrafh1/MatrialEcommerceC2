@@ -4,16 +4,14 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\User;
+use App\SellerInfo;
 class SellerProfileController extends Controller
 {
-    public function show_seller($id)
+    public function show_seller($slug)
     {
-        $seller = User::where('id',$id)->whereRoleIs('seller')->first();
-        if($seller) {
-
-            return view('FrontEnd.seller-profile', ['seller' => $seller]);
+        $store = SellerInfo::where('slug', $slug)->first();
+        if($store) {
+            return view('FrontEnd.seller-profile', ['store' => $store]);
         }
         return redirect()->route('home');
     }

@@ -10,6 +10,7 @@ use App\Http\Requests\Admin\Products\productsRequestStore;
 use App\Http\Requests\Admin\Products\productsRequestUpdate;
 use App\inventory;
 use App\Product;
+use App\SellerInfo;
 use App\Shipping_methods;
 //use Illuminate\Support\Facades\Cache;
 use DB;
@@ -31,7 +32,7 @@ class ProductController extends Controller
         $this->middleware(['permission:update-' . $this->path])->only('edit');
         $this->middleware(['permission:delete-' . $this->path])->only('destroy');
         $this->model = Product::class;
-        $this->middleware('image-sanitize');
+       // $this->middleware('image-sanitize');
 
     }
     /**
@@ -73,7 +74,7 @@ class ProductController extends Controller
             'image'                => 'required|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
             'gallery.*'            => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
             'description_en'       => 'sometimes|nullable|string',
-            'short_description_en' => 'sometimes|nullable|string|max:255',
+            'short_description_en' => 'sometimes|nullable|string',
             'tags_en'              => 'sometimes|nullable|max:191',
             'length'               => 'sometimes|nullable|max:191',
             'width'                => 'sometimes|nullable|max:191',
@@ -109,7 +110,7 @@ class ProductController extends Controller
         ], [], [
             'shippings' => trans('admin.shippings'),
         ]);
-        // dd($shippings);
+
         $img = '';
         if (!empty($request['image'])) {
             $img = upload($request['image'], $this->path);
@@ -122,7 +123,14 @@ class ProductController extends Controller
             foreach($request['key'] as $index => $key) {
                 array_push($data_spec,[$key => $request['value'][$index]]);
             }
-         }
+        }
+
+        $seller = '';
+        if($request['owner'] == 'for_site_owner') {
+            $request['user_id'] = 1;
+        } else {
+            $seller = SellerInfo::findOrfail($request['seller_id'])->seller;
+        }
         $product = $this->model::create([
             'sku'               => $request['sku'],
             'section'           => $request['section'],
@@ -132,7 +140,8 @@ class ProductController extends Controller
             'in_stock'          => $request['in_stock'],
             'tradmark_id'       => $request['tradmark_id'],
             'owner'             => $request['owner'],
-            'user_id'           => $request['user_id'],
+            'user_id'           => $request['user_id']?$request['user_id']:$seller->id,
+            'seller_id'         => $request['seller_id'],
             'stock'             => $request['stock'],
             'visible'           => $request['visible'],
             'tax'               => $request['tax'],
@@ -218,27 +227,28 @@ class ProductController extends Controller
     public function edit($id)
     {
         $validatorCategoryForm = \JsValidator::make([
-            'sku'            => 'sometimes|required|string|max:191|unique:products,sku,' . $id,
-            'slug'           => 'sometimes|required|string|max:191|unique:products,slug,' . $id,
-            'product_type'   => 'required|string',
-            'purchase_price' => 'required|numeric',
-            'sale_price'     => 'required|numeric',
-            'in_stock'       => 'required|string',
-            'tradmark_id'    => 'required|numeric',
-            'stock'          => 'required|numeric',
-            'visible'        => 'required|string|max:191',
-            'tax'            => 'required|numeric',
-            'category_id'    => 'required|numeric',
-            'image'          => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000|unique:products,image,' . $id,
-            'description_en' => 'sometimes|nullable|string',
-            'length_en'      => 'sometimes|nullable|max:191',
-            'width_en'       => 'sometimes|nullable|max:191',
-            'height_en'      => 'sometimes|nullable|max:191',
-            'weight_en'      => 'sometimes|nullable|max:191',
-            'name_en'        => 'required|string|max:191',
-            'size_en'        => 'sometimes|nullable|string',
-            'color_en'       => 'sometimes|nullable|string',
-            'shippings'      => 'sometimes|nullable',
+            'sku'                  => 'sometimes|required|string|max:191|unique:products,sku,' . $id,
+            'slug'                 => 'sometimes|required|string|max:191|unique:products,slug,' . $id,
+            'product_type'         => 'required|string',
+            'purchase_price'       => 'required|numeric',
+            'sale_price'           => 'required|numeric',
+            'in_stock'             => 'required|string',
+            'tradmark_id'          => 'required|numeric',
+            'stock'                => 'required|numeric',
+            'visible'              => 'required|string|max:191',
+            'tax'                  => 'required|numeric',
+            'category_id'          => 'required|numeric',
+            'image'                => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000|unique:products,image,' . $id,
+            'description_en'       => 'sometimes|nullable|string',
+            'short_description_en' => 'sometimes|nullable|string',
+            'length_en'            => 'sometimes|nullable|max:191',
+            'width_en'             => 'sometimes|nullable|max:191',
+            'height_en'            => 'sometimes|nullable|max:191',
+            'weight_en'            => 'sometimes|nullable|max:191',
+            'name_en'              => 'required|string|max:191',
+            'size_en'              => 'sometimes|nullable|string',
+            'color_en'             => 'sometimes|nullable|string',
+            'shippings'            => 'sometimes|nullable',
         ]);
         $rows = $this->model::findOrFail($id);
         $attributes = $rows->attributes;
@@ -282,6 +292,13 @@ class ProductController extends Controller
                 array_push($data_spec,[$key => $request['value'][$index]]);
             }
         }
+        $seller = '';
+        if($request['owner'] == 'for_site_owner') {
+            $request['user_id'] = 1;
+        } else {
+            $seller = SellerInfo::findOrfail($request['seller_id'])->seller;
+        }
+
         $this->model::where('id', $id)->update([
             'sku'             => $request['sku'],
             'section'         => $request['section'],
@@ -293,6 +310,9 @@ class ProductController extends Controller
             'stock'           => $request['stock'],
             'visible'         => $request['visible'],
             'tax'             => $request['tax'],
+            'owner'           => $request['owner'],
+            'user_id'         => $request['user_id']?$request['user_id']:$seller->id,
+            'seller_id'       => $request['seller_id'],
             'category_id'     => $request['category_id'],
             'image'           => $img,
             'slug'            => \Str::slug($request['slug']),

@@ -22,6 +22,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                     {{ session('out_stock') }}
                 </div>
             @endif
+            @if(isset($this->product->store->slug))
             <div class="col-md-12 mb-1 d-flex justify-content-center">
                 <div class="row">
                     <nav id="primary-navigation" class="primary-navigation" aria-label="Primary Navigation"
@@ -29,7 +30,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                         <ul id="menu-primary-menu" class="nav yamm">
                             <li class="yamm-fw menu-item menu-item-has-children animate-dropdown dropdown">
                                 <a title="Pages" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
-                            href="#">{{$this->product->seller->name}} <span class="caret {{($direction === 'right')?'mr-5':'ml-5'}}"></span></a>
+                            href="#">{{$this->product->store->name}} <span class="caret {{($direction === 'right')?'mr-5':'ml-5'}}"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     <li class="menu-item menu-item-object-static_block animate-dropdown" style="width: 450px;
                                     margin: auto;">
@@ -38,21 +39,24 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                                 <div class="widget widget_nav_menu">
                                                     <ul class="menu" style="wrap:wrap">
                                                         <li class="nav-body menu-item">
-                                                            @if(isset($this->product->seller->country->country_name))
-                                                            <a href="#">{{$this->product->seller->country->country_name}}</a>
+                                                            @if(isset($this->product->store->country->country_name))
+                                                            <a href="#">{{$this->product->store->country->country_name}}</a>
                                                             @endif
                                                         </li>
                                                         <li class="nav-body menu-item">
-                                                        <a href="#">@lang('user.This_store_has_been_open_since') <span class="text-danger">{{$this->product->seller->created_at->format('F j, Y')}}</span></a>
+                                                        <a href="#">@lang('user.This_store_has_been_open_since') <span class="text-danger">{{$this->product->store->created_at->format('F j, Y')}}</span></a>
                                                         </li>
                                                         <li class="nav-body menu-item">
                                                             <a href="#" class="text-info">@lang('user.Store_rating') </a>
                                                         </li>
                                                         <li class="nav-body menu-item">
-                                                            <a href="{{route('show_seller', $this->product->seller->id)}}" class="text-info">@lang('user.See_the_store') <i class="fa fa-angle-double-{{($direction === 'right')?'left':'right'}}"></i></a>
+                                                            <a href="{{route('show_seller', (isset($this->product->store->slug))?$this->product->store->slug:1)}}" class="text-info">@lang('user.See_the_store') <i class="fa fa-angle-double-{{($direction === 'right')?'left':'right'}}"></i></a>
                                                         </li>
                                                         <li class="nav-body menu-item">
-                                                            <a href="{{route('show_chat', $this->product->slug)}}" class="text-info">Contact now <i class="fa fa-send"></i></a>
+                                                            <a href="{{route('show_chat', [
+                                                                'memberTypeTo'   => 'seller',
+                                                                'seq'            => $this->product->slug,
+                                                                ])}}" class="text-info">@lang('user.Contact_now') <i class="fa fa-send"></i></a>
                                                         </li>
                                                     </ul>
                                                     <!-- .menu -->
@@ -75,13 +79,14 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                     @else
                     <a class="button {{($direction === 'right')?'mr-5':'ml-5'}} text-white {{($this->isFollow) ? 'disabled' : ''}}" style="cursor:pointer; padding:7px;" wire:click='follow'><i class="fa fa-plus"></i> {{($this->isFollow) ? trans('user.followed') : trans('user.follow')}}</a>
                     @endguest
-                        <h6 class="mt-1 font-weight-light text-right" style="color: #b8b8b8;">{{$this->product->seller->followers()->count()}} @lang('user.followers')</h6>
+                        <h6 class="mt-1 font-weight-light text-right" style="color: #b8b8b8;">{{$this->product->store->followers()->count()}} @lang('user.followers')</h6>
                     </div>
                 </div>
             </div>
             <div style="margin:0 auto 25px;" wire:ignore>
-                <img class='' src="{{Storage::url($this->product->seller->image)}}" style='height:150px;width:300px;'/>
+                <img class='' src="{{Storage::url($this->product->store->image)}}" style='height:150px;width:300px;'/>
             </div>
+            @endif
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area">
                 <main id="main" class="site-main">
@@ -158,18 +163,10 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 </div>
                                 @endif
                                 <h1 class="product_title entry-title">{{$this->product->name}}</h1>
-                                @guest
-                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: {{($discount_condition_buy_x)?'130px':'0'}};  cursor:pointer;" href="{{route('login')}}">
-                                    <i class="fa fa-heart-o fa-2x"></i>
-                               </a>
-                                @else
-                                <a style="position: absolute;{{($direction === 'right')?'left: 35px;':'right: 35px;'}} top: {{($discount_condition_buy_x)?'130px':'0'}}; cursor:pointer;" wire:click='wishlists'>
-                                     <i class="fa fa-heart-o fa-2x wish @auth
-                                     @if($this->isWishlist) change_color
-                                     @endif
-                                     @endauth"></i>
+                                <a class='add_to_wishlist'
+                                @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                @endauth>
                                 </a>
-                                @endguest
                                 </div>
                                 <!-- .single-product-header -->
                                 <div class="single-product-meta">

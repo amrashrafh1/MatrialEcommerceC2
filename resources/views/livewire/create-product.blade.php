@@ -117,22 +117,22 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="has_accessories" class=" control-label">@lang('user.has_accessories') <abbr title="required" class="required">*</abbr></label>
+                            <label for="owner" class=" control-label">@lang('admin.owner') <abbr title="required" class="required">*</abbr></label>
                         </div>
                         <div class="col-md-9">
-                            <select name="has_accessories" class="form-control" v-model="has_accessories" required>
-                                <option value="yes">@lang('admin.yes')</option>
-                                <option value="no">@lang('admin.no')</option>
+                            <select name="owner" class="form-control" v-model="owner" required>
+                                <option value="for_site_owner">@lang('admin.owner')</option>
+                                <option value="for_seller">@lang('admin.for_seller')</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row" v-show="owner == 'for_seller'">
                         <div class="col-md-3">
-                            <label for="user_id" class="control-label">@lang('admin.seller')</label>
+                            <label for="seller_id" class="control-label">@lang('admin.seller')</label>
                         </div>
                         <div class="col-md-9">
-                            {!! Form::select('user_id', \App\User::whereRoleIs('seller')->pluck('email','id')
-                            ,old('user_id'),['class'=>'form-control']) !!}
+                            {!! Form::select('seller_id', \App\SellerInfo::where('approved', 1)->pluck('name','id')
+                            ,old('seller_id'),['class'=>'form-control']) !!}
                         </div>
                     </div>
                     <div class="form-group row">
@@ -428,7 +428,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="stock" class=" control-label">@lang('user.visible') <abbr title="required" class="required">*</abbr></label>
+                        <label for="visible" class=" control-label">@lang('user.visible') <abbr title="required" class="required">*</abbr></label>
                     </div>
                     <div class="col-md-9">
                         <select name="visible" class="form-control" >
@@ -473,18 +473,19 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
-        </div>
-        <div class="form-actions">
-            <div class="row">
-                <div class="col-md-12">
+                <div class="form-actions">
                     <div class="row">
-                        <div class="col-md-offset-3 col-md-9">
-                            <input type="submit" class="btn btn-success" value='@lang('user.submit')'>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" class="btn btn-success" value='@lang('user.submit')'>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 </div>
 </form>
@@ -505,7 +506,7 @@
             attributesFamily: '',
             selectedTags: [],
             selectedValue: [],
-            slug: '',
+            slug: '{{old("slug")}}',
             owner: 'for_site_owner',
             has_accessories: 'yes',
         },

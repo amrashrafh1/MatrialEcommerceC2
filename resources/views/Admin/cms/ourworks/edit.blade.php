@@ -88,13 +88,10 @@
     </div>
 </div>
 @push('js')
-<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script>
-    ClassicEditor
-        .create( document.querySelector( '#description' ) )
-        .catch( error => {
-            console.error( error );
-        } );
+    CKEDITOR.replace('description_{{$locale}}');
+
 </script>
 @endpush
 @stop

@@ -43,14 +43,18 @@
 
                 @foreach($this->contacts as $contact)
                 @php
-                $cont = \App\Conversation::find($contact);
-                $user_id = ($cont->user_1 != auth()->user()->id)?$cont->user_1:$cont->user_2;
-                $user = \App\User::where('id', $user_id)->first();
+                $cont           = \App\Conversation::find($contact);
+                $user_id        = ($cont->user_1 != auth()->user()->id)?$cont->user_1:$cont->user_2;
+                $user           = \App\User::where('id', $user_id)->first();
                 $messages_count = $conv->messages->where('m_from', '!=', auth()->user()->id)->where('is_read',
                 '0')->count();
                 @endphp
                 <li class="contact contact{{$cont->id}} {{($cont->id === $this->conv->id)?'active':''}}">
-                    <a href='{{route('show_chat',$cont->id)}}' style='color:#fff;'>
+                    <a href='
+                        {{route('show_chat', [
+                        'memberTypeTo'   => 'member',
+                        'seq'            => Crypt::encrypt($user_id),
+                        ])}}' style='color:#fff;'>
                         <div class="wrap">
                             <span class="contact-status {{$user->chat_status}}"></span>
                             <img src="{{$user->image?Storage::url($user->image):url('/img/avatar.jpg')}}" alt="" />

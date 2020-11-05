@@ -138,7 +138,7 @@ class OrderDetails
                     'sku'              => $cc->buyable->sku,
                     'product'          => $cc->buyable->name,
                     'options'          => ($cc->buyable->product_type === 'variable') ? json_encode($cc->options) : null,
-                    'seller_id'        => $cc->buyable->user_id,
+                    'seller_id'        => $cc->buyable->seller_id,
                 ]);
                 Sold::create([
                     'sold'           => $cc->quantity,
@@ -179,7 +179,7 @@ class OrderDetails
                     'sku'              => $cart->buyable->sku,
                     'product'          => $cart->buyable->name,
                     'options'          => ($cart->buyable->product_type === 'variable') ? json_encode($cart->options) : null,
-                    'seller_id'        => $cart->buyable->user_id,
+                    'seller_id'        => $cart->buyable->seller_id,
                 ]);
                 Sold::create([
                     'sold'           => $cart->quantity,

@@ -151,7 +151,7 @@
 @push('js')
 <link rel="stylesheet" href="{{url('/')}}/css/bootstrap-tagsinput.css">
 <script src="{{url('/')}}/js/bootstrap-tagsinput.min.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     {!! $validatorCategoryForm->selector('#create-category') !!}
 <script>
@@ -162,11 +162,7 @@
         $(this).val($(this).val().replace(' ', '-').toLowerCase());
     });
     <?php foreach(\LaravelLocalization::getSupportedLocales() as $locale => $props) { ?>
-            ClassicEditor
-                .create( document.querySelector( '#description_{{$locale}}' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+            CKEDITOR.replace('description_{{$locale}}');
         <?php } ?>
         $('form').keypress(function(e){
       if(e.keyCode==13)

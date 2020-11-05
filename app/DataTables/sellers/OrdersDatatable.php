@@ -15,7 +15,7 @@ class OrdersDatatable extends DataTable
 
     public function query()
     {
-        return Order_lines::query()->where('seller_id', auth()->user()->id)->orderBy('id', 'desc');
+        return Order_lines::query()->where('seller_id', session('store'))->orderBy('id', 'desc');
     }
 
 

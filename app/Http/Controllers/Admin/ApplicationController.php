@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\SellerInfo;
 class ApplicationController extends Controller
 {
     /**
@@ -20,8 +21,8 @@ class ApplicationController extends Controller
 
      public function index($id)
     {
-        $seller = User::findOrFail($id);
-        return view('Admin.application.index', ['title' => trans('admin.new_seller_application'), 'seller' => $seller]);
+        $application = SellerInfo::findOrFail($id);
+        return view('Admin.application.index', ['title' => trans('admin.new_seller_application'), 'application' => $application]);
     }
 
     /**
@@ -31,66 +32,19 @@ class ApplicationController extends Controller
      */
     public function accept($id)
     {
-        $seller = User::findOrFail($id);
-        $seller->seller_info->update(['approved' => 1]);
-        $seller->syncRoles(['seller']);
+        $application = SellerInfo::findOrFail($id);
+        $user        = User::findOrFail($application->seller_id);
+        $application->update(['approved' => 1]);
+        $user->syncRoles(['seller']);
         \Alert::success(trans('admin.added'), trans('admin.success_record'));
         return redirect()->route('user.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function reject($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $application = SellerInfo::findOrFail($id);
+        $application->delete();
+        \Alert::success(trans('admin.delete'), trans('admin.deleted'));
+        return redirect()->route('user.index');
     }
 }

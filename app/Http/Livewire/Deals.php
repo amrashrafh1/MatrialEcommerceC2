@@ -22,7 +22,7 @@ class Deals extends Component
             $query->where('visible', 'visible')->where('approved', 1)
             ->select('id','slug','product_type','image','name','sale_price');
         })->paginate(12);
-        
+
         $random = Discount::discountAvailable()
             ->where('daily', 'daily_deals')
             ->whereHas('product' , function ($query) {
@@ -39,9 +39,10 @@ class Deals extends Component
         if (is_numeric($id) && $id) {
             $product = Product::find($id);
             if ($product) {
-                \Cart::add($product, 1);
-                $this->emit('cartAdded');
-
+                if($product->visible == 'visible' && $product->approved == 1) {
+                    \Cart::add($product, 1);
+                    $this->emit('cartAdded');
+                }
             }
         }
     }

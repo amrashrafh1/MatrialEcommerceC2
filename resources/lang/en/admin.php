@@ -169,9 +169,9 @@ return array (
     'meta_description_English'                                       => 'Meta description in english',
     'meta_keywords_English'                                          => 'Meta keywords in english',
     'meta_tag_English'                                               => 'Meta tag in english',
+    'meta_tag_Arabic'                                                => 'Meta tag in arabic',
     'meta_description_Arabic'                                        => 'Meta description in arabic',
     'meta_keywords_Arabic'                                           => 'Meta keywords in arabic',
-    'meta_tag_Arabic'                                                => 'Meta tag in arabic',
     'method'                                                         => 'shipping method',
     'methods'                                                        => 'Shipping Methods',
     'mob'                                                            => 'Mobile code',
@@ -402,5 +402,11 @@ return array (
     'sellers-app'                                                    => 'sellers applications',
     'Data'                                                           => 'Data',
     'key'                                                            => 'Key',
+    'reject'                                                         => 'reject',
+    'application'                                                    => 'application',
+    'Product_Owner'                                                  => 'Product_Owner',
+    'owner'                                                          => 'Owner',
+    'for_seller'                                                     => 'Seller',
+    'seller'                                                         => 'Seller',
 
 );

@@ -24,19 +24,27 @@ class SellerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $path = 'products';
+
     public function __construct()
     {
+
         $this->middleware(['auth','role:seller']);
         $this->middleware(['permission:read-'.$this->path])->only('products');
         $this->middleware(['permission:create-'.$this->path])->only('create');
         $this->middleware(['permission:update-'.$this->path])->only('edit');
         $this->middleware(['permission:delete-'.$this->path])->only('destroy');
         $this->middleware(['permission:read-orders'])->only('orders');
+
     }
 
     public function index()
     {
-        return view('FrontEnd.sellers.dashboard');
+        $store = auth()->user()->stores->where('id', session('store'))->first();
+        if($store) {
+            return view('FrontEnd.sellers.dashboard', ['store' => $store]);
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -46,7 +54,12 @@ class SellerController extends Controller
      */
     public function products(ProductsDatatable $datatable)
     {
-        return $datatable->render('FrontEnd.sellers.seller-products');
+        $store = auth()->user()->stores->where('id', session('store'))->first();
+        if($store) {
+            return $datatable->render('FrontEnd.sellers.seller-products', ['store' => $store]);
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     public function create()
@@ -106,6 +119,7 @@ class SellerController extends Controller
             'tradmark_id'      => $request['tradmark_id'],
             'owner'            => 'for_seller',
             'user_id'          => auth()->user()->id,
+            'seller_id'        => session('store'),
             'stock'            => $request['stock'],
             'visible'          => $request['visible'],
             'tax'              => $request['tax'],
@@ -266,6 +280,8 @@ class SellerController extends Controller
                 'size_en'              => 'sometimes|nullable|string',
                 'color_en'             => 'sometimes|nullable|string',
                 'shippings'            => 'required',
+                'value.*'              => 'sometimes|nullable',
+                'key.*'                => 'sometimes|nullable',
                 'attributes.*'         => 'sometimes|nullable|numeric|max:191',
                 'has_accessories'      => 'required|string|max:191',
                 'meta_tag_en'          => 'sometimes|nullable|string',
@@ -286,35 +302,37 @@ class SellerController extends Controller
             } else {
                 $img = $rows->image;
             }
+            $data_spec = [];
+            if($request['key']) {
+                foreach($request['key'] as $index => $key) {
+                    array_push($data_spec,[$key => $request['value'][$index]]);
+                }
+            }
             $rows->update([
-                'sku'              => $request['sku'],
-                'section'          => 'none',
-                'product_type'     => $request['product_type'],
-                'purchase_price'   => $request['purchase_price'],
-                'sale_price'       => $request['sale_price'],
-                'in_stock'         => $request['in_stock'],
-                'tradmark_id'      => $request['tradmark_id'],
-                'stock'            => $request['stock'],
-                'visible'          => $request['visible'],
-                'tax'              => $request['tax'],
-                'owner'            => 'for_seller',
-                'user_id'          => auth()->user()->id,
-                'category_id'      => $request['category_id'],
-                'image'            => $img,
-                //'description'      => $request['description_en'],
-                'slug'             => \Str::slug($request['slug']),
-                'length'           => (empty($request['length'])) ? null : $request['length'],
-                'width'            => (empty($request['width'])) ? null : $request['width'],
-                'height'           => (empty($request['height'])) ? null : $request['height'],
-                'weight'           => (empty($request['weight'])) ? null : $request['weight'],
-                //'name'             => $request['name_en'],
-                //'size'             => (empty($request['size_en'])) ? null : $request['size_en'],
-               // 'color'            => (empty($request['color_en'])) ? null : $request['color_en'],
-                'has_accessories'  => $request['has_accessories'],
-                //'meta_tag'         => (empty($request['meta_tag_en'])) ? null : $request['meta_tag_en'],
-                //'meta_description' => (empty($request['meta_description_en'])) ? null : $request['meta_description_en'],
-                //'meta_keyword'     => (empty($request['meta_keyword_en'])) ? null : $request['meta_keyword_en'],
+                'sku'             => $request['sku'],
+                'section'         => 'none',
+                'product_type'    => $request['product_type'],
+                'purchase_price'  => $request['purchase_price'],
+                'sale_price'      => $request['sale_price'],
+                'in_stock'        => $request['in_stock'],
+                'tradmark_id'     => $request['tradmark_id'],
+                'stock'           => $request['stock'],
+                'visible'         => $request['visible'],
+                'tax'             => $request['tax'],
+                'owner'           => 'for_seller',
+                'user_id'         => auth()->user()->id,
+                'seller_id'       => session('store'),
+                'category_id'     => $request['category_id'],
+                'image'           => $img,
+                'slug'            => \Str::slug($request['slug']),
+                'data'            => $data_spec,
+                'length'          => (empty($request['length'])) ? null : $request['length'],
+                'width'           => (empty($request['width'])) ? null : $request['width'],
+                'height'          => (empty($request['height'])) ? null : $request['height'],
+                'weight'          => (empty($request['weight'])) ? null : $request['weight'],
+                'has_accessories' => $request['has_accessories'],
             ]);
+
             if (!empty($request['tags_en'])) {
                 $data_en = explode(',', $request['tags_en']);
                 foreach (\LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
@@ -456,6 +474,7 @@ class SellerController extends Controller
 
     public function variations_edit($slug)
     {
+
         $rows = Product::where('slug', $slug)->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first();
         return view('FrontEnd.sellers.products.seller-products-variations-edit', ['rows' => $rows]);
     }
@@ -522,7 +541,8 @@ class SellerController extends Controller
 
     public function accessories($slug)
     {
-        $rows = Product::where('slug', $slug)->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first();
+        $rows = Product::where('slug', $slug)->where('owner', 'for_seller')
+        ->where('user_id', auth()->user()->id)->first();
         if ($rows) {
             return view('FrontEnd.sellers.products.seller-products-accessories', ['product' => $rows]);
 
@@ -534,7 +554,12 @@ class SellerController extends Controller
 
     public function orders(OrdersDatatable $datatable)
     {
-        return $datatable->render('FrontEnd.sellers.orders.index');
+        $store = auth()->user()->stores->where('id', session('store'))->first();
+        if($store) {
+        return $datatable->render('FrontEnd.sellers.orders.index', ['store' => $store]);
+        } else {
+            return redirect()->route('home');
+        }
     }
 
 
@@ -551,12 +576,11 @@ class SellerController extends Controller
     }
 
 
-    public function export_invoice($id) {
+    /* public function export_invoice($id) {
         $order  = Order::findOrfail($id);
         $items  = [];
-        foreach($order->order_lines->where('seller_id',auth()->user()->id) as $line) {
+        foreach($order->order_lines->where('seller_id',session('store'))->get() as $line) {
             $seller_model = \App\User::findOrFail($line->seller_id);
-            //dd($seller->seller_info);
 
             $seller = new Party([
                 'name'          => $seller_model->name,
@@ -617,5 +641,5 @@ class SellerController extends Controller
 
         // And return invoice itself to browser or have a different view
         return $invoice->stream();
-    }
+    } */
 }

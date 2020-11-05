@@ -25,7 +25,7 @@ class CreateCMSSTable extends Migration
             $table->string('meta_keyword')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('menuTitle');
-            $table->longText('content');
+            $table->text('content');
             $table->timestamps();
         });
     }

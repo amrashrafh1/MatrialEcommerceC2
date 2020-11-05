@@ -64,7 +64,7 @@ Route::get('/checkout', function (Request $request) {
 })->name('show_checkout');
 
 // Payment
-Route::post('/payment','FrontEnd\payment\BillingController@payment')->name('payment');
+Route::post('/payment/{payment}','FrontEnd\payment\BillingController@payment')->name('payment');
 
 Route::get('cancel', 'FrontEnd\BillingController@cancel')->name('payment.cancel');
 
@@ -137,44 +137,44 @@ Route::get('/seller/app', 'FrontEnd\SellerAppController@index')->middleware('ver
 Route::post('/seller/app', 'FrontEnd\SellerAppController@store')->middleware('verified')->name('store_app')->middleware('image-sanitize');
 
 // Seller Dashboard
-Route::get('/seller/dashboard','FrontEnd\SellerController@index')->middleware('verified')->name('seller_dashboard');
+Route::get('/seller/dashboard','FrontEnd\SellerController@index')->middleware(['verified', 'store_session'])->name('seller_dashboard');
 // Seller products
-Route::get('/seller/products','FrontEnd\SellerController@products')->middleware('verified')->name('seller_frontend_products');
+Route::get('/seller/products','FrontEnd\SellerController@products')->middleware(['verified', 'store_session'])->name('seller_frontend_products');
 
 // Seller products create page
-Route::get('/seller/products/create','FrontEnd\SellerController@create')->middleware('verified')->name('seller_frontend_products_create');
+Route::get('/seller/products/create','FrontEnd\SellerController@create')->middleware(['verified', 'store_session'])->name('seller_frontend_products_create');
 // Seller products store
-Route::post('/seller/products/store','FrontEnd\SellerController@store')->middleware('verified')->name('seller_frontend_products_store')->middleware('image-sanitize');;
+Route::post('/seller/products/store','FrontEnd\SellerController@store')->middleware(['verified', 'store_session'])->name('seller_frontend_products_store')->middleware('image-sanitize');;
 
 // Seller products edit page
-Route::get('/seller/products/edit/{slug}','FrontEnd\SellerController@edit')->middleware('verified')->name('seller_frontend_products_edit');
+Route::get('/seller/products/edit/{slug}','FrontEnd\SellerController@edit')->middleware(['verified', 'store_session'])->name('seller_frontend_products_edit');
 // Seller products update
-Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->middleware('verified')->name('seller_frontend_products_update')->middleware('image-sanitize');;
+Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->middleware(['verified', 'store_session'])->name('seller_frontend_products_update')->middleware('image-sanitize');;
 
 // Seller products delete
-Route::delete('/seller/products/delete/{slug}','FrontEnd\SellerController@destroy')->middleware('verified')->name('seller_frontend_products_delete');
+Route::delete('/seller/products/delete/{slug}','FrontEnd\SellerController@destroy')->middleware(['verified', 'store_session'])->name('seller_frontend_products_delete');
 
 // Seller products delete all
-Route::delete('/seller/products/destroy/all', 'FrontEnd\SellerController@destory_all')->middleware('verified')->name('seller_frontend_products_destroy_all');
+Route::delete('/seller/products/destroy/all', 'FrontEnd\SellerController@destory_all')->middleware(['verified', 'store_session'])->name('seller_frontend_products_destroy_all');
 
 
 // Seller products variations page
-Route::get('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations')->middleware('verified')->name('seller_frontend_products_variations');
+Route::get('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations')->middleware(['verified', 'store_session'])->name('seller_frontend_products_variations');
 
 // Seller products variations store
-Route::post('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations_store')->middleware('verified')->name('seller_frontend_products_variations_store');
+Route::post('/seller/products/variations/{slug}', 'FrontEnd\SellerController@variations_store')->middleware(['verified', 'store_session'])->name('seller_frontend_products_variations_store');
 
 // Seller products variations update
-Route::post('/seller/products/variations/update/{slug}', 'FrontEnd\SellerController@variation_update')->middleware('verified')->name('seller_frontend_products_variations_update');
+Route::post('/seller/products/variations/update/{slug}', 'FrontEnd\SellerController@variation_update')->middleware(['verified', 'store_session'])->name('seller_frontend_products_variations_update');
 
 // Seller products accessories page
-Route::get('/seller/products/accessories/{slug}', 'FrontEnd\SellerController@accessories')->middleware('verified')->name('seller_frontend_products_accessories');
+Route::get('/seller/products/accessories/{slug}', 'FrontEnd\SellerController@accessories')->middleware(['verified', 'store_session'])->name('seller_frontend_products_accessories');
 
 // Seller orders page
-Route::get('/seller/orders', 'FrontEnd\SellerController@orders')->middleware('verified')->name('seller_frontend_orders');
+Route::get('/seller/orders', 'FrontEnd\SellerController@orders')->middleware(['verified', 'store_session'])->name('seller_frontend_orders');
 
 // Seller show order page
-Route::get('/seller/orders/show/{id}', 'FrontEnd\SellerController@orders_show')->middleware('verified')->name('seller_frontend_orders_show');
+Route::get('/seller/orders/show/{id}', 'FrontEnd\SellerController@orders_show')->middleware(['verified', 'store_session'])->name('seller_frontend_orders_show');
 
 /*
  *    _____      _ _             _____
@@ -220,13 +220,14 @@ Route::post('/seller/discount/update/{id}', 'FrontEnd\DiscountController@update'
 //
 Route::get('/search', 'HomeController@search')->middleware('ChangeCountry')->name('search');
 Route::get('/invoice/{id}', 'FrontEnd\SellerController@export_invoice')->name('export_invoice');
-Route::get('/seller/store/{id}', 'FrontEnd\SellerProfileController@show_seller')->name('show_seller');
+Route::get('/seller/store/{slug}', 'FrontEnd\SellerProfileController@show_seller')->name('show_seller');
 
 
 /* Chat (Seller & Customer) */
-Route::get('/chat/{slug}', 'FrontEnd\ChatController@seller')->middleware(['auth','verified'])->name('show_chat');
-Route::get('/chat', 'FrontEnd\ChatController@chat')->middleware(['auth','verified'])->name('chat');
-
+Route::get('/chat', 'FrontEnd\ChatController@seller')
+->middleware(['auth','verified'])->name('show_chat');
+/* Route::get('/chat/asd', 'FrontEnd\ChatController@chat')->middleware(['auth','verified'])->name('chat');
+ */
 // Profile Page
 Route::get('/profile','FrontEnd\ProfileController@index')->middleware('verified')->name('profile');
 Route::put('/profile/update','FrontEnd\ProfileController@update')->middleware('verified')->name('user_profile.update')->middleware('image-sanitize');;

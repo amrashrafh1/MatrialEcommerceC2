@@ -10,6 +10,7 @@ use App\Shipping_methods;
 use App\Tradmark;
 use App\User;
 use App\Variation;
+use App\SellerInfo;
 use Codebyray\ReviewRateable\Contracts\ReviewRateable;
 use Codebyray\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
@@ -86,7 +87,12 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         );
     }
 
-    public function seller()
+    public function store()
+    {
+        return $this->belongsTo(SellerInfo::class, 'seller_id', 'id');
+    }
+
+    public function owner()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
@@ -135,7 +141,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     // check if the product is visible and approved
     public function isVisibleApproved()
     {
-        return $this->where('visible', 'visible')->where('approved', 1);
+        return $this->where('visible', 'visible');
     }
 
     // get all product that visible and approved

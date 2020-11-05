@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
         'localeCookieRedirect'  => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
         'localeViewPath'        => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
         'image-sanitize'        => \LaravelAt\ImageSanitize\ImageSanitizeMiddleware::class,
+        'store_session'         => \App\Http\Middleware\StoreSession::class,
 
     ];
 

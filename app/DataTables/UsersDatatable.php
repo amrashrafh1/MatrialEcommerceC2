@@ -12,7 +12,8 @@ class UsersDataTable extends DataTable
             ->addColumn('actions', 'Admin.users.buttons.actions')
             ->addColumn('checkbox', 'Admin.users.buttons.checkbox')
             ->addColumn('roles', 'Admin.users.buttons.roles')
-            ->rawColumns(['checkbox','show_action','actions','user','date','order', 'roles']);
+            ->addColumn('application', 'Admin.users.buttons.application')
+            ->rawColumns(['checkbox','show_action','actions','application','user','date','order', 'roles']);
     }
 
 	public function query()
@@ -134,6 +135,11 @@ class UsersDataTable extends DataTable
                 'name'=>'roles',
                 'data'=>'roles',
                 'title'=>trans('admin.roles'),
+           ],
+            [
+                'name'=>'application',
+                'data'=>'application',
+                'title'=>trans('admin.application'),
            ],
  [
 	                'name' => 'actions',

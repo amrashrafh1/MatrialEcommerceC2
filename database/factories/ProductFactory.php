@@ -21,6 +21,7 @@ $factory->define(Product::class, function (Faker $faker){
         'image'             => 'public/products/thumbnail/'.rand(1, 17).'.jpg',
         'tradmark_id'       => rand(1,7),
         'user_id'           => $faker->randomElement([1, 4]),
+        'seller_id'         => $faker->randomElement([NULL, 4]),
         'owner'             => $faker->randomElement(['for_seller','for_site_owner']),
         'approved'          => 1,
         'category_id'       => rand(1,7),

@@ -9,43 +9,47 @@ trans('admin.new_seller_application')])
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-img">
-                        <img src="{{Storage::url($seller->image)}}" alt="">
+                        <img src="{{Storage::url($application->image)}}" alt="">
                     </div>
                     <div class="signup-form">
-                        <form method="POST" class="register-form" id="register-form" action="{{route('accept_app', $seller->id)}}">
+                        <form method="POST" class="register-form" id="register-form" action="{{route('accept_app', $application->id)}}">
                             @csrf
                             <h2>@lang('admin.new_seller_application')</h2>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="name">@lang('user.name') :</label>
-                                    <div id="name">{{$seller->name}}</div>
+                                    <div id="name">{{$application->name}}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="father_name">@lang('user.email') :</label>
-                                <div id="father_name">{{$seller->email}}</div>
+                                <div id="father_name">{{$application->email}}</div>
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="address">@lang('user.business') :</label>
+                                <div id="address">{{$application->business}}</div>
+                            </div>
+                            <div class="form-group">
                                 <label for="address">@lang('user.address1') :</label>
-                                <div id="address">{{$seller->seller_info->address1}}</div>
+                                <div id="address">{{$application->address1}}</div>
                             </div>
                             <div class="form-group">
                                 <label for="address">@lang('user.address2') :</label>
-                                <div id="address">{{$seller->seller_info->address2}}</div>
+                                <div id="address">{{$application->address2}}</div>
                             </div>
                             <div class="form-group">
                                 <label for="address">@lang('user.address3') :</label>
-                                <div id="address">{{$seller->seller_info->address3}}</div>
+                                <div id="address">{{$application->address3}}</div>
                             </div>
                             <div class="form-radio">
                                 <label for="gender" class="radio-label">@lang('user.business') :</label>
                                 <div class="form-radio-item">
-                                    <input type="radio" name="gender" id="male" @if($seller->seller_info->business == 1) checked @endif>
+                                    <input type="radio" name="gender" id="male" @if($application->type == 1) checked @endif>
                                     <label for="individual" style="font-size:16px;">@lang('user.individual')</label>
                                     <span class="check"></span>
                                 </div>
                                 <div class="form-radio-item">
-                                    <input type="radio" name="gender" id="female" @if($seller->seller_info->business == 0) checked @endif>
+                                    <input type="radio" name="gender" id="female" @if($application->type == 0) checked @endif>
                                     <label for="business" style="font-size:16px;">@lang('user.business')</label>
                                     <span class="check"></span>
                                 </div>
@@ -53,35 +57,38 @@ trans('admin.new_seller_application')])
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="country">@lang('user.country') :</label>
-                                    <div id="country">{{$seller->country->country_name}}</div>
+                                    <div id="country">{{$application->country->country_name}}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="state">@lang('user.state') :</label>
-                                    <div id="state">{{$seller->state}}</div>
+                                    <div id="state">{{$application->state}}</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="city">@lang('user.city') :</label>
-                                    <div id="city">{{$seller->city}}</div>
+                                    <div id="city">{{$application->city}}</div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="phone">@lang('user.phone1') :</label>
-                                <div id="phone">{{$seller->seller_info->phone1}}</div>
+                                <div id="phone">{{$application->phone1}}</div>
                             </div>
                             <div class="form-group">
                                 <label for="phone2">@lang('user.phone2') :</label>
-                                <div id="phone2">{{$seller->seller_info->phone2}}</div>
+                                <div id="phone2">{{$application->phone2}}</div>
                             </div>
                             <div class="form-group">
                                 <label for="phone">@lang('user.phone3') :</label>
-                                <div id="phone">{{$seller->seller_info->phone3}}</div>
+                                <div id="phone">{{$application->phone3}}</div>
                             </div>
                             <div class="form-group">
                                 <label for="phone">@lang('user.About') :</label>
-                                <div id="phone">{{$seller->seller_info->description}}</div>
+                                <div id="phone">{{$application->description}}</div>
                             </div>
                             <div class="form-submit">
-                                <input type="submit" value="@lang('admin.approval')" class="btn btn-primary" name="submit" id="submit" />
+                                <input type="submit" value="@lang('admin.approval')" class="btn" style='background:green;' name="submit" id="submit" />
+                                <a type="submit" href='{{route('reject_app', $application->id)}}'
+                                class="btn btn-danger" style='background:red; width:100%'
+                                name="submit" id="submit" >@lang('admin.reject')</a>
                             </div>
                         </form>
                     </div>

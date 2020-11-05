@@ -37,7 +37,13 @@
                         <li class="nav-item">
                             <a class="nav-link" id="Dimensions-tab" data-toggle="tab" href="#Dimensions" role="tab"
                                 aria-controls="Dimensions" aria-selected="false">
-                                <i class="fa fa-arrows" aria-hidden="true"></i> @lang('admin.Dimensions')</a>
+                                <i class="fa fa-arrows-alt" aria-hidden="true"></i> @lang('admin.Dimensions')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="Data-tab" data-toggle="tab" href="#Data" role="tab"
+                                aria-controls="Data" aria-selected="false">
+                                <i class="fa fa-text-height" aria-hidden="true"></i>
+                                @lang('admin.Data')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
@@ -404,6 +410,34 @@
                 </div>
             </div>
         </div>
+        <div class="tab-pane fade" id="Data" role="tabpanel" aria-labelledby="Data-tab">
+            <div>
+                <div class="col-md-12">
+                    <h3 class="h3">@lang('admin.Data')</h3>
+                </div>
+                <ol id="list">
+                    @if($this->rows->data)
+                    @foreach($this->rows->data as $index => $value)
+                    <li class="list_var">
+                        <div class="form-group">
+                            <div class="col-md-12 row" id='list_0'>
+                                <div class='col m-1'>
+                                    <input type='text' value='{{old('key.'.$index,key($value))}}' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'>
+                                </div>
+                                <div class='col m-1'>
+                                    <input type='text' value='{{old('value.'.$index,$value[key($value)])}}' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="list_del btn btn-danger"><i class='fa fa-trash'></i></button>
+                    </li>
+                    @endforeach
+                    @endif
+                </ol>
+                <button type='button' class="list_add btn btn-primary"><i class='fa fa-plus'></i></button>
+                <br />
+            </div>
+        </div>
         <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
             <div class="form-group row">
                 <div class="col-md-3">
@@ -464,7 +498,7 @@
             @endforeach
         </div>
     </div>
-    <div class="form-actions">
+    <div class="form-actions mt-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -596,6 +630,27 @@
         });
     });
 
+</script>
+<script type="text/javascript" src="{{ asset('/js/add-input-area.min.js')}}"></script>
+<script>
+$(document).ready(function() {
+	var max_fields      = 20; //maximum input boxes allowed
+	var wrapper   		= $("#list"); //Fields wrapper
+	var add_button      = $(".list_add"); //Add button ID
+
+	var x = 1; //initlal text box count
+	$(add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+		if(x < max_fields){ //max input box allowed
+			x++; //text box increment
+			$(wrapper).append("<li class='list_var'><div class='form-group'><div class='col-md-12 row' id='list_0'><div class='col m-1'><input type='text' value='' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'></div><div class='col m-1'><input type='text' value='' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'></div></div></div><button class='list_del btn btn-danger'><i class='fa fa-trash'></i></button></li>"); //add input box
+		}
+	});
+
+	$(wrapper).on("click",".list_del", function(e){ //user click on remove text
+		e.preventDefault(); $(this).parent('li').remove(); x--;
+	})
+});
 </script>
 @livewireAssets
 @endpush

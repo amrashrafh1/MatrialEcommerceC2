@@ -21,6 +21,7 @@ class CartPage extends Component
     public $shippings = [];
     // country selected to calc shipping
     public $country;
+
     public $disabled = false;
     // coupon calc
     public $coupon   = '';
@@ -31,10 +32,19 @@ class CartPage extends Component
     // when check all items
     public $checkAll = false;
 
+
     public function render()
     {
         $this->subTotal = 0;
         $this->shipping = 0;
+
+        $stores = [];
+
+        foreach(Cart::content() as $cart) {
+            if(!in_array($cart->buyable->store, $stores)) {
+                array_push($stores, $cart->buyable->store);
+            }
+        }
         // check if items not empty
         if (count(array_filter($this->items)) > 0 && is_array($this->items)) {
             $this->disabled = false;
@@ -63,7 +73,7 @@ class CartPage extends Component
         }
         // calc total (subtotal + shipping cost)
         $this->total = $this->subTotal + $this->shipping;
-        return view('livewire.cart-page');
+        return view('livewire.cart-page', ['stores' => $stores]);
     }
 
     // change cart quantity
@@ -217,7 +227,7 @@ class CartPage extends Component
                     session()->push('items', ['item' => $item, 'shipping' => $this->shippings[$item]]);
                 }
             }
-            return redirect(url('/checkout'));
+            return redirect()->route('show_checkout');
         }
     }
 

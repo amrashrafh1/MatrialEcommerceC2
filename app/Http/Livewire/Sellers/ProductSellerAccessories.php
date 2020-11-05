@@ -19,12 +19,14 @@ class ProductSellerAccessories extends Component
     }
     public function render()
     {
-        $result = Product::where('owner', 'for_seller')->where('user_id', auth()->user()->id)->where('id','!=',$this->product->id)->paginate(20);
+
         return view('livewire.sellers.product-seller-accessories',['products' =>
         Product::where('owner', 'for_seller')
-        ->where('user_id', auth()->user()->id)->where('name', 'like', '%'.$this->search.'%')
-        ->where('id','!=',$this->product->id)->paginate(20),
-        'accessories' =>$this->product->accessories()->where('name', 'like', '%'.$this->searchHas.'%')->paginate(20)]);
+        ->where('user_id', auth()->user()->id)
+        ->where('name', 'like', '%'.$this->search.'%')
+        ->where('id','!=',$this->product->id)->disableCache()->paginate(20),
+        'accessories' =>$this->product->accessories()
+        ->disableCache()->where('name', 'like', '%'.$this->searchHas.'%')->paginate(20)]);
     }
 
     public function updatingSearch(): void

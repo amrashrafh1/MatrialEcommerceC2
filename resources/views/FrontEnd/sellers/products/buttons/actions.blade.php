@@ -3,7 +3,7 @@
         @if($product_type == 'variable')
         <div class="mr-3">
             <li class="list-unstyled">
-                <a href="{{ route('product_variations', $id)}}" class="btn btn-primary btn-sm"><i
+                <a href="{{ route('seller_frontend_products_variations', $slug)}}" class="btn btn-primary btn-sm"><i
                         class="fe fe-plus"></i> {{trans('admin.Variations')}}</a>
             </li>
         </div>
@@ -11,7 +11,7 @@
         @if($has_accessories == 'yes')
         <div class="mr-3">
             <li class="list-unstyled">
-                <a href="{{ route('add_accessories', $id)}}" class="btn  btn-primary btn-sm"><i class="fe fe-plus"></i>
+                <a href="{{ route('seller_frontend_products_accessories', $slug)}}" class="btn  btn-primary btn-sm"><i class="fe fe-plus"></i>
                     {{trans('admin.accessories')}}</a>
             </li>
         </div>

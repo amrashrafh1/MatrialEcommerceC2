@@ -30,7 +30,7 @@
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     {!! $Validator->selector('#create-product') !!}
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 <link rel="stylesheet" href="{{url('/')}}/css/bootstrap-tagsinput.css">
@@ -45,16 +45,9 @@
 </script>
     <script>
         <?php foreach(\LaravelLocalization::getSupportedLocales() as $locale => $props) { ?>
-            ClassicEditor
-                .create( document.querySelector( '#short_description_{{$locale}}' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
-            ClassicEditor
-                .create( document.querySelector( '#description_{{$locale}}' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+
+            CKEDITOR.replace('short_description_{{$locale}}');
+            CKEDITOR.replace('description_{{$locale}}');
         <?php } ?>
 
     /* var uploadedDocumentMap = {}

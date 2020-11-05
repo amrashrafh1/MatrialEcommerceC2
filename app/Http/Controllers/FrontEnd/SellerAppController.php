@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Events\NewSeller;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\SellerInfo;
 
 class SellerAppController extends Controller
 {
@@ -15,13 +16,10 @@ class SellerAppController extends Controller
     }
     public function index()
     {
-        if(auth()->user()->seller_info || auth()->user()->hasRole('seller')) {
-            return redirect()->route('home');
-        }
         $seller_app = \JsValidator::make([
             'country_id'  => 'required|numeric|exists:countries,id',
             'name'        => 'required|string|max:191',
-            'email'       => 'required|email|unique:users,email,' . auth()->user()->id,
+            'email'       => 'required|email|unique:seller_infos,email',
             'city'        => 'required|string',
             'state'       => 'sometimes|nullable|string',
             'address1'    => 'required|string',
@@ -31,7 +29,7 @@ class SellerAppController extends Controller
             'phone2'      => 'sometimes|nullable|string',
             'phone3'      => 'sometimes|nullable|string',
             'image'       => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
-            'type'        => 'required|in:0,1',                                                 //0 = individual && 1 = business
+            'type'        => 'required|in:0,1', //0 = individual && 1 = business
             'business'    => 'required|string',
             'description' => 'required|min:3|max:1000',
         ]);
@@ -44,7 +42,7 @@ class SellerAppController extends Controller
         $data = $this->validate(request(), [
             'country_id'  => 'required|numeric|exists:countries,id',
             'name'        => 'required|string|max:191',
-            'email'       => 'required|email|unique:users,email,' . auth()->user()->id,
+            'email'       => 'required|email|unique:users,email',
             'city'        => 'required|string',
             'state'       => 'sometimes|nullable|string',
             'address1'    => 'required|string',
@@ -77,45 +75,14 @@ class SellerAppController extends Controller
         $img = '';
         if (!empty($data['image'])) {
             $img = upload($data['image'], 'users', 1446, 409);
-            auth()->user()->update(['image' => $img]);
-
         }
-        if (auth()->user()->seller_info !== null) {
-            $info = auth()->user()->seller_info()->update([
-                'address1'    => $data['address1'],
-                'address2'    => $data['address2'],
-                'address3'    => $data['address3'],
-                'phone1'      => $data['phone1'],
-                'phone2'      => $data['phone2'],
-                'phone3'      => $data['phone3'],
-                'type'        => $data['type'],
-                'business'    => $data['business'],
-                'description' => $data['description'],
-            ]);
-        } else {
-            \App\SellerInfo::create([
-                'seller_id'   => auth()->user()->id,
-                'address1'    => $data['address1'],
-                'address2'    => $data['address2'],
-                'address3'    => $data['address3'],
-                'phone1'      => $data['phone1'],
-                'phone2'      => $data['phone2'],
-                'phone3'      => $data['phone3'],
-                'type'        => $data['type'],
-                'business'    => $data['business'],
-                'description' => $data['description'],
-            ]);
+        $data['slug']      = \Str::slug($data['name']);
+        $data['image']     = $img;
+        $data['seller_id'] = auth()->user()->id;
+        SellerInfo::create($data);
 
-            event(new NewSeller(trans('admin.new_seller_application')));
-        }
-        $user             = \Auth::user();
-        $user->name       = $data['name'];
-        $user->email      = $data['email'];
-        $user->city       = $data['city'];
-        $user->state      = $data['state'];
-        $user->country_id = intval($data['country_id']);
-        $user->save();
-        $request->session()->flash('success', trans('user.Your_request_will_be_reviewed_by_the_admin_and_will_be_replied_within_24_hours'));
+        event(new NewSeller(trans('admin.new_seller_application')));
+
         \Alert::success(trans('admin.added'), trans('user.Your_request_will_be_reviewed_by_the_admin_and_will_be_replied_within_24_hours'));
 
         return redirect()->route('seller_app');

@@ -13,12 +13,16 @@ class WishlistsPage extends Component
         return view('livewire.wishlists-page', ['wishlists' => $wishlists]);
     }
 
-    public function addCart($id) {
-
-        $product = Product::find($id);
-        if($product) {
-            \Cart::add($product,1);
-            $this->emit('cartAdded');
+    public function addCart($id)
+    {
+        if (is_numeric($id) && $id) {
+            $product = Product::find($id);
+            if ($product) {
+                if($product->visible == 'visible' && $product->approved == 1) {
+                    \Cart::add($product, 1);
+                    $this->emit('cartAdded');
+                }
+            }
         }
     }
     public function removeWishlists($id) {

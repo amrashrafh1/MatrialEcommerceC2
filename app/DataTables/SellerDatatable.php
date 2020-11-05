@@ -12,7 +12,8 @@ class SellerDatatable extends DataTable
             ->addColumn('actions', 'Admin.sellers.buttons.actions')
             ->addColumn('checkbox', 'Admin.sellers.buttons.checkbox')
             ->addColumn('product', 'Admin.sellers.buttons.product')
-            ->rawColumns(['checkbox','product','show_action','actions','user','date', 'roles']);
+            ->addColumn('application', 'Admin.users.buttons.application')
+            ->rawColumns(['checkbox','product','show_action','application','actions','user','date', 'roles']);
     }
 
     public function query()
@@ -125,6 +126,11 @@ class SellerDatatable extends DataTable
                 'name'=>'phone',
                 'data'=>'phone',
                 'title'=>trans('admin.phone'),
+            ],
+            [
+                'name'  => 'application',
+                'data'  => 'application',
+                'title' => trans('admin.application'),
             ],
             [
                 'name' => 'actions',

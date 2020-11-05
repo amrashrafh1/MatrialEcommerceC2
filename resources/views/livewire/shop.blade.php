@@ -135,14 +135,11 @@
                             @foreach($products as $product)
                             <div class="product {{($count%4 == 1)?'first':''}} {{($count%4 == 0)?'last':''}}">
                                 <div class="yith-wcwl-add-to-wishlist">
-                                    <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth
-                                        wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
-                                        @endauth>
-                                        <i class="fa fa-heart-o fa-2x wish @auth
-                                                @if($wishlist_product_id->contains($product->id)) change_color
-                                                @endif
-                                                @endauth"></i>
-                                    </a> </div>
+                                    <a class='add_to_wishlist'
+                                    @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                    @endauth>
+                                    </a>
+                                 </div>
                                 <!-- .yith-wcwl-add-to-wishlist -->
                                 <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
                                     href="{{route('show_product', $product->slug)}}">
@@ -238,14 +235,10 @@
                                     <div class="media-body">
                                         <div class="product-info">
                                             <div class="yith-wcwl-add-to-wishlist">
-                                                <a style="position: absolute;top: 0;cursor:pointer;" @auth
-                                                    wire:click='wishlists({{$product->id}})' @else
-                                                    href='{{route('login')}}' @endauth>
-                                                    <i class="fa fa-heart-o fa-2x wish @auth
-                                                                @if($wishlist_product_id->contains($product->id)) change_color
-                                                                @endif
-                                                                @endauth"></i>
-                                                </a>
+                                                <a class='add_to_wishlist'
+                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                                        @endauth>
+                                                        </a>
                                             </div>
                                             <!-- .yith-wcwl-add-to-wishlist -->
                                             <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
@@ -365,14 +358,10 @@
                                     <div class="media-body">
                                         <div class="product-info">
                                             <div class="yith-wcwl-add-to-wishlist">
-                                                <a style="position: absolute;top: 0;cursor:pointer;" @auth
-                                                    wire:click='wishlists({{$product->id}})' @else
-                                                    href='{{route('login')}}' @endauth>
-                                                    <i class="fa fa-heart-o fa-2x wish @auth
-                                                                @if($wishlist_product_id->contains($product->id)) change_color
-                                                                @endif
-                                                                @endauth"></i>
-                                                </a>
+                                                <a class='add_to_wishlist'
+                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                                        @endauth>
+                                                        </a>
                                             </div>
                                             <!-- .yith-wcwl-add-to-wishlist -->
                                             <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
@@ -489,14 +478,10 @@
                                     <div class="media-body">
                                         <div class="product-info">
                                             <div class="yith-wcwl-add-to-wishlist">
-                                                <a style="position: absolute;top: 0;cursor:pointer;" @auth
-                                                    wire:click='wishlists({{$product->id}})' @else
-                                                    href='{{route('login')}}' @endauth>
-                                                    <i class="fa fa-heart-o fa-2x wish @auth
-                                                                    @if($wishlist_product_id->contains($product->id)) change_color
-                                                                    @endif
-                                                                    @endauth"></i>
-                                                </a>
+                                                <a class='add_to_wishlist'
+                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                                        @endauth>
+                                                        </a>
                                             </div>
                                             <!-- .yith-wcwl-add-to-wishlist -->
                                             <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"

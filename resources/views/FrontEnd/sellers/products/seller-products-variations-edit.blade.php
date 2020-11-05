@@ -22,7 +22,7 @@
                 <div class="alert alert-danger"> {{$error}}</div>
                 @endforeach
                 @endif
-                @livewire('sellers.product-seller-variations-edit', $rows)
+                @livewire('sellers.product-seller-variations-edit', ['rows'=>$rows])
             </div>
         </div>
     </div>

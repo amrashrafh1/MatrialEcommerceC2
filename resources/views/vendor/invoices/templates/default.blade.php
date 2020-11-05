@@ -64,37 +64,37 @@
             <tbody>
                 <tr>
                     <td class="px-0">
-                        @if($invoice->seller->name)
+                        @if($invoice->store->name)
                             <p class="seller-name">
-                                <strong>{{ $invoice->seller->name }}</strong>
+                                <strong>{{ $invoice->store->name }}</strong>
                             </p>
                         @endif
 
-                        @if($invoice->seller->address)
+                        @if($invoice->store->address)
                             <p class="seller-address">
-                                {{ __('invoices::invoice.address') }}: {{ $invoice->seller->address }}
+                                {{ __('invoices::invoice.address') }}: {{ $invoice->store->address }}
                             </p>
                         @endif
 
-                        @if($invoice->seller->code)
+                        @if($invoice->store->code)
                             <p class="seller-code">
-                                {{ __('invoices::invoice.code') }}: {{ $invoice->seller->code }}
+                                {{ __('invoices::invoice.code') }}: {{ $invoice->store->code }}
                             </p>
                         @endif
 
-                        @if($invoice->seller->vat)
+                        @if($invoice->store->vat)
                             <p class="seller-vat">
-                                {{ __('invoices::invoice.vat') }}: {{ $invoice->seller->vat }}
+                                {{ __('invoices::invoice.vat') }}: {{ $invoice->store->vat }}
                             </p>
                         @endif
 
-                        @if($invoice->seller->phone)
+                        @if($invoice->store->phone)
                             <p class="seller-phone">
-                                {{ __('invoices::invoice.phone') }}: {{ $invoice->seller->phone }}
+                                {{ __('invoices::invoice.phone') }}: {{ $invoice->store->phone }}
                             </p>
                         @endif
 
-                        @foreach($invoice->seller->custom_fields as $key => $value)
+                        @foreach($invoice->store->custom_fields as $key => $value)
                             <p class="seller-custom-field">
                                 {{ ucfirst($key) }}: {{ $value }}
                             </p>

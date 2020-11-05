@@ -25,11 +25,12 @@ class CreateProductsTable extends Migration
             $table->string('size')->nullable();
             $table->string('color')->nullable();
             $table->text('short_description')->nullable();
-            $table->longText('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->json('data')->nullable();
             $table->string('image')->nullable();
             $table->bigInteger('tradmark_id')->unsigned()->nullable();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned(); // user_id if for site owner || store_id if for seller
+            $table->bigInteger('seller_id')->unsigned()->nullable(); // user_id if for site owner || store_id if for seller
             $table->enum('owner',['for_seller', 'for_site_owner'])->nullable();
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->boolean('approved')->default('0');
@@ -52,6 +53,7 @@ class CreateProductsTable extends Migration
             /* Foregin Keys */
             $table->foreign('tradmark_id')->references('id')->on('tradmarks')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });

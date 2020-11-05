@@ -15,12 +15,14 @@
                 <a title="@lang('user.Checkout')" href="{{route('show_checkout')}}"> @lang('user.Checkout')</a>
             </li>
             <li class="menu-item animate-dropdown">
-                <a href="{{route('chat')}}" class='notification'>
+                <a href="{{route('show_chat', ['memberTypeTo'=>'chat', 'seq'=>'asd'])}}" class='notification'>
                     <span class='m{{($direction === 'right')?'l':'r'}}-2'>
                     @lang('user.chat')
                     </span>
-                    <i class="fa fa-envelope fa-2x" style='color:#3265B0'></i>
-                    <span class="badge" style="{{($direction === 'right')?'right: 140px;':''}}">@auth {{auth()->user()->unReadedMessages->count()}}@else 0 @endif</span>
+                    <i class="fa fa-envelope fa-2x" style='color:#3265B0; padding-right:.1rem'></i>
+                    <span class="badge" style="{{($direction === 'right')?'right: 140px;':''}};
+                    background: red;color: #fff;border-radius: 50%;margin-bottom: 12px;">
+                    @auth {{auth()->user()->unReadedMessages->count()}}@else 0 @endif</span>
                 </a>
             </li>
             @php
@@ -49,21 +51,3 @@
     <!-- .col-full -->
 </div>
 
-
-<style>
-
-.notification{
-    position: relative;
-}
-
-.notification .badge {
-  position     : absolute;
-  top          : 1px;
-  right        : -10px;
-  padding      : 5px;
-  border-radius: 50%;
-  font-size    : 11px;
-  background   : red;
-  color        : white;
-}
-</style>

@@ -59,6 +59,7 @@ Route::group(
 
             Route::get('show/app/{id}', 'Admin\ApplicationController@index')->name('show_app');
             Route::post('accept/app/{id}', 'Admin\ApplicationController@accept')->name('accept_app');
+            Route::get('reject/app/{id}', 'Admin\ApplicationController@reject')->name('reject_app');
 
             // resources
             Route::resources([

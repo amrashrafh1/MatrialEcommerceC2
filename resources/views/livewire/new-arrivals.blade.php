@@ -25,12 +25,10 @@
                                     @foreach($products as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
-                                                <i class="fa fa-heart-o fa-2x wish @auth
-                                                @if($wishlist_product_id->contains($product->id)) change_color
-                                                @endif
-                                                @endauth"></i>
-                                           </a>
+                                            <a class='add_to_wishlist'
+                                    @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                    @endauth>
+                                    </a>
                                         </div>
                                         <a href="{{route('show_product',$product->slug)}}"
                                             class="woocommerce-LoopProduct-link">
@@ -115,12 +113,10 @@
                                     @foreach($category->products->take(20) as $product)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" wire:click='wishlists({{$product->id}})'>
-                                                <i class="fa fa-heart-o fa-2x wish @auth
-                                                @if($wishlist_product_id->contains($product->id)) change_color
-                                                @endif
-                                                @endauth"></i>
-                                           </a>
+                                            <a class='add_to_wishlist'
+                                            @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                            @endauth>
+                                            </a>
 
                                         </div>
                                         <a href="{{route('show_product',$product->slug)}}"

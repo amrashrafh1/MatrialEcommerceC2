@@ -161,7 +161,7 @@ class CategoryController extends Controller
     {
         $data = $this->validate(request(), [
             'name_en'             => 'required|string|max:255',
-            'category_id'         => 'sometimes|nullable|string|max:191',
+            'category_id'         => 'sometimes|nullable|numeric',
             'slug'                => 'required|string|max:191|unique:categories,slug,'.$id,
             'description_en'      => 'required|string',
             'status'              => 'required|numeric',

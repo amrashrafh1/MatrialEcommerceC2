@@ -19,6 +19,8 @@
                 <div class="alert alert-danger"> {{$error}}</div>
                 @endforeach
                 @endif
+                @include('sweetalert::alert')
+
                 <div class="tab-content mt-5">
                     <!-- .tab-pane -->
                     <div id="grid-extended" class="tab-pane active" role="tabpanel">
@@ -42,7 +44,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
-                                                Form::text('name',old('name')?old('name'):auth()->user()->name,['class'=>'form-control
+                                                Form::text('name',old('name'),['class'=>'form-control
                                                 required','placeholder'=>trans('user.store_name')])
                                                 !!}
                                             </div>
@@ -57,7 +59,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
-                                                Form::email('email',old('email')?old('email'):auth()->user()->email,['class'=>'form-control','placeholder'=>trans('user.email')])
+                                                Form::email('email',old('email'),['class'=>'form-control','placeholder'=>trans('user.email')])
                                                 !!}
                                             </div>
                                         </div>
@@ -85,7 +87,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
-                                                Form::text('city',old('city')?old('city'):auth()->user()->city,['class'=>'form-control','placeholder'=>trans('user.city')])
+                                                Form::text('city',old('city'),['class'=>'form-control','placeholder'=>trans('user.city')])
                                                 !!}
                                             </div>
                                         </div>
@@ -98,7 +100,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {!!
-                                                Form::text('state',old('state')?old('state'):auth()->user()->state,['class'=>'form-control','placeholder'=>trans('user.state')])
+                                                Form::text('state',old('state'),['class'=>'form-control','placeholder'=>trans('user.state')])
                                                 !!}
                                             </div>
                                         </div>

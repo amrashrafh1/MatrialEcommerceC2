@@ -80,17 +80,19 @@ class User extends Authenticatable implements Searchable, JWTSubject, MustVerify
         );
     }
 
-    public function products() {
-        return $this->hasMany(Product::class, 'user_id', 'id');
-    }
-
     public function wishlists() {
         return $this->belongsToMany(Product::class,'wishlists', 'user_id','product_id');
     }
 
 
-    public function seller_info() {
-        return $this->hasOne(SellerInfo::class, 'seller_id','id');
+    public function stores() {
+        return $this->hasMany(SellerInfo::class, 'seller_id','id');
+    }
+
+    public function products() {
+
+        return $this->hasMany(Product::class, 'user_id','id');
+
     }
 
     public function orders() {
@@ -99,10 +101,7 @@ class User extends Authenticatable implements Searchable, JWTSubject, MustVerify
 
 
     public function followee () {
-        return $this->belongsToMany(User::class, 'user_user','follower_id','followee_id');
-    }
-    public function followers () {
-        return $this->belongsToMany(User::class, 'user_user','followee_id','follower_id');
+        return $this->belongsToMany(SellerInfo::class, 'seller_info_user','follower_id','followee_id');
     }
 
     public function country()

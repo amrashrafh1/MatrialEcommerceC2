@@ -37,11 +37,13 @@ class Shop extends Component
         $pros = [];
 
         if ($this->category) {
-
+            //dd($cat_id     = $this->category->products);
             $cat_id     = $this->category->id;
             $cats_id    = Category::where('id', $cat_id)
             ->with('categories.childrenCategories')
-            ->first()->pluck('id');
+            ->first();
+            $cats_id = $this->getIds($cats_id);
+
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
             $brands     = Tradmark::whereHas('products', function ($q) use ($cats_id) {
                 $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
@@ -120,8 +122,10 @@ class Shop extends Component
         if (is_numeric($id) && $id) {
             $product = Product::find($id);
             if ($product) {
-                \Cart::add($product, 1);
-                $this->emit('cartAdded');
+                if($product->visible == 'visible' && $product->approved == 1) {
+                    \Cart::add($product, 1);
+                    $this->emit('cartAdded');
+                }
             }
         }
     }
@@ -157,4 +161,15 @@ class Shop extends Component
     {
         app()->setLocale(session('locale'));
     }
+
+    public function getIds($cat)
+{
+    $ids =  [$cat->id];
+
+    foreach ($cat->categories->where('status', 1) as $child) {
+
+        $ids = array_merge($ids, $this->getIds($child));
+    }
+    return $ids;
+}
 }

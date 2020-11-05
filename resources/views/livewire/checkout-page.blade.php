@@ -127,7 +127,7 @@
                                     @endif
                                     @endif
                                 </div>
-                                {!! Form::open(['url' => route('payment'), 'class' => 'checkout
+                                {!! Form::open(['url' => route('payment', $this->payment), 'class' => 'checkout
                                 woocommerce-checkout',
                                 'method' => 'post', 'id' => 'payment-form']) !!}
                                 <div id="customer_details" class="col2-set">
@@ -444,10 +444,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                                 @if(session()->get('items') !== null)
                                                 @foreach(session()->get('items') as $cart)
                                                 @php
-                                                $cc = Cart::content()->find($cart['item']);
+                                                $cc           = Cart::content()->find($cart['item']);
                                                 $findSHipping = \App\Shipping_methods::where('id', $cart['shipping'])->first();
                                                 if($findSHipping !== null) {
                                                     $this->shippings +=
@@ -475,7 +476,6 @@
                                                 </tr>
                                                 @endforeach
                                                 @elseif(Cart::content()->isEmpty())
-
                                                 @else
                                                 @foreach(Cart::content() as $cart)
                                                 @php
@@ -605,7 +605,7 @@
                                                         <img class="payment-icon-image" src="{{url('/')}}/FrontEnd/images/credit-cards/maestro.svg" alt="maestro" />
                                                     </li>
                                                 </ul>
-                                                @if($setting && $setting->stripe)
+                                                @if($setting && $setting->stripe && $this->payment === 'stripe')
                                                 <div class="form-row" id="stripePayment" wire:ignore>
                                                     <label for="card-element">
                                                       @lang('user.Credit_or_debit_card')

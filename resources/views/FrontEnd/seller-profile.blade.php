@@ -13,7 +13,7 @@
             <div id="primary" class="content-area" style="flex: 0 0 100%;
             max-width: 100%;
             order: 2;">
-                @livewire('seller-store', ['seller' => $seller])
+                @livewire('seller-store', ['store' => $store])
             </div>
         </div>
     </div>

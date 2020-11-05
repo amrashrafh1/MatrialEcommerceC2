@@ -18,7 +18,7 @@
                                 <div class="products">
                                     <div class="sale-product-with-timer product">
                                         <a class="woocommerce-LoopProduct-link"
-                                            href="{{url('/product/'. $random->product->slug)}}">
+                                            href="{{route('show_product',$random->product->slug)}}">
                                             <div class="sale-product-with-timer-header">
                                                 <div class="price-and-title">
                                                     <span class="price">
@@ -100,15 +100,11 @@
                                     @foreach($discountProducts->take(6) as $discount)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth
-                                                wire:click='wishlists({{$discount->id}})' @else
-                                                href='{{route('login')}}' @endauth>
-                                                <i class="fa fa-heart-o fa-2x wish @auth
-                                                @if($wishlist_product_id->contains($discount->id)) change_color
-                                                @endif
-                                                @endauth"></i>
+                                            <a class='add_to_wishlist'
+                                            @auth wire:click='wishlists({{$discount->product->id}})' @else href='{{route('login')}}'
+                                            @endauth>
                                             </a> </div>
-                                        <a href="{{url('/product/'. $discount->product->slug)}}"
+                                        <a href="{{route('show_product',$discount->product->slug)}}"
                                             class="woocommerce-LoopProduct-link">
                                             <span class="onsale">
                                                 <span class="woocommerce-Price-amount amount">
@@ -134,7 +130,7 @@
                                         <div class="hover-area">
                                             @if($discount->product->IsVariable())
                                             <a class="button add_to_cart_button"
-                                                href='{{url('/'. $discount->product->slug)}}'
+                                                href='{{route('show_product', $discount->product->slug)}}'
                                                 rel="nofollow">@lang('user.Add_to_cart')</a>
                                             @if($compare !== null)
                                             @if(!in_array($discount->product->id,$compare))
@@ -178,13 +174,9 @@
                                     @foreach($discountProducts->skip(6)->take(6) as $discount)
                                     <div class="product">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth
-                                                wire:click='wishlists({{$discount->id}})' @else
-                                                href='{{route('login')}}' @endauth>
-                                                <i class="fa fa-heart-o fa-2x wish @auth
-                                                @if($wishlist_product_id->contains($discount->id)) change_color
-                                                @endif
-                                                @endauth"></i>
+                                            <a class='add_to_wishlist'
+                                            @auth wire:click='wishlists({{$discount->product->id}})' @else href='{{route('login')}}'
+                                            @endauth>
                                             </a> </div>
                                         <a href="{{route('show_product', $discount->product->slug)}}"
                                             class="woocommerce-LoopProduct-link">
@@ -213,7 +205,7 @@
                                         <div class="hover-area">
                                             @if($discount->product->IsVariable())
                                             <a class="button add_to_cart_button"
-                                                href='{{url('/'. $discount->product->slug)}}'
+                                                href='{{route('show_product',$discount->product->slug)}}'
                                                 rel="nofollow">@lang('user.Add_to_cart')</a>
                                             @if($compare !== null)
                                             @if(!in_array($discount->product->id,$compare))

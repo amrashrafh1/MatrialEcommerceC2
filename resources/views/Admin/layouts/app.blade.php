@@ -42,6 +42,22 @@
     @livewireStyles
     @livewireScripts
     @endif
+    <style>
+        .notification{
+    position: relative;
+}
+
+.notification .badge {
+  position     : absolute;
+  top          : 1px;
+  right        : -10px;
+  padding      : 5px;
+  border-radius: 50%;
+  font-size    : 11px;
+  background   : red;
+  color        : white;
+}
+    </style>
 </head>
 
 <body class="{{ $class ?? '' }}">

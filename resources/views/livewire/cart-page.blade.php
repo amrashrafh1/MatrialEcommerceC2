@@ -14,191 +14,225 @@
                     <div class="type-page hentry">
                         <div class="entry-content">
                             <div class="woocommerce">
+                                <div class='card mb-3'>
+                                    <h2 class='card-header'>Shopping Cart ({{Cart::count()}})</h2>
+                                    <div class='card-body'>
+                                        <div class='row'>
+                                            <div class='col-md-6'>
+                                                <input type="checkbox" class="check_all"
+                                                wire:model='checkAll' />
+                                                <span>@lang('user.select_all')</span>
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <div class='text-right' >
+                                                    @auth
+                                                    <div class="actions" colspan="12">
+                                                        <div class="coupon">
+                                                            <label for="coupon_code">@lang('user.coupon')</label>
+                                                            <input type="text" placeholder="@lang('user.Coupon_code')"
+                                                                wire:model.lazy='coupon' value="" id="coupon_code"
+                                                                class="input-text" name="coupon_code" autocomplete='off'>
+                                                            <button type="button" wire:click='CheckCoupon'
+                                                                name="apply_coupon"
+                                                                class="button">@lang('user.Apply_coupon')</button>
+                                                        </div>
+                                                        @error('coupon') <span
+                                                            class="alert alert-danger">{{ $message }}</span>
+                                                        @enderror
+                                                        @if($this->message)
+                                                        <div class="coupon alert alert-danger">
+                                                            {{$this->message}}
+                                                        </div>
+                                                        @elseif($this->success)
+                                                        <div class="coupon alert alert-success">
+                                                            {{$this->success}}
+                                                        </div>
+                                                        @endif
+                                                    </td>
+                                                    @else
+                                                    <td class="actions" colspan="12">
+                                                        <div class="coupon">
+                                                            @lang('user.Login_to_can_use_your_coupon')
+                                                        </div>
+                                                    </td>
+                                                    @endauth
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                                 <div class="cart-wrapper">
-                                    <form method="post" action="#" class="woocommerce-cart-form">
-                                        <table class="shop_table shop_table_responsive cart">
-                                            <thead>
-                                                <tr>
-                                                    <th class="product-seller">@lang('user.seller')</th>
-                                                    <th class="product-select">
-                                                        <input type="checkbox" class="check_all"
-                                                            wire:model='checkAll' />
-                                                        <span>@lang('user.select_all')</span>
-                                                    </th>
-                                                    <th class="product-thumbnail"></th>
-                                                    <th class="product-name">@lang('user.product')</th>
-                                                    <th class="product-options">@lang('user.options')</th>
-                                                    <th class="product-price">@lang('user.price')</th>
-                                                    <th class="product-quantity">@lang('user.quantity')</th>
-                                                    <th class="product-shipping">@lang('user.shipping')</th>
-                                                    <th class="product-subtotal">@lang('user.total')</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                @foreach(Cart::content() as $cart)
-                                                @php
-                                                $country_id = $this->country;
-                                                $isMethod = [];
-                                                if($country_id) {
-                                                $isMethod = $cart->buyable->methods()->whereHas('zone', function
-                                                ($query) use($country_id){
-                                                $query->whereHas('countries', function ($q) use($country_id){
-                                                $q->where('id', $country_id);
-                                                });
-                                                })->get();
-                                                if(count($isMethod) <= 0) {
-                                                    $defaultShipping=\App\Setting::orderBy('id','desc')->first();
-                                                    if($defaultShipping->default_shipping == 1) {
-                                                    if($defaultShipping->shipping !== null) {
-                                                    $isDefaultMethod =
-                                                    $defaultShipping->shipping()->whereHas('zone',function ($q) use
-                                                    ($country_id){
-                                                    $q->whereHas('countries', function ($query) use ($country_id) {
-                                                    $query->where('id',$country_id);
-                                                    });
-                                                    })->first();
-
-                                                    }
-                                                    }
-                                                    }
-                                                    }
-                                                    @endphp
-                                                    <tr>
-                                                        <td data-title="seller" class="product-seller">
-                                                            {{$cart->buyable->seller->name}}
-                                                        </td>
-                                                        <td class="product-select">
-                                                            <input type="checkbox" name="item[]"
-                                                                data-value='item_checkbox'
-                                                                class="item_checkbox chb_check{{ $cart->id }}"
-                                                                {{(count($isMethod) > 0 || !empty($isDefaultMethod))?'':'value="0" disabled'}}
-                                                                value="{{ $cart->id }}">
-                                                        </td>
-                                                        <td class="product-thumbnail">
-                                                            <a href="{{route('show_product', $cart->buyable->slug)}}">
-                                                                <img width="180" height="180" alt=""
-                                                                    class="wp-post-image"
-                                                                    src="{{Storage::url($cart->buyable->image)}}">
-                                                            </a>
-                                                        </td>
-                                                        <td data-title="Product" class="product-name">
-                                                            <div class="media cart-item-product-detail">
-                                                                <a
-                                                                    href="{{route('show_product',$cart->buyable->slug)}}">
-                                                                    <img width="180" height="180" alt=""
-                                                                        class="wp-post-image"
-                                                                        src="{{Storage::url($cart->buyable->image)}}">
-                                                                </a>
-                                                                <div class="media-body align-self-center">
-                                                                    <a
-                                                                        href="{{route('show_product',$cart->buyable->slug)}}">{{$cart->buyable->name}}</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="product-options">
-                                                            @if($cart->buyable->IsVariable())
-                                                            @foreach($cart->options as $key => $val)
-                                                            <strong>
-                                                                {{$key}} : {{$val}}
-                                                            </strong><br />
-                                                            @endforeach
-                                                            @endif
-                                                        </td>
-                                                        <td data-title="Price" class="product-price">
-                                                            <span class="woocommerce-Price-amount amount">
-                                                                {!! curr($cart->price) !!}
-                                                            </span>
-                                                        </td>
-                                                        <td class="product-quantity" data-title="Quantity">
-                                                            <div class="quantity">
-                                                                <label>Quantity</label>
-                                                                <input type="number"
-                                                                    name="cart[e2230b853516e7b05d79744fbd4c9c13][qty]"
-                                                                    wire:change='changeCart($event.target.value, {{$cart->id}})'
-                                                                    value="{{$cart->quantity}}" title="Qty"
-                                                                    class="input-text qty text" size="4">
-                                                            </div>
-                                                        </td>
-                                                        <td data-title="shipping" class="product-shipping">
-                                                            @if($this->country)
-                                                            @if(count($isMethod) > 0)
-                                                            <a onclick:prevent="#" class="text-primary"
-                                                                onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
-                                                                style="cursor: pointer;">@lang('user.shipping'):
-                                                                @if(isset($this->shippings[$cart->id]))
-                                                                {!!
-                                                                curr($cart->buyable->calcShipping(\App\Shipping_methods::find($this->shippings[$cart->id]),
-                                                                $cart->quantity)) !!}
-                                                                @endif
-                                                            </a>
-                                                            @elseif(!empty($isDefaultMethod))
-                                                            <a onclick:prevent="#" class="text-primary"
-                                                                onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
-                                                                style="cursor: pointer;">@lang('user.shipping'):
-                                                                @if(isset($this->shippings[$cart->id]))
-                                                                {!! curr($cart->buyable->calcShipping($isDefaultMethod,
-                                                                $cart->quantity)) !!}
-                                                                @endif
-                                                            </a>
-                                                            @else
-                                                            <span class="alert alert-danger" data-toggle="modal"
-                                                                data-target="#exampleModal" style="cursor:pointer;"><i
-                                                                    class="fa fa-exclamation-circle"></i></span>
-                                                            @endif
-                                                            @else
-                                                            <a class="shipping-calculator-button" data-toggle="collapse"
-                                                                href="#shipping-form" aria-expanded="false"
-                                                                aria-controls="shipping-form">@lang('user.Calculate_shipping')</a>
-                                                            @endif
-                                                        </td>
-                                                        <td data-title="Total" class="product-subtotal">
-                                                            {!! curr($cart->price * $cart->quantity) !!}
-                                                            <a title="Remove this item" class="remove" href="#"
-                                                                wire:click='removeCart({{$cart->id}})'>×</a>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                    @if(!empty(session()->get('select')))
-                                                    <div class="alert alert-danger">
-                                                        {{ session()->get('select') }}
-                                                    </div>
+                                    <form  action="#" class="woocommerce-cart-form">
+                                        @foreach($stores as $store)
+                                        <div class='card mb-3'>
+                                            <div class='card-header'>
+                                                <div class='card-title'>
+                                                    <a href='{{route('show_seller', Str::slug($store->name))}}'class='mr-5'
+                                                        style='color:#0063D1;'>{{$store->name}}
+                                                    </a>
+                                                    @if($store->slug)
+                                                    <a href='{{route('show_chat', $store->slug)}}'
+                                                        class='ml-5'>
+                                                    <i class='fa fa-envelope-o'></i> @lang('contact')
+                                                    </a>
                                                     @endif
-                                                    <tr>
-                                                        @auth
-                                                        <td class="actions" colspan="12">
-                                                            <div class="coupon">
-                                                                <label for="coupon_code">@lang('user.coupon')</label>
-                                                                <input type="text" placeholder="@lang('user.Coupon_code')"
-                                                                    wire:model.lazy='coupon' value="" id="coupon_code"
-                                                                    class="input-text" name="coupon_code" autocomplete='off'>
-                                                                <button type="button" wire:click='CheckCoupon'
-                                                                    name="apply_coupon"
-                                                                    class="button">@lang('user.Apply_coupon')</button>
-                                                            </div>
-                                                            @error('coupon') <span
-                                                                class="alert alert-danger">{{ $message }}</span>
-                                                            @enderror
-                                                            @if($this->message)
-                                                            <div class="coupon alert alert-danger">
-                                                                {{$this->message}}
-                                                            </div>
-                                                            @elseif($this->success)
-                                                            <div class="coupon alert alert-success">
-                                                                {{$this->success}}
+                                                </div>
+
+                                            </div>
+                                            <div class='card-body'>
+                                                <table class="shop_table shop_table_responsive cart">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="product-thumbnail"></th>
+                                                            <th class="product-select"></th>
+                                                            <th class="product-name">@lang('user.product')</th>
+                                                            <th class="product-options">@lang('user.options')</th>
+                                                            <th class="product-price">@lang('user.price')</th>
+                                                            <th class="product-quantity">@lang('user.quantity')</th>
+                                                            <th class="product-shipping">@lang('user.shipping')</th>
+                                                            <th class="product-subtotal">@lang('user.total')</th>
+                                                            <th class="product-select"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach(Cart::content() as $cart)
+                                                        @if($cart->buyable->store->id === $store->id)
+                                                        @php
+                                                        $country_id = $this->country;
+                                                        $isMethod   = [];
+                                                        if($country_id) {
+                                                        $isMethod = $cart->buyable->methods()->whereHas('zone', function ($query) use($country_id){
+                                                        $query->whereHas('countries', function ($q) use($country_id){
+                                                        $q->where('id', $country_id);
+                                                        });
+                                                        })->get();
+                                                        if(count($isMethod) <= 0) {
+                                                            $defaultShipping=\App\Setting::orderBy('id','desc')->first();
+                                                            if($defaultShipping->default_shipping == 1) {
+                                                            if($defaultShipping->shipping !== null) {
+                                                            $isDefaultMethod =
+                                                            $defaultShipping->shipping()->whereHas('zone',function ($q) use ($country_id){
+                                                            $q->whereHas('countries', function ($query) use ($country_id) {
+                                                            $query->where('id',$country_id);
+                                                            });
+                                                            })->first();
+
+                                                            }
+                                                            }
+                                                            }
+                                                            }
+                                                            @endphp
+                                                            <tr>
+                                                                <td class="product-select">
+                                                                    <li class="wc-layered-nav-term custom-control custom-checkbox">
+                                                                        <input type="checkbox" name="item[]"  class="custom-control-input item_checkbox chb_check{{ $cart->id }}"
+                                                                        {{(count($isMethod) > 0 || !empty($isDefaultMethod))?'':'value="0" disabled'}}
+                                                                        value="{{ $cart->id }}" id="customCheck{{$cart->id}}" data-value='item_checkbox'>
+                                                                        <label class="custom-control-label"
+                                                                            for="customCheck{{$cart->id}}">{{$cart->name}}</label>
+                                                                    </li>
+                                                                </td>
+                                                                <td class="product-thumbnail">
+                                                                    <a href="{{route('show_product', $cart->buyable->slug)}}">
+                                                                        <img width="180" height="180" alt=""
+                                                                            class="wp-post-image"
+                                                                            src="{{Storage::url($cart->buyable->image)}}">
+                                                                    </a>
+                                                                </td>
+                                                                <td data-title="Product" class="product-name">
+                                                                    <div class="media cart-item-product-detail">
+                                                                        <a
+                                                                            href="{{route('show_product',$cart->buyable->slug)}}">
+                                                                            <img width="180" height="180" alt=""
+                                                                                class="wp-post-image"
+                                                                                src="{{Storage::url($cart->buyable->image)}}">
+                                                                        </a>
+                                                                        <div class="media-body align-self-center">
+                                                                            <a
+                                                                                href="{{route('show_product',$cart->buyable->slug)}}">{{$cart->buyable->name}}</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-options">
+                                                                    @if($cart->buyable->IsVariable())
+                                                                    @foreach($cart->options as $key => $val)
+                                                                    <strong>
+                                                                        {{$key}} : {{$val}}
+                                                                    </strong><br />
+                                                                    @endforeach
+                                                                    @endif
+                                                                </td>
+                                                                <td data-title="Price" class="product-price">
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        {!! curr($cart->price) !!}
+                                                                    </span>
+                                                                </td>
+                                                                <td class="product-quantity" data-title="Quantity">
+                                                                    <div class="quantity">
+                                                                        <label>Quantity</label>
+                                                                        <input type="number"
+                                                                            name="cart[e2230b853516e7b05d79744fbd4c9c13][qty]"
+                                                                            wire:change='changeCart($event.target.value, {{$cart->id}})'
+                                                                            value="{{$cart->quantity}}" title="Qty"
+                                                                            class="input-text qty text" size="4">
+                                                                    </div>
+                                                                </td>
+                                                                <td data-title="shipping" class="product-shipping">
+                                                                    @if($this->country)
+                                                                    @if(count($isMethod) > 0)
+                                                                    <a onclick:prevent="#" class="text-primary"
+                                                                        onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
+                                                                        style="cursor: pointer;">@lang('user.shipping'):
+                                                                        @if(isset($this->shippings[$cart->id]))
+                                                                        {!!
+                                                                        curr($cart->buyable->calcShipping(\App\Shipping_methods::find($this->shippings[$cart->id]),
+                                                                        $cart->quantity)) !!}
+                                                                        @endif
+                                                                    </a>
+                                                                    @elseif(!empty($isDefaultMethod))
+                                                                    <a onclick:prevent="#" class="text-primary"
+                                                                        onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
+                                                                        style="cursor: pointer;">@lang('user.shipping'):
+                                                                        @if(isset($this->shippings[$cart->id]))
+                                                                        {!! curr($cart->buyable->calcShipping($isDefaultMethod,
+                                                                        $cart->quantity)) !!}
+                                                                        @endif
+                                                                    </a>
+                                                                    @else
+                                                                    <span class="alert alert-danger" data-toggle="modal"
+                                                                        data-target="#exampleModal" style="cursor:pointer;"><i
+                                                                            class="fa fa-exclamation-circle"></i></span>
+                                                                    @endif
+                                                                    @else
+                                                                    <a class="shipping-calculator-button go_to_country" style='color:red;' data-toggle="collapse"
+                                                                        href="#shipping-form" aria-expanded="false"
+                                                                        aria-controls="shipping-form">@lang('user.Calculate_shipping')</a>
+                                                                    @endif
+                                                                </td>
+                                                                <td data-title="Total" class="product-subtotal">
+                                                                    {!! curr($cart->price * $cart->quantity) !!}
+                                                                </td>
+                                                                <td data-title="remove" class="product-select">
+                                                                    <a title="Remove this item" class="remove" href="#"
+                                                                    wire:click='removeCart({{$cart->id}})'></a>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            @endforeach
+
+                                                            @if(!empty(session()->get('select')))
+                                                            <div class="alert alert-danger">
+                                                                {{ session()->get('select') }}
                                                             </div>
                                                             @endif
-                                                        </td>
-                                                        @else
-                                                        <td class="actions" colspan="12">
-                                                            <div class="coupon">
-                                                                @lang('user.Login_to_can_use_your_coupon')
-                                                            </div>
-                                                        </td>
-                                                        @endauth
-                                                    </tr>
-                                            </tbody>
-                                        </table>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        @endforeach
                                         <!-- .shop_table shop_table_responsive -->
                                     </form>
                                     <!-- .woocommerce-cart-form -->
@@ -256,11 +290,11 @@
                                             </table>
                                             <!-- .shop_table shop_table_responsive -->
 
-                                            <div class="wc-proceed-to-checkout">
+                                            <div class="wc-proceed-to-checkout" id='country_box'>
                                                 <form class="woocommerce-shipping-calculator" method="post"
                                                     wire:submit.prevent='SelectCountry' wire:ignore>
                                                     <p>
-                                                        <a class="shipping-calculator-button" data-toggle="collapse"
+                                                        <a class="shipping-calculator-button" style='color:red;' data-toggle="collapse"
                                                             href="#shipping-form" aria-expanded="false"
                                                             aria-controls="shipping-form">@lang('user.Calculate_shipping')</a>
                                                     </p>
@@ -452,6 +486,27 @@
         @this.set('country', e.target.value);
     });
 
+    $(window).resize(function(){
+
+        if ($(window).width() <= 720) {
+
+            $('.go_to_country').on('click', function () {
+                $('html, body').animate({
+                scrollTop: $("#country_box").offset().top - 250
+                }, 1000);
+            });
+        }
+
+    });
+
+    if ($(window).width() <= 720) {
+
+        $('.go_to_country').on('click', function () {
+            $('html, body').animate({
+            scrollTop: $("#country_box").offset().top - 250
+            }, 1000);
+        });
+    }
     $('.check_all').on('click', function () {
         $('input[data-value="item_checkbox"]:checkbox').each(function () {
             if ($('input[class="check_all"]:checkbox:checked').length == 0) {
@@ -464,12 +519,6 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         @foreach(Cart::content() as $indx => $cart)
-        /* $(".chb{{$cart->id}}").change(function(e) {
-            $(".chb{{$cart->id}}").prop('checked', false);
-            $(this).prop('checked', true);
-           @this.set('shippings.{{$cart->id}}','');
-           @this.set('shippings.{{$cart->id}}', e.target.value);
-        }); */
         if ($(".chb{{$cart->id}}").is(':checked')) {
             @this.set('shippings.{{$cart->id}}', $(".chb{{$cart->id}}").val());
         }
@@ -526,5 +575,4 @@
             transform: rotate(360deg);
         }
     }
-
 </style>

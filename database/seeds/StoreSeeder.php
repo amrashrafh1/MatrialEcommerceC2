@@ -69,6 +69,27 @@ class StoreSeeder extends Seeder
             'company_id' => $shipping->id,
             'zone_id'    => $zone->id,
         ]);
+
+        \App\SellerInfo::create([
+            'approved'    => rand(0,1),
+            'type'        => rand(0,1),
+            'business'    => Str::random(100),
+            'name'        => Str::random(70),
+            'email'       => 'super@app.com',
+            'slug'        => Str::slug('seller-website'),
+            'address1'    => 'CHRIS NISWANDEE,SMALLSYS INC,795 E DRAGRAM,TUCSON AZ 85705,USA',
+            'address2'    => 'CHRIS NISWANDEE,SMALLSYS INC,795 E DRAGRAM,TUCSON AZ 85705,USA',
+            'address3'    => 'CHRIS NISWANDEE,SMALLSYS INC,795 E DRAGRAM,TUCSON AZ 85705,USA',
+            'phone1'      => '(555) 555-1234',
+            'phone2'      => '(555) 555-1234',
+            'phone3'      => '(555) 555-1234',
+            'city'        => Str::random(20),
+            'state'       => Str::random(20),
+            'country_id'  => rand(1, 100),
+            'description' => Str::random(200),
+            'seller_id'   => 4,
+        ]);
+
         foreach(['size', 'color', 'length','width'] as $family) {
 
             $attribute_family = \App\Attribute_Family::create([

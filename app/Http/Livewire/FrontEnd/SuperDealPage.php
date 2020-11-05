@@ -36,7 +36,17 @@ class SuperDealPage extends Component
     {
         $pros = [];
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
-            $brands = Tradmark::with(['products'=> function ($p) {
+            $brands = Tradmark::whereHas('products', function ($p) {
+                $p->where('visible', 'visible')
+                ->where('approved', 1)
+                ->whereHas('discount', function ($d) {
+                        $d->where('condition', 'percentage_of_product_price')
+                        ->orWhere('condition', 'fixed_amount')
+                        ->where('start_at', '<=',\Carbon\Carbon::now())
+                        ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
+                    });
+            })
+            ->with(['products'=> function ($p) {
                 $p->where('visible', 'visible')
                 ->where('approved', 1)
                 ->whereHas('discount', function ($d) {
@@ -67,14 +77,14 @@ class SuperDealPage extends Component
             } else { */
                 $products = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
             /* } */
-            $compare = (session()->get('compare'))?session()->get('compare'):[];
+            /* $compare = (session()->get('compare'))?session()->get('compare'):[];
             $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
-
+ */
         return view('livewire.shop', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,
             'brands' => $brands, 'attributes' => $attributes,
-             'family' => $family,'tab' => $this->tab, 'wishlist_product_id' =>$wishlist_product_id
-             , 'compare' => $compare]);
+             'family' => $family,'tab' => $this->tab, /* 'wishlist_product_id' =>$wishlist_product_id
+             , 'compare' => $compare */]);
     }
 
     public function updatingPageNumber(): void
@@ -97,12 +107,14 @@ class SuperDealPage extends Component
         if (is_numeric($id) && $id) {
             $product = Product::find($id);
             if ($product) {
-                \Cart::add($product, 1);
-                $this->emit('cartAdded');
-
+                if($product->visible == 'visible' && $product->approved == 1) {
+                    \Cart::add($product, 1);
+                    $this->emit('cartAdded');
+                }
             }
         }
     }
+
     public function hydrate()
     {
         app()->setLocale(session('locale'));

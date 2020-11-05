@@ -158,7 +158,7 @@ class SettingController extends Controller
                 (empty($request['meta_tag_' . $localeCode])) ?: $setting->setTranslation('meta_tag', $localeCode, $request['meta_tag_' . $localeCode])->save();
                 (empty($request['meta_description_' . $localeCode])) ?: $setting->setTranslation('meta_description', $localeCode, $request['meta_description_' . $localeCode])->save();
                 (empty($request['meta_keyword_' . $localeCode])) ?: $setting->setTranslation('meta_keyword', $localeCode, $request['meta_keyword_' . $localeCode])->save();
-                (empty($request['system_message_' . $localeCode])) ?: $da->setTranslation('system_message', $localeCode, $request['system_message_' . $localeCode])->save();
+                (empty($request['system_message_' . $localeCode])) ?: $setting->setTranslation('system_message', $localeCode, $request['system_message_' . $localeCode])->save();
             };
             foreach($data['country_id'] as $country) {
                 SellerCountries::create([

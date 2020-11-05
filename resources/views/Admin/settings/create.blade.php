@@ -351,16 +351,13 @@
     </div>
 </div>
 @push('js')
-<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <link rel="stylesheet" href="{{url('/')}}/css/bootstrap-tagsinput.css">
 <script src="{{url('/')}}/js/bootstrap-tagsinput.min.js"></script>
 <script>
      <?php foreach(\LaravelLocalization::getSupportedLocales() as $locale => $props) { ?>
-            ClassicEditor
-                .create( document.querySelector( '#system_message_{{$locale}}' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+            CKEDITOR.replace('system_message');
+
         <?php } ?>
         $('form').keypress(function(e){
       if(e.keyCode==13)

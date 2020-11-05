@@ -15,20 +15,24 @@ class HandPicked extends Component
 
         $stores = (Auth::check())?auth()->user()->followee()
         ->with(['products'=> function ($query) {
-            $query->where('visible', 'visible')->where('approved', 1)
-            ->select('id','slug','product_type','image','name','sale_price')->orderBy('id', 'desc')->take(20);
+            $query->where('visible', 'visible')->where('approved', 1)->where('owner', 'for_seller')
+            ->select('id','slug','product_type','user_id','owner','image','name','sale_price')->orderBy('id', 'desc')->take(20);
         }])
         ->inRandomOrder()->take(4)->get():[];
 
         return view('livewire.hand-picked', ['handpicked' => $handpicked, 'stores' =>$stores]);
     }
 
-    public function addCart($id) {
-
-        $product = Product::find($id);
-        if($product) {
-            \Cart::add($product,1);
-            $this->emit('cartAdded');
+    public function addCart($id)
+    {
+        if (is_numeric($id) && $id) {
+            $product = Product::find($id);
+            if ($product) {
+                if($product->visible == 'visible' && $product->approved == 1) {
+                    \Cart::add($product, 1);
+                    $this->emit('cartAdded');
+                }
+            }
         }
     }
 

@@ -27,12 +27,10 @@
                                             <div class="landscape-product-card product">
                                                 <div class="media">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
-                                                            <i class="fa fa-heart-o fa-2x wish @auth
-                                                            @if($wishlist_product_id->contains($product->id)) change_color
-                                                            @endif
-                                                            @endauth"></i>
-                                                       </a>                                                      </div>
+                                                        <a class='add_to_wishlist'
+                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                                        @endauth>
+                                                        </a>                                                     </div>
                                                     <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html">
                                                     <img class="wp-post-image" src="{{Storage::url($product->image)}}" alt="{!!$product->name!!}">
                                                     </a>
@@ -257,12 +255,10 @@
                                             <div class="landscape-product-card product">
                                                 <div class="media">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a style="position: absolute;right: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
-                                                            <i class="fa fa-heart-o fa-2x wish @auth
-                                                            @if($wishlist_product_id->contains($product->id)) change_color
-                                                            @endif
-                                                            @endauth"></i>
-                                                       </a>                                                      </div>
+                                                        <a class='add_to_wishlist'
+                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                                        @endauth>
+                                                        </a>                                                     </div>
                                                     <a class="woocommerce-LoopProduct-link" href="{{route('show_product',$product->slug)}}">
                                                         <img class="wp-post-image" src="{{Storage::url($product->image)}}" alt="{!!$product->name!!}">
                                                     </a>

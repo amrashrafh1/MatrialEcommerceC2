@@ -10,7 +10,7 @@ use App\Orders\OrderDetails;
 
 class BillingController extends Controller
 {
-    public function payment(Request $request) {
+    public function payment(Request $request, $payment) {
 //dd('asdasd');
         $validate = $this->validate(request(), [
 
@@ -35,7 +35,7 @@ class BillingController extends Controller
             'shipping_email'     => 'sometimes|nullable|email',
             'order_comments'     => 'sometimes|nullable|string',
 
-            'payment_method' => 'required|string',
+            'payment_method' => 'required|in:paypal,card',
             'terms'          => 'required|in:on,off',
         ], [], [
 
@@ -63,18 +63,20 @@ class BillingController extends Controller
             'terms'              => trans('user.terms'),
         ]);
 
-
-        if ($validate['payment_method'] === 'paypal') {
+        if ($validate['payment_method'] === 'paypal' && $payment == 'paypal') {
             session()->forget('data');
             session()->push('data', $validate);
 
             $paymentGetway = new PaypalPaymentGetway();
             return $paymentGetway->charge();
 
-        } elseif($validate['payment_method'] === 'card') {
+        } elseif($validate['payment_method'] === 'card' && $payment == 'stripe') {
             //dd('asdfasdf');
             $paymentGetway = new StripePaymentGetway();
             return $paymentGetway->charge($validate,$request->stripeToken);
+        }
+        else {
+            return redirect()->route('show_checkout');
         }
 
 

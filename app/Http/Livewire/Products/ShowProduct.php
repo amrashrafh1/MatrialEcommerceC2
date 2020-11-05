@@ -18,9 +18,12 @@ class ShowProduct extends Component
     public function mount($product) {
 
         $this->product = $product;
+        if($product->owner  == 'for_seller') {
+
+
         if(Auth::check()) {
 
-            if(!auth()->user()->followee()->pluck('id')->contains($this->product->seller->id)) {
+            if(!auth()->user()->followee()->pluck('id')->contains((isset($this->product->store))?$this->product->store->id:[])) {
                 $this->isFollow = false;
             } else {
                 $this->isFollow = true;
@@ -31,6 +34,7 @@ class ShowProduct extends Component
                 $this->isWishlist = false;
             }
         }
+    }
     }
 
     public function render()
@@ -51,11 +55,11 @@ class ShowProduct extends Component
 
     public function follow() {
         if(Auth::check()) {
-            if(!auth()->user()->followee()->pluck('id')->contains($this->product->seller->id)) {
-                $this->product->seller->followers()->attach(auth()->user()->id);
+            if(!auth()->user()->followee()->pluck('id')->contains($this->product->store->id)) {
+                $this->product->store->followers()->attach(auth()->user()->id);
                 $this->isFollow = true;
             } else {
-                $this->product->seller->followers()->detach(auth()->user()->id);
+                $this->product->store->followers()->detach(auth()->user()->id);
                 $this->isFollow = false;
             }
         }

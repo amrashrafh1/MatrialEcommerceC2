@@ -1,10 +1,20 @@
-<div class="sidebar" data-color="{{(\Cookie::get('color') != NULL)?\Cookie::get('color'):'orange'}}" data-background-color="white"
+@php
+$products_seller_count = App\Product::where('approved', 0)->whereHas('store')->count();
+$products_count        = App\Product::where('approved', 0)->count();
+$orders_count          = App\Order::where('status','pending')->count();
+$stores_count          = App\SellerInfo::where('approved', 0)->whereHas('seller',
+        function($q) {
+            $q->whereRoleIs('seller');
+        })->count()
+@endphp
+<div class="sidebar" data-color="{{(\Cookie::get('color') != NULL)?\Cookie::get('color'):'orange'}}"
+    data-background-color="white"
     data-image="{{(\Cookie::get('image') != NULL)?\Cookie::get('image'): asset('material') . '/img/sidebar-1.jpg'}}">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
       Tip 2: you can also add an image using data-image tag
-  -->
+    -->
     <div class="logo">
         <a href="{{route('home')}}" class="simple-text logo-normal">
             {{$setting?$setting->sitename:'Laravel'}}
@@ -18,35 +28,65 @@
                     <p>{{ trans('admin.dashboard') }}</p>
                 </a>
             </li>
-            <li class="nav-item{{ $activePage == 'marketplace-management' ? '' : 'collapsed' }} list-group" >
-                <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i class="material-icons">
+            <li class="nav-item{{ $activePage == 'marketplace-management' ? '' : 'collapsed' }} list-group">
+                <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i
+                        class="material-icons">
                         shopping_basket
                     </i>
-                    @lang('admin.marketplace')
-                    <span class="caret"></span></a>
+                    <p class='notification'>{{ trans('admin.marketplace') }}
+                        <span class='badge'>{{$stores_count + $products_seller_count}}</span>
+                        <span class="caret mr-2"></span>
+                    </p>
+                </a>
             </li>
-            <li class="collapse list-group-level1 {{ $activePage == 'seller-management' ? ' show' : '' }}" id="sub-menu">
-                <a href="{{ route('seller.index') }}" class="list-group-item nav-link{{ $activePage == 'seller-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu">@lang('admin.sellers')</a>
-                <a href="{{ route('seller_products') }}" class="list-group-item nav-link{{ $activePage == 'seller-products-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu">@lang('admin.products')</a>
+            <li class="collapse list-group-level1 {{ $activePage == 'seller-management' ? ' show' : '' }}"
+                id="sub-menu">
+                <a href="{{ route('seller.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'seller-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu">
+                    <p class='notification'>{{ trans('admin.sellers') }}
+                        <span class='badge'>{{$stores_count}}</span>
+                    </p>
+                </a>
+                <a href="{{ route('seller_products') }}"
+                    class="list-group-item nav-link{{ $activePage == 'seller-products-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu">
+                    <p class='notification'>{{ trans('admin.products') }}
+                        <span class='badge'>{{$products_seller_count}}</span>
+                    </p>
+                </a>
             </li>
-            <li class="nav-item{{ $activePage == 'cms-management' ? '' : 'collapsed' }} list-group" >
+            <li class="nav-item{{ $activePage == 'cms-management' ? '' : 'collapsed' }} list-group">
                 <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu">
                     <i class="fas fa-tasks"></i>
                     @lang('admin.cms')<span class="caret"></span></a>
             </li>
             @php
-                $cms_array = [
-                    'teams-management', 'contact_us-management'
-                ,'testimonials-management','services-management','ourworks-management','sliders-management'
-                ]
+            $cms_array = [
+            'teams-management', 'contact_us-management'
+            ,'testimonials-management','services-management','ourworks-management','sliders-management'
+            ]
             @endphp
-            <li class="collapse list-group-level1 {{ in_array($activePage, $cms_array) ? ' show' : '' }}" id="sub-menu1">
-                <a href="{{ route('teams.index') }}" class="list-group-item nav-link{{ $activePage == 'teams-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.teams')</a>
-                <a href="{{ route('contact_us.index') }}" class="list-group-item nav-link{{ $activePage == 'contact_us-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.contact_us')</a>
-                <a href="{{ route('testimonials.index') }}" class="list-group-item nav-link{{ $activePage == 'testimonials-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.testimonials')</a>
-                <a href="{{ route('services.index') }}" class="list-group-item nav-link{{ $activePage == 'services-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.services')</a>
-                <a href="{{ route('ourworks.index') }}" class="list-group-item nav-link{{ $activePage == 'ourworks-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.ourworks')</a>
-                <a href="{{ route('sliders.index') }}" class="list-group-item nav-link{{ $activePage == 'sliders-management' ? ' active' : 'collapsed' }}" data-parent="#sub-menu1">@lang('admin.sliders')</a>
+            <li class="collapse list-group-level1 {{ in_array($activePage, $cms_array) ? ' show' : '' }}"
+                id="sub-menu1">
+                <a href="{{ route('teams.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'teams-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu1">@lang('admin.teams')</a>
+                <a href="{{ route('contact_us.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'contact_us-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu1">@lang('admin.contact_us')</a>
+                <a href="{{ route('testimonials.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'testimonials-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu1">@lang('admin.testimonials')</a>
+                <a href="{{ route('services.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'services-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu1">@lang('admin.services')</a>
+                <a href="{{ route('ourworks.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'ourworks-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu1">@lang('admin.ourworks')</a>
+                <a href="{{ route('sliders.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'sliders-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu1">@lang('admin.sliders')</a>
             </li>
             <li class="nav-item{{ $activePage == 'Events' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ aurl('/fullcalendar') }}">
@@ -83,7 +123,9 @@
                     <i class="material-icons">
                         perm_identity
                     </i>
-                    <p>{{ trans('admin.users') }}</p>
+                    <p class='notification'>{{ trans('admin.users') }}
+                        <span class='badge'>{{App\SellerInfo::where('approved',0)->count()}}</span>
+                    </p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'discount-management' ? ' active' : '' }}">
@@ -99,7 +141,9 @@
                     <i class="material-icons">
                         library_books
                     </i>
-                    <p>{{ trans('admin.orders') }}</p>
+                    <p class='notification'>{{ trans('admin.orders') }}
+                        <span class='badge'>{{$orders_count}}</span>
+                    </p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'category-management' ? ' active' : '' }}">
@@ -129,7 +173,9 @@
                     <i class="material-icons">
                         shopping_cart
                     </i>
-                    <p>{{ trans('admin.products') }}</p>
+                    <p class='notification'>{{ trans('admin.products') }}
+                        <span class='badge'>{{$products_count}}</span>
+                    </p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'mall-management' ? ' active' : '' }}">
@@ -213,10 +259,10 @@
                 </a>
             </li>
             {{-- <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('table') }}">
-                    <i class="material-icons">content_paste</i>
-                    <p>{{ __('Table List') }}</p>
-                </a>
+            <a class="nav-link" href="{{ route('table') }}">
+                <i class="material-icons">content_paste</i>
+                <p>{{ __('Table List') }}</p>
+            </a>
             </li>
             <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('typography') }}">

@@ -13,23 +13,23 @@
                         <div class="products">
                             @foreach($handpicked as $product)
                             <div class="landscape-product-widget product">
-                                <a class="woocommerce-LoopProduct-link" href="{{route('show_product', $product->slug)}}">
+                                <a class="woocommerce-LoopProduct-link"
+                                    href="{{route('show_product', $product->slug)}}">
                                     <div class="media">
-                                        <img class="wp-post-image"
-                                            src="{{Storage::url($product->image)}}" alt="">
+                                        <img class="wp-post-image" src="{{Storage::url($product->image)}}" alt="">
                                         <div class="media-body">
                                             <span class="price">
                                                 @if($product->available_discount())
-                                                    <ins>
-                                                        <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
-                                                    </ins>
-                                                    <del>
-                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
-                                                    </del>
+                                                <ins>
+                                                    <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                                                </ins>
+                                                <del>
+                                                    <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                </del>
                                                 @else
-                                                    <ins>
-                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
-                                                    </ins>
+                                                <ins>
+                                                    <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                </ins>
                                                 @endif
                                             </span>
                                             <!-- .price -->
@@ -64,37 +64,35 @@
                 <header class="section-header">
                     <h2 class="section-title">@lang('user.your_favorite_sellers_and_stores')</h2>
                     @if($stores)
-                    @foreach($stores as $store)
                     <ul role="tablist" class="nav justify-content-end">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#{{(!empty($store->seller_info))?$store->seller_info->id:$store->id}}" data-toggle="tab" role="tab"
-                                    aria-controls="{{(!empty($store->seller_info))?$store->seller_info->id:$store->id}}">{{$store->name}}</a>
-                            </li>
-                            @endforeach
-                        @endif
+                        @foreach($stores as $store)
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#{{(!empty($store))?$store->id:$store->id}}"
+                                data-toggle="tab" role="tab"
+                                aria-controls="{{(!empty($store))?$store->id:$store->id}}">{{$store->name}}</a>
+                        </li>
+                        @endforeach
                     </ul>
+                    @endif
                 </header>
                 <!-- .section-header -->
                 <div class="tab-content">
                     @if($stores)
-                        @foreach($stores as $store)
-                        <div role="tabpanel" class="tab-pane active" id="{{(!empty($store->seller_info))?$store->seller_info->id:$store->id}}">
-                            <div class="products-carousel 5-column-carousel" data-ride="tm-slick-carousel"
-                                data-wrap=".products"
-                                data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1000,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}}]}">
-                                <div class="container-fluid">
-                                    <div class="woocommerce columns-5">
-                                        <div class="products">
-                                            @foreach($store->products()->IsApproved()
-                                            ->select('id','slug','product_type','image','name','sale_price')->latest()->take(20)->get() as $product)
+                    @foreach($stores as $store)
+                    <div role="tabpanel" class="tab-pane active" id="{{(!empty($store))?$store->id:$store->id}}">
+                        <div class="products-carousel 5-column-carousel" data-ride="tm-slick-carousel"
+                            data-wrap=".products"
+                            data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1000,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}}]}">
+                            <div class="container-fluid">
+                                <div class="woocommerce columns-5">
+                                    <div class="products">
+                                        @foreach($store->products as $product)
                                         <div class="product">
                                             <div class="yith-wcwl-add-to-wishlist">
-                                                <a style="position: absolute;{{$direction == 'right'?'left':'right'}}: 0;top: 0;cursor:pointer;" @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}' @endauth>
-                                                    <i class="fa fa-heart-o fa-2x wish @auth
-                                                    @if($wishlist_product_id->contains($product->id)) change_color
-                                                    @endif
-                                                    @endauth"></i>
-                                            </a>
+                                                <a class='add_to_wishlist'
+                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                                        @endauth>
+                                                        </a>
                                             </div>
                                             <a href="{{route('show_product',$product->slug)}}"
                                                 class="woocommerce-LoopProduct-link">
@@ -114,19 +112,21 @@
                                                     class="wp-post-image" alt="">
                                                 <span class="price">
                                                     @if($product->available_discount())
-                                                        <ins>
-                                                            <span class="amount">{!! curr($product->discount->price()) !!}</span>
-                                                        </ins>
-                                                        <del>
-                                                            <span class="amount">{!! curr($product->calc_price()) !!}</span>
-                                                        </del>
-                                                        @else
-                                                        <ins>
-                                                            <span class="amount">{!! curr($product->calc_price()) !!}</span>
-                                                        </ins>
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->discount->price())
+                                                            !!}</span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </del>
+                                                    @else
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                                                    </ins>
                                                     @endif
                                                 </span>
-                                                <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                <span
+                                                    class='product_shipping'>{{$product->calc_shippings($country)}}</span>
 
                                                 <!-- /.price -->
                                                 <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>
@@ -135,40 +135,46 @@
                                             <div class="hover-area">
                                                 @if($product->IsVariable())
                                                 <a class="button add_to_cart_button"
-                                                    href='{{route('show_product', $product->slug)}}' rel="nofollow">@lang('user.Add_to_cart')</a>
-                                                    {{-- @if($compare !== null) --}}
-                                                        @if(!in_array($product->id,$compare))
-                                                        <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
-                                                        @else
-                                                        <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
-                                                        @endif
-                                                    {{-- @endif --}}
+                                                    href='{{route('show_product', $product->slug)}}'
+                                                    rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                @if(!in_array($product->id,$compare))
+                                                <a class="add-to-compare-link comp"
+                                                    wire:click='compare({{$product->id}})'
+                                                    style="cursor:pointer">@lang('user.Add_to_compare')</a>
                                                 @else
-                                                    <a class="button product_type_simple add_to_cart_button" wire:click='addCart({{$product->id}})'
-                                                        rel="nofollow" wire:loading.class="disabled">@lang('user.Add_to_cart')
-                                                        <div wire:loading>
-                                                            <i class="fa fa-spinner " aria-hidden="true"></i>
-                                                        </div>
-                                                    </a>
-                                                        @if(!in_array($product->id,$compare))
-                                                        <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
-                                                        @else
-                                                        <a class="add-to-compare-link disabled" disabled>@lang('user.already_added')</a>
-                                                        @endif
+                                                <a class="add-to-compare-link disabled"
+                                                    disabled>@lang('user.already_added')</a>
+                                                @endif
+                                                @else
+                                                <a class="button product_type_simple add_to_cart_button"
+                                                    wire:click='addCart({{$product->id}})' rel="nofollow"
+                                                    wire:loading.class="disabled">@lang('user.Add_to_cart')
+                                                    <div wire:loading>
+                                                        <i class="fa fa-spinner " aria-hidden="true"></i>
+                                                    </div>
+                                                </a>
+                                                @if(!in_array($product->id,$compare))
+                                                <a class="add-to-compare-link comp"
+                                                    wire:click='compare({{$product->id}})'
+                                                    style="cursor:pointer">@lang('user.Add_to_compare')</a>
+                                                @else
+                                                <a class="add-to-compare-link disabled"
+                                                    disabled>@lang('user.already_added')</a>
+                                                @endif
                                                 @endif
                                             </div>
                                         </div>
                                         @endforeach
-                                            <!-- /.product-outer -->
-                                        </div>
+                                        <!-- /.product-outer -->
                                     </div>
-                                    <!-- .woocommerce -->
                                 </div>
-                                <!-- .container-fluid -->
+                                <!-- .woocommerce -->
                             </div>
-                            <!-- .slick-dots -->
+                            <!-- .container-fluid -->
                         </div>
-                        @endforeach
+                        <!-- .slick-dots -->
+                    </div>
+                    @endforeach
                     @endif
                     <!-- .tab-pane -->
 

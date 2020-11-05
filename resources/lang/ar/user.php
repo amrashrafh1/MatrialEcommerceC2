@@ -384,10 +384,11 @@ return array (
   array (
     '' => 'واقعك.',
   ),
-  'Thank_you_for_your_review' => 'شكرا لك، لمراجعتك',
-  'specification'             => 'تخصيص',
-  'there_is_no_specification' => 'لا توجد مواصفات',
-  'show_more'                 => 'أظهر المزيد',
-  'show_less'                 => 'أظهر الاقل',
+  'Thank_you_for_your_review'                                                      => 'شكرا لك، لمراجعتك',
+  'specification'                                                                  => 'تخصيص',
+  'there_is_no_specification'                                                      => 'لا توجد مواصفات',
+  'show_more'                                                                      => 'أظهر المزيد',
+  'show_less'                                                                      => 'أظهر الاقل',
+  'Your_request_will_be_reviewed_by_the_admin_and_will_be_replied_within_24_hours' => 'سيتم مراجعة طلبك من قبل المسؤول وسيتم الرد عليه في غضون 24 ساعة',
 
 );

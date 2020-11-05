@@ -15,28 +15,31 @@ class SpecialOffers extends Component
     {
         $categories = Category::where('status', 1)->select('name', 'id', 'slug')
         ->whereHas('products', function ($q) {
-            $q->whereHas('discount', function ($d) {
+            $q->where('visible', 'visible')->where('approved', 1)
+            ->whereHas('discount', function ($d) {
                 $d->where([
                 ['condition', 'percentage_of_product_price'],['daily', 'special_offers'],
                 ['start_at', '<=', \Carbon\Carbon::now()],
                 ['expire_at', '>', \Carbon\Carbon::now()]])
 
                 ->orWhere([
-                    
+
                 ['condition', 'fixed_amount'],['daily', 'special_offers'],
                 ['start_at', '<=', \Carbon\Carbon::now()],
                 ['expire_at', '>', \Carbon\Carbon::now()]])->take(9);
             });
         })
         ->with(['products'=> function ($q) {
-            $q->whereHas('discount', function ($d) {
+            $q->where('visible', 'visible')->where('approved', 1)
+
+            ->whereHas('discount', function ($d) {
                 $d->where([
                 ['condition', 'percentage_of_product_price'],['daily', 'special_offers'],
                 ['start_at', '<=', \Carbon\Carbon::now()],
                  ['expire_at', '>', \Carbon\Carbon::now()]])
 
                 ->orWhere([
-                    
+
                 ['condition', 'fixed_amount'],['daily', 'special_offers'],
                 ['start_at', '<=', \Carbon\Carbon::now()],
                 ['expire_at', '>', \Carbon\Carbon::now()]])->take(9);
@@ -48,12 +51,16 @@ class SpecialOffers extends Component
         return view('livewire.special-offers', ['categories' => $categories]);
     }
 
-    public function addCart($id) {
-
-        $product = Product::find($id);
-        if($product) {
-            \Cart::add($product,1);
-            $this->emit('cartAdded');
+    public function addCart($id)
+    {
+        if (is_numeric($id) && $id) {
+            $product = Product::find($id);
+            if ($product) {
+                if($product->visible == 'visible' && $product->approved == 1) {
+                    \Cart::add($product, 1);
+                    $this->emit('cartAdded');
+                }
+            }
         }
     }
 
