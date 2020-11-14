@@ -461,14 +461,14 @@
     var vuejs = new Vue({
         el: '#create-product',
         data: {
-            variant: 'simple',
+            variant: '{{old("product_type", "simple")}}',
             variables: 'custom',
             chractersVariable: [],
             Variables: [],
             attributesFamily: '',
             selectedTags: [],
             selectedValue: [],
-            slug: '',
+            slug: '{{old("slug")}}',
             owner: 'for_site_owner',
             has_accessories: 'yes',
         },

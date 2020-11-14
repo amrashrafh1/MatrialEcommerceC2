@@ -393,13 +393,13 @@
                         array_push($arrays,$attrs->id);
                         @endphp
                         <option value="{{$attrs->id}}" selected>
-                            {{$attrs->name}}
+                            {{$attrs->attribute_family->name . ' / ' .$attrs->name}}
                         </option>
                         @endforeach
                         @foreach($attributes as $attribute)
                         @if(!in_array($attribute->id, $arrays))
                         <option value="{{$attribute->id}}">
-                            {{$attribute->name}}
+                            {{$attribute->attribute_family->name . ' / ' . $attribute->name}}
                         </option>
                         @endif
                         @endforeach
@@ -564,19 +564,19 @@
     var edit = new Vue({
         el: '#edit-product',
         data: {
-            variant: '{{$this->rows->product_type}}',
+            variant: '{{old("product_type",$this->rows->product_type)}}',
             variables: 'custom',
             chractersVariable: [],
             Variables: [],
             attributesFamily: '',
             selectedTags: [],
             selectedValue: [],
-            slug: '{{$this->rows->slug}}',
-            owner: '{{$this->rows->owner}}',
-            section: '{{$this->rows->section}}',
-            visible: '{{$this->rows->visible}}',
-            in_stock: '{{$this->rows->in_stock}}',
-            has_accessories: '{{$this->rows->has_accessories}}',
+            slug: '{{old("slug",$this->rows->slug)}}',
+            owner: '{{old("owner",$this->rows->owner)}}',
+            section: '{{old("section",$this->rows->section)}}',
+            visible: '{{old("visible",$this->rows->visible)}}',
+            in_stock: '{{old("in_stock",$this->rows->in_stock)}}',
+            has_accessories: '{{old("has_accessories",$this->rows->has_accessories)}}',
         },
         computed: {
 

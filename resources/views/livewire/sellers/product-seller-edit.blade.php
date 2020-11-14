@@ -162,7 +162,8 @@
                                 <div style="position:absolute; top:0;right:0;">
                                     <button wire:click='removeImage({{$gallery->id}})' type="button" rel="tooltip"
                                         class="btn btn-danger btn-sm">
-                                        <i class="material-icons">close</i>
+                                        <i class="fa fa-trash"></i>
+                                        @lang('user.delete')
                                     </button>
                                 </div>
                             </div>
@@ -520,19 +521,17 @@
     var edit = new Vue({
         el: '#edit-product',
         data: {
-            variant: '{{$this->rows->product_type}}',
+            variant: '{{old("product_type",$this->rows->product_type)}}',
             variables: 'custom',
             chractersVariable: [],
             Variables: [],
             attributesFamily: '',
             selectedTags: [],
             selectedValue: [],
-            slug: '{{$this->rows->slug}}',
-            //owner: '{{$this->rows->owner}}',
-            //section: '{{$this->rows->section}}',
-            //visible: '{{$this->rows->visible}}',
-            //in_stock: '{{$this->rows->in_stock}}',
-            has_accessories: '{{$this->rows->has_accessories}}',
+            slug: '{{old("slug",$this->rows->slug)}}',
+            visible: '{{old("visible",$this->rows->visible)}}',
+            in_stock: '{{old("in_stock",$this->rows->in_stock)}}',
+            has_accessories: '{{old("has_accessories",$this->rows->has_accessories)}}',
         },
         computed: {
 

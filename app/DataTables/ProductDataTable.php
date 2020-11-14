@@ -18,7 +18,8 @@ class ProductDataTable extends DataTable
 
 	public function query(Product $model)
     {
-        return $model->newQuery()->select('name->en as ss','slug','image','product_type','approved','id','has_accessories','sale_price');        ;
+        return $model->newQuery()->select('name->en as ss','slug',
+        'image','product_type','approved','id','has_accessories','sale_price');        ;
     }
 
 

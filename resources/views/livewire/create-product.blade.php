@@ -499,7 +499,7 @@
     var vuejs = new Vue({
         el: '#create-product',
         data: {
-            variant: 'simple',
+            variant: '{{old("product_type", "simple")}}',
             variables: 'custom',
             chractersVariable: [],
             Variables: [],

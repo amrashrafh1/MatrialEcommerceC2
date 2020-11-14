@@ -9,6 +9,7 @@ use App\DataTables\sellers\ProductsDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\productsRequestStore;
 use App\Product;
+use App\Sold;
 use App\Shipping_methods;
 use App\Variation;
 use Illuminate\Http\Request;
@@ -41,7 +42,44 @@ class SellerController extends Controller
     {
         $store = auth()->user()->stores->where('id', session('store'))->first();
         if($store) {
-            return view('FrontEnd.sellers.dashboard', ['store' => $store]);
+            $store_id = $store->id;
+            // get total sales
+            $total_sales = Sold::whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->with('products')->sum('sold');
+            $total_sales_1 = Sold::whereDate('created_at', today())->whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->sum('sold');
+            $total_sales_2 = Sold::whereDate('created_at', today()->subDays(6))->whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->sum('sold');
+            $total_sales_percent = getPercentageChange(($total_sales_2)?$total_sales_2:1, $total_sales_1);
+
+            // get total orders
+            $total_orders = Sold::whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->count();
+            $total_orders_1 = Sold::whereDate('created_at', today())->whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->count();
+            $total_orders_2 = Sold::whereDate('created_at', today()->subDays(6))->whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->count();
+            $total_orders_percent = getPercentageChange(($total_orders_2)?$total_orders_2:1, $total_orders_1);
+
+            $total_revenue = Sold::whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->sum(\DB::raw('(sale_price * sold) - ((sale_price * sold) * fees / 100) - coupon'));
+
+            $total_profit = Sold::whereHas('product', function ($query) use($store_id) {
+                $query->where('seller_id', $store_id);
+            })->value(\DB::raw('SUM((sale_price * sold - purchase_price * sold) - ((sale_price * sold) * fees / 100) - coupon)'));
+
+            return view('FrontEnd.sellers.dashboard', ['store' => $store,
+             'total_sales' => $total_sales,'total_sales_percent' => $total_sales_percent,
+             'total_orders' => $total_orders,'total_orders_percent' => $total_orders_percent,
+             'total_revenue'=>$total_revenue,'total_profit'=>$total_profit
+             ]);
         } else {
             return redirect()->route('home');
         }
@@ -173,9 +211,10 @@ class SellerController extends Controller
         }
         $product->methods()->attach($shippings['shippings']);
         if (!empty($request['gallery'])) {
-            multiple_uploads($request['gallery'], $this->path, 'App\Product', $product->id, 600, 350);
+            multiple_uploads($request['gallery'], $this->path, $product, 600, 350);
+
         }
-        \Alert::success(trans('admin.added'), trans('admin.success_record'));
+        \Alert::success(trans('admin.added'), trans('user.Your_product_will_be_reviewed_by_the_admin_and_will_be_accepted_within_24_hours'));
         return redirect()->route('seller_frontend_products');
     }
 
@@ -368,7 +407,7 @@ class SellerController extends Controller
             $rows->methods()->sync($shippings['shippings']);
 
             if (!empty($request['gallery'])) {
-                multiple_uploads($request['gallery'], $this->path, 'App\Product', $rows->id, 600, 350);
+                multiple_uploads($request['gallery'], $this->path, $rows, 600, 350);
             }
             \Alert::success(trans('admin.updated'), trans('admin.updated_record'));
         }
@@ -576,22 +615,29 @@ class SellerController extends Controller
     }
 
 
-    /* public function export_invoice($id) {
-        $order  = Order::findOrfail($id);
-        $items  = [];
-        foreach($order->order_lines->where('seller_id',session('store'))->get() as $line) {
-            $seller_model = \App\User::findOrFail($line->seller_id);
+    public function export_invoice($id) {
+        $order    = Order::findOrfail($id);
+        $items    = [];
+        //$tax      = 0;
+        $shipping = 0;
 
-            $seller = new Party([
+        foreach($order->order_lines->where('seller_id',session('store')) as $line) {
+            //dd($line);
+            $seller_model  = \App\SellerInfo::findOrFail($line->seller_id);
+           // $tax          += round($line->tax / ($line->price * $line->quantity) * 100);
+            $shipping     += $line->shipping;
+
+            $seller        = new Party([
                 'name'          => $seller_model->name,
-                'phone'         => ($seller_model->seller_info)?$seller_model->seller_info->phone1:$seller_model->phone,
+                'phone'         => $seller_model->phone1,
                 'custom_fields' => [
-                    'address' => ($seller_model->seller_info)?$seller_model->seller_info->address1:$seller_model->address,
+                    'address' => $seller_model->address1,
                     'email'   => $seller_model->email,
                 ],
             ]);
             array_push($items,
-            (new InvoiceItem())->title($line->product)->pricePerUnit($line->price)->quantity($line->quantity));
+            (new InvoiceItem())->title($line->product)->pricePerUnit($line->price)
+            ->quantity($line->quantity)->discount($line->discount));
         }
 
         $customer = new Party([
@@ -613,14 +659,16 @@ class SellerController extends Controller
 
         $notes = implode("<br>", $notes);
 
-        $invoice = Invoice::make('receipt')
+        $invoice = Invoice::make('INVOICE')
             ->series('BIG')
             ->sequence(667)
             ->serialNumberFormat('{SEQUENCE}/{SERIES}')
             ->seller($seller)
             ->buyer($customer)
             ->date(now())
-
+            //->discountByPercent(10)
+            //->taxRate($tax)
+            ->shipping($shipping)
             ->dateFormat('m/d/Y')
             ->payUntilDays(14)
             ->currencySymbol('$')
@@ -628,18 +676,17 @@ class SellerController extends Controller
             ->currencyFormat('{SYMBOL}{VALUE}')
             ->currencyThousandsSeparator('.')
             ->currencyDecimalPoint(',')
-            ->filename($sitename . '  ' . $order->billing_name)
+            ->filename('invoice'. time())
             ->addItems($items)
             ->notes($notes)
-             //->logo(\Storage::url(\App\Setting::latest('id')->first()->logo))
+            ->logo(\App\Setting::latest('id')->first()->logo)
             // You can additionally save generated invoice to configured disk
             ->save('public');
            // dd($invoice);
-           dd($invoice);
         $link = $invoice->url();
         // Then send email to party with link
 
         // And return invoice itself to browser or have a different view
         return $invoice->stream();
-    } */
+    }
 }

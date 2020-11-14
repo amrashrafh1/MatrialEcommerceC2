@@ -91,7 +91,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <canvas id="Chart" class="chartjs-render-monitor" style="height: 300px;"></canvas>
+                        <div class="card-chart">
+                            {!! $profits->container() !!}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +108,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <canvas id="Revenue" class="chartjs-render-monitor" style="height: 300px;"></canvas>
+                        {!! $revenues->container() !!}
                     </div>
                 </div>
             </div>
@@ -464,99 +466,12 @@
 @push('js')
 <script src="{{url('/')}}/js/chart.js/dist/Chart.min.js"></script>
 {!! $chart->script() !!}
+{!! $profits->script() !!}
+{!! $revenues->script() !!}
 <script>
     $(document).ready(function () {
         // Javascript method's body can be found in assets/js/demos.js
         md.initDashboardPageCharts();
-    });
-    var ctx = document.getElementById("Revenue").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["@lang('admin.Today')", "@lang('admin.yesterday')", "@lang('admin.2days_ago')",
-                "@lang('admin.3days_ago')",
-                "@lang('admin.4days_ago')", "@lang('admin.5days_ago')", "@lang('admin.6days_ago')",
-                "@lang('admin.7days_ago')"
-            ],
-            datasets: [{
-                label: 'Revenues',
-                data: @json($revenues),
-                borderWidth: 2,
-                backgroundColor: 'transparent',
-                borderColor: '#00c3ed',
-                borderWidth: 4,
-                pointBackgroundColor: '#ffffff',
-                pointRadius: 8
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize: 150
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        display: true
-                    },
-                    gridLines: {
-                        display: false
-                    }
-                }]
-            },
-        }
-    });
-
-    var ctx = document.getElementById("Chart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["@lang('admin.Today')", "@lang('admin.yesterday')", "@lang('admin.2days_ago')",
-                "@lang('admin.3days_ago')",
-                "@lang('admin.4days_ago')", "@lang('admin.5days_ago')", "@lang('admin.6days_ago')",
-                "@lang('admin.7days_ago')"
-            ],
-            datasets: [{
-                label: 'Profits',
-                data: @json($profits),
-                borderWidth: 2,
-                backgroundColor: 'transparent',
-                borderColor: '#00c3ed',
-                borderWidth: 4,
-                pointBackgroundColor: '#ffffff',
-                pointRadius: 8
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize: 150
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        display: true
-                    },
-                    gridLines: {
-                        display: false
-                    }
-                }]
-            },
-        }
     });
 
     if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {

@@ -496,14 +496,16 @@ if (!function_exists('get_purchase_price')) {
 if (!function_exists('profit_calc')) {
     function profit_calc($days)
     {
-        return Sold::whereDate('created_at', today()->subDays($days))->value(DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)'));
+        return intval(Sold::whereDate('created_at', today()->subDays($days))
+        ->value(DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)')));
     }
 }
 
 if (!function_exists('revenue_calc')) {
     function revenue_calc($days)
     {
-        return Sold::whereDate('created_at', today()->subDays($days))->value(DB::raw('SUM((sale_price * sold )  - coupon)'));
+        return intval(Sold::whereDate('created_at', today()->subDays($days))
+        ->value(DB::raw('SUM((sale_price * sold )  - coupon)')));
     }
 }
 if (!function_exists('sales_calc')) {

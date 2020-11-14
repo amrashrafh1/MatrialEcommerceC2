@@ -7,7 +7,7 @@
                 <a href="{{route('home')}}">@lang('user.Home')</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
-                </span>{{auth()->user()->name}} @lang('user.dashboard')
+                </span>{{$store->name}} @lang('user.dashboard')
             </nav>
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area" style="flex: 0 0 100%;
@@ -17,11 +17,11 @@
                     <div class="shop-archive-header" wire:ignore>
                         <div class="jumbotron">
                             <div class="jumbotron-img">
-                                <img width="416" height="283" alt="" src="{{Storage::url(auth()->user()->image)}}"
+                                <img width="416" height="283" alt="" src="{{Storage::url($store->image)}}"
                                     class="jumbo-image alignright">
                             </div>
                             <div class="jumbotron-caption">
-                                <h3 class="jumbo-title">{{auth()->user()->name}}</h3>
+                                <h3 class="jumbo-title">{{$store->name}}</h3>
                                 <p class="jumbo-subtitle">
 
                                 </p>
@@ -31,13 +31,7 @@
                         <!-- .jumbotron -->
                     </div>
                 </main>
-                <div class="shop-control-bar">
-                    <div class="handheld-sidebar-toggle">
-                        <button type="button" class="btn sidebar-toggler">
-                            <i class="fa fa-sliders"></i>
-                            <span>Filters</span>
-                        </button>
-                    </div>
+                <div class="">
                     <!-- .handheld-sidebar-toggle -->
                     <h1 class="woocommerce-products-header__title page-title">@lang('user.dashboard')</h1>
                     @include('FrontEnd.sellers.navs')

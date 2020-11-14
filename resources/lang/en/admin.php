@@ -408,5 +408,6 @@ return array (
     'owner'                                                          => 'Owner',
     'for_seller'                                                     => 'Seller',
     'seller'                                                         => 'Seller',
+    'facebook_account'                                               => 'Facebook Account',
 
 );

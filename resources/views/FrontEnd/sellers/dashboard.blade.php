@@ -23,7 +23,7 @@
                     <div class="shop-archive-header" wire:ignore>
                         <div class="jumbotron">
                             <div class="jumbotron-img">
-                                <img width="416" height="283" alt="" src="{{Storage::url($store->image)}}"
+                                <img style='background-size:cover;' alt="" src="{{Storage::url($store->image)}}"
                                     class="jumbo-image alignright">
                             </div>
                             <div class="jumbotron-caption">
@@ -37,13 +37,7 @@
                         <!-- .jumbotron -->
                     </div>
                 </main>
-                <div class="shop-control-bar">
-                    <div class="handheld-sidebar-toggle">
-                        <button type="button" class="btn sidebar-toggler">
-                            <i class="fa fa-sliders"></i>
-                            <span>Filters</span>
-                        </button>
-                    </div>
+                <div class="">
                     <!-- .handheld-sidebar-toggle -->
                     <h1 class="woocommerce-products-header__title page-title">@lang('user.dashboard')</h1>
                     @include('FrontEnd.sellers.navs', ['slug' => $store->slug])
@@ -63,21 +57,11 @@
                                         <i class="fa fa-line-chart mr-2" aria-hidden="true"></i>
                                         @lang('user.Total_sales')
                                     </p>
-                                    <h2 class="text-primary text-xxl mt-4">{{\App\Sold::whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->sum('sold')}}</h2>
-                                    @php
-                                    $total_sales_1 =  \App\Sold::whereDate('created_at', today())->whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->sum('sold');
-                                    $total_sales_2 = \App\Sold::whereDate('created_at', today()->subDays(6))->whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->sum('sold');
-                                    @endphp
-                                    @if(getPercentageChange(($total_sales_2)?$total_sales_2:1, $total_sales_1) < 0)
-                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs(getPercentageChange(($total_sales_2)?$total_sales_2:1, $total_sales_1))}}% decrease</a>
+                                    <h2 class="text-primary text-xxl mt-4">{{$total_sales}}</h2>
+                                    @if($total_sales_percent < 0)
+                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs($total_sales_percent)}}% decrease</a>
                                     @else
-                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{getPercentageChange(($total_sales_2)?$total_sales_2:1, $total_sales_1)}}% increase</a>
+                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{$total_sales_percent}}% increase</a>
                                     @endif
                                 </div>
                             </div>
@@ -88,8 +72,7 @@
                                         New Users
                                     </p>
                                     <h2 class="text-yellow text-xxl mt-4">523</h2>
-                                    <a href="#" class="btn btn-outline-yellow btn-pill btn-sm">10% increase</a>
-                                </div>
+                               </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6" style='border: 1px solid #e6e6e6;'>
                                 <div class="text-center">
@@ -97,22 +80,12 @@
                                         <i class="fa fa-cart-arrow-down mr-2"></i>
                                         @lang('user.Total_Orders')
                                     </p>
-                                    <h2 class="text-warning text-xxl mt-4">{{\App\Sold::whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->count()}}</h2>
+                                    <h2 class="text-warning text-xxl mt-4">{{$total_orders}}</h2>
 
-                                    @php
-                                    $total_order_1 =  \App\Sold::whereDate('created_at', today())->whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->count();
-                                    $total_order_2 = \App\Sold::whereDate('created_at', today()->subDays(6))->whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->count();
-                                    @endphp
-                                    @if(getPercentageChange(($total_order_2)?$total_order_2:1, $total_order_1) < 0)
-                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs(getPercentageChange(($total_order_2)?$total_order_2:1, $total_order_1))}}% decrease</a>
+                                    @if($total_orders_percent < 0)
+                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">{{abs($total_orders_percent)}}% decrease</a>
                                     @else
-                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{getPercentageChange(($total_order_2)?$total_order_2:1, $total_order_1)}}% increase</a>
+                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">{{$total_orders_percent}}% increase</a>
                                     @endif
                                 </div>
                             </div>
@@ -122,10 +95,7 @@
                                         <i class="fa fa-signal mr-2"></i>
                                         @lang('user.Total_Revenue')
                                     </p>
-                                    <h2 class="text-danger text-xxl mt-4">{!! curr(\App\Sold::whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->sum(\DB::raw('(sale_price * sold) - ((sale_price * sold) * fees / 100) - coupon'))) !!}</h2>
-                                    <a href="#" class="btn btn-outline-danger btn-pill btn-sm">10% decrease</a>
+                                    <h2 class="text-danger text-xxl mt-4">${{ $total_revenue }}</h2>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6" style='border: 1px solid #e6e6e6;'>
@@ -134,10 +104,7 @@
                                         <i class="fa fa-dollar-sign mr-2"></i>
                                         @lang('user.Total_Profit')
                                     </p>
-                                    <h2 class="text-success text-xxl mt-4">{!! curr(\App\Sold::whereHas('product', function ($query) use($user_id) {
-                                        $query->where('seller_id', $user_id);
-                                    })->value(\DB::raw('SUM((sale_price * sold - purchase_price * sold) - ((sale_price * sold) * fees / 100) - coupon)'))) !!}</h2>
-                                    <a href="#" class="btn btn-outline-success btn-pill btn-sm">5% increase</a>
+                                    <h2 class="text-success text-xxl mt-4">{{ $total_profit }}</h2>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6" style='border: 1px solid #e6e6e6;'>

@@ -255,7 +255,6 @@ return [
     'width'                                                                                                                                                                                       => 'width',
     'Wishlist'                                                                                                                                                                                    => 'Wishlist',
     'yearly'                                                                                                                                                                                      => 'yearly',
-    'Your request will be reviewed by the admin and will be replied within 24 hours'                                                                                                              => 'Your_request_will_be_reviewed_by_the_admin_and_will_be_replied_within_24_hours',
     'Your_form_has_been_submitted'                                                                                                                                                                => 'Your form has been submitted',
     'your_message'                                                                                                                                                                                => 'Your message',
     'Your_order'                                                                                                                                                                                  => 'Your Order',
@@ -377,9 +376,14 @@ return [
     'show_less'                                                                                                                                                                                   => 'Show Less',
     'Contact_now'                                                                                                                                                                                 => 'Contact now',
     'Your_request_will_be_reviewed_by_the_admin_and_will_be_replied_within_24_hours'                                                                                                              => 'Your request will be reviewed by the admin and will be replied within 24 hours',
+    'Your_product_will_be_reviewed_by_the_admin_and_will_be_accepted_within_24_hours'                                                                                                              => 'Your product will be reviewed by the admin and will be accepted within 24 hours',
     'meta_tag_English'                                               => 'Meta tag in english',
     'meta_tag_Arabic'                                                => 'Meta tag in arabic',
     'your_stores'                                                    => 'Your stores',
     'Change_password'                                                => 'Change password',
+    'Discover_more_products'                                                => 'Discover more products',
+    'logout'                                                => 'Logout',
+    'Filters'                                                => 'Filters',
+    'delete'                                                => 'Delete',
 
 ];

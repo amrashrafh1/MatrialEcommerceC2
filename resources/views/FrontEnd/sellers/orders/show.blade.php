@@ -99,9 +99,8 @@
                                 @php
                                     $total    = 0;
                                     $shipping = 0;
-                                    $tax      = 0;
                                 @endphp
-                                @foreach($rows->order_lines_seller as $item)
+                                @foreach($rows->order_lines as $item)
                                 <tr>
                                     <td>{{$item->product}}</td>
                                     <td>
@@ -114,13 +113,12 @@
                                         @endif
                                     </td>
                                     <td class="text-center">${{$item->price}}</td>
-                                    <td class="text-center">${{-($item->discount)}}</td>
+                                    <td class="text-center">$({{($item->discount)}})</td>
                                     <td class="text-center">{{$item->quantity}}</td>
-                                    <td class="text-right">{{$item->total - $item->tax}}</td>
+                                    <td class="text-right">{{$item->total}}</td>
                                 </tr>
                                     @php
-                                        $total    += floatval($item->total) - $item->tax;
-                                        $tax      += floatval($item->tax);
+                                        $total    += floatval($item->total);
                                         $shipping += floatval($item->shipping);
                                     @endphp
                                 @endforeach
@@ -157,16 +155,8 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="no-line text-center"><strong>Tax</strong></td>
-                                    <td class="no-line text-right">${{$tax}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>Total</strong></td>
-                                    <td class="no-line text-right">${{($total + $shipping + $tax) - $coupon }}</td>
+                                    <td class="no-line text-right">${{($total + $shipping) - $coupon }}</td>
                                 </tr>
                                 </tbody>
                             </table>

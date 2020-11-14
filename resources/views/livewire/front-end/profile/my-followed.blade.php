@@ -9,15 +9,15 @@
         <tbody>
 
             @forelse($followed as $follow)
-            <tr>
+            <tr class='text-center'>
                 <th scope="row" class='text-center'>
                 <a href='{{route('show_seller', $follow->id)}}'>
-                    <img class='img-responsive' src='{{($follow->seller_info)?Storage::url($follow->seller_info->image): Storage::url($follow->image) }}'>
+                    <img class='img-responsive' height='180' width='200' src='{{($follow)?Storage::url($follow->image): Storage::url($follow->image) }}'>
                 </a>
                 </th>
                 <th scope="row" class='text-center' >
-                <a href='{{route('show_seller', $follow->id)}}' style='color:blue'>
-                    {{($follow->seller_info)?$follow->seller_info->name:$follow->name}}
+                <a href='{{route('show_seller', $follow->slug)}}' style='color:blue'>
+                    {{($follow)?$follow->name:$follow->name}}
                 </a>
                 </th>
             </tr>

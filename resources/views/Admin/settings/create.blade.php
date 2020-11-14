@@ -356,7 +356,7 @@
 <script src="{{url('/')}}/js/bootstrap-tagsinput.min.js"></script>
 <script>
      <?php foreach(\LaravelLocalization::getSupportedLocales() as $locale => $props) { ?>
-            CKEDITOR.replace('system_message');
+            CKEDITOR.replace('system_message_{{$locale}}');
 
         <?php } ?>
         $('form').keypress(function(e){

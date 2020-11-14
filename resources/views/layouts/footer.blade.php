@@ -269,12 +269,16 @@ $categories = \App\Category::where('status', 1)->where('category_id', NULL)
 </div>
 
 <div id="app"></div>
+@auth
+@role('seller')
         <!-- 2. AddChat widget -->
         <div id="addchat_app"
         data-baseurl="{{ url('') }}"
         data-csrfname="{{ 'X-CSRF-Token' }}"
         data-csrftoken="{{ csrf_token() }}"
     ></div>
+@endrole
+@endauth
 <style>
     .change_color {
         color:red;

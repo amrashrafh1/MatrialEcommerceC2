@@ -81,7 +81,7 @@
 @push('js')
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script>
-        CKEDITOR.replace('description_{{$locale}}');
+        CKEDITOR.replace('description');
 
 </script>
 @endpush

@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
     {
         parent::report($exception);
 
-        Log::channel('slack')->critical($exception);
+        //Log::channel('slack')->critical($exception);
     }
 
     /**

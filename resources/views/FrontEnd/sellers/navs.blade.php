@@ -1,4 +1,4 @@
-<ul role="tablist" class="shop-view-switcher nav nav-tabs">
+<ul role="tablist" class="shop-view-switcher nav nav-tabs justify-content-end" >
     <li class="nav-item">
         <a href="{{route('seller_dashboard', ['store'=> $store->slug])}}" title="@lang('user.dashboard')"
             class="nav-link {{(Route::current()->getName() == 'seller_dashboard')?'active':''}}">

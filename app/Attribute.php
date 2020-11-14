@@ -22,7 +22,7 @@ class Attribute extends Model
 
 
     public function attribute_family() {
-        return $this->belongsTo(Attribute_Family::class);
+        return $this->belongsTo(Attribute_Family::class, 'family_id','id');
     }
 
 

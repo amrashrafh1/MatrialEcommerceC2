@@ -778,11 +778,12 @@
         localStorage.setItem('listProducts',  $(e.target).attr('href'));
     });
     document.addEventListener("livewire:load", function(event) {
-        var listProducts = localStorage.getItem('listProducts').replace('#', '');
+        var listProducts = localStorage.getItem('listProducts');
 
         if(listProducts){
-            @this.set('tab', listProducts);
+            @this.set('tab', listProducts.replace('#', ''));
         } else {
+            console.log('asd');
             @this.set('tab', 'grid-extended');
         }
     });

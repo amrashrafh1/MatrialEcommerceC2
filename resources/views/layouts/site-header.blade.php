@@ -198,7 +198,7 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                         @else
                         <li
                             class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
-                            <a title="Dollar (US)" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
+                            <a title="@lang('user.my_account')" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
                                 href="#">
                                 <i class="tm tm-login-register"></i>@lang('user.my_account')
                                 <span class="caret"></span>
@@ -388,11 +388,38 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                 <!-- ============================================================= End Header Logo ============================================================= -->
                 <div class="handheld-header-links">
                     <ul class="columns-4">
+                        @guest
                         <li class="my-account">
-                            <a href="@auth {{route('profile')}} @else {{route('login')}} @endif" class="has-icon">
+                            <a href="{{route('login')}}" class="has-icon">
                                 <i class="tm tm-login-register"></i>
                             </a>
                         </li>
+                        @else
+                        <div class="my-account dropdown">
+                            <a href='#' class="dropdown-toggle ml-3" id="dropdownMenuProfile" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="tm tm-login-register"></i>
+                            </a>
+                            <div class="dropdown-menu mt-4" style='margin-right:120px;' aria-labelledby="dropdownMenuProfile">
+                                <li class="dropdown-item">
+                                    <a title="@lang('user.profile')"
+                                        href="{{route('profile')}}">@lang('user.profile')</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a title="{{trans('user.seller_dashboard')}}"
+                                        href="#"data-toggle="modal"  data-target="#exampleModal">{{trans('user.seller_dashboard')}}</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a title="{{trans('user.Sell_on').' '. $setting->sitename}}"
+                                        href="{{route('seller_app')}}">{{trans('user.Sell_on').' '. $setting->sitename}}</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a title="{{trans('user.logout')}}" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{trans('user.logout')}}</a>
+                                </li>
+                            </div>
+                        </div>
+                        @endguest
                         <li class="wishlist">
                             <a href="{{route('show_wishlists')}}" class="has-icon">
                                 <i class="tm tm-favorites"></i>
@@ -508,8 +535,7 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                                                                             href="{{route('show_category', $category->slug)}}">
                                                                             <span
                                                                                 class="nav-text">{{$category->name}}</span>
-                                                                            <span class="nav-subtext">Discover more
-                                                                                products</span>
+                                                                            <span class="nav-subtext">@lang('user.Discover_more_products')</span>
                                                                         </a>
                                                                     </li>
                                                                 </ul>
@@ -577,7 +603,7 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
 @role('seller')
 @if(auth()->user()->stores)
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" style='z-index:99999999;'>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -589,8 +615,8 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
             <div class="modal-body">
                 <div class='row'>
                     @foreach(auth()->user()->stores as $store)
-                    <div class='col-md-4 m-1' style='border:1px solid #999; background:
-                    {{($store->id == session('store'))? '#0063d1':'#999'}};'>
+                    <div class='col m-1'
+                    style='border:2px solid {{($store->id == session('store'))? '#0063d1':'#999'}};'>
                         <a href='{{route('seller_dashboard', ['store'=> $store->slug])}}'>
                             <img width='180p' height='180' src='{{Storage::url($store->image)}}'>
                         </a>

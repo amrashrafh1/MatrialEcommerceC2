@@ -6,25 +6,20 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use App\Discount;
+use App\Sold;
 use Auth;
 class TestController extends Controller
 {
     public function index() {
         $time_start = $this->microtime_float();
+        $user_id    = session('store');
 
-        $stores = (Auth::check())?auth()->user()->followee()
-        ->with(['products'=> function ($query) {
-            $query->where('visible', 'visible')->where('approved', 1)
-            ->select('id','slug','product_type','user_id','owner','image','name','sale_price')->orderBy('id', 'desc')->take(20);
-        }])
-        ->inRandomOrder()->take(4)->get():[];
-
-        foreach($stores as $store) {
-            foreach($store->products as $product) {
-                echo $product->name . '<br/>';
-            }
-        }
-
+        /* $total_sales = Sold::whereHas('product', function ($query) use($store_id) {
+            $query->where('seller_id', $store_id);
+        })->sum('sold'); */
+        \App\Sold::whereDate('created_at', today())->whereHas('product', function ($query) use($user_id) {
+            $query->where('seller_id', $user_id);
+        })->sum('sold');
 
         $time_end = $this->microtime_float();
         $time     = $time_end - $time_start;

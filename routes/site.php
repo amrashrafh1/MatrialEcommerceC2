@@ -144,12 +144,12 @@ Route::get('/seller/products','FrontEnd\SellerController@products')->middleware(
 // Seller products create page
 Route::get('/seller/products/create','FrontEnd\SellerController@create')->middleware(['verified', 'store_session'])->name('seller_frontend_products_create');
 // Seller products store
-Route::post('/seller/products/store','FrontEnd\SellerController@store')->middleware(['verified', 'store_session'])->name('seller_frontend_products_store')->middleware('image-sanitize');;
+Route::post('/seller/products/store','FrontEnd\SellerController@store')->middleware(['verified', 'store_session'])->name('seller_frontend_products_store');
 
 // Seller products edit page
 Route::get('/seller/products/edit/{slug}','FrontEnd\SellerController@edit')->middleware(['verified', 'store_session'])->name('seller_frontend_products_edit');
 // Seller products update
-Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->middleware(['verified', 'store_session'])->name('seller_frontend_products_update')->middleware('image-sanitize');;
+Route::put('/seller/products/edit/{slug}','FrontEnd\SellerController@update')->middleware(['verified', 'store_session'])->name('seller_frontend_products_update');
 
 // Seller products delete
 Route::delete('/seller/products/delete/{slug}','FrontEnd\SellerController@destroy')->middleware(['verified', 'store_session'])->name('seller_frontend_products_delete');
