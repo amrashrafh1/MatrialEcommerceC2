@@ -12,11 +12,11 @@ class TrendingNow extends Component
     public function render()
     {
         // get top 20 trending now
-        $products = Product::where('section','trending_now')->with('discount')
+        $products = Product::isApproved()->where('section','trending_now')->with('discount')
         ->select('id','slug','image','product_type','name','sale_price')->inRandomOrder()->take(20)->get();
 
         // get random trending now categories
-        $categories = Category::inRandomOrder()->select('name', 'id', 'slug')
+        $categories = Category::where('status',1)->where('category_id', NULL)->inRandomOrder()->select('name', 'id', 'slug')
         ->whereHas('products', function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->where('section','hot_new_arrivals')

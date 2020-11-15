@@ -76,8 +76,20 @@
                 </div>
             </div>
         </div>
-        <div class="card-chart">
-            {!! $chart->container() !!}
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-muted ls-1 mb-1">@lang('admin.chart')</h6>
+                            <h2 class="mb-0">@lang('admin.users')</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {!! $chart->container() !!}
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-6">

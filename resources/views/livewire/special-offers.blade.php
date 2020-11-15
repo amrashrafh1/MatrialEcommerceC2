@@ -31,11 +31,11 @@
                                                         @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
                                                         @endauth>
                                                         </a>                                                     </div>
-                                                    <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html">
+                                                    <a class="woocommerce-LoopProduct-link" href="{{route('show_product',$product->slug)}}">
                                                     <img class="wp-post-image" src="{{Storage::url($product->image)}}" alt="{!!$product->name!!}">
                                                     </a>
                                                     <div class="media-body">
-                                                        <a class="woocommerce-LoopProduct-link " href="single-product-fullwidth.html">
+                                                        <a class="woocommerce-LoopProduct-link " href="{{route('show_product',$product->slug)}}">
 
                                                                     <span class="price">
                                                                         <ins>
@@ -122,7 +122,7 @@
                                                         </figure>
                                                     </div>
                                                     <div class="media-body">
-                                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
+                                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{route('show_product',$product->slug)}}">
                                                             <span class="price">
                                                                 <ins>
                                                                     <span class="amount"> {!! curr($product->priceDiscount()) !!}</span>
@@ -180,11 +180,11 @@
                                             @foreach($category->products->skip(4)->take(2) as $product)
                                             <div class="landscape-product-card product">
                                                 <div class="media">
-                                                    <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html">
+                                                    <a class="woocommerce-LoopProduct-link" href="{{route('show_product',$product->slug)}}">
                                                         <img class="wp-post-image" src="{{Storage::url($product->image)}}" alt="{!!$product->name!!}">
                                                     </a>
                                                     <div class="media-body">
-                                                        <a class="woocommerce-LoopProduct-link " href="single-product-fullwidth.html">
+                                                        <a class="woocommerce-LoopProduct-link " href="{{route('show_product',$product->slug)}}">
                                                                 <span class="price">
                                                                     <ins>
                                                                         <span class="amount"> {!! curr($product->priceDiscount()) !!}</span>

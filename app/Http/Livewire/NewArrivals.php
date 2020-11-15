@@ -17,7 +17,7 @@ class NewArrivals extends Component
         ->select('id','slug','product_type','image','name','sale_price')->with(['discount', 'methods'])->latest()->take(20)->get();
 
 
-        $categories = Category::inRandomOrder()->select('name', 'id', 'slug')
+        $categories = Category::where('status',1)->where('category_id', NULL)->inRandomOrder()->select('name', 'id', 'slug')
         ->whereHas('products', function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->where('section','hot_new_arrivals')
