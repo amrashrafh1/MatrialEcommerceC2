@@ -42,7 +42,7 @@ class SellerAppController extends Controller
         $data = $this->validate(request(), [
             'country_id'  => 'required|numeric|exists:countries,id',
             'name'        => 'required|string|max:191',
-            'email'       => 'required|email|unique:users,email',
+            'email'       => 'required|email',
             'city'        => 'required|string',
             'state'       => 'sometimes|nullable|string',
             'address1'    => 'required|string',
@@ -74,7 +74,7 @@ class SellerAppController extends Controller
         ]);
         $img = '';
         if (!empty($data['image'])) {
-            $img = upload($data['image'], 'users', 1446, 409);
+            $img = upload($data['image'], 'stores', 1446, 409);
         }
         $data['slug']      = \Str::slug($data['name']);
         $data['image']     = $img;

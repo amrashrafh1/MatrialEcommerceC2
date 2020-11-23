@@ -1,0 +1,1 @@
+{{views($model)->unique()->count()}}

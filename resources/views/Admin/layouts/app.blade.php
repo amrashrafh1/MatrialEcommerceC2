@@ -38,6 +38,7 @@
     || Route::current()->getName() == 'add_accessories'
     || Route::current()->getName() == 'discounts.create'
     || Route::current()->getName() == 'discounts.edit'
+    || Route::current()->getName() == 'dashboard'
     || Route::current()->getName() == 'attributes.create' )
     @livewireStyles
     @livewireScripts
@@ -333,7 +334,7 @@
             });
 
         window.livewire.afterDomUpdate(() => {
-            @if(Route::current()->getName() != 'attribute_families.index')
+            @if(Route::current()->getName() != 'attribute_families.index' && Route::current()->getName() != 'dashboard')
             Swal.fire({
             position: 'top-end',
             icon: 'success',

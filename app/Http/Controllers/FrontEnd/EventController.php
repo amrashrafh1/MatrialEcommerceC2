@@ -21,6 +21,7 @@ class EventController extends Controller
             SEOTools::opengraph()->addProperty('type', 'site');
             SEOTools::twitter()->setSite($setting?$setting->twitter:'');
             SEOTools::jsonLd()->addImage(\Storage::url($cms->image));
+            views($cms)->record();
 
             return view('FrontEnd.cms.shop',['cms' => $cms]);
         } else {

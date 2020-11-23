@@ -84,18 +84,53 @@ trans('admin.new_seller_application')])
                                 <label for="phone">@lang('user.About') :</label>
                                 <div id="phone">{{$application->description}}</div>
                             </div>
+                            @if($application->approved)
+                            <div class="form-submit">
+                                <a type="submit" href='#'
+                                class="btn btn-danger" data-toggle="modal" data-target="#application" style='background:red; width:100%'
+                                name="submit" id="submit" >  @lang('admin.delete')</a>
+                                (@lang("admin.will_delete_store_&_it's_products"))
+                            </div>
+                            @else
                             <div class="form-submit">
                                 <input type="submit" value="@lang('admin.approval')" class="btn" style='background:green;' name="submit" id="submit" />
-                                <a type="submit" href='{{route('reject_app', $application->id)}}'
+                                <a type="submit" href='#'
+                                data-toggle="modal" data-target="#application"
                                 class="btn btn-danger" style='background:red; width:100%'
-                                name="submit" id="submit" >@lang('admin.reject')</a>
+                                name="submit" id="submit" >  @lang('admin.reject')</a>
                             </div>
+                            @endif
                         </form>
                     </div>
                 </div>
             </div>
 
         </div>
+    </div>
+    <div class="modal fade" id="application">
+        {!! Form::open([
+            'method' => 'DELETE',
+            'route'  => ['reject_app', $application->id]
+            ]) !!}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">x</button>
+                </div>
+                <div class="modal-body">
+                    <div class='form-group'>
+                        <textarea name='message' class='form-conrol w-100'
+                        rows="7" cols="50" placeholder='@lang('admin.write_a_message_to_seller_email')'
+                        required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::submit(trans('admin.delete_&_send_message'), ['class' => 'btn btn-danger']) !!}
+                    <a class="btn btn-default" data-dismiss="modal">{{trans('admin.cancel')}}</a>
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!}
     </div>
 </div>
 <style>

@@ -138,6 +138,10 @@ Route::post('/seller/app', 'FrontEnd\SellerAppController@store')->middleware('ve
 
 // Seller Dashboard
 Route::get('/seller/dashboard','FrontEnd\SellerController@index')->middleware(['verified', 'store_session'])->name('seller_dashboard');
+// Seller update store profile
+Route::get('/seller/profile','FrontEnd\SellerProfileController@index')->middleware(['verified', 'store_session'])->name('store_profile');
+
+Route::put('/seller/profile/{id}','FrontEnd\SellerProfileController@update')->middleware(['verified', 'store_session'])->name('store_profile_update');
 // Seller products
 Route::get('/seller/products','FrontEnd\SellerController@products')->middleware(['verified', 'store_session'])->name('seller_frontend_products');
 

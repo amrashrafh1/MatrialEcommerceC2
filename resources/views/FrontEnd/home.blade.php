@@ -19,7 +19,7 @@
                                 <div class="home-v2-slider home-slider">
                                     @foreach($sliders as $index => $slider)
 
-                                    <div class="slider-1" style="background-image: url({{url('/')}}/FrontEnd/images/slider/home-v2-background.jpg);">
+                                    <div class="slider-1">
                                         <img src="{{Storage::url($slider->image)}}" alt="" style='left:46.4%;bottom:0'>
                                         <div class="caption">
                                             <div class="title">{{$slider->header}}
@@ -77,7 +77,6 @@
                                                     </ins>
                                                 @endif
                                                 </span>
-                                                <span class='product_shipping'>{{$randomProduct->calc_shippings($country)}}</span>
 
                                             </div>
                                             <!-- .caption -->
@@ -99,8 +98,7 @@
                             <div class="product-categories product-categories-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:7,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#categories-carousel-3 .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}},{&quot;breakpoint&quot;:1700,&quot;settings&quot;:{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:6}}]}">
                                 <div class="woocommerce columns-7">
                                     <div class="products">
-                                        @foreach($catalog
-                                        ->where('status', 1) as $category)
+                                        @foreach($catalog  as $category)
                                             <div class="product-category product">
                                                 <a href="{{route('show_category',$category->slug)}}">
                                                     <img width="224" height="197" style="height:197px;width:224px;" src="{{ Storage::url($category->image) }}">
@@ -118,7 +116,7 @@
                         @livewire('deals')
                         <div class="fullwidth-notice stretch-full-width">
                             <div class="col-full">
-                                <p class="message">Download our new app today! Dont miss our mobile-only offers and shop with Android Play.</p>
+                                <p class="message">@lang('user.Download_our_new_app_today!_Dont_miss_our_mobile-only_offers_and_shop_with_Android_Play')</p>
                             </div>
                             <!-- .col-full -->
                         </div>

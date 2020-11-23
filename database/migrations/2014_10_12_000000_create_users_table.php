@@ -29,6 +29,9 @@ class CreateUsersTable extends Migration
             $table->integer('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->enum('chat_status',['online','offline','away','busy'])->default('online');
+            $table->datetime('last_login_at')->nullable();
+            $table->string('last_login_ip')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

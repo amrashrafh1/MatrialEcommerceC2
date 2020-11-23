@@ -38,6 +38,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
      protected $casts = [
         'data' => 'array',   // Will convarted to (Array)
+
     ];
     /* attributes many to many */
 
@@ -407,14 +408,15 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         if (count($methods) <= 0) {
             // will get the default shipping method if has this country
             $defaultShipping = config('app.setting');
-            if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
 
-                    $isDefaultMethod = $defaultShipping->shipping()->whereHas('zone', function ($q) use ($country_id) {
+            if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
+                    $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                         $q->whereHas('countries', function ($query) use ($country_id) {
                             $query->where('id', $country_id);
                         });
                     })->first();
                     // push $defaultShipping to shippings array
+
                     if ($isDefaultMethod !== null) {
                         array_push($shippings, $this->calcShipping($isDefaultMethod, 1));
                     } else {

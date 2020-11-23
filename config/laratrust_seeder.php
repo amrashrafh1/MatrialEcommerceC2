@@ -28,6 +28,7 @@ return [
            'payments'           => 'c,r,u,d',
            'sellers'            => 'c,r,u,d',
            'sellers-app'        => 'c,r',
+           'stores'             => 'c,r,u,d',
 
         ],
         'administrator' => ['profile' => 'r,u'],

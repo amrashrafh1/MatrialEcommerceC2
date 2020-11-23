@@ -15,7 +15,7 @@
                         <div class="entry-content">
                             <div class="woocommerce">
                                 <div class='card mb-3'>
-                                    <h2 class='card-header'>Shopping Cart ({{Cart::count()}})</h2>
+                                    <h2 class='card-header'>@lang('user.Shopping_Cart') ({{Cart::count()}})</h2>
                                     <div class='card-body'>
                                         <div class='row'>
                                             <div class='col-md-6'>
@@ -72,7 +72,10 @@
                                                         style='color:#0063D1;'>{{$store->name}}
                                                     </a>
                                                     @if($store->slug)
-                                                    <a href='{{route('show_chat', $store->slug)}}'
+                                                    <a href='{{route('show_chat', [
+                                                        'memberTypeTo'   => 'member',
+                                                        'seq'            => Crypt::encrypt($store->seller->id),
+                                                        ])}}'
                                                         class='ml-5'>
                                                     <i class='fa fa-envelope-o'></i> @lang('contact')
                                                     </a>

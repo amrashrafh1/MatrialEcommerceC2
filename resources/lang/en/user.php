@@ -385,5 +385,9 @@ return [
     'logout'                                                => 'Logout',
     'Filters'                                                => 'Filters',
     'delete'                                                => 'Delete',
+    'Shopping_Cart'                                                => 'Shopping Cart',
+    'store_profile'                                                => 'Store profile',
+    'update'                                                => 'Update',
+    'Download_our_new_app_today!_Dont_miss_our_mobile-only_offers_and_shop_with_Android_Play'  => 'Download our new app today! Dont miss our mobile-only offers and shop with Android Play.',
 
 ];

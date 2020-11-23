@@ -11,6 +11,7 @@ class EventCategoryDatatable extends DataTable
         return datatables($query)
             ->addColumn('checkbox', 'Admin.cmss.buttons.checkbox')
             ->addColumn('actions', 'Admin.cmss.buttons.actions')
+            ->addColumn('views', 'Admin.cmss.buttons.views')
             ->rawColumns(['checkbox','show_action','actions','product','date']);
     }
 
@@ -135,6 +136,11 @@ class EventCategoryDatatable extends DataTable
                 'name'  => 'slug',
                 'data'  => 'slug',
                 'title' => trans('admin.slug'),
+            ],
+            [
+                'name'  => 'views',
+                'data'  => 'views',
+                'title' => trans('admin.unique_visits'),
             ],
             [
                 'name'       => 'actions',

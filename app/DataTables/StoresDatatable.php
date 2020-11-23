@@ -1,24 +1,24 @@
 <?php
 namespace App\DataTables;
-use App\User;
+use App\SellerInfo;
 //use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
-class SellerDatatable extends DataTable
+class StoresDatatable extends DataTable
 {
     public function dataTable(DataTables $dataTables, $query)
     {
         return datatables($query)
-            ->addColumn('actions', 'Admin.sellers.buttons.actions')
-            ->addColumn('checkbox', 'Admin.sellers.buttons.checkbox')
-            ->addColumn('application', 'Admin.users.buttons.application')
-            ->addColumn('stores', 'Admin.sellers.buttons.stores')
-            ->rawColumns(['checkbox','show_action','stores','application','actions','user','date', 'roles']);
+            ->addColumn('actions', 'Admin.stores.buttons.actions')
+            ->addColumn('checkbox', 'Admin.stores.buttons.checkbox')
+            ->addColumn('seller', 'Admin.stores.buttons.seller')
+            ->addColumn('approved', 'Admin.stores.buttons.approved')
+            ->rawColumns(['checkbox','approved','show_action','seller','actions','date']);
     }
 
     public function query()
     {
-            return  User::query()->whereRoleIs('seller')->withCount('stores')
+            return  SellerInfo::query()->with('seller')
                 ->orderBy('id', 'desc');
     }
 
@@ -113,6 +113,11 @@ class SellerDatatable extends DataTable
                 'title'=>'#',
             ],
             [
+                'name'  => 'seller',
+                'data'  => 'seller',
+                'title' => trans('admin.seller'),
+            ],
+            [
                 'name'=>'name',
                 'data'=>'name',
                 'title'=>trans('admin.name'),
@@ -124,18 +129,13 @@ class SellerDatatable extends DataTable
             ],
             [
                 'name'  => 'phone',
-                'data'  => 'phone',
+                'data'  => 'phone1',
                 'title' => trans('admin.phone'),
             ],
             [
-                'name'  => 'application',
-                'data'  => 'application',
-                'title' => trans('admin.application'),
-            ],
-            [
-                'name'  => 'stores',
-                'data'  => 'stores',
-                'title' => trans('admin.stores'),
+                'name'  => 'approved',
+                'data'  => 'approved',
+                'title' => trans('admin.approved'),
             ],
             [
                 'name' => 'actions',
@@ -157,7 +157,7 @@ class SellerDatatable extends DataTable
      */
     protected function filename()
     {
-        return 'sellers_' . time();
+        return 'stores_' . time();
     }
 
 }

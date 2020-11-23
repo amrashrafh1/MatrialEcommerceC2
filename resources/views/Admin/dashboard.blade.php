@@ -31,6 +31,7 @@
                                 <i class="material-icons">store</i>
                             </div>
                             <p class="card-category">@lang('admin.revenue')</p>
+                            <span style='color:black'>(@lang('admin.Today'))</span>
                             <h3 class="card-title">
                                 ${{App\Sold::whereDate('created_at', today())->value(\DB::raw('SUM(sale_price * sold - coupon)'))}}
                             </h3>
@@ -425,52 +426,52 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-          <div class="card">
-            <div class="card-header card-header-warning">
-              <h4 class="card-title">Employees Stats</h4>
-              <p class="card-category">New employees on 15th September, 2016</p>
-            </div>
-            <div class="card-body table-responsive">
-              <table class="table table-hover">
-                <thead class="text-warning">
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Salary</th>
-                  <th>Country</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Dakota Rice</td>
-                    <td>$36,738</td>
-                    <td>Niger</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Minerva Hooper</td>
-                    <td>$23,789</td>
-                    <td>Curaçao</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Sage Rodriguez</td>
-                    <td>$56,142</td>
-                    <td>Netherlands</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Philip Chaney</td>
-                    <td>$38,735</td>
-                    <td>Korea, South</td>
-                  </tr>
-                </tbody>
-              </table>
+        </div> --}}
+        <div class="row">
+        @livewire('admin.product-revenue')
+        @livewire('admin.category-visits')
+        <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-warning">
+                <h4 class="card-title">@lang('admin.superadministrator_and_moderator')</h4>
+                <p class="card-category">{{Carbon\Carbon::now()->addMinutes(2)->diffForHumans()}}</p>
+              </div>
+              <div class="card-body table-responsive">
+                <table class="table table-hover">
+                  <thead class="text-warning">
+                    <th>#</th>
+                    <th>@lang('admin.name')</th>
+                    <th>@lang('admin.email')</th>
+                    <th>@lang('admin.online')</th>
+                    <th>@lang('admin.last_login_at')</th>
+                    <th>@lang('admin.last_login_country')</th>
+                  </thead>
+                  <tbody>
+                  @foreach($admins as $user)
+                    <tr>
+                      <td>{{$user->id}}</td>
+                      <td><a href="{{route('user.edit', $user->id)}}">{{$user->name}}</a></td>
+                      <td><a href="{{route('user.edit', $user->id)}}">{{$user->email}}</a></td>
+                      <td>
+                        @if($user->isOnline())
+                            @lang('admin.online')
+                        @else
+                            @lang('admin.offline')
+                        @endif
+                        </td>
+                      <td>{{($user->last_login_at)?Carbon\Carbon::parse($user->last_login_at)->diffForHumans():''}}</td>
+                      <td>{{($user->last_login_ip)?geoip($user->last_login_ip)->getAttribute('country'):''}}</td>
+                    </tr>
+                  @endforeach
+                  </tbody>
+                </table>
+                {!! $admins->links() !!}
+              </div>
             </div>
           </div>
+
         </div>
-      </div> --}}
+      </div>
     </div>
 </div>
 @endsection

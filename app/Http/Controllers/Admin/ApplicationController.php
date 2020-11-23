@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\SellerInfo;
+use App\Mail\ApplicationAccepted;
+use App\Mail\ApplicationRejected;
+use Mail;
+
 class ApplicationController extends Controller
 {
     /**
@@ -36,15 +40,25 @@ class ApplicationController extends Controller
         $user        = User::findOrFail($application->seller_id);
         $application->update(['approved' => 1]);
         $user->syncRoles(['seller']);
+        Mail::to($user->email)->send(new ApplicationAccepted());
         \Alert::success(trans('admin.added'), trans('admin.success_record'));
-        return redirect()->route('user.index');
+        return redirect()->route('stores.index');
     }
 
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
+        $message = $this->validate(request(), [
+            'message' => 'required|string',
+        ], [], [
+            'message' => trans('admin.message'),
+        ]);
+       // dd($message['message']);
         $application = SellerInfo::findOrFail($id);
+        \Storage::delete($application->image);
+        $user        = User::findOrFail($application->seller_id);
         $application->delete();
+        Mail::to($user->email)->send(new ApplicationRejected($message['message']));
         \Alert::success(trans('admin.delete'), trans('admin.deleted'));
-        return redirect()->route('user.index');
+        return redirect()->route('stores.index');
     }
 }

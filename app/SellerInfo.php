@@ -3,11 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class SellerInfo extends Model
+class SellerInfo extends Model implements Viewable
 {
+    use InteractsWithViews;
+
     protected $table = 'seller_infos';
     protected $guarded = [];
+    protected $removeViewsOnDelete = true;
 
     public function seller()
     {

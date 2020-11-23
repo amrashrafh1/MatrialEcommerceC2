@@ -150,6 +150,7 @@
                             'cmss',
                             'discounts',
                             'payments',
+                            'stores',
                             'sellers-app',
                              ];
                             $permissions = ['read','create', 'update', 'delete']

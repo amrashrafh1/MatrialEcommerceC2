@@ -7,6 +7,7 @@ use App\Charts\ProfitsChart;
 use App\Charts\RevenuesChart;
 use App\Http\Controllers\Controller;
 use App\Sold;
+use App\User;
 use DB;
 class DashboardController extends Controller
 {
@@ -56,11 +57,13 @@ class DashboardController extends Controller
         $sold = Sold::latest()->first();
 
         // get sales increase rate
+        $admins = User::whereRoleIs(['superadministrator', 'administrator'])
+        ->where('id', '!=', auth()->user()->id)->paginate(10);
 
         $salesIncrease = getPercentageChange(($salesYesterday)?$salesYesterday:1, $salesToday);
 
-       return view('Admin.dashboard', ['chart' => $chart, 'disk_total_space' => $disk_total_space,
-            'disk_free_space' => $disk_free_space, 'sales' => $sales,'profits' =>$profits, 'revenues' => $revenues
-            ,'sold' => $sold, 'salesIncrease' => $salesIncrease]);
+            return view('Admin.dashboard', ['chart' => $chart, 'disk_total_space' => $disk_total_space,
+              'disk_free_space' => $disk_free_space, 'sales'         => $sales,         'profits'          => $profits, 'revenues' => $revenues
+            , 'sold'            => $sold,            'salesIncrease' => $salesIncrease, 'admins' => $admins]);
     }
 }

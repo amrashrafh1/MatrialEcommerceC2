@@ -1,6 +1,3 @@
-        @if($model->stores->where('approved',0)->first() != null)
-            <a class="btn btn-success" href="{{route('show_app',$model->stores->where('approved',0)->first()->id)}}">@lang('admin.new_seller_application')</a>
-        @endif
             <div class="actions">
 				<div class="btn-group">
 						<a class="btn btn-default btn-outlines btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
@@ -10,7 +7,7 @@
 						</a>
 						<ul class="dropdown-menu pull-right">
 								<li>
-									<a href="{{ route('user.edit', $id)}}"><i class="material-icons">
+									<a href="{{ route('show_app', $id)}}"><i class="material-icons">
                                         edit
                                         </i> {{trans('admin.edit')}}</a>
 								</li>
@@ -36,7 +33,7 @@
 								<div class="modal-footer">
 										{!! Form::open([
 										'method' => 'DELETE',
-										'route' => ['user.destroy', $id]
+										'route' => ['stores.destroy', $id]
 										]) !!}
 										{!! Form::submit(trans('admin.approval'), ['class' => 'btn btn-danger']) !!}
 										<a class="btn btn-default" data-dismiss="modal">{{trans('admin.cancel')}}</a>

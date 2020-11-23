@@ -19,20 +19,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $catalog = Category::orderByViews()->get();
+        $catalog = Category::where('status', 1)->orderByViews()->get();
 
         $adzs          = Adz::available()->inRandomOrder('id')->get();
         $randomProduct = Product::isApproved()->orderBy('id','desc')->with('discount')->first();
         $sliders       = Slider::isActive()->get();
-
-        //currency()->setUserCurrency('EUR');
-
-        //$clientIP = $request->getClientIp();
-        // $localCurrency = geoip('217.23.5.42')->getAttribute('country');
-        // dd($localCurrency);
-        //currency()->setUserCurrency('INR');
-
-        $setting             = Setting::latest('id')->first();
+        $setting       = Setting::latest('id')->first();
 
         SEOTools::setTitle($setting?$setting->sitename:config('app.name'));
         SEOTools::setDescription($setting?$setting->meta_description:config('app.name'));

@@ -44,6 +44,7 @@ class ProductResource extends JsonResource
             'height'            => $this->height,
             'weight'            => $this->weight,
             'in_stock'          => $this->in_stock,
+            'data'              => $this->data,
             'visible'           => $this->visible,
             'tax'               => $this->tax,
             'shipping_methods'  => ShippingMethodResource::collection($this->methods),

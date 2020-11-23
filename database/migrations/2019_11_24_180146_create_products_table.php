@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->json('data')->nullable();
             $table->string('image')->nullable();
             $table->bigInteger('tradmark_id')->unsigned()->nullable();
-            $table->bigInteger('user_id')->unsigned(); // user_id if for site owner || store_id if for seller
+            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('seller_id')->unsigned()->nullable(); // user_id if for site owner || store_id if for seller
             $table->enum('owner',['for_seller', 'for_site_owner'])->nullable();
             $table->bigInteger('category_id')->unsigned()->nullable();

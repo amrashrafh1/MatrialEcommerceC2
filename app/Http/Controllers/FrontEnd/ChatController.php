@@ -89,69 +89,6 @@ class ChatController extends Controller
 
             } else {return redirect()->route('home');}
         } else {return redirect()->route('home');}
-        /* $user_id = \Crypt::decrypt($slug);
-        $auth_id = auth()->user()->id;
-        $conversation = Conversation::where('id', $user_id)->where('user_1', $auth_id)->where('user_2', $user_id)
-        ->orWhere('user_1', $user_id)->where('user_2', $auth_id)->where('id', $user_id)->first();
-
-        // if conversation exist
-        if ($conversation) {
-            event(new StatusEvent(auth()->user()));
-            return view('FrontEnd.chat', ['conv' => $conversation]);
-
-            // if conversation does not exist
-        } else {
-            if ($user_id === auth()->user()->id) {return redirect()->route('home');};
-            // find product by slug
-            $product = Product::where('slug', $user_id)->first();
-
-            // if product exist
-            if ($product) {
-                if ($product->user_id === auth()->user()->id) {return redirect()->route('home');};
-                // check if the last url (route('show_product', $user_id))
-
-                if (url()->previous() === route('show_product', $user_id)) {
-
-                    // find the conversation from product user_id but if not find create conversation
-
-                    $conversationProduct = Conversation::where('user_1', $auth_id)->where('user_2', $product->user_id)
-                        ->orWhere('user_1', $product->user_id)->where('user_2', $auth_id)
-                        ->firstOrCreate([
-                            'user_1' => $auth_id,
-                            'user_2' => $product->user_id,
-                        ]);
-                    // if conversation exist
-                    if ($conversationProduct) {
-
-                        // create message with product to seller
-                        $conversationProduct->messages()->create([
-                            'message'    => 'product',
-                            'product_id' => $product->id,
-                            'm_to'       => intval($product->user_id),
-                            'm_from'     => auth()->user()->id,
-                        ]);
-
-                        event(new StatusEvent(auth()->user()));
-                        return view('FrontEnd.chat', ['conv' => $conversationProduct]);
-
-                    }
-                }
-            } else {
-                $user = User::findOrfail($user_id);
-                if($user) {
-                    $conversationProduct = Conversation::where('user_1', $auth_id)->where('user_2', $user->id)
-                    ->orWhere('user_1', $user->id)->where('user_2', $auth_id)
-                    ->firstOrCreate([
-                        'user_1' => $auth_id,
-                        'user_2' => $user->id,
-                        ]);
-                    event(new StatusEvent(auth()->user()));
-                    return view('FrontEnd.chat', ['conv' => $conversationProduct]);
-                }
-            }
-            return redirect()->route('home');
-        }
-        return redirect()->route('home'); */
 
     }
 

@@ -4,15 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-
-class CMS extends Model
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+class CMS extends Model implements Viewable
 {
-    use HasTranslations;
+    use HasTranslations, InteractsWithViews;
 
 
     protected $table        = 'c_m_s_s';
     protected $guarded      = [];
     public    $translatable = ['menuTitle', 'title','content','meta_tag','meta_keyword','meta_description'];
+    protected $removeViewsOnDelete = true;
 
     public function categories() {
         return $this->belongsToMany('App\Category', 'c_m_s__category', 'c_m_s_id', 'category_id');

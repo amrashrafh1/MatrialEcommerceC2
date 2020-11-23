@@ -202,28 +202,35 @@ $stores_count          = App\SellerInfo::where('approved', 0)->whereHas('seller'
                     <p>{{ trans('admin.cities') }}</p>
                 </a>
             </li>
-            <li class="nav-item{{ $activePage == 'shippingcompanies-management' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('shippingcompanies.index') }}">
+            <li class="nav-item{{ $activePage == 'shipping-management' ? '' : 'collapsed' }} list-group">
+                <a href="#sub-menu2" class="list-group-item" data-toggle="collapse" data-parent="#main-menu">
                     <i class="material-icons">
                         local_shipping
                     </i>
-                    <p>{{ trans('admin.shippingcompanies') }}</p>
+                    <p class='notification'>{{ trans('admin.shipping') }}
+                        <span class="caret mr-2"></span>
+                    </p>
                 </a>
             </li>
-            <li class="nav-item{{ $activePage == 'zone-management' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('zones.index') }}">
-                    <i class="material-icons">
-                        category
-                    </i>
-                    <p>{{ trans('admin.zones') }}</p>
+            <li class="collapse list-group-level1 {{ $activePage == 'shipping-management' ? ' show' : '' }}"
+                id="sub-menu2">
+                <a href="{{ route('methods.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'method-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu2">
+                    <p class='notification'>{{ trans('admin.method') }}
+                    </p>
                 </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'method-management' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('methods.index') }}">
-                    <i class="material-icons">
-                        category
-                    </i>
-                    <p>{{ trans('admin.method') }}</p>
+                <a href="{{ route('shippingcompanies.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'shippingcompanies-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu2">
+                    <p class='notification'>{{ trans('admin.shippingcompanies') }}
+                    </p>
+                </a>
+                <a href="{{ route('zones.index') }}"
+                    class="list-group-item nav-link{{ $activePage == 'zone-management' ? ' active' : 'collapsed' }}"
+                    data-parent="#sub-menu2">
+                    <p class='notification'>{{ trans('admin.zones') }}
+                    </p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'posts-management' ? ' active' : '' }}">

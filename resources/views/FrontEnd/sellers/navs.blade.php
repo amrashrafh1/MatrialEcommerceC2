@@ -17,4 +17,10 @@
             @lang('user.orders')
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{route('store_profile', ['store'=> $store->slug])}}" title="@lang('user.store_profile')"
+            class="nav-link {{(Route::current()->getName() == 'store_profile')?'active':''}}">
+            @lang('user.store_profile')
+        </a>
+    </li>
 </ul>

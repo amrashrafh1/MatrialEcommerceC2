@@ -69,9 +69,9 @@
                                 <div class="text-center">
                                     <p class="text-black">
                                         <i class="fa fa-users mr-2"></i>
-                                        New Users
+                                        @lang('user.store_visits')
                                     </p>
-                                    <h2 class="text-yellow text-xxl mt-4">523</h2>
+                                    <h2 class="text-yellow text-xxl mt-4">{{views($store)->unique()->count()}}</h2>
                                </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6" style='border: 1px solid #e6e6e6;'>

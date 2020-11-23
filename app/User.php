@@ -13,6 +13,7 @@ use Spatie\Searchable\SearchResult;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Product;
 use App\SellerInfo;
+use Cache;
 
 use Gabievi\Promocodes\Traits\Rewardable;
 
@@ -117,5 +118,10 @@ class User extends Authenticatable implements Searchable, JWTSubject, MustVerify
     public function unReadedMessages()
     {
         return $this->hasMany(Message::class, 'm_to')->where('is_read', 0);
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-'. $this->id);
     }
 }

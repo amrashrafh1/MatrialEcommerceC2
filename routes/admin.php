@@ -57,9 +57,11 @@ Route::group(
                 return view('Admin.pages.upgrade');
             })->name('upgrade');
 
+            // seller application
             Route::get('show/app/{id}', 'Admin\ApplicationController@index')->name('show_app');
+
             Route::post('accept/app/{id}', 'Admin\ApplicationController@accept')->name('accept_app');
-            Route::get('reject/app/{id}', 'Admin\ApplicationController@reject')->name('reject_app');
+            Route::delete('reject/app/{id}', 'Admin\ApplicationController@reject')->name('reject_app');
 
             // resources
             Route::resources([
@@ -85,9 +87,12 @@ Route::group(
                 '/seller'             => 'Admin\SellerController',
                 '/orders'             => 'Admin\OrderController',
                 '/payments'           => 'Admin\PaymentController',
+                '/stores'             => 'Admin\StoreController',
             ]);
 
             Route::post('/categories/multi_delete', 'Admin\CategoryController@destory_all')->name('categories_destroy_all');
+
+            Route::post('/stores/multi_delete', 'Admin\StoreController@destory_all')->name('stores_destroy_all');
 
             Route::post('/tradmarks/multi_delete', 'Admin\TradmarkController@destory_all')->name('tradmarks_destroy_all');
 
@@ -220,6 +225,7 @@ Route::group(
             Route::post('enable/currency/{id}', 'Admin\CurrencyController@update');
 
             //  Route::resource('seller', 'Admin\SellerController');
+
             Route::post('/seller/multi_delete', 'Admin\SellerController@destory_all')->name('seller_destroy_all');
 
             Route::post('/orders/edit_delete', 'Admin\OrderController@update')->name('orders_edit_all');
