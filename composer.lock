@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "da283988e5a4c0fee9adde2a08824068",
+    "content-hash": "5151b045d150577b955c360b4ec20679",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -2095,16 +2095,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.102",
+            "version": "v1.2.103",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "346cfd72d11bb41f15e82654e532dc55360612ac"
+                "reference": "3efa2860959cc971f17624b40bf0699823f9d0f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/346cfd72d11bb41f15e82654e532dc55360612ac",
-                "reference": "346cfd72d11bb41f15e82654e532dc55360612ac",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/3efa2860959cc971f17624b40bf0699823f9d0f3",
+                "reference": "3efa2860959cc971f17624b40bf0699823f9d0f3",
                 "shasum": ""
             },
             "require": {
@@ -2139,7 +2139,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2020-11-04T19:23:01+00:00"
+            "time": "2020-11-23T19:49:25+00:00"
         },
         {
             "name": "joedixon/laravel-translation",
@@ -4895,16 +4895,16 @@
         },
         {
             "name": "proengsoft/laravel-jsvalidation",
-            "version": "4.4.0",
+            "version": "v4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/proengsoft/laravel-jsvalidation.git",
-                "reference": "380a4eff28b0cdf7b2ef7b5c183f719d09be3f79"
+                "reference": "af8aa3a6c108f66609372ee78f4e6571cd0d372c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/proengsoft/laravel-jsvalidation/zipball/380a4eff28b0cdf7b2ef7b5c183f719d09be3f79",
-                "reference": "380a4eff28b0cdf7b2ef7b5c183f719d09be3f79",
+                "url": "https://api.github.com/repos/proengsoft/laravel-jsvalidation/zipball/af8aa3a6c108f66609372ee78f4e6571cd0d372c",
+                "reference": "af8aa3a6c108f66609372ee78f4e6571cd0d372c",
                 "shasum": ""
             },
             "require": {
@@ -4966,7 +4966,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2020-10-07T20:39:04+00:00"
+            "time": "2020-11-22T20:07:40+00:00"
         },
         {
             "name": "psr/container",
@@ -6385,6 +6385,82 @@
             "time": "2020-09-15T06:48:07+00:00"
         },
         {
+            "name": "spatie/laravel-activitylog",
+            "version": "3.16.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-activitylog.git",
+                "reference": "ade270f291f4cb5883b3653919304a0b4e1cc284"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/ade270f291f4cb5883b3653919304a0b4e1cc284",
+                "reference": "ade270f291f4cb5883b3653919304a0b4e1cc284",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^6.0 || ^7.0 || ^8.0",
+                "illuminate/database": "^6.0 || ^7.0 || ^8.0",
+                "illuminate/support": "^6.0 || ^7.0 || ^8.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Activitylog\\ActivitylogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Activitylog\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A very simple activity logger to monitor the users of your website or application",
+            "homepage": "https://github.com/spatie/activitylog",
+            "keywords": [
+                "activity",
+                "laravel",
+                "log",
+                "spatie",
+                "user"
+            ],
+            "time": "2020-11-03T11:34:26+00:00"
+        },
+        {
             "name": "spatie/laravel-searchable",
             "version": "1.7.1",
             "source": {
@@ -6499,27 +6575,26 @@
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "4.5.2",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "73e5c922a0004967e6be2bf73e36780af4090155"
+                "reference": "5900d6002a5795712058a04c7ca7c2c44b3e0850"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/73e5c922a0004967e6be2bf73e36780af4090155",
-                "reference": "73e5c922a0004967e6be2bf73e36780af4090155",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/5900d6002a5795712058a04c7ca7c2c44b3e0850",
+                "reference": "5900d6002a5795712058a04c7ca7c2c44b3e0850",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.8.0|^6.0|^7.0|^8.0",
-                "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
-                "php": "^7.2"
+                "illuminate/database": "^6.0|^7.0|^8.0",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": "^7.2|^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "mockery/mockery": "^1.3",
-                "orchestra/testbench": "~3.8.0|^4.0|^5.0|^6.0"
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^4.0|^5.0|^6.0"
             },
             "type": "library",
             "extra": {
@@ -6568,7 +6643,7 @@
                 "spatie",
                 "translate"
             ],
-            "time": "2020-10-22T13:52:25+00:00"
+            "time": "2020-11-19T14:19:29+00:00"
         },
         {
             "name": "spatie/macroable",
@@ -8543,16 +8618,16 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v8.14.0",
+            "version": "v8.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/collect.git",
-                "reference": "8f79c602c872afd7c9371e193d6aa4ed13e97661"
+                "reference": "e63b331f3709d6c278faf14cd859cd8f44a8d4a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/collect/zipball/8f79c602c872afd7c9371e193d6aa4ed13e97661",
-                "reference": "8f79c602c872afd7c9371e193d6aa4ed13e97661",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/e63b331f3709d6c278faf14cd859cd8f44a8d4a6",
+                "reference": "e63b331f3709d6c278faf14cd859cd8f44a8d4a6",
                 "shasum": ""
             },
             "require": {
@@ -8589,7 +8664,7 @@
                 "collection",
                 "laravel"
             ],
-            "time": "2020-11-16T18:55:11+00:00"
+            "time": "2020-11-20T22:56:01+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -10801,16 +10876,16 @@
         },
         {
             "name": "scrivo/highlight.php",
-            "version": "v9.18.1.4",
+            "version": "v9.18.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scrivo/highlight.php.git",
-                "reference": "ee8007a215a27cb9c078e0328fb5de901d74ef9b"
+                "reference": "fa75a865928a4a5d49e5e77faca6bd2f2410baaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/ee8007a215a27cb9c078e0328fb5de901d74ef9b",
-                "reference": "ee8007a215a27cb9c078e0328fb5de901d74ef9b",
+                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/fa75a865928a4a5d49e5e77faca6bd2f2410baaf",
+                "reference": "fa75a865928a4a5d49e5e77faca6bd2f2410baaf",
                 "shasum": ""
             },
             "require": {
@@ -10866,7 +10941,7 @@
                 "highlight.php",
                 "syntax"
             ],
-            "time": "2020-11-01T04:06:53+00:00"
+            "time": "2020-11-22T06:07:40+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

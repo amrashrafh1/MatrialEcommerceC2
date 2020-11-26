@@ -5,9 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use App\Product;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 class Tradmark extends Model
 {
-    use HasTranslations;
+    use HasTranslations,LogsActivity;
 
     protected $table = 'tradmarks';
     protected $fillable = [
@@ -17,7 +19,14 @@ class Tradmark extends Model
     ];
     public $translatable = ['name'];
 
+    protected static $logName = 'tradmarks';
 
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "tradmarks-{$eventName}";
+    }
     public function products () {
         return $this->hasMany(Product::class);
     }

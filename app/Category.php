@@ -9,9 +9,11 @@ use Spatie\Searchable\SearchResult;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 class Category extends Model implements Searchable, Viewable
 {
-    use HasTranslations, Cachable, InteractsWithViews;
+    use HasTranslations, Cachable, InteractsWithViews,LogsActivity;
     protected $table = 'categories';
     protected $guarded = [];
     public $translatable = ['name', 'description', 'meta_tag',
@@ -19,7 +21,14 @@ class Category extends Model implements Searchable, Viewable
     protected $removeViewsOnDelete = true;
 
 
+    protected static $logName = 'categories';
 
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "categories-{$eventName}";
+    }
     public function products()
     {
         return $this->hasMany(Product::class)->orderBy('id','desc');

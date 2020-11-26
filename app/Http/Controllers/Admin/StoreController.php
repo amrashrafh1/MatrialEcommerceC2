@@ -22,7 +22,6 @@ class StoreController extends Controller
         //create read update delete
         /* $this->middleware(['permission:read-stores'])->only('index');
         $this->middleware(['permission:create-stores'])->only('create');
-        $this->middleware(['permission:update-stores'])->only('edit');
         $this->middleware(['permission:delete-stores'])->only('destroy'); */
 
         $this->model = SellerInfo::class;

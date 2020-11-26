@@ -152,7 +152,8 @@
                             'payments',
                             'stores',
                             'sellers-app',
-                             ];
+                            'activities',
+                            ];
                             $permissions = ['read','create', 'update', 'delete']
                         @endphp
                         <div id="permission">

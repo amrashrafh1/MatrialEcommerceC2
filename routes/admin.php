@@ -60,6 +60,9 @@ Route::group(
             // seller application
             Route::get('show/app/{id}', 'Admin\ApplicationController@index')->name('show_app');
 
+            Route::get('activities', 'Admin\ActivityController@index');
+            Route::get('activities/{id}', 'Admin\ActivityController@show')->name('activities.show');
+
             Route::post('accept/app/{id}', 'Admin\ApplicationController@accept')->name('accept_app');
             Route::delete('reject/app/{id}', 'Admin\ApplicationController@reject')->name('reject_app');
 
@@ -87,8 +90,14 @@ Route::group(
                 '/seller'             => 'Admin\SellerController',
                 '/orders'             => 'Admin\OrderController',
                 '/payments'           => 'Admin\PaymentController',
-                '/stores'             => 'Admin\StoreController',
             ]);
+
+            Route::get('stores', 'Admin\StoreController@index')->name('stores.index');
+            Route::get('stores/create', 'Admin\StoreController@create')->name('stores.create');
+            Route::post('stores', 'Admin\StoreController@store')->name('stores.store');
+            Route::delete('stores', 'Admin\StoreController@destroy')->name('stores.destroy');
+            Route::post('/stores/multi_delete', 'Admin\StoreController@destory_all')->name('stores_destroy_all');
+
 
             Route::post('/categories/multi_delete', 'Admin\CategoryController@destory_all')->name('categories_destroy_all');
 

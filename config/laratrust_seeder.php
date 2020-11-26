@@ -29,6 +29,7 @@ return [
            'sellers'            => 'c,r,u,d',
            'sellers-app'        => 'c,r',
            'stores'             => 'c,r,u,d',
+           'activities'         => 'c,r,u,d',
 
         ],
         'administrator' => ['profile' => 'r,u'],

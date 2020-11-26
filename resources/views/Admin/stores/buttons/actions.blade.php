@@ -9,7 +9,7 @@
 								<li>
 									<a href="{{ route('show_app', $id)}}"><i class="material-icons">
                                         edit
-                                        </i> {{trans('admin.edit')}}</a>
+                                        </i> {{trans('admin.show')}}</a>
 								</li>
 								<li class="divider"> </li>
 

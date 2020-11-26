@@ -24,11 +24,13 @@ use Treestoneit\ShoppingCart\Taxable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use Treestoneit\ShoppingCart\Models\CartItem;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 use DB;
 
 class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable,Viewable
 {
-    use HasTranslations, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews;
+    use HasTranslations,LogsActivity, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews;
     protected $table               = 'products';
     protected $guarded             = [];
     protected $cachePrefix         = "products-prefix";
@@ -40,6 +42,14 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         'data' => 'array',   // Will convarted to (Array)
 
     ];
+    protected static $logName = 'products';
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "products-{$eventName}";
+    }
     /* attributes many to many */
 
     public function attributes()

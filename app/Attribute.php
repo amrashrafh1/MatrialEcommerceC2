@@ -8,10 +8,11 @@ use \App\Attribute_Family;
 use App\Product;
 use App\Variation;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Attribute extends Model
 {
-    use HasTranslations, Cachable;
+    use HasTranslations, Cachable,LogsActivity;
 
     protected $table = 'attributes';
     protected $fillable = [
@@ -19,7 +20,14 @@ class Attribute extends Model
         'family_id'
     ];
     public $translatable = ['name'];
+    protected static $logName = 'attributes';
 
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "attributes-{$eventName}";
+    }
 
     public function attribute_family() {
         return $this->belongsTo(Attribute_Family::class, 'family_id','id');

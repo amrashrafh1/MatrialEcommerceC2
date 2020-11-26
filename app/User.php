@@ -14,6 +14,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Product;
 use App\SellerInfo;
 use Cache;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 use Gabievi\Promocodes\Traits\Rewardable;
 
@@ -22,19 +23,57 @@ class User extends Authenticatable implements Searchable, JWTSubject, MustVerify
     //use \HighIdeas\UsersOnline\Traits\UsersOnlineTrait;
     use LaratrustUserTrait;
     use Notifiable;
-    use SoftDeletes, Rewardable;
+    use SoftDeletes, Rewardable, LogsActivity;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected static $ignoreChangedAttributes = ['chat_status',
+    'last_login_at',
+    'last_login_ip',
+    'updated_at'];
+
     protected $fillable = [
-        'name', 'email', 'password',
-        'address','image','phone',
-        'last_login',
-        'last_name'
+        'name',
+        'last_name',
+        'email',
+        'password',
+        'image',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'postcode',
+        'country_id',
+        'chat_status',
+        'last_login_at',
+        'last_login_ip'
+    ];
+    protected static $logName = 'users';
+
+    protected static $logAttributes = [
+        'name',
+        'last_name',
+        'email',
+        'image',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'postcode',
+        'country_id',
+        'chat_status',
+        'last_login_at',
+        'last_login_ip'
     ];
 
+    protected static $logOnlyDirty = true;
+
+public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "users-{$eventName}";
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -53,7 +92,8 @@ class User extends Authenticatable implements Searchable, JWTSubject, MustVerify
         'email_verified_at' => 'datetime',
     ];
 
-
+    //protected static $logFillable = true;
+    //protected static $logUnguarded = true;
     public function getJWTIdentifier()
     {
         return $this->getKey();

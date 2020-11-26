@@ -89,7 +89,6 @@ class UserController extends Controller
             'address'   => $data['address'],
             'image'     => $img,
             'phone'     => $data['phone'],
-            'last_name' => $data['last_name']
         ]);
         $user->attachRole($request->role);
         $user->email_verified_at = \Carbon\Carbon::now()->toDateTimeString();
@@ -231,7 +230,7 @@ class UserController extends Controller
         $row = $this->model::findOrFail($id);
         @$row->delete();
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
-        return redirect()->route('admins.index');
+        return redirect()->route($this->route.'.index');
     }
     public function destory_all(Request $request)
     {

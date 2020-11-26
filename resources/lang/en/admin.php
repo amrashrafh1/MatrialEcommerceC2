@@ -404,7 +404,7 @@ return array (
     'key'                                                            => 'Key',
     'reject'                                                         => 'reject',
     'application'                                                    => 'application',
-    'Product_Owner'                                                  => 'Product_Owner',
+    'Product_Owner'                                                  => 'Product Owner',
     'owner'                                                          => 'Owner',
     'for_seller'                                                     => 'Seller',
     'seller'                                                         => 'Seller',
@@ -428,5 +428,13 @@ return array (
     "last_login_at"                                                  => "Last login at",
     "online"                                                         => "Online",
     "offline"                                                        => "Offline",
+    "activities_table"                                               => "Activities table",
+    "created_at"                                                     => "created at",
+    "causer"                                                         => "Causer",
+    "action_on_model"                                                => "Action on model",
+    "old"                                                            => "Old",
+    "activities"                                                     => "Activities",
+    "subject_id"                                                     => "Subject ID",
+    "sellers_products"                                               => "Sellers products",
 
 );

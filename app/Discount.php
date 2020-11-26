@@ -4,13 +4,23 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Discount extends Model
 {
-    use Cachable;
+    use Cachable,LogsActivity;
     protected $table = 'discounts';
     protected $guarded = [];
     protected $cachePrefix = "discounts-prefix";
+
+    protected static $logName = 'discounts';
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "discounts-{$eventName}";
+    }
 
     public function product() {
         return $this->belongsTo('App\Product', 'product_id', 'id');
@@ -30,7 +40,7 @@ class Discount extends Model
         } elseif($this->condition == 'fixed_amount') {
 
             return ($this->product->sale_price - $this->amount) + ($this->product->tax * $this->product->sale_price) / 100;
-        
+
         }
     }
 

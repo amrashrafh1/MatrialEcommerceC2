@@ -191,6 +191,7 @@
                         'discounts',
                         'payments',
                         'stores',
+                        'activities',
                         'sellers-app',
                          ];
                         $permissions = ['read','create', 'update', 'delete']

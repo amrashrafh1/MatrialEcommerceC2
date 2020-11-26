@@ -6,15 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 class CMS extends Model implements Viewable
 {
-    use HasTranslations, InteractsWithViews;
+    use HasTranslations, InteractsWithViews,LogsActivity;
 
 
     protected $table        = 'c_m_s_s';
     protected $guarded      = [];
     public    $translatable = ['menuTitle', 'title','content','meta_tag','meta_keyword','meta_description'];
     protected $removeViewsOnDelete = true;
+
+    protected static $logName = 'events';
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "events-{$eventName}";
+    }
 
     public function categories() {
         return $this->belongsToMany('App\Category', 'c_m_s__category', 'c_m_s_id', 'category_id');

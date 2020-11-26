@@ -8,13 +8,22 @@ use App\Product;
 use App\Range;
 use Illuminate\Database\Eloquent\Model;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Shipping_methods extends Model
 {
-    use Cachable;
+    use Cachable, LogsActivity;
     protected $table = 'shipping_methods';
     protected $guarded = [];
 
+    protected static $logName = 'shipping_methods';
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "shipping_methods-{$eventName}";
+    }
 
     public function shippingcompany() {
         return $this->belongsTo(ShippingCompany::class,'company_id', 'id');

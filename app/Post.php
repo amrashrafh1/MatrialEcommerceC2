@@ -9,12 +9,13 @@ use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use Spatie\Translatable\HasTranslations;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Post extends Model implements Searchable
 {
    // use Likeable;
    // use LogsActivity;
-   use HasTranslations, Cachable, \Spatie\Tags\HasTags;
+   use HasTranslations, Cachable, \Spatie\Tags\HasTags,LogsActivity;
 
     protected $table = 'posts';
     protected $fillable = [
@@ -29,7 +30,14 @@ class Post extends Model implements Searchable
     ];
     public $translatable = ['title','content'];
 
+    protected static $logName = 'posts';
 
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "posts-{$eventName}";
+    }
 
     public function getSearchResult(): SearchResult
     {

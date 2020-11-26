@@ -220,7 +220,7 @@ class CategoryController extends Controller
         \Storage::delete($row->image);
         $row->delete();
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
-        return redirect()->route($this->route . '.index');
+        return redirect()->route($this->path . '.index');
     }
     public function destory_all(Request $request)
     {
@@ -238,6 +238,6 @@ class CategoryController extends Controller
             }
         }
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
-        return redirect()->route($this->route . '.index');
+        return redirect()->route($this->path . '.index');
     }
 }

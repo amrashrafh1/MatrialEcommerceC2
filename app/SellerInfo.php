@@ -5,15 +5,24 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class SellerInfo extends Model implements Viewable
 {
-    use InteractsWithViews;
+    use InteractsWithViews,LogsActivity;
 
     protected $table = 'seller_infos';
     protected $guarded = [];
     protected $removeViewsOnDelete = true;
 
+    protected static $logName = 'stores';
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "stores-{$eventName}";
+    }
     public function seller()
     {
         return $this->belongsTo('App\User');

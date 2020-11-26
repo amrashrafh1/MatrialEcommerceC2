@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Mall extends Model
 {
-    use HasTranslations,Cachable;
+    use HasTranslations,Cachable, LogsActivity;
 
     protected $table = 'malls';
     protected $fillable = [
@@ -25,6 +26,14 @@ class Mall extends Model
     ];
     public $translatable = ['name'];
 
+    protected static $logName = 'malls';
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "malls-{$eventName}";
+    }
 
     public function country_id() {
         return $this->hasOne('App\Country', 'id', 'country_id');

@@ -3,14 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Coupon extends Model
 {
+    use LogsActivity;
     protected $table = 'promocodes';
     protected $guarded = [];
     public $timestamps = false;
 
+    protected static $logName = 'coupons';
 
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "coupons-{$eventName}";
+    }
 
     public function scopeIsAuthUser($query)
     {

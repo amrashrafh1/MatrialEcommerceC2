@@ -8,10 +8,11 @@ use App\Zone;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Country extends Model implements Searchable
 {
-    use HasTranslations,Cachable;
+    use HasTranslations,Cachable,LogsActivity;
 
     protected $table = 'countries';
     protected $guarded = [];
@@ -24,6 +25,15 @@ class Country extends Model implements Searchable
         'latlng'       => 'array',
         'timezones'    => 'array'
     ];
+
+    protected static $logName = 'countries';
+
+    protected static $logUnguarded = true;
+
+    public function getDescriptionForEvent(string $eventName) :string
+    {
+        return "countries-{$eventName}";
+    }
     public  function shipping_zone () {
         return $this->belongsToMany(Zone::class);
     }
