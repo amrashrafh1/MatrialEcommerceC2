@@ -460,36 +460,22 @@ if (!function_exists('sortProductsDiscount')) {
 if (!function_exists('check_stock')) {
     function check_stock($cart)
     {
-        foreach ($cart->buyable->variations as $variation) {
-            if (count($variation->attributes()->pluck('name')->diff(array_values($cart->options))) === 0) {
-                if ($variation->visible == 'hidden' || $variation->in_stock == 'out_stock') {
-                    return 0;
-                } else {
-                    return $cart->buyable->stock;
-                }
-            }
+        $cart_product = $cart->getProduct();
+        if($cart->buyable->stock) {
+            return $cart->buyable->stock;
         }
+        return $cart_product->stock;
     }
 }
 
 if (!function_exists('get_purchase_price')) {
     function get_purchase_price($cart)
     {
-        if ($cart->buyable->IsAvailable()) {
-            foreach ($cart->buyable->variations as $variation) {
-                if (count($variation->attributes()->pluck('name')->diff(array_values($cart->options))) === 0) {
-                    if ($variation['visible'] === 'hidden' || $variation->in_stock === 'out_stock') {
-                        return $cart->buyable->purchase_price;
-                    } else {
-                        return $variation->purchase_price;
-                    }
-                }
-            }
-            return $cart->buyable->purchase_price;
-
-        } else {
+        $cart_product = $cart->getProduct();
+        if($cart->buyable->purchase_price) {
             return $cart->buyable->purchase_price;
         }
+        return $cart_product->purchase_price;
     }
 }
 
@@ -545,7 +531,7 @@ if (!function_exists('tradmark_exist')) {
                 $q->whereIn('id', $attributes);
             })
             //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+                ->with(['ratings', 'discount', 'methods'])->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
 
             return $query;
         } else {
@@ -563,7 +549,7 @@ if (!function_exists('tradmark_exist')) {
             }
             ;
             //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-            return $query->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+            return $query->with(['ratings', 'discount', 'methods'])->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
         }
     }
 }
@@ -574,7 +560,7 @@ if (!function_exists('tradmark_not_exist')) {
 
         // if $attributes not null
         if ($attributes && is_array($attributes)) {
-            $query = Product::IsApproved()->productsSortBy($sort);
+            $query = Product::with(['ratings', 'discount', 'methods'])->IsApproved()->productsSortBy($sort);
             if ($cat_id) {
                 if (is_array($cat_id)) {
                     $query->whereIn('category_id', $cat_id);
@@ -594,7 +580,7 @@ if (!function_exists('tradmark_not_exist')) {
         } else {
             // if $attributes null
 
-            $query = Product::IsApproved()->productsSortBy($sort);
+            $query = Product::with(['ratings', 'discount', 'methods'])->IsApproved()->productsSortBy($sort);
             if ($cat_id) {
                 if (is_array($cat_id)) {
                     $query->whereIn('category_id', $cat_id);
@@ -685,6 +671,5 @@ if(!function_exists('product_shipping')) {
         return 0;
         }
     }
-
 
 }

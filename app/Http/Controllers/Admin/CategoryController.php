@@ -40,18 +40,27 @@ class CategoryController extends Controller
      */
     public function create()
     {
+
         $validatorCategoryForm = \JsValidator::make([
             'name_en'        => 'sometimes|nullable|string|max:191',
             'slug'           => 'required|string|max:191|unique:categories',
-            'category_id'    => 'sometimes|nullable|numeric',
+            'parent_id'      => 'sometimes|nullable|numeric',
             'description_en' => 'required|string',
             'status'         => 'required|numeric',
             'image'          => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
         ]);
+        $categories = Category::disableCache()->orderBy('parent_id')
+        ->get()
+        ->nest()
+        ->setIndent('------  ')
+        ->listsFlattened('name');
+
+
         return view('Admin.'.$this->path.'.create',
             [
-            'title' => trans('admin.create'),
-            'validatorCategoryForm' =>$validatorCategoryForm
+            'title'                 => trans('admin.create'),
+            'validatorCategoryForm' => $validatorCategoryForm,
+            'categories'            => $categories
             ]);
     }
 
@@ -66,7 +75,7 @@ class CategoryController extends Controller
         $data = $this->validate(request(), [
             'name_en'             => 'sometimes|nullable|string|max:191',
             'slug'                => 'required|string|max:191|unique:categories',
-            'category_id'         => 'sometimes|nullable|numeric',
+            'parent_id'         => 'sometimes|nullable|numeric',
             'description_en'      => 'required|string',
             'status'              => 'required|numeric',
             'image'               => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
@@ -75,7 +84,7 @@ class CategoryController extends Controller
             'meta_keyword_en'     => 'sometimes|nullable|string',
         ],[],[
             'name_en'             => trans('admin.name_en'),
-            'category_id'         => trans('admin.category_id'),
+            'parent_id'         => trans('admin.parent_id'),
             'slug'                => trans('admin.slug'),
             'description'         => trans('admin.description'),
             'status'              => trans('admin.status'),
@@ -91,7 +100,7 @@ class CategoryController extends Controller
         $create = $this->model::create([
             'name'             => $data['name_en'],
             'slug'             => \Str::slug($data['slug']),
-            'category_id'      => $data['category_id'],
+            'parent_id'      => $data['parent_id'],
             'description'      => $data['description_en'],
             'status'           => $data['status'],
             'image'            => (!empty($img))?$img: NULL,
@@ -135,17 +144,24 @@ class CategoryController extends Controller
         $validatorCategoryForm = \JsValidator::make([
             'name_en'        => 'sometimes|nullable|string|max:191',
             'slug'           => 'required|string|max:191|unique:categories,slug,'.$id,
-            'category_id'    => 'sometimes|nullable|numeric',
+            'parent_id'      => 'sometimes|nullable|numeric',
             'description_en' => 'required|string',
             'status'         => 'required|numeric',
             'image'          => 'sometimes|nullable|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
 
         ]);
         $rows = $this->model::findOrFail($id);
+        $categories = Category::disableCache()->orderBy('parent_id')
+        ->get()
+        ->nest()
+        ->setIndent('------')
+        ->listsFlattened('name');
+
         return view('Admin.'.$this->path.'.edit',
             [
                 'title'                 => trans('admin.edit'),
                 'rows'                  => $rows,
+                'categories'            => $categories,
                 'validatorCategoryForm' => $validatorCategoryForm
             ]);
     }
@@ -161,7 +177,7 @@ class CategoryController extends Controller
     {
         $data = $this->validate(request(), [
             'name_en'             => 'required|string|max:255',
-            'category_id'         => 'sometimes|nullable|numeric',
+            'parent_id'         => 'sometimes|nullable|numeric',
             'slug'                => 'required|string|max:191|unique:categories,slug,'.$id,
             'description_en'      => 'required|string',
             'status'              => 'required|numeric',
@@ -171,7 +187,7 @@ class CategoryController extends Controller
             'meta_keyword_en'     => 'sometimes|nullable|string',
         ],[],[
             'name_en'             => trans('admin.name_en'),
-            'category_id'         => trans('admin.category_id'),
+            'parent_id'         => trans('admin.parent_id'),
             'slug'                => trans('admin.slug'),
             'description'         => trans('admin.description'),
             'status'              => trans('admin.status'),
@@ -189,7 +205,7 @@ class CategoryController extends Controller
             $img = $this->model::find($id)->image;
         }
         $this->model::where('id', $id)->update([
-            'category_id' => $data['category_id'],
+            'parent_id' => $data['parent_id'],
             'slug'        => \Str::slug($data['slug']),
             'status'      => $data['status'],
             'image'       => $img,

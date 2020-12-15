@@ -26,7 +26,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $rows = Setting::orderBy('id', 'desc')->first();
+        $rows = Setting::with('seller_countries')->orderBy('id', 'desc')->first();
         return view('Admin.'. $this->path.'.create',['title' => 'Setting', 'rows' => $rows]);
     }
 

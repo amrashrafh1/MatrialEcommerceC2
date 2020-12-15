@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5151b045d150577b955c360b4ec20679",
+    "content-hash": "b9537f302fa8d5d6c0aff43cc802452b",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -959,26 +959,26 @@
         },
         {
             "name": "codebyray/laravel-review-rateable",
-            "version": "v1.3.1",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codebyray/laravel-review-rateable.git",
-                "reference": "bc939e7faac59d17e5c1e237e64a957a92dcfd97"
+                "reference": "6499e25893b704e30e341e2d5251abe8f684914a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codebyray/laravel-review-rateable/zipball/bc939e7faac59d17e5c1e237e64a957a92dcfd97",
-                "reference": "bc939e7faac59d17e5c1e237e64a957a92dcfd97",
+                "url": "https://api.github.com/repos/codebyray/laravel-review-rateable/zipball/6499e25893b704e30e341e2d5251abe8f684914a",
+                "reference": "6499e25893b704e30e341e2d5251abe8f684914a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
-                "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
-                "php": "^7.2"
+                "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
+                "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.3"
             },
             "require-dev": {
                 "orchestra/testbench": "~3.5.0|~3.6.0|^4.0",
-                "phpunit/phpunit": "^6.3|^7.0|^8.0"
+                "phpunit/phpunit": "^6.3|^7.0|^8.0|^9.0"
             },
             "type": "library",
             "extra": {
@@ -1003,7 +1003,7 @@
                     "email": "dev@codebyray.com"
                 }
             ],
-            "description": "Review & Rating system for Laravel 5",
+            "description": "Review & Rating system for Laravel 7",
             "keywords": [
                 "Ratable",
                 "Rating",
@@ -1011,7 +1011,7 @@
                 "laravel",
                 "reviewable"
             ],
-            "time": "2020-08-24T07:26:39+00:00"
+            "time": "2020-11-24T00:48:48+00:00"
         },
         {
             "name": "consoletvs/charts",
@@ -2401,16 +2401,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.20.4",
+            "version": "v6.20.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "53d66bbc17ce040b5c5fa104a3c781aad161cdc3"
+                "reference": "1ba4354b0263a7f97d1de1323aab21f73b38dc4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/53d66bbc17ce040b5c5fa104a3c781aad161cdc3",
-                "reference": "53d66bbc17ce040b5c5fa104a3c781aad161cdc3",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/1ba4354b0263a7f97d1de1323aab21f73b38dc4d",
+                "reference": "1ba4354b0263a7f97d1de1323aab21f73b38dc4d",
                 "shasum": ""
             },
             "require": {
@@ -2476,7 +2476,7 @@
                 "illuminate/view": "self.version"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "^3.0",
+                "aws/aws-sdk-php": "^3.155",
                 "doctrine/dbal": "^2.6",
                 "filp/whoops": "^2.8",
                 "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
@@ -2490,7 +2490,7 @@
                 "symfony/cache": "^4.3.4"
             },
             "suggest": {
-                "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage and SES mail driver (^3.0).",
+                "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage and SES mail driver (^3.155).",
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.6).",
                 "ext-ftp": "Required to use the Flysystem FTP driver.",
                 "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image().",
@@ -2546,7 +2546,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-11-17T14:52:20+00:00"
+            "time": "2020-11-24T16:12:27+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -2807,16 +2807,16 @@
         },
         {
             "name": "lcobucci/jwt",
-            "version": "3.3.3",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "c1123697f6a2ec29162b82f170dd4a491f524773"
+                "reference": "958a9873a63b0244a72f6e354ccc86019ee674a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/c1123697f6a2ec29162b82f170dd4a491f524773",
-                "reference": "c1123697f6a2ec29162b82f170dd4a491f524773",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/958a9873a63b0244a72f6e354ccc86019ee674a5",
+                "reference": "958a9873a63b0244a72f6e354ccc86019ee674a5",
                 "shasum": ""
             },
             "require": {
@@ -2831,6 +2831,9 @@
                 "phpunit/phpunit": "^5.7 || ^7.3",
                 "squizlabs/php_codesniffer": "~2.3"
             },
+            "suggest": {
+                "lcobucci/clock": "*"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2840,7 +2843,12 @@
             "autoload": {
                 "psr-4": {
                     "Lcobucci\\JWT\\": "src"
-                }
+                },
+                "files": [
+                    "compat/class-aliases.php",
+                    "compat/json-exception-polyfill.php",
+                    "compat/lcobucci-clock-polyfill.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2858,7 +2866,7 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2020-08-20T13:22:28+00:00"
+            "time": "2020-11-27T01:17:14+00:00"
         },
         {
             "name": "league/commonmark",
@@ -6327,26 +6335,25 @@
         },
         {
             "name": "spatie/eloquent-sortable",
-            "version": "3.9.0",
+            "version": "3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/eloquent-sortable.git",
-                "reference": "51bca09f0c49ac2da8cd480e1e667ddcfce5a3f2"
+                "reference": "efc786971d5308ff75d5af8e04f7f759dd8450c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/51bca09f0c49ac2da8cd480e1e667ddcfce5a3f2",
-                "reference": "51bca09f0c49ac2da8cd480e1e667ddcfce5a3f2",
+                "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/efc786971d5308ff75d5af8e04f7f759dd8450c2",
+                "reference": "efc786971d5308ff75d5af8e04f7f759dd8450c2",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.8.0|^6.0|^7.0|^8.0",
-                "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
-                "php": "^7.3"
+                "illuminate/database": "^6.0|^7.0|^8.0",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": "^7.3|^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "orchestra/testbench": "~3.8.0|^4.0|^5.0|^6.0",
+                "orchestra/testbench": "^4.0|^5.0|^6.0",
                 "phpunit/phpunit": "^8.0|^9.0"
             },
             "type": "library",
@@ -6382,7 +6389,7 @@
                 "sort",
                 "sortable"
             ],
-            "time": "2020-09-15T06:48:07+00:00"
+            "time": "2020-11-25T12:55:36+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",
@@ -8998,6 +9005,52 @@
             "time": "2019-09-09T03:33:47+00:00"
         },
         {
+            "name": "typicms/nestablecollection",
+            "version": "1.1.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TypiCMS/NestableCollection.git",
+                "reference": "f98feb398cde33d577acac0d8fc74c0d5d25207b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TypiCMS/NestableCollection/zipball/f98feb398cde33d577acac0d8fc74c0d5d25207b",
+                "reference": "f98feb398cde33d577acac0d8fc74c0d5d25207b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~4.2|~5.0|~6.0|~7.0|~8.0",
+                "illuminate/support": "~4.2|~5.0|~6.0|~7.0|~8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TypiCMS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel De Backer",
+                    "email": "sdebacker@gmail.com"
+                }
+            ],
+            "description": "A Laravel Package that extends Collection to handle unlimited nested items following adjacency list model.",
+            "keywords": [
+                "TypiCMS",
+                "adjacency list",
+                "collection",
+                "eloquent",
+                "laravel",
+                "nested set",
+                "tree"
+            ],
+            "time": "2020-09-30T08:16:40+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v3.6.7",
             "source": {
@@ -9352,16 +9405,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v9.14.1",
+            "version": "v9.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "7e45885588225b31a9e7bdf4b04733c44432531c"
+                "reference": "9de204f96649665a8d902ea59a780839ffbe1cfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/7e45885588225b31a9e7bdf4b04733c44432531c",
-                "reference": "7e45885588225b31a9e7bdf4b04733c44432531c",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/9de204f96649665a8d902ea59a780839ffbe1cfe",
+                "reference": "9de204f96649665a8d902ea59a780839ffbe1cfe",
                 "shasum": ""
             },
             "require": {
@@ -9419,7 +9472,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2020-11-11T07:12:41+00:00"
+            "time": "2020-11-27T01:51:56+00:00"
         },
         {
             "name": "zgabievi/promocodes",
@@ -9551,6 +9604,62 @@
                 "webprofiler"
             ],
             "time": "2020-09-07T19:32:39+00:00"
+        },
+        {
+            "name": "beyondcode/laravel-query-detector",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-query-detector.git",
+                "reference": "b60012a821a9e170910beb2383743d89d380a64d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-query-detector/zipball/b60012a821a9e170910beb2383743d89d380a64d",
+                "reference": "b60012a821a9e170910beb2383743d89d380a64d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "laravel/legacy-factories": "^1.0",
+                "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\QueryDetector\\QueryDetectorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\QueryDetector\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel N+1 Query Detector",
+            "homepage": "https://github.com/beyondcode/laravel-query-detector",
+            "keywords": [
+                "beyondcode",
+                "laravel-query-detector"
+            ],
+            "time": "2020-09-25T07:58:20+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -10540,16 +10649,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "7.0.10",
+            "version": "7.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "f1884187926fbb755a9aaf0b3836ad3165b478bf"
+                "reference": "52f55786aa2e52c26cd9e2db20aff2981e0f7399"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f1884187926fbb755a9aaf0b3836ad3165b478bf",
-                "reference": "f1884187926fbb755a9aaf0b3836ad3165b478bf",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/52f55786aa2e52c26cd9e2db20aff2981e0f7399",
+                "reference": "52f55786aa2e52c26cd9e2db20aff2981e0f7399",
                 "shasum": ""
             },
             "require": {
@@ -10599,7 +10708,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-11-20T13:55:58+00:00"
+            "time": "2020-11-27T06:08:35+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -10793,16 +10902,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.9",
+            "version": "8.5.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f5c8a5dd5e7e8d68d7562bfb48d47287d33937d6"
+                "reference": "ebd3963f9ba330f98a8fe6ccf5390839e868af75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f5c8a5dd5e7e8d68d7562bfb48d47287d33937d6",
-                "reference": "f5c8a5dd5e7e8d68d7562bfb48d47287d33937d6",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ebd3963f9ba330f98a8fe6ccf5390839e868af75",
+                "reference": "ebd3963f9ba330f98a8fe6ccf5390839e868af75",
                 "shasum": ""
             },
             "require": {
@@ -10818,7 +10927,7 @@
                 "phar-io/version": "^2.0.1",
                 "php": "^7.2",
                 "phpspec/prophecy": "^1.10.3",
-                "phpunit/php-code-coverage": "^7.0.10",
+                "phpunit/php-code-coverage": "^7.0.11",
                 "phpunit/php-file-iterator": "^2.0.2",
                 "phpunit/php-text-template": "^1.2.1",
                 "phpunit/php-timer": "^2.1.2",
@@ -10872,7 +10981,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2020-11-10T12:51:38+00:00"
+            "time": "2020-11-27T05:24:14+00:00"
         },
         {
             "name": "scrivo/highlight.php",

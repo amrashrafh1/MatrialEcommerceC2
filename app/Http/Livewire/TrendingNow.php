@@ -16,7 +16,7 @@ class TrendingNow extends Component
         ->select('id','slug','image','product_type','name','sale_price')->inRandomOrder()->take(20)->get();
 
         // get random trending now categories
-        $categories = Category::where('status',1)->where('category_id', NULL)->inRandomOrder()->select('name', 'id', 'slug')
+        $categories = Category::where('status',1)->where('parent_id', NULL)->inRandomOrder()->select('name', 'id', 'slug')
         ->whereHas('products', function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->where('section','hot_new_arrivals')

@@ -55,7 +55,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade " id="tabs-icons-text-1" role="tabpanel"
                             aria-labelledby="tabs-icons-text-1-tab" wire:ignore>
-                            <h2>@lang('user.about_me')</h2>
+                            <h2>@lang('user.about_my_store')</h2>
                             <p class="description">{{($store)?$store->description:''}}</p>
                             <div class="table-responsive border ">
                                 <table class="table row table-borderless w-100 m-0 ">
@@ -117,9 +117,10 @@
                                         <div class="product {{($count%4 == 1)?'first':''}} {{($count%4 == 0)?'last':''}}">
                                             <div class="yith-wcwl-add-to-wishlist">
                                                 <a class='add_to_wishlist'
-                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
-                                                        @endauth>
-                                                        </a> </div>
+                                                @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
+                                                @endauth>
+                                                </a>
+                                             </div>
                                             <!-- .yith-wcwl-add-to-wishlist -->
                                             <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
                                                 href="{{route('show_product', $product->slug)}}">
@@ -150,9 +151,7 @@
                                                     <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
                                                         <strong class="rating">5.00</strong> out of 5</span>
                                                 </div>
-                                                <span class="review-count">({{DB::table('reviews')
-                                                            ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                            ->count()}})</span>
+                                                <span class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
                                             </div>
                                             <!-- .techmarket-product-rating -->
                                             <span class="sku_wrapper">@lang('user.SKU:')

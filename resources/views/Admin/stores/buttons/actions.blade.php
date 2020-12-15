@@ -33,7 +33,7 @@
 								<div class="modal-footer">
 										{!! Form::open([
 										'method' => 'DELETE',
-										'route' => ['stores.destroy', $id]
+										'route'  => ['seller.stores.destroy', [$model->seller->id, $id]]
 										]) !!}
 										{!! Form::submit(trans('admin.approval'), ['class' => 'btn btn-danger']) !!}
 										<a class="btn btn-default" data-dismiss="modal">{{trans('admin.cancel')}}</a>

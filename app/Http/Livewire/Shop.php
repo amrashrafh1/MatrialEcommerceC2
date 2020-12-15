@@ -37,7 +37,7 @@ class Shop extends Component
         $pros = [];
 
         if ($this->category) {
-            //dd($cat_id     = $this->category->products);
+
             $cat_id     = $this->category->id;
             $cats_id    = Category::where('id', $cat_id)
             ->with('categories.childrenCategories')
@@ -47,9 +47,11 @@ class Shop extends Component
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
             $brands     = Tradmark::whereHas('products', function ($q) use ($cats_id) {
                 $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
-            })->inRandomOrder('id')->get();
+            })->with(['products' =>  function ($q) use ($cats_id) {
+                $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
+            }])->inRandomOrder('id')->get();
 
-            $attributes = Attribute::whereHas('products', function ($q) use ($cats_id) {
+            $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) use ($cats_id) {
                     $q->whereIn('category_id', $cats_id)
                     ->where('visible', 'visible')->where('approved', 1)
                     ->select('name','approved','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
@@ -57,12 +59,8 @@ class Shop extends Component
             $family = [];
             foreach ($attributes as $attr) {
                 $id = $attr->id;
-                $ff = Attribute_Family::whereHas('attributes', function ($q) use ($id) {
-                    $q->where('id', $id);
-                })->first();
-
-                if (!in_array($ff, $family)) {
-                    array_push($family, $ff);
+                if (!in_array($attr->attribute_family, $family)) {
+                    array_push($family, $attr->attribute_family);
                 }
             }
             $products = shop_sort($cats_id,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
@@ -80,26 +78,29 @@ class Shop extends Component
              */
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
             $brands     = Tradmark::inRandomOrder('id')->get();
-            $attributes = Attribute::get();
+            $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) {
+                $q->where('visible', 'visible')->where('approved', 1)
+                ->select('name','approved','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
+            })->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
             $family     = [];
             foreach ($attributes as $attr) {
                 $id = $attr->id;
-                $ff = Attribute_Family::whereHas('attributes', function ($q) use ($id) {
-                    $q->where('id', $id);
-                })->first();
-
-                if (!in_array($ff, $family)) {
-                    array_push($family, $ff);
+                if (!in_array($attr->attribute_family, $family)) {
+                    array_push($family, $attr->attribute_family);
                 }
             }
             /* SortBy */
             $products = shop_sort(NULL,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         }
 
+
+        $latest_products = Product::orderBy('id', 'DESC')->take(10)->get();
+
         return view('livewire.shop', [
             'products' => $products,
             'pros'     => $pros,     'categories' => $categories,
-            'brands'   => $brands,   'attributes' => $attributes, 'family' => $family, 'tab' => $this->tab]);
+            'brands'   => $brands,   'attributes' => $attributes, 'family' => $family,
+             'tab' => $this->tab, 'latest_products' => $latest_products]);
     }
 
     public function updatingPageNumber(): void
@@ -163,7 +164,7 @@ class Shop extends Component
     }
 
     public function getIds($cat)
-{
+    {
     $ids =  [$cat->id];
 
     foreach ($cat->categories->where('status', 1) as $child) {
@@ -171,5 +172,5 @@ class Shop extends Component
         $ids = array_merge($ids, $this->getIds($child));
     }
     return $ids;
-}
+    }
 }

@@ -22,10 +22,10 @@ class DiscountController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'role:seller']);
-        $this->middleware(['permission:read-'.$this->path])->only('index');
+        /* $this->middleware(['permission:read-'.$this->path])->only('index');
         $this->middleware(['permission:create-'.$this->path])->only('create');
         $this->middleware(['permission:update-'.$this->path])->only('edit');
-        $this->middleware(['permission:delete-'.$this->path])->only('destroy');
+        $this->middleware(['permission:delete-'.$this->path])->only('destroy'); */
         $this->model = Discount::class;
     }
 

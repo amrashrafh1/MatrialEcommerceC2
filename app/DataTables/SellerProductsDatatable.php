@@ -13,15 +13,19 @@ class SellerProductsDatatable extends DataTable
             ->addColumn('image', 'Admin.products.buttons.image')
             ->addColumn('checkbox', 'Admin.products.buttons.checkbox')
             ->addColumn('approved', 'Admin.products.buttons.approved')
-            ->addColumn('user_id', 'Admin.products.buttons.user_id')
-            ->rawColumns(['checkbox','approved','show_action','actions','user_id','image','date']);
+            //->addColumn('user_id', 'Admin.products.buttons.user_id')
+            ->addColumn('store', function (Product $product) {
+                return "<a href=".route('show_app', $product->store->id).">".\Str::limit($product->store->name, 30). "</a>";
+
+            })
+            ->rawColumns(['checkbox','approved','show_action','actions','store','image','date']);
     }
 
     public function query()
     {
         return Product::query()->where('owner', 'for_seller')
         ->select('name->en as ss','image','approved','slug','owner','seller_id','product_type','id',
-        'has_accessories','user_id','sale_price');
+        'has_accessories','user_id','sale_price')->with('store');
     }
 
 
@@ -130,9 +134,9 @@ class SellerProductsDatatable extends DataTable
                 'title' => trans('admin.sale_price'),
             ],
             [
-                'name'  => 'user_id',
-                'data'  => 'user_id',
-                'title' => trans('admin.seller'),
+                'name'  => 'store.name',
+                'data'  => 'store',
+                'title' => trans('admin.store'),
             ],
             [
                 'name'  => 'approved',

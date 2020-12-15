@@ -449,16 +449,17 @@
                                                 @foreach(session()->get('items') as $cart)
                                                 @php
                                                 $cc           = Cart::content()->find($cart['item']);
+                                                $cart_product = $cc->getProduct();
                                                 $findSHipping = \App\Shipping_methods::where('id', $cart['shipping'])->first();
                                                 if($findSHipping !== null) {
                                                     $this->shippings +=
-                                                    $cc->buyable->calcShipping($findSHipping,
+                                                    $cart_product->calcShipping($findSHipping,
                                                     $cc->quantity);
                                                 } else {
                                                     $defaultShipping = \App\Setting::orderBy('id','desc')->first();
                                                     if($defaultShipping->default_shipping == 1) {
                                                         $this->shippings +=
-                                                        $cc->buyable->calcShipping($defaultShipping->shipping,
+                                                        $cart_product->calcShipping($defaultShipping->shipping,
                                                         $cc->quantity);
                                                     }
                                                 }
@@ -479,16 +480,17 @@
                                                 @else
                                                 @foreach(Cart::content() as $cart)
                                                 @php
-                                                $findSHipping = $cart->buyable->methods->first();
+                                                $cart_product = $cart->getProduct();
+                                                $findSHipping = $cart_product->methods->first();
                                                 if($findSHipping !== null) {
                                                     $this->shippings +=
-                                                    $cart->buyable->calcShipping($findSHipping,
+                                                    $cart_product->calcShipping($findSHipping,
                                                     $cart->quantity);
                                                 } else {
                                                     $defaultShipping = \App\Setting::orderBy('id','desc')->first();
                                                     if($defaultShipping->default_shipping == 1) {
                                                         $this->shippings +=
-                                                        $cart->buyable->calcShipping($defaultShipping->shipping,
+                                                        $cart_product->calcShipping($defaultShipping->shipping,
                                                         $cart->quantity);
                                                     }
                                                 }
@@ -498,7 +500,7 @@
                                                     <td class="product-name">
                                                         <strong class="product-quantity">{{intval($cart->quantity)}}
                                                             ×</strong> {!! curr($cart->price) !!}"
-                                                        {{$cart->buyable->name}}
+                                                        {{$cart_product->name}}
                                                     </td>
                                                     <td class="product-total">
                                                         <span class="woocommerce-Price-amount amount">

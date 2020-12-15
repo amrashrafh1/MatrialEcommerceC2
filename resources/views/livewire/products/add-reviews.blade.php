@@ -2,8 +2,7 @@
 <div class="techmarket-advanced-reviews" id="reviews">
     <div class="advanced-review row">
         <div class="advanced-review-rating">
-            <h2 class="based-title">@lang('user.Review') ({{DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
-                ->count()}})</h2>
+            <h2 class="based-title">@lang('user.Review') ({{$this->product->getApprovedRatings($this->product->id, 'desc')->count()}})</h2>
             <div class="avg-rating">
                 <span class="avg-rating-number">{{$this->product->averageRating(1, true)[0]}}</span>
                 <div title="Rated 5.0 out of 5" class="star-rating">
@@ -16,7 +15,7 @@
                     <div title="Rated 5 out of 5" class="star-rating">
                         <span style="width:100%"></span>
                     </div>
-                    <div class="rating-count">{{DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
+                    <div class="rating-count">{{$product->ratings()->where('approved',1)
                         ->where('rating', 5)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:100%"></span>
@@ -26,7 +25,7 @@
                     <div title="Rated 4 out of 5" class="star-rating">
                         <span style="width:80%"></span>
                     </div>
-                    <div class="rating-count zero">{{DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
+                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
                         ->where('rating', 4)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>
@@ -36,7 +35,7 @@
                     <div title="Rated 3 out of 5" class="star-rating">
                         <span style="width:60%"></span>
                     </div>
-                    <div class="rating-count zero">{{DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
+                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
                         ->where('rating', 3)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>
@@ -46,7 +45,7 @@
                     <div title="Rated 2 out of 5" class="star-rating">
                         <span style="width:40%"></span>
                     </div>
-                    <div class="rating-count zero">{{DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
+                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
                         ->where('rating', 2)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>
@@ -56,7 +55,7 @@
                     <div title="Rated 1 out of 5" class="star-rating">
                         <span style="width:20%"></span>
                     </div>
-                    <div class="rating-count zero">{{DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
+                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
                         ->where('rating', 1)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>

@@ -11,8 +11,7 @@
 
       <div class="card__body">
         @auth
-        <img src="{{Storage::url(auth()->user()->image
-        )}}" class="card__avatar">
+        <img src="{{Storage::url(auth()->user()->image)}}" class="card__avatar">
         @endauth
         <div class="card__recipient-info">
           <p class="card__recipient">{{$order->billing_name}}</p>

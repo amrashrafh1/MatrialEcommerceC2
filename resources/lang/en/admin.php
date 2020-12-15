@@ -419,6 +419,7 @@ return array (
     'sort_by_views'                                                  => 'Sort by views',
     'sort_by_revenue'                                                => 'Sort by revenue',
     'stores'                                                         => 'Stores',
+    'store'                                                          => 'Store',
     'seller_email'                                                   => 'Seller email',
     'write_a_message_to_seller_email'                                => 'Write a message to seller email',
     'delete_&_send_message'                                          => 'Delete & send message',
@@ -436,5 +437,9 @@ return array (
     "activities"                                                     => "Activities",
     "subject_id"                                                     => "Subject ID",
     "sellers_products"                                               => "Sellers products",
+    "Online_users_today"                                             => "Online users today",
+    "create_variations_from_all_attributes"                          => "Create variations from all attributes",
+    "create_variations"                                              => "Create variations",
+    "variations_was_created_successfuly"                             => "Variations was created successfuly",
 
 );

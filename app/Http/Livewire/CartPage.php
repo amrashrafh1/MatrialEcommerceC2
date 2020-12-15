@@ -39,10 +39,10 @@ class CartPage extends Component
         $this->shipping = 0;
 
         $stores = [];
-
         foreach(Cart::content() as $cart) {
-            if(!in_array($cart->buyable->store, $stores)) {
-                array_push($stores, $cart->buyable->store);
+            $cart_product = $cart->getProduct();
+            if(!in_array($cart_product->store, $stores)) {
+                array_push($stores, $cart_product->store);
             }
         }
         // check if items not empty
@@ -66,7 +66,9 @@ class CartPage extends Component
             foreach ($this->shippings as $index => $shipping) {
                 // check if key in items array
                 if (in_array($index, $this->items)) {
-                    $this->shipping += floatVal(Cart::content()->find($index)->buyable->calcShipping(Shipping_methods::find($shipping), Cart::content()->find($index)->quantity));
+                    $cart = Cart::content()->find($index);
+                    $cart_product = $cart->getProduct();
+                    $this->shipping += floatVal($cart_product->calcShipping(Shipping_methods::find($shipping), $cart->quantity));
 
                 }
             }
@@ -111,8 +113,9 @@ class CartPage extends Component
                 $this->shipping = 0;
 
                 foreach (Cart::content() as $cart) {
+                    $cart_product = $cart->getProduct();
                     // loop product methods
-                    foreach ($cart->buyable->methods as $method_index => $method) {
+                    foreach ($cart_product->methods as $method_index => $method) {
                         // loop shippings method array
                         foreach ($this->shippings as $index => $shipping) {
                             // check if shipping method key in selected items
@@ -133,9 +136,10 @@ class CartPage extends Component
     {
         // loop cart items
         foreach (Cart::content() as $cart) {
-            $country_id = $this->country;
+            $cart_product = $cart->getProduct();
+            $country_id   = $this->country;
             // get all method for this product where has this country
-            $method_countries = $cart->buyable->methods()->whereHas('zone', function ($q) use ($country_id) {
+            $method_countries = $cart_product->methods()->whereHas('zone', function ($q) use ($country_id) {
                 $q->whereHas('countries', function ($query) use ($country_id) {
                     $query->where('id', $country_id);
                 });
@@ -238,8 +242,10 @@ class CartPage extends Component
             $country_id = $this->country;
             if ($country_id) {
                 foreach (Cart::content() as $cart) {
+                    $cart_product = $cart->getProduct();
+
                     // get all method for this product where has this country
-                    $method_countries = $cart->buyable->methods()->whereHas('zone', function ($q) use ($country_id) {
+                    $method_countries = $cart_product->methods()->whereHas('zone', function ($q) use ($country_id) {
                         $q->whereHas('countries', function ($query) use ($country_id) {
                             $query->where('id', $country_id);
                         });

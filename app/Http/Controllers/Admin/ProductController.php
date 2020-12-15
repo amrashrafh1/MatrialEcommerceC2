@@ -19,6 +19,7 @@ use Image;
 use LaravelLocalization;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Jobs\DeleteCartItems;
+use App\Jobs\DestroyAllProducts;
 class ProductController extends Controller
 {
     protected $model = '';
@@ -378,6 +379,8 @@ class ProductController extends Controller
      * @param  \App\User  $row
      * @return \Illuminate\Http\Response
      */
+
+
     public function destroy($id)
     {
         $row = $this->model::findOrFail($id);
@@ -388,18 +391,19 @@ class ProductController extends Controller
         $row->delete();
         return redirect()->route($this->route . '.index');
     }
+
+
+
+
     public function destory_all(Request $request)
     {
         if (request()->has('item') && $request->item != '') {
             if (is_array($request->item)) {
-                foreach ($request->item as $d) {
-                    $row = $this->model::findOrFail($d);
-                    \Storage::delete($row->image);
-                    $row->carts()->chunk(50, function ($cart) {
-                        dispatch(new DeleteCartItems($cart));
-                    });
-                    $row->delete();
-                }
+
+                Product::whereIn('id', $request->item)->chunk(50, function ($products) {
+                    dispatch(new DestroyAllProducts($products));
+                });
+
             } else {
                 $row = $this->model::findOrFail($request->item);
                 \Storage::delete($row->image);
@@ -410,17 +414,18 @@ class ProductController extends Controller
                 $row->delete();
             }
         }
+        Alert::success(trans('admin.deleted'), trans('admin.deleted'));
         return redirect()->route($this->route . '.index');
     }
 
     /**************************************   Variation index Start   ************************************** */
     public function variations_index($id)
     {
-        $product = Product::findOrFail($id);
+        $product        = Product::findOrFail($id);
         $variablesArray = Variable::where('product_id', $product->id)->get();
         $inventoryArray = inventory::where('product_id', $product->id)->get();
-        $valuesArray = [];
-        $value_ids = [];
+        $valuesArray    = [];
+        $value_ids      = [];
         foreach ($variablesArray as $variable) {
             $valueArray = Value::where('variable_id', $variable->id)->get();
             array_push($valuesArray, $valueArray);
@@ -553,7 +558,6 @@ class ProductController extends Controller
 
     public function reviews($id)
     {
-        //$title = trans('admin.add_accessories');
         $product = Product::findOrFail($id);
         if ($product) {
             return view('Admin.products.reviews', ['product' => $product,

@@ -1,11 +1,8 @@
 @php
 $products_seller_count = App\Product::where('approved', 0)->whereHas('store')->count();
-$products_count = App\Product::where('approved', 0)->count();
-$orders_count = App\Order::where('status','pending')->count();
-$stores_count = App\SellerInfo::where('approved', 0)->whereHas('seller',
-function($q) {
-$q->whereRoleIs('seller');
-})->count();
+$products_count        = App\Product::where('approved', 0)->count();
+$orders_count          = App\Order::where('status','pending')->count();
+$stores_count          = App\SellerInfo::where('approved', 0)->count();
 $cms_array = [
 'teams-management', 'contact_us-management'
 ,'testimonials-management','services-management','ourworks-management','sliders-management'
@@ -19,8 +16,7 @@ $activities = ['Logs',
 'activities-management'];
 $marketplace = [
 'seller-products-management',
-'seller-management'
-];
+'seller-management'];
 @endphp
 <div class="sidebar" data-color="{{(\Cookie::get('color') != NULL)?\Cookie::get('color'):'orange'}}"
     data-background-color="white"
@@ -60,7 +56,8 @@ $marketplace = [
                     class="list-group-item nav-link{{ $activePage == 'seller-management' ? ' active' : 'collapsed' }}"
                     data-parent="#sub-menu">
                     <p class='notification'>{{ trans('admin.sellers') }}
-                        <span class='badge'>{{$stores_count}}</span>
+                        <span class='badge'>{{$stores_count}}
+                        </span>
                     </p>
                 </a>
                 <a href="{{ route('seller_products') }}"
@@ -77,7 +74,8 @@ $marketplace = [
                         perm_identity
                     </i>
                     <p class='notification'>{{ trans('admin.users') }}
-                        <span class='badge'>{{App\SellerInfo::where('approved',0)->count()}}</span>
+                        <span class='badge'>{{$stores_count}}
+                        </span>
                     </p>
                 </a>
             </li>

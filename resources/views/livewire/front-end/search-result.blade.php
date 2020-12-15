@@ -5,6 +5,16 @@
         <input type="text" id="search" wire:model='search' autocomplete="off" name="search" required
             class="form-control search-field product-search-field"  value=""
             placeholder="@lang("user.I'm_shopping_for..")" />
+            @if(!blank($this->slug))
+            <div class="input-group-addon search-categories popover-header">
+                <div class='postform'>
+                    <a href='{{route('shop')}}' style='font-size:13px;' class='btn btn-primary'
+                        >@lang('user.on') {{$setting->sitename}}</a>
+                    <a href='#' class='btn btn-primary disabled' style='font-size:13px; background:#0059BD;'
+                        disabled> @lang('user.On_this_store')</a>
+                </div>
+            </div>
+            @endif
         <!-- .input-group-addon -->
         <div class="input-group-btn input-group-append">
             <input type="hidden" id="search-param" name="post_type" value="product" />
@@ -24,11 +34,36 @@
         @if(count($tags)>0)
         @forelse($tags as $tag)
         <div class='search-product' style="padding :10px 0 10px; margin:  10px 0; width:100%;">
-            <a href="{{route('tags', $tag->slug)}}" class="row">
-                <div class="col-md-8">
-                    {{$tag->name}}
-                </div>
-            </a>
+            @if(!blank($this->slug))
+                <a href="{{route('show_product', $tag->slug)}}" class="row" style="padding-left :20px;">
+                    <div class="col-md-3">
+                    <img src='{{Storage::url($tag->image)}}' width='90' height='90'>
+                    </div>
+                    <div class="col-md-9 prices">
+                        {{$tag->name}}
+                        <div class="price">
+                            @if($tag->available_discount())
+                            <ins>
+                                <span class="amount">{!! curr($tag->priceDiscount()) !!}</span>
+                            </ins>
+                            <del>
+                                <span class="amount">{!! curr($tag->calc_price()) !!}</span>
+                            </del>
+                            @else
+                            <ins>
+                                <span class="amount">{!! curr($tag->calc_price()) !!}</span>
+                            </ins>
+                            @endif
+                        </div>
+                    </div>
+                </a>
+            @else
+                <a href="{{route('tags', $tag->slug)}}" class="row"  style="padding-left :20px;">
+                    <div class="col-md-8">
+                        {{$tag->name}}
+                    </div>
+                </a>
+            @endif
         </div>
         @empty
         no result
@@ -101,7 +136,12 @@
             transform: rotate(360deg);
         }
     }
-
+    div.price .amount {
+        font-size:14px !important;
+    }
+    div.prices {
+        font-size:14px !important;
+    }
 </style>
 @push('js')
 <script>

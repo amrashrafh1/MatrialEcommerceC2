@@ -19,10 +19,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $catalog = Category::where('status', 1)->orderByViews()->get();
 
+        $catalog       = Category::where('status', 1)->orderByViews()->get();
         $adzs          = Adz::available()->inRandomOrder('id')->get();
-        $randomProduct = Product::isApproved()->orderBy('id','desc')->with('discount')->first();
+        $randomProduct = Product::with('discount')->isApproved()->orderBy('id','desc')->first();
         $sliders       = Slider::isActive()->get();
         $setting       = Setting::latest('id')->first();
 
@@ -51,10 +51,10 @@ class HomeController extends Controller
             'product_cat' => trans('user.category'),
         ]);
         if (!empty($data['product_cat'])) {
-            $search = $data['search'];
+            $search     = $data['search'];
             $categories = Category::where('id', $data['product_cat'])->first();
-            $id = [];
-            $id = $categories->children->pluck('id')->toArray();
+            $id         = [];
+            $id         = $categories->children->pluck('id')->toArray();
             array_push($id, $categories->id);
             $products = Product::whereIn('category_id', $id)->where('visible', 'visible')->where('name', 'like', '%' . $data['search'] . '%')
                 ->orWhere('description', 'like', '%' . $data['search'] . '%')->paginate(20);

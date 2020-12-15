@@ -51,6 +51,7 @@
         "torann/geoip": "^1.0",
         "treestoneit/shopping-cart": "^1.1",
         "tymon/jwt-auth": "1.0.0-rc.5",
+        "typicms/nestablecollection": "^1.1",
         "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-buttons": "^4.0",
         "yajra/laravel-datatables-oracle": "^9.0",
@@ -58,6 +59,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.4",
+        "beyondcode/laravel-query-detector": "^1.4",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
         "laracasts/generators": "^1.1",

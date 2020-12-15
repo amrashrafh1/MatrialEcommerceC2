@@ -15,10 +15,10 @@ class CreateVariationsTable extends Migration
     {
         Schema::create('variations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sku')->unique()->nullable();
-            $table->double('sale_price', 8,2)->nullable();
-            $table->double('purchase_price',8,2)->nullable();
-            $table->integer('stock')->nullable();
+            $table->string('sku');
+            $table->double('sale_price', 8,2);
+            $table->double('purchase_price',8,2);
+            $table->integer('stock');
             $table->enum('in_stock',['in_stock','out_stock']);
             $table->enum('visible',['visible','hidden']);
             $table->unsignedBigInteger('product_id');

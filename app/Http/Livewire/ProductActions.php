@@ -21,22 +21,9 @@ class ProductActions extends Component
 
     public function render()
     {
-        $attributes = $this->product->attributes;
-        $family     = [];
+        $familyAttributes = $this->product->getParentAttributes();
 
-        /* loop attributes and get parent who has this attributes [not all family] */
-
-        foreach($attributes as $attr) {
-            $id  = $attr->id;
-            $ff  = Attribute_Family::whereHas('attributes', function ($q) use ($id) {
-                $q->where('id', $id);
-            })->first();
-
-            if(!in_array($ff, $family)) {
-                array_push($family,$ff);
-            }
-        }
-        return view('livewire.product-actions', ['family' => $family]);
+        return view('livewire.product-actions', ['familyAttributes' => $familyAttributes]);
     }
 
     public function get_variation() {
@@ -62,7 +49,6 @@ class ProductActions extends Component
     }
 
     public function add_cart($submit) {
-        //$this->options = $attrs;
     $opts = [];
         $data = $this->validate([
             'quantity'  => 'required|numeric',

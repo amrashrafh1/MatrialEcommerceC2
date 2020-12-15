@@ -6,16 +6,17 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Category;
 use App\Product;
+use App\SellerInfo;
 class SmallMonitorSearch extends Component
 {
     use WithPagination;
 
     public $smallSearch = '';
-    public $categories;
+    public $slug        = null;
 
-    public function mount($categories)
+    public function mount($slug = null)
     {
-        $this->categories = $categories;
+        $this->slug = $slug;
     }
     public function render()
     {
@@ -28,10 +29,17 @@ class SmallMonitorSearch extends Component
             ], [], [
                 'smallSearch' => trans('user.search'),
             ]);
+            if(!blank($this->slug)) {
+                $store = SellerInfo::where('slug', $this->slug)->with(['products' => function ($query) {
+                    $query->where('visible', 'visible')->where('approved',1);
+                }])->first();
+                $tags = $store->products()->where('name', 'LIKE', '%'.$data['smallSearch']. '%')->paginate(10);
+            } else {
             $tags = \Spatie\Tags\Tag::Containing($data['smallSearch'], $lang)->paginate(10);
+            }
         }
 
-        return view('livewire.small-monitor-search', ['categories' => $this->categories, 'results' => $tags]);
+        return view('livewire.small-monitor-search', ['results' => $tags]);
     }
 
     public function search()

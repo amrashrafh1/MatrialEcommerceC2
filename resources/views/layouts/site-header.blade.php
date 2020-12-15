@@ -1,6 +1,6 @@
 @php
 $countries = \DB::table('countries')->get();
-$country = \DB::table('countries')->where('id', session('country'))->first();
+$country   = \DB::table('countries')->where('id', session('country'))->first();
 @endphp
 <header id="masthead" class="site-header header-v1" style="background-image: none; ">
     <div class="col-full desktop-only">
@@ -119,7 +119,6 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                     <ul id="menu-secondary-menu" class="nav">
                         @role('seller')
                         @if(auth()->user()->stores)
-
                         <li
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2802 animate-dropdown">
                             <a title="@lang('user.seller_dashboard')" data-toggle="modal" data-target="#exampleModal"
@@ -198,8 +197,8 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                         @else
                         <li
                             class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-487 animate-dropdown dropdown">
-                            <a title="@lang('user.my_account')" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
-                                href="#">
+                            <a title="@lang('user.my_account')" data-toggle="dropdown" class="dropdown-toggle"
+                                aria-haspopup="true" href="#">
                                 <i class="tm tm-login-register"></i>@lang('user.my_account')
                                 <span class="caret"></span>
                             </a>
@@ -328,8 +327,13 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                     @endforeach
                 </ul>
             </div>
+
             <!-- .departments-menu -->
-            @livewire('front-end.search-result'/* , ['categories'=>$categories] */)
+            @if(Route::current()->getName() == 'show_seller')
+                @livewire('front-end.search-result', ['slug' => Route::current()->parameters['slug']])
+            @else
+                @livewire('front-end.search-result')
+            @endif
             <!-- .navbar-search -->
             @livewire('compare-header')
             <!-- .header-compare -->
@@ -360,24 +364,38 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                                     .cls-3 {
                                         fill: #3265b0;
                                     }
+
                                 </style>
                             </defs>
-                            <polygon class="cls-1" points="171.63 0.91 171.63 11 170.63 11 170.63 0.91 170.63 0.84 170.63 0.06 176 0.06 176 0.91 171.63 0.91" />
+                            <polygon class="cls-1"
+                                points="171.63 0.91 171.63 11 170.63 11 170.63 0.91 170.63 0.84 170.63 0.06 176 0.06 176 0.91 171.63 0.91" />
                             <rect class="cls-2" x="166.19" y="0.06" width="3.47" height="0.84" />
                             <rect class="cls-2" x="159.65" y="4.81" width="3.51" height="0.84" />
-                            <polygon class="cls-1" points="158.29 11 157.4 11 157.4 0.06 158.26 0.06 158.36 0.06 164.89 0.06 164.89 0.87 158.36 0.87 158.36 10.19 164.99 10.19 164.99 11 158.36 11 158.29 11" />
-                            <polygon class="cls-1" points="149.54 6.61 150.25 5.95 155.72 10.98 154.34 10.98 149.54 6.61" />
-                            <polygon class="cls-1" points="147.62 10.98 146.65 10.98 146.65 0.05 147.62 0.05 147.62 5.77 153.6 0.33 154.91 0.33 147.62 7.05 147.62 10.98" />
-                            <path class="cls-1" d="M156.39,24h-1.25s-0.49-.39-0.71-0.59l-1.35-1.25c-0.25-.23-0.68-0.66-0.68-0.66s0-.46,0-0.72a3.56,3.56,0,0,0,3.54-2.87,3.36,3.36,0,0,0-3.22-4H148.8V24h-1V13.06h5c2.34,0.28,4,1.72,4.12,4a4.26,4.26,0,0,1-3.38,4.34C154.48,22.24,156.39,24,156.39,24Z" transform="translate(-12 -13)" />
-                            <polygon class="cls-1" points="132.04 2.09 127.09 7.88 130.78 7.88 130.78 8.69 126.4 8.69 124.42 11 123.29 11 132.65 0 133.04 0 133.04 11 132.04 11 132.04 2.09" />
-                            <polygon class="cls-1" points="120.97 2.04 116.98 6.15 116.98 6.19 116.97 6.17 116.95 6.19 116.95 6.15 112.97 2.04 112.97 11 112 11 112 0 112.32 0 116.97 4.8 121.62 0 121.94 0 121.94 11 120.97 11 120.97 2.04" />
+                            <polygon class="cls-1"
+                                points="158.29 11 157.4 11 157.4 0.06 158.26 0.06 158.36 0.06 164.89 0.06 164.89 0.87 158.36 0.87 158.36 10.19 164.99 10.19 164.99 11 158.36 11 158.29 11" />
+                            <polygon class="cls-1"
+                                points="149.54 6.61 150.25 5.95 155.72 10.98 154.34 10.98 149.54 6.61" />
+                            <polygon class="cls-1"
+                                points="147.62 10.98 146.65 10.98 146.65 0.05 147.62 0.05 147.62 5.77 153.6 0.33 154.91 0.33 147.62 7.05 147.62 10.98" />
+                            <path class="cls-1"
+                                d="M156.39,24h-1.25s-0.49-.39-0.71-0.59l-1.35-1.25c-0.25-.23-0.68-0.66-0.68-0.66s0-.46,0-0.72a3.56,3.56,0,0,0,3.54-2.87,3.36,3.36,0,0,0-3.22-4H148.8V24h-1V13.06h5c2.34,0.28,4,1.72,4.12,4a4.26,4.26,0,0,1-3.38,4.34C154.48,22.24,156.39,24,156.39,24Z"
+                                transform="translate(-12 -13)" />
+                            <polygon class="cls-1"
+                                points="132.04 2.09 127.09 7.88 130.78 7.88 130.78 8.69 126.4 8.69 124.42 11 123.29 11 132.65 0 133.04 0 133.04 11 132.04 11 132.04 2.09" />
+                            <polygon class="cls-1"
+                                points="120.97 2.04 116.98 6.15 116.98 6.19 116.97 6.17 116.95 6.19 116.95 6.15 112.97 2.04 112.97 11 112 11 112 0 112.32 0 116.97 4.8 121.62 0 121.94 0 121.94 11 120.97 11 120.97 2.04" />
                             <ellipse class="cls-3" cx="116.3" cy="22.81" rx="5.15" ry="5.18" />
                             <rect class="cls-2" x="99.13" y="0.44" width="5.87" height="27.12" />
-                            <polygon class="cls-1" points="85.94 27.56 79.92 27.56 79.92 0.44 85.94 0.44 85.94 16.86 96.35 16.86 96.35 21.84 85.94 21.84 85.94 27.56" />
-                            <path class="cls-1" d="M77.74,36.07a9,9,0,0,0,6.41-2.68L88,37c-2.6,2.74-6.71,4-10.89,4A13.94,13.94,0,0,1,62.89,27.15,14.19,14.19,0,0,1,77.11,13c4.38,0,8.28,1.17,10.89,4,0,0-3.89,3.82-3.91,3.8A9,9,0,1,0,77.74,36.07Z" transform="translate(-12 -13)" />
+                            <polygon class="cls-1"
+                                points="85.94 27.56 79.92 27.56 79.92 0.44 85.94 0.44 85.94 16.86 96.35 16.86 96.35 21.84 85.94 21.84 85.94 27.56" />
+                            <path class="cls-1"
+                                d="M77.74,36.07a9,9,0,0,0,6.41-2.68L88,37c-2.6,2.74-6.71,4-10.89,4A13.94,13.94,0,0,1,62.89,27.15,14.19,14.19,0,0,1,77.11,13c4.38,0,8.28,1.17,10.89,4,0,0-3.89,3.82-3.91,3.8A9,9,0,1,0,77.74,36.07Z"
+                                transform="translate(-12 -13)" />
                             <rect class="cls-2" x="37.4" y="11.14" width="7.63" height="4.98" />
-                            <polygon class="cls-1" points="32.85 27.56 28.6 27.56 28.6 5.42 28.6 3.96 28.6 0.44 47.95 0.44 47.95 5.42 34.46 5.42 34.46 22.72 48.25 22.72 48.25 27.56 34.46 27.56 32.85 27.56" />
-                            <polygon class="cls-1" points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
+                            <polygon class="cls-1"
+                                points="32.85 27.56 28.6 27.56 28.6 5.42 28.6 3.96 28.6 0.44 47.95 0.44 47.95 5.42 34.46 5.42 34.46 22.72 48.25 22.72 48.25 27.56 34.46 27.56 32.85 27.56" />
+                            <polygon class="cls-1"
+                                points="15.4 27.56 9.53 27.56 9.53 5.57 9.53 0.59 9.53 0.44 24.93 0.44 24.93 5.57 15.4 5.57 15.4 27.56" />
                             <rect class="cls-2" y="0.44" width="7.19" height="5.13" />
                         </svg>
                         {{-- <img src='{{($setting)?Storage::url($setting->logo):''}}' /> --}}
@@ -400,14 +418,15 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                                 aria-haspopup="true" aria-expanded="false">
                                 <i class="tm tm-login-register"></i>
                             </a>
-                            <div class="dropdown-menu mt-4" style='margin-right:120px;' aria-labelledby="dropdownMenuProfile">
+                            <div class="dropdown-menu mt-4" style='margin-right:120px;'
+                                aria-labelledby="dropdownMenuProfile">
                                 <li class="dropdown-item">
                                     <a title="@lang('user.profile')"
                                         href="{{route('profile')}}">@lang('user.profile')</a>
                                 </li>
                                 <li class="dropdown-item">
-                                    <a title="{{trans('user.seller_dashboard')}}"
-                                        href="#"data-toggle="modal"  data-target="#exampleModal">{{trans('user.seller_dashboard')}}</a>
+                                    <a title="{{trans('user.seller_dashboard')}}" href="#" data-toggle="modal"
+                                        data-target="#exampleModal">{{trans('user.seller_dashboard')}}</a>
                                 </li>
                                 <li class="dropdown-item">
                                     <a title="{{trans('user.Sell_on').' '. $setting->sitename}}"
@@ -535,7 +554,8 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                                                                             href="{{route('show_category', $category->slug)}}">
                                                                             <span
                                                                                 class="nav-text">{{$category->name}}</span>
-                                                                            <span class="nav-subtext">@lang('user.Discover_more_products')</span>
+                                                                            <span
+                                                                                class="nav-subtext">@lang('user.Discover_more_products')</span>
                                                                         </a>
                                                                     </li>
                                                                 </ul>
@@ -586,7 +606,11 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                         <!-- .handheld-navigation-menu -->
                     </nav>
                     <!-- .handheld-navigation -->
-                    @livewire('small-monitor-search', ['categories' => $categories])
+                    @if(Route::current()->getName() == 'show_seller')
+                        @livewire('small-monitor-search', ['slug' => Route::current()->parameters['slug']])
+                    @else
+                        @livewire('small-monitor-search')
+                    @endif
                     <!-- .site-search -->
                     @livewire('small-monitor-cart')
                 </div>
@@ -616,7 +640,7 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
                 <div class='row'>
                     @foreach(auth()->user()->stores as $store)
                     <div class='col m-1'
-                    style='border:2px solid {{($store->id == session('store'))? '#0063d1':'#999'}};'>
+                        style='border:2px solid {{($store->id == session('store'))? '#0063d1':'#999'}};'>
                         <a href='{{route('seller_dashboard', ['store'=> $store->slug])}}'>
                             <img width='180p' height='180' src='{{Storage::url($store->image)}}'>
                         </a>
@@ -627,5 +651,5 @@ $country = \DB::table('countries')->where('id', session('country'))->first();
         </div>
     </div>
 </div>
-    @endif
-    @endrole
+@endif
+@endrole

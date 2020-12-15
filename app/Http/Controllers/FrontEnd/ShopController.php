@@ -16,7 +16,7 @@ class ShopController extends Controller
      */
     public function index($slug)
     {
-        $category = Category::where('slug', $slug)->first();
+        $category = Category::where('slug', $slug)->with('products')->first();
 
         if($category) {
             $setting             = Setting::latest('id')->first();

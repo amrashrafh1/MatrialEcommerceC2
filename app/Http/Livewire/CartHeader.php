@@ -24,6 +24,7 @@ class CartHeader extends Component
     public function render()
     {
         $carts = Cart::content();
+
         return view('livewire.cart-header', ['carts' => $carts]);
     }
 

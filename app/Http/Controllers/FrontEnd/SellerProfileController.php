@@ -9,7 +9,7 @@ class SellerProfileController extends Controller
 {
     public function show_seller($slug)
     {
-        $store = SellerInfo::where('slug', $slug)->first();
+        $store = SellerInfo::where('slug', $slug)->with('products')->first();
         if($store) {
             return view('FrontEnd.seller-profile', ['store' => $store]);
         }

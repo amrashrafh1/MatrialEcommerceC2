@@ -388,6 +388,16 @@ return [
     'Shopping_Cart'                                                => 'Shopping Cart',
     'store_profile'                                                => 'Store profile',
     'update'                                                => 'Update',
+    'store_visits'                                                => 'Store visits',
+    'about_my_store'                                                => 'About store',
+    'On_this_store'                                                => 'On this store',
+    'on'                                                => 'On',
+    'review'                                                => 'Review',
+    'Choose_an_option'                                                => 'Choose an option',
+    'this_option_is_not_available'                                                => 'This option is not available',
+    'it_will_be_available_soon'                                                => 'It will be available soon',
+    'product_is_out_of_stock'                                                => 'Product is out of stock',
+
     'Download_our_new_app_today!_Dont_miss_our_mobile-only_offers_and_shop_with_Android_Play'  => 'Download our new app today! Dont miss our mobile-only offers and shop with Android Play.',
 
 ];

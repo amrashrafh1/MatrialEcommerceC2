@@ -12,7 +12,7 @@ class RelatedProduct extends Component
         $this->product = $product;
         $this->related = Product::withAllTags($tags->pluck('name'))
         ->where('id', '!=', $this->product->id)
-        ->select('id','slug','product_type','image','name','sale_price')->take(20)->get();
+        ->select('id','slug','product_type','image','name','tax','sale_price')->take(20)->get();
     }
 
     public function render()

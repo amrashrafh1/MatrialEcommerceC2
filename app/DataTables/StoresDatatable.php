@@ -6,6 +6,11 @@ use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
 class StoresDatatable extends DataTable
 {
+    public $store;
+    public function __construct($seller)
+    {
+        $this->seller = $seller;
+    }
     public function dataTable(DataTables $dataTables, $query)
     {
         return datatables($query)
@@ -18,8 +23,7 @@ class StoresDatatable extends DataTable
 
     public function query()
     {
-            return  SellerInfo::query()->with('seller')
-                ->orderBy('id', 'desc');
+            return  $this->seller;
     }
 
 

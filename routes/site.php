@@ -14,6 +14,7 @@ use App\Setting;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::put('/product/variation/add/cart/{slug}', 'FrontEnd\ProductController@add_cart')->name('product_variation_add_cart');
 Route::put('/product/add/accesssories', 'FrontEnd\ProductController@add_accesssories_cart')->name('product_add_accessories');
 Route::post('/chat/upload/photots/{id}', 'FrontEnd\ChatController@sendMessage')->name('sendMessage')->middleware('image-sanitize');

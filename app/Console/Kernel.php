@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\DeleteCarts::class,
     ];
 
     /**
@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
          $schedule->command('queue:work')->everyMinute();
          $schedule->command('queue:restart')->everyFiveMinutes();
          $schedule->command('currency:update -o')->hourly();
+         $schedule->command('delete_carts')->daily();
     }
 
     /**

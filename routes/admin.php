@@ -92,16 +92,11 @@ Route::group(
                 '/payments'           => 'Admin\PaymentController',
             ]);
 
-            Route::get('stores', 'Admin\StoreController@index')->name('stores.index');
-            Route::get('stores/create', 'Admin\StoreController@create')->name('stores.create');
-            Route::post('stores', 'Admin\StoreController@store')->name('stores.store');
-            Route::delete('stores', 'Admin\StoreController@destroy')->name('stores.destroy');
-            Route::post('/stores/multi_delete', 'Admin\StoreController@destory_all')->name('stores_destroy_all');
+            Route::resource('seller.stores', 'Admin\StoreController', ['except' => ['show', 'edit', 'update']]);
 
+            Route::post('/stores/multi_delete', 'Admin\StoreController@destory_all')->name('stores_destroy_all');
 
             Route::post('/categories/multi_delete', 'Admin\CategoryController@destory_all')->name('categories_destroy_all');
-
-            Route::post('/stores/multi_delete', 'Admin\StoreController@destory_all')->name('stores_destroy_all');
 
             Route::post('/tradmarks/multi_delete', 'Admin\TradmarkController@destory_all')->name('tradmarks_destroy_all');
 

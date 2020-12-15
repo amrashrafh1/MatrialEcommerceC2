@@ -15,7 +15,7 @@ class AddReviews extends Component
         $this->product = $product;
 
         if (\Auth::check()) {
-            $this->name = auth()->user()->name;
+            $this->name  = auth()->user()->name;
             $this->email = auth()->user()->email;
         }
     }

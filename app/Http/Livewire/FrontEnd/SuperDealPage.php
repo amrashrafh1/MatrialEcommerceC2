@@ -71,20 +71,13 @@ class SuperDealPage extends Component
                 }
             }
             /* SortBy */
-            /* if (is_numeric($this->assId) && $this->assId) {
-                $pros = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
-                $products = [];
-            } else { */
                 $products = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
-            /* } */
-            /* $compare = (session()->get('compare'))?session()->get('compare'):[];
-            $wishlist_product_id = (Auth::check())?auth()->user()->wishlists()->disableCache()->pluck('product_id'):[];
- */
+
+
         return view('livewire.shop', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,
             'brands' => $brands, 'attributes' => $attributes,
-             'family' => $family,'tab' => $this->tab, /* 'wishlist_product_id' =>$wishlist_product_id
-             , 'compare' => $compare */]);
+             'family' => $family,'tab' => $this->tab]);
     }
 
     public function updatingPageNumber(): void

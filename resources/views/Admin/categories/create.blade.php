@@ -49,12 +49,16 @@
                             <br>
                             <div class="form-group row">
                                 <div class="col-md-2">
-                                    {!! Form::label('category_id',trans('admin.cat_id'),['class'=>'control-label']) !!}
+                                    {!! Form::label('parent_id',trans('admin.cat_id'),['class'=>'control-label']) !!}
                                 </div>
                                 <div class="col-md-10">
-                                    {!!
-                                    Form::select('category_id',\App\Category::pluck('name','id'),old('category_id'),['class'=>'form-control','placeholder'=>trans('admin.select_cat_id')])
-                                    !!}
+                                    <select id=category class="custom-select mt-15 @error('parent_id') is-invalid @enderror" name="parent_id">
+                                        <option value="0">Select a parent category</option>
+                                        @foreach($categories as $key => $category)
+                                            ||<option value="{{ $key }}"> {{ $category }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('parent_id') {{ $message }} @enderror
                                 </div>
                             </div>
                             <br>

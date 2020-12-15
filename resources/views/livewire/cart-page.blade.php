@@ -90,7 +90,6 @@
                                                             <th class="product-thumbnail"></th>
                                                             <th class="product-select"></th>
                                                             <th class="product-name">@lang('user.product')</th>
-                                                            <th class="product-options">@lang('user.options')</th>
                                                             <th class="product-price">@lang('user.price')</th>
                                                             <th class="product-quantity">@lang('user.quantity')</th>
                                                             <th class="product-shipping">@lang('user.shipping')</th>
@@ -100,12 +99,15 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach(Cart::content() as $cart)
-                                                        @if($cart->buyable->store->id === $store->id)
+                                                        @php
+                                                            $cart_product = $cart->getProduct();
+                                                        @endphp
+                                                        @if($cart_product->store->id === $store->id)
                                                         @php
                                                         $country_id = $this->country;
                                                         $isMethod   = [];
                                                         if($country_id) {
-                                                        $isMethod = $cart->buyable->methods()->whereHas('zone', function ($query) use($country_id){
+                                                        $isMethod = $cart_product->methods()->whereHas('zone', function ($query) use($country_id){
                                                         $query->whereHas('countries', function ($q) use($country_id){
                                                         $q->where('id', $country_id);
                                                         });
@@ -137,34 +139,35 @@
                                                                     </li>
                                                                 </td>
                                                                 <td class="product-thumbnail">
-                                                                    <a href="{{route('show_product', $cart->buyable->slug)}}">
+                                                                    <a href="{{route('show_product', $cart_product->slug)}}">
                                                                         <img width="180" height="180" alt=""
                                                                             class="wp-post-image"
-                                                                            src="{{Storage::url($cart->buyable->image)}}">
+                                                                            src="{{Storage::url($cart_product->image)}}">
                                                                     </a>
                                                                 </td>
                                                                 <td data-title="Product" class="product-name">
                                                                     <div class="media cart-item-product-detail">
                                                                         <a
-                                                                            href="{{route('show_product',$cart->buyable->slug)}}">
+                                                                            href="{{route('show_product',$cart_product->slug)}}">
                                                                             <img width="180" height="180" alt=""
                                                                                 class="wp-post-image"
-                                                                                src="{{Storage::url($cart->buyable->image)}}">
+                                                                                src="{{Storage::url($cart_product->image)}}">
                                                                         </a>
                                                                         <div class="media-body align-self-center">
                                                                             <a
-                                                                                href="{{route('show_product',$cart->buyable->slug)}}">{{$cart->buyable->name}}</a>
+                                                                                href="{{route('show_product',$cart_product->slug)}}"><strong>{{$cart_product->name}}</strong></a><br/><br/>
+                                                                                    @if($cart_product->IsVariable())
+                                                                                    @foreach($cart->options as $key => $val)
+                                                                                    @php
+                                                                                        $attribute = App\Attribute::where('id', $val)->first();
+                                                                                    @endphp
+                                                                                    <span style='font-size:14px;'>
+                                                                                        {{($attribute)? $attribute->attribute_family->name . ' : ' . $attribute->name:''}}
+                                                                                    </span><br />
+                                                                                    @endforeach
+                                                                                    @endif
                                                                         </div>
                                                                     </div>
-                                                                </td>
-                                                                <td class="product-options">
-                                                                    @if($cart->buyable->IsVariable())
-                                                                    @foreach($cart->options as $key => $val)
-                                                                    <strong>
-                                                                        {{$key}} : {{$val}}
-                                                                    </strong><br />
-                                                                    @endforeach
-                                                                    @endif
                                                                 </td>
                                                                 <td data-title="Price" class="product-price">
                                                                     <span class="woocommerce-Price-amount amount">
@@ -189,7 +192,7 @@
                                                                         style="cursor: pointer;">@lang('user.shipping'):
                                                                         @if(isset($this->shippings[$cart->id]))
                                                                         {!!
-                                                                        curr($cart->buyable->calcShipping(\App\Shipping_methods::find($this->shippings[$cart->id]),
+                                                                        curr($cart_product->calcShipping(\App\Shipping_methods::find($this->shippings[$cart->id]),
                                                                         $cart->quantity)) !!}
                                                                         @endif
                                                                     </a>
@@ -198,7 +201,7 @@
                                                                         onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
                                                                         style="cursor: pointer;">@lang('user.shipping'):
                                                                         @if(isset($this->shippings[$cart->id]))
-                                                                        {!! curr($cart->buyable->calcShipping($isDefaultMethod,
+                                                                        {!! curr($cart_product->calcShipping($isDefaultMethod,
                                                                         $cart->quantity)) !!}
                                                                         @endif
                                                                     </a>
@@ -386,6 +389,9 @@
     </div>
     <!-- .col-full -->
     @foreach(Cart::content() as $cart)
+    @php
+    $cart_product = $cart->getProduct();
+    @endphp
     <div class="modal" id="id{{$cart->id}}">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -409,7 +415,7 @@
                         <tbody>
                             @php
                             $country_id = $this->country;
-                            $method_countries = $cart->buyable->methods()->whereHas('zone',function ($q) use
+                            $method_countries = $cart_product->methods()->whereHas('zone',function ($q) use
                             ($country_id){
                             $q->whereHas('countries', function ($query) use ($country_id) {
                             $query->where('id',$country_id);
@@ -437,11 +443,11 @@
                                     <td>
                                         <input type="radio" name="radio{{$cart->id}}" class="chb{{$cart->id}}"
                                             wire:click='$set("shippings.{{$cart->id}}", {{$method->id}})'
-                                            value="{{$cart->buyable->calcShipping($method, $cart->quantity)}}"
-                                            {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $cart->buyable->calcShipping($method, $cart->quantity))?'checked':''}} />
+                                            value="{{$cart_product->calcShipping($method, $cart->quantity)}}"
+                                            {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $cart_product->calcShipping($method, $cart->quantity))?'checked':''}} />
                                     </td>
                                     <td>
-                                        {!! curr($cart->buyable->calcShipping($method, $cart->quantity)) !!}
+                                        {!! curr($cart_product->calcShipping($method, $cart->quantity)) !!}
                                     </td>
                                     <td>
                                         {{$method->name}}
@@ -453,11 +459,11 @@
                                     <td>
                                         <input type="radio" name="radio{{$cart->id}}" class="chb{{$cart->id}}"
                                             wire:click='$set("shippings.{{$cart->id}}", {{$default_method->id}})'
-                                            value="{{$cart->buyable->calcShipping($default_method, $cart->quantity)}}"
-                                            {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $cart->buyable->calcShipping($default_method, $cart->quantity))?'checked':''}} />
+                                            value="{{$cart_product->calcShipping($default_method, $cart->quantity)}}"
+                                            {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $cart_product->calcShipping($default_method, $cart->quantity))?'checked':''}} />
                                     </td>
                                     <td>
-                                        {!! curr($cart->buyable->calcShipping($default_method, $cart->quantity)) !!}
+                                        {!! curr($cart_product->calcShipping($default_method, $cart->quantity)) !!}
                                     </td>
                                     <td>
                                         {{$default_method->name}}

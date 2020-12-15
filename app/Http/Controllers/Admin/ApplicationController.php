@@ -42,7 +42,7 @@ class ApplicationController extends Controller
         $user->syncRoles(['seller']);
         Mail::to($user->email)->send(new ApplicationAccepted());
         \Alert::success(trans('admin.added'), trans('admin.success_record'));
-        return redirect()->route('stores.index');
+        return redirect()->route('seller.stores.index', $user->id);
     }
 
     public function reject(Request $request, $id)
@@ -59,6 +59,6 @@ class ApplicationController extends Controller
         $application->delete();
         Mail::to($user->email)->send(new ApplicationRejected($message['message']));
         \Alert::success(trans('admin.delete'), trans('admin.deleted'));
-        return redirect()->route('stores.index');
+        return redirect()->route('seller.stores.index', $user->id);
     }
 }

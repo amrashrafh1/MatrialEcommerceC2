@@ -36,72 +36,76 @@ class PaypalPaymentGetway implements PaymentGetwayContract
         $data['items']  = [];
 
 
-        if (session()->get('items') !== null) {
+        $carts = $this->carts();
+        foreach ($carts as $cart) {
+            $cart_product = $cart->getProduct();
 
-            foreach (session()->get('items') as $cart) {
-                $cc = Cart::content()->find($cart['item']);
-                if($cc->buyable->product_type == 'variable') {
-                    if(check_stock($cc) < $cc->quantity) {
-                        if(check_stock($cc) <= 0 || $cc->buyable->in_stock == 'out_stock') {
-                            $slug = $cc->buyable->slug;
-                            Cart::remove($cc->id);
-                            session()->forget('items');
-                            Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
-                            return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
-                        } else {
-                            Cart::update($cc->id, $cc->buyable->stock);
-                        }
-                    }
-                } else {
-                    if($cc->buyable->stock < $cc->quantity) {
-                        if($cc->buyable->stock <= 0 || $cc->buyable->in_stock == 'out_stock') {
-                            $slug = $cc->buyable->slug;
-                            Cart::remove($cc->id);
-                            session()->forget('items');
-                            Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
-                            return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
-                        }
-                        Cart::update($cc->id, $cc->buyable->stock);
+            if($cart_product->isVariable()) {
+                if(check_stock($cart) < $cart->quantity) {
+                    if(check_stock($cart) <= 0 || $cart->in_stock == 'out_stock') {
+                        $slug = $cart_product->slug;
+                        Cart::remove($cart->id);
+                        session()->forget('items');
+                        Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
+                        return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
+                    } else {
+                        Cart::update($cart->id, $cart->stock);
                     }
                 }
-                $calcShipping    = new Shipping(Shipping_methods::where('id',$cart['shipping'])->first(), $cc->quantity,$cc->price, $cc->buyable->weight);
-                $shippingMethod  = $calcShipping->shippingMethod();
-                $this->shipping += $shippingMethod[0];
-                $shipping_name   = $shippingMethod[1];
-
-
-                $this->subtotal += round($cc->price * $cc->quantity);
-                array_push($data['items'],
-                    [
-                        'name' => $cc->buyable->name, 'price' => round($cc->price),
-                        'desc' => 'description:' . $cc->buyable->name, 'qty' => $cc->quantity,
-                    ]);
-                array_push($data['items'],
-                    [
-                        'name' => 'shipping_method: ' . $shipping_name, 'price' => round($shippingMethod[0]),
-                        'desc' => 'shipping method: ' . $shipping_name, 'qty' => 1,
-                    ]);
-                    array_push($this->shippings_names, $shipping_name);
-
+            } else {
+                if($cart->stock < $cart->quantity) {
+                    if($cart->stock <= 0 || $cart->in_stock == 'out_stock') {
+                        $slug = $cart_product->slug;
+                        Cart::remove($cart->id);
+                        session()->forget('items');
+                        Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
+                        return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
+                    }
+                    Cart::update($cart->id, $cart_product->stock);
+                }
             }
-        } else {
+            $calcShipping    = new Shipping(Shipping_methods::where('id',$cart['shipping'])->first(), $cart->quantity,$cart->price, $cart_product->weight);
+            $shippingMethod  = $calcShipping->shippingMethod();
+            $this->shipping += $shippingMethod[0];
+            $shipping_name   = $shippingMethod[1];
+
+
+            $this->subtotal += round($cart->price * $cart->quantity);
+            array_push($data['items'],
+                [
+                    'name' => $cart_product->name, 'price' => round($cart->price),
+                    'desc' => 'description:' . $cart_product->name, 'qty' => $cart->quantity,
+                ]);
+            array_push($data['items'],
+                [
+                    'name' => 'shipping_method: ' . $shipping_name, 'price' => round($shippingMethod[0]),
+                    'desc' => 'shipping method: ' . $shipping_name, 'qty' => 1,
+                ]);
+                array_push($this->shippings_names, $shipping_name);
+
+        }
+/*         if (session()->get('items') !== null) {
+ */
+
+        /* } else {
             foreach (Cart::content() as $cart) {
-                if($cart->buyable->product_type == 'variable') {
+                $cart_product = $cart->getProduct();
+                if($cart_product->product_type == 'variable') {
                     if(check_stock($cart) < $cart->quantity) {
                         if(check_stock($cart) <= 0 || $cart->buyable->in_stock == 'out_stock') {
-                            $slug = $cart->buyable->slug;
+                            $slug = $cart_product->slug;
                             Cart::remove($cart->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
                             return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
                         } else {
-                            Cart::update($cart->id, $cart->buyable->stock);
+                            Cart::update($cart->id, $cc->buyable->stock);
                         }
                     }
                 } else {
                     if($cart->buyable->stock < $cart->quantity) {
                         if($cart->buyable->stock <= 0 || $cart->buyable->in_stock == 'out_stock') {
-                            $slug = $cart->buyable->slug;
+                            $slug = $cart_product->slug;
                             Cart::remove($cart->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
@@ -111,7 +115,7 @@ class PaypalPaymentGetway implements PaymentGetwayContract
                     }
                 }
 
-                $calcShipping    = new Shipping($cart->buyable->methods->first(), $cart->quantity, $cart->price, $cart->buyable->weight);
+                $calcShipping    = new Shipping($cart_product->methods->first(), $cart->quantity, $cart->price, $cart_product->weight);
                 $shippingMethod  = $calcShipping->shippingMethod();
                 $this->shipping += $shippingMethod[0];
                 $shipping_name   = $shippingMethod[1];
@@ -121,8 +125,8 @@ class PaypalPaymentGetway implements PaymentGetwayContract
 
                 array_push($data['items'],
                     [
-                        'name' => $cart->buyable->name,                   'price' => round($cart->price),
-                        'desc' => 'description: ' . $cart->buyable->name, 'qty'   => (int)$cart->quantity,
+                        'name' => $cart_product->name,                   'price' => round($cart->price),
+                        'desc' => 'description: ' . $cart_product->name, 'qty'   => (int)$cart->quantity,
                     ]);
                 array_push($data['items'],
                     [
@@ -132,7 +136,7 @@ class PaypalPaymentGetway implements PaymentGetwayContract
                 array_push($this->shippings_names, $shipping_name);
 
             }
-        }
+        } */
 
 
 
@@ -177,17 +181,14 @@ class PaypalPaymentGetway implements PaymentGetwayContract
 
     public function success(Request $request)
     {
-
         $response = $this->provider->getExpressCheckoutDetails($request->token);
         if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-            //dd('asdfsadf');
             $token   = $request->get('token');
             $PayerID = $request->get('PayerID');
             $this->provider->doExpressCheckoutPayment(session()->get('cartsData')[0], $token, $PayerID);
 
             $orderDetails = new OrderDetails();
             $orderDetails->store();
-
             try {
                 session()->forget('data');
                 if (session()->get('items') !== null) {
@@ -208,5 +209,17 @@ class PaypalPaymentGetway implements PaymentGetwayContract
         }
 
         return redirect()->route('fail_page');
+    }
+
+
+    protected function carts() {
+        if (session()->get('items') !== null) {
+            $carts = [];
+            foreach(session()->get('items') as $cart) {
+                array_push($carts, Cart::content()->find($cart['item']));
+            }
+            return collect($carts);
+        }
+        return Cart::content();
     }
 }

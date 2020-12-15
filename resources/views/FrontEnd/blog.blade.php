@@ -2,7 +2,7 @@
 @section('content')
 @if(!isset($categories))
 @php
-$categories = \App\Category::where('status', 1)->where('category_id', NULL)
+$categories = \App\Category::where('status', 1)->where('parent_id', NULL)
 ->with('categories')->get();
 @endphp
 @endif

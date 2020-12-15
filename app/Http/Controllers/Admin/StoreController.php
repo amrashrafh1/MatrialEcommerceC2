@@ -24,16 +24,18 @@ class StoreController extends Controller
         $this->middleware(['permission:create-stores'])->only('create');
         $this->middleware(['permission:delete-stores'])->only('destroy'); */
 
-        $this->model = SellerInfo::class;
+        $this->model = User::class;
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(StoresDataTable $datatable)
+    public function index(User $seller)
     {
-        return $datatable->render('Admin.'.$this->path.'.index', ['title' => trans($this->path . ' Table')]);
+        $store     = $seller->stores()->with('seller')->get();
+        $datatable = new StoresDatatable($store);
+        return $datatable->render('Admin.'.$this->path.'.index', ['title' => trans($this->path . ' Table'), 'seller' => $seller]);
     }
 
     /**
@@ -41,9 +43,9 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $seller)
     {
-        return view('Admin.'.$this->path.'.create',['title' => trans('admin.create')]);
+        return view('Admin.'.$this->path.'.create',['title' => trans('admin.create'), 'seller' =>$seller]);
     }
 
     /**
@@ -52,7 +54,7 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,User $seller)
     {
         $data = $this->validate(request(), [
             'country_id'  => 'required|numeric|exists:countries,id',
@@ -107,10 +109,10 @@ class StoreController extends Controller
                 SellerInfo::create(\Arr::except($data, 'seller'));
                 Alert::success(trans('admin.added'), trans('admin.success_record'));
 
-                return redirect()->route($this->route.'.index');
+                return redirect()->route('seller.stores.index', $seller->id);
             }
         }
-        return redirect()->route($this->route.'.index');
+        return redirect()->route('seller.stores.index', $seller->id);
     }
 
     /**
@@ -119,30 +121,30 @@ class StoreController extends Controller
      * @param  \App\User  $row
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $seller, $id)
     {
-        $row = $this->model::findOrFail($id);
+        $row = SellerInfo::findOrFail($id);
         \Storage::delete($row->image);
         $row->delete();
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
-        return redirect()->route($this->route . '.index');
+        return redirect()->route('seller.stores.index', $seller->id);
     }
-    public function destory_all(Request $request)
+    public function destory_all(Request $request, User $seller)
     {
         if (request()->has('item') && $request->item != '') {
             if (is_array($request->item)) {
                 foreach ($request->item as $d) {
-                    $row = $this->model::findOrFail($d);
+                    $row = SellerInfo::findOrFail($d);
                     \Storage::delete($row->image);
                     $row->delete();
                 }
             } else {
-                $row = $this->model::findOrFail($request->item);
+                $row = SellerInfo::findOrFail($request->item);
                 \Storage::delete($row->image);
                 $row->delete();
             }
         }
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
-        return redirect()->route($this->route . '.index');
+        return redirect()->route('seller.stores.index', $seller->id);
     }
 }

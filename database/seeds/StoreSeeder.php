@@ -25,7 +25,7 @@ class StoreSeeder extends Seeder
                 'slug'        => Str::random(10),
                 'description' => Str::random(190),
                 'image'       => 'public/categories/thumbnail/sm-'. $num .'.png',
-                'category_id' => null
+                'parent_id'   => null
                 ]);
         }
 
@@ -74,7 +74,7 @@ class StoreSeeder extends Seeder
             'approved'    => rand(0,1),
             'type'        => rand(0,1),
             'business'    => Str::random(100),
-            'name'        => Str::random(70),
+            'name'        => 'Beta market',
             'email'       => 'super@app.com',
             'slug'        => Str::slug('seller-website'),
             'address1'    => 'CHRIS NISWANDEE,SMALLSYS INC,795 E DRAGRAM,TUCSON AZ 85705,USA',
@@ -88,8 +88,7 @@ class StoreSeeder extends Seeder
             'country_id'  => rand(1, 100),
             'description' => Str::random(200),
             'seller_id'   => 4,
-        ]);
-
+            ]);
         foreach(['size', 'color', 'length','width'] as $family) {
 
             $attribute_family = \App\Attribute_Family::create([

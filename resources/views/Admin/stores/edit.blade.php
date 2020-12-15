@@ -1,4 +1,4 @@
-@extends('Admin.layouts.app', ['activePage' => 'user-management', 'titlePage' => trans('admin.users')])
+@extends('Admin.layouts.app', ['activePage' => 'stores-management', 'titlePage' => trans('admin.users')])
 @section('content')
 <div class="container-fluid mt-6 pt-8">
     <div class="col-md-12">

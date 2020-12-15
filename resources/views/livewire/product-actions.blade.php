@@ -1,12 +1,6 @@
-@php
-if(count($this->productAttributes) == 0) {
-$productAttributes = $this->product->attributes()->select('id')->get();
-};
-$proAttr = $this->product->attributes()->select('id')->get();
-@endphp
 <div class="product-actions-wrapper">
     <div class="product-actions">
-        <div class="availability">
+        <div class="availability" wire:ignore>
             @lang('user.Availability'):
             @if($this->product->stock > 0)
             <p class="stock in-stock">{{$this->product->stock}} @lang('user.in_stock')</p>
@@ -16,17 +10,23 @@ $proAttr = $this->product->attributes()->select('id')->get();
         </div>
 
         <!-- .additional-info -->
-        <p class="price">
-            @if($product->available_discount())
+        <p class="price" wire:ignore>
+            @if($this->product->isVariable())
+            @php
+                $heighest_price = $this->product->variations()->where('visible','visible')
+                ->orderBy('sale_price', 'desc')->first();
+            @endphp
+            @endif
+            @if($this->product->available_discount())
                 <ins>
-                    <span class="amount">{!! curr($product->priceDiscount()) !!}</span>
+                    <span class="amount">{!! curr($this->product->priceDiscount()) !!} @if($this->product->isVariable() && $heighest_price) - {!! curr($heighest_price->priceDiscount()) !!} @endif </span>
                 </ins>
                 <del>
-                    <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                    <span class="amount">{!! curr($this->product->calc_price()) !!}</span>
                 </del>
                 @else
                 <ins>
-                    <span class="amount">{!! curr($product->calc_price()) !!}</span>
+                    <span class="amount">{!! curr($this->product->calc_price()) !!} @if($this->product->isVariable()  && $heighest_price) - {!! curr($heighest_price->calc_price()) !!} @endif</span>
                 </ins>
             @endif
         </p>
@@ -36,68 +36,32 @@ $proAttr = $this->product->attributes()->select('id')->get();
             @if($this->product->IsVariable())
             <table class="variations">
                 <tbody>
-                    {{-- <tr class=''>
-                        <td class="value">
-                            <div class='alert alert-danger options_alert' hide>@lang('user.please_provide_the_missing_information_first')</div>
-                        </td>
-                    </tr> --}}
-                    @foreach($family as $index => $fam)
-                    @if($index != 0)
-                    <tr>
-                        <td class="label">
-                            <label for="pa_{{$fam->id}}">{{$fam->name}}</label>
-                        </td>
-                        <td class="value">
-                            <select required data-show_option_none="yes" data-attribute_name="attributes"
-                                name="attributes[]" class="" id="pa_{{$fam->id}}">
-                                <option value="" selected>Choose an option</option>
-                                @foreach($fam->attributes as $attr)
-                                @if(empty($this->productAttributes))
-                                @if($productAttributes->pluck('id')->contains($attr->id))
-                                <option value="{{$attr->id}}" class="attached enabled">{{$attr->name}}</option>
-                                @endif
-                                @else
-                                @if(collect($this->productAttributes)->pluck('id')->contains($attr->id))
-                                <option value="{{$attr->id}}" class="attached enabled">{{$attr->name}}</option>
-                                @endif
-                                @endif
-                                @endforeach
-                            </select>
-                            <a href="#" class="reset_variations" style="visibility: hidden;">Clear</a>
-                            @if ($errors->has('attributes'))
-                            <div id="attributes-error" class="error text-danger pl-3" for="attributes" style="display: block;">
-                            <strong>{{ $errors->first('attributes') }}</strong>
+                    @if(!blank($familyAttributes))
+                        @foreach($familyAttributes as $index => $parent)
+                            <div class="checkbox accessory-checkbox">
+                                {{$parent->name}}
+                                <label>
+                                    <select required data-show_option_none="yes" data-attribute_name="attributes"
+                                    name="attributes[]" class="" id="pa_{{$parent->id}}" @if($loop->first) wire:model="attribute" wire:change="get_variation()" @endif>
+                                        <option value="">@lang('user.Choose_an_option')</option>
+                                        @foreach($parent->attributes as $attri)
+                                        @if($index != 0)
+                                            @if(!blank($this->productAttributes))
+                                                @if(collect($this->productAttributes)->pluck('id')->contains($attri->id))
+                                                    <option value="{{$attri->id}}">{{$attri->name}}</option>
+                                                @endif
+                                            @else
+                                                <option value="{{$attri->id}}">{{$attri->name}}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{$attri->id}}">{{$attri->name}}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </label>
                             </div>
-                        @endif
-                        </td>
-                    </tr>
-                    @else
-                    <tr>
-                        <td class="label">
-                            <label for="pa_{{$fam->id}}">{{$fam->name}}</label>
-                        </td>
-                        <td class="value">
-                            @if(count($family) === 1)
-                            <select required data-show_option_none="yes" data-attribute_name="attributes"
-                                name="attributes[]"
-                                class="" id="pa_{{$fam->id}}">
-                            @else
-                            <select required data-show_option_none="yes" data-attribute_name="attributes"
-                                name="attributes[]"
-                                class="" id="pa_{{$fam->id}}" wire:model="attribute" wire:change="get_variation()">
-                                @endif
-                                <option value="">Choose an option</option>
-                                @foreach($fam->attributes as $attr)
-                                @if(collect($proAttr)->pluck('id')->contains($attr->id))
-                                <option value="{{$attr->id}}" class="attached enabled">{{$attr->name}}</option>
-                                @endif
-                                @endforeach
-                            </select>
-                            <a href="#" class="reset_variations" style="visibility: hidden;">Clear</a>
-                        </td>
-                    </tr>
+                        @endforeach
                     @endif
-                    @endforeach
                 </tbody>
             </table>
             @else
@@ -195,15 +159,15 @@ $proAttr = $this->product->attributes()->select('id')->get();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
 <script>
     var items    = [];
-    var sku = '{{$this->product->sku}}';
+    var sku      = '{{$this->product->sku}}';
+    var stock    = '{{$this->product->stock . ' ' . trans("user.".$this->product->in_stock)}}';
 
-
-    @if(isset($this->product->discount))
-        var mainppss = '{!! curr($this->product->sale_price) !!}';
+    @if($this->product->available_discount())
+        var mainppss  = '{!! curr($this->product->calc_price()) !!}';
         var offerppss = '{!! curr($this->product->priceDiscount()) !!}';
-        var offer = '{!! curr($this->product->sale_price - $this->product->priceDiscount()) !!}';
+        var offer     = '{!! curr($this->product->calc_price() - $this->product->priceDiscount()) !!}';
     @else
-        var mainppss = '{!! curr($this->product->sale_price) !!}';
+        var mainppss  = '{!! curr($this->product->calc_price()) !!}';
         var offerppss = '0';
     @endif
     function countSelected(e) {
@@ -237,40 +201,56 @@ $proAttr = $this->product->attributes()->select('id')->get();
 
             axios.post('{{route("get_data")}}', {
                 _token: '{{csrf_token()}}',
-                data: items,
-                ass: '{{$this->product->id}}'
+                data  : items,
+                seq   : '{{$this->product->id}}'
             }).then(
                 (response) => {
                     if(response.data['ppss'] == 0 || response.data == '') {
                         if(offerppss == 0) {
                             $('.product-actions-wrapper ins .amount').text(mainppss);
                             $('span.sku').text(sku);
+                            $('p.stock').text(stock);
                         } else {
                         $('.product-actions-wrapper ins .amount').text(offerppss);
                         $('.product-actions-wrapper del .amount').text(mainppss);
                         $('.onsale .woocommerce-Price-amount').text(offer);
                         $('span.sku').text(sku);
+                        $('p.stock').text(stock);
                         }
                     } else {
                         if(response.data['offerppss'] == 0) {
                         $('.product-actions-wrapper del .amount').text(response.data['ppss']);
                         $('span.sku').text(response.data['sku']);
+                        $('p.stock').text(response.data['stock']);
                         } else {
                             $('.product-actions-wrapper ins .amount').text(response.data['offerppss']);
                             $('.product-actions-wrapper del .amount').text(response.data['ppss']);
                             $('.onsale .woocommerce-Price-amount').text(response.data['offer']);
                             $('span.sku').text(response.data['sku']);
+                            $('p.stock').text(response.data['stock']);
                         }
                     }
             },
 	        (error) => {
                 Swal.fire({
-                position: 'top-end',
-                icon: 'danger',
-                title: '{{trans("user.this_option_is_out_stock")}}',
+                position         : 'center',
+                icon             : 'danger',
+                title            : '@lang("user.this_option_is_not_available")',
+                text             : '@lang("user.it_will_be_available_soon")',
                 showConfirmButton: true,
-                timer: 1500
+                timer            : 1500
                 });
+                if(offerppss == 0) {
+                            $('.product-actions-wrapper ins .amount').text(mainppss);
+                            $('span.sku').text(sku);
+                            $('p.stock').text(stock);
+                        } else {
+                        $('.product-actions-wrapper ins .amount').text(offerppss);
+                        $('.product-actions-wrapper del .amount').text(mainppss);
+                        $('.onsale .woocommerce-Price-amount').text(offer);
+                        $('span.sku').text(sku);
+                        $('p.stock').text(stock);
+                        }
             }
             )
         }

@@ -35,11 +35,11 @@ class Discount extends Model
 
         if($this->condition == 'percentage_of_product_price') {
 
-            return ($this->product->sale_price - ($this->amount / 100 * $this->product->sale_price)) + ($this->product->tax * $this->product->sale_price) / 100;
+            return ($this->product->sale_price - ($this->amount / 100 * $this->product->sale_price));
 
         } elseif($this->condition == 'fixed_amount') {
 
-            return ($this->product->sale_price - $this->amount) + ($this->product->tax * $this->product->sale_price) / 100;
+            return ($this->product->sale_price - $this->amount);
 
         }
     }

@@ -42,13 +42,13 @@ class VariationController extends Controller
 
         $data = $this->validate(request(),[
 
-            'sku.*'            => 'sometimes|nullable|unique:variations,sku',
-            'sale_price.*'     => 'sometimes|nullable',
-            'purchase_price.*' => 'sometimes|nullable',
-            'stock.*'          => 'sometimes|nullable',
+            'sku.*'            => 'required',
+            'sale_price.*'     => 'required',
+            'purchase_price.*' => 'required',
+            'stock.*'          => 'required',
             'in_stock.*'       => 'required',
             'visible.*'        => 'required',
-            'variations.*'      => 'required'
+            'variations.*'     => 'required'
         ],[],[
             'sku'            => trans('admin.sku'),
             'sale_price'     => trans('admin.sale_price'),
@@ -99,6 +99,7 @@ class VariationController extends Controller
     {
         $title = trans('admin.edit_variations');
         $rows = Product::findOrFail($id);
+
         return view('Admin.products.variations-edit', ['rows' => $rows, 'title' => $title]);
     }
 
@@ -112,14 +113,13 @@ class VariationController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validate(request(),[
-
-            'sku.*'            => 'sometimes|nullable',
-            'sale_price.*'     => 'sometimes|nullable',
-            'purchase_price.*' => 'sometimes|nullable',
-            'stock.*'          => 'sometimes|nullable',
+            'sku.*'            => 'required',
+            'sale_price.*'     => 'required',
+            'purchase_price.*' => 'required',
+            'stock.*'          => 'required',
             'in_stock.*'       => 'required',
             'visible.*'        => 'required',
-            'variations.*'     => 'required',
+            'variations.*'     => 'sometimes|nullable',
             'variation_id.*'   => 'sometimes|nullable'
         ],[],[
             'sku'            => trans('admin.sku'),

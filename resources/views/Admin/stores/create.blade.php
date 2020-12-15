@@ -1,4 +1,4 @@
-@extends('Admin.layouts.app', ['activePage' => 'user-management', 'titlePage' => trans('admin.create')])
+@extends('Admin.layouts.app', ['activePage' => 'stores-management', 'titlePage' => trans('admin.create')])
 @section('content')
 <div class="container-fluid mt-6 pt-8">
     <div class="col-md-12">
@@ -10,7 +10,7 @@
         <div class="widget-extra body-req card light bordered">
             <div class="card-header card-header-primary">
                 <div class="actions">
-                    <a href="{{aurl('/user')}}" class="btn btn-circle btn-icon-only btn-default"
+                    <a href="{{route('seller.stores.store', $seller->id)}}" class="btn btn-circle btn-icon-only btn-default"
                         tooltip="{{trans('admin.show_all')}}" title="{{trans('admin.show_all')}}">
                         <i class="fa fa-list"></i>
                     </a>
@@ -19,7 +19,7 @@
             <div class="card-body form">
                 <div class="col-md-12">
 
-                    {!! Form::open(['url'=>route('stores.store'),'id'=>'users','files'=>true,'class'=>'form-horizontal
+                    {!! Form::open(['url'=>route('seller.stores.store', $seller->id),'id'=>'users','files'=>true,'class'=>'form-horizontal
                     form-row-seperated']) !!}
                     <div class="card-body">
                         <div class="form-group row">
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-md-10">
                                 {!!
-                                Form::email('seller',old('seller'),['class'=>'form-control
+                                Form::email('seller',old('seller', $seller->email),['class'=>'form-control
                                 required','placeholder'=>trans('admin.seller_email')])
                                 !!}
                             </div>

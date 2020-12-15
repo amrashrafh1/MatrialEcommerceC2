@@ -291,8 +291,17 @@
                     <label for="category_id" class=" control-label">Category</label>
                 </div>
                 <div class="col-md-9">
-                    {!! Form::select('category_id', \App\Category::pluck('name','id')
-                    ,$this->rows->category_id,['class'=>'form-control']) !!}
+                    <select id=category class="custom-select mt-15 @error('category_id') is-invalid @enderror" name="category_id">
+                        <option value="0">Select a parent category</option>
+                        @foreach($categories as $key => $category)
+                            @if ($rows->category_id == $key)
+                                <option value="{{ $key }}" selected> {{ $category }} </option>
+                            @else
+                                <option value="{{ $key }}"> {{ $category }} </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    @error('category_id') {{ $message }} @enderror
                 </div>
             </div>
             <div class="form-group row">
@@ -301,7 +310,7 @@
                 </div>
                 <div class="col-md-9">
                     {!! Form::select('tradmark_id', \App\Tradmark::pluck('name','id')
-                    ,$this->rows->tradmark_id,['class'=>'form-control']) !!}
+                    ,$this->rows->tradmark_id,['class'=>'custom-select']) !!}
                 </div>
             </div>
         </div>

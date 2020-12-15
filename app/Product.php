@@ -6,47 +6,46 @@ use App\Attribute;
 use App\Category;
 use App\Discount;
 use App\Files;
+use App\SellerInfo;
 use App\Shipping_methods;
 use App\Tradmark;
 use App\User;
 use App\Variation;
-use App\SellerInfo;
 use Codebyray\ReviewRateable\Contracts\ReviewRateable;
 use Codebyray\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use DB;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use Spatie\Translatable\HasTranslations;
 use Treestoneit\ShoppingCart\Buyable;
 use Treestoneit\ShoppingCart\BuyableTrait;
-use Treestoneit\ShoppingCart\Taxable;
-use CyrildeWit\EloquentViewable\InteractsWithViews;
-use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use Treestoneit\ShoppingCart\Models\CartItem;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Treestoneit\ShoppingCart\Taxable;
 
-use DB;
-
-class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable,Viewable
+class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable, Viewable
 {
-    use HasTranslations,LogsActivity, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews;
-    protected $table               = 'products';
-    protected $guarded             = [];
-    protected $cachePrefix         = "products-prefix";
+    use HasTranslations, LogsActivity, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews;
+    protected $table = 'products';
+    protected $guarded = [];
+    protected $cachePrefix = "products-prefix";
     protected $removeViewsOnDelete = true;
-    public    $translatable        = ['name', 'description','short_description', 'size', 'color', 'meta_tag',
-     'meta_description', 'meta_keyword'];
+    public $translatable = ['name', 'description', 'short_description', 'size', 'color', 'meta_tag',
+        'meta_description', 'meta_keyword'];
 
-     protected $casts = [
-        'data' => 'array',   // Will convarted to (Array)
+    protected $casts = [
+        'data' => 'array', // Will convarted to (Array)
 
     ];
     protected static $logName = 'products';
 
     protected static $logUnguarded = true;
 
-    public function getDescriptionForEvent(string $eventName) :string
+    public function getDescriptionForEvent(string $eventName): string
     {
         return "products-{$eventName}";
     }
@@ -108,7 +107,6 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-
     public function already_sold()
     {
         return $this->hasMany(Sold::class, 'product_id', 'id')->sum('sold');
@@ -127,11 +125,14 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     {
         return $this->hasOne(Discount::class);
     }
-
+    /* public function ratings()
+    {
+    return $this->morphMany(Rating::class, 'reviewrateable');
+    } */
 
     public function IsVariable()
     {
-        if($this->product_type === 'variable') {
+        if ($this->product_type === 'variable') {
             return true;
         }
 
@@ -142,7 +143,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
     public function IsAvailable()
     {
-        if($this->visible === 'visible' && $this->approved) {
+        if ($this->visible === 'visible' && $this->approved) {
             return true;
         }
 
@@ -163,19 +164,17 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     public function scopeHasDiscount($query)
     {
         return $query->where('visible', 'visible')->where('approved', 1)
-        ->whereHas('discount', function ($d) {
+            ->whereHas('discount', function ($d) {
                 $d->where([['start_at', '<=', \Carbon\Carbon::now()], ['expire_at', '>', \Carbon\Carbon::now()],
-                ['condition', 'percentage_of_product_price']])
-                ->orWhere([['start_at', '<=', \Carbon\Carbon::now()],['condition', 'fixed_amount'],
-                ['expire_at', '>', \Carbon\Carbon::now()]])->orderBy('id', 'desc');
-        });
+                    ['condition', 'percentage_of_product_price']])
+                    ->orWhere([['start_at', '<=', \Carbon\Carbon::now()], ['condition', 'fixed_amount'],
+                        ['expire_at', '>', \Carbon\Carbon::now()]])->orderBy('id', 'desc');
+            });
     }
-
-
 
     public function calc_price()
     {
-        return $this->sale_price + ($this->tax * $this->sale_price) / 100;
+        return $this->sale_price;
     }
 
     public function priceDiscount()
@@ -184,11 +183,11 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
             if ($this->discount->condition === 'percentage_of_product_price') {
 
-                return ($this->sale_price - ($this->discount->amount / 100 * $this->sale_price)) + ($this->tax * $this->sale_price) / 100;
+                return ($this->sale_price - ($this->discount->amount / 100 * $this->sale_price));
 
             } elseif ($this->discount->condition === 'fixed_amount') {
 
-                return ($this->sale_price - $this->discount->amount) + ($this->tax * $this->sale_price) / 100;
+                return ($this->sale_price - $this->discount->amount);
 
             }
         }
@@ -234,7 +233,6 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         return false;
     }
 
-
     public function calcShipping($method, $qty)
     {
         if ($method->rule === 'flat_rate_per_order') {
@@ -264,7 +262,6 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         }
     }
 
-
     public function scopeProductsSortBy($query, $sort)
     {
         if ($sort === 'price-asc') {
@@ -283,30 +280,24 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
     } //end of products
 
-
-
     //  cart package methods
-        public function getOptions(): array
+    public function getOptions(): array
     {
         $attributes = $this->attributes()->select('name', 'id', 'family_id')->get();
-        $family = [];
-        $attrs = [];
+        $family     = [];
+        $attrs      = [];
         /* loop attributes and get parent who has this attributes [not all family] */
 
-        foreach ($attributes as $attr) {
-            $id = $attr->id;
-            $ff = Attribute_Family::whereHas('attributes', function ($q) use ($id) {
-                $q->where('id', $id);
-            })->first();
+        $ids = $attributes->pluck('id');
 
-            if (!in_array($ff, $family)) {
-                array_push($family, $ff);
-            }
-        }
+        $family = Attribute_Family::whereHas('attributes', function ($q) use ($ids) {
+            $q->whereIn('id', $ids);
+        })->get();
+        //array_push($family, $ff);
         foreach ($family as $fam) {
-
-            $attrFilter = $this->attributes()->select('name', 'id', 'family_id')->where('family_id', $fam->id)->get();
-            array_push($attrs, [$fam->name => $attrFilter->pluck('name')->toArray()]);
+            $attrFilter = $this->attributes()->select('name', 'id', 'family_id')
+            ->where('family_id', $fam->id)->get();
+            array_push($attrs, [$fam->name => $attrFilter->pluck('id', 'name')->toArray()]);
         }
         return \Arr::collapse($attrs);
     }
@@ -318,76 +309,13 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
     public function getBuyablePrice()
     {
-        if ($this->IsVariable()) {
-            foreach (\Cart::content() as $cart) {
-                if ($cart->buyable->id === $this->id) {
-                    foreach ($this->variations as $variation) {
-                        if (count($variation->attributes()->pluck('name')->diff(array_values($cart->options))) === 0) {
-                            if ($variation['visible'] === 'hidden' || $variation->in_stock === 'out_stock') {
-                                if (isset($this->discount)) {
-                                    if ($this->discount->condition === 'percentage_of_product_price'
-                                        && $this->discount->start_at <= \Carbon\Carbon::now()
-                                        && $this->discount->expire_at > \Carbon\Carbon::now()) {
 
-                                        return $this->sale_price - ($this->discount->amount / 100 * $this->sale_price) + ($this->tax / 100 * $this->sale_price);
-
-                                    } elseif ($this->discount->condition === 'fixed_amount'
-                                        && $this->discount->start_at <= \Carbon\Carbon::now()
-                                        && $this->discount->expire_at > \Carbon\Carbon::now()) {
-
-                                        return $this->sale_price - $this->discount->amount + ($this->tax / 100 * $this->sale_price);
-
-                                    }
-                                    return $variation->sale_price + ($this->tax / 100 * $variation->sale_price);
-                                } else {
-                                    return $this->sale_price + ($this->tax / 100 * $this->sale_price);
-                                }
-                            } else {
-                                if (isset($this->discount)) {
-                                    if ($this->discount->condition === 'percentage_of_product_price'
-                                        && $this->discount->start_at <= \Carbon\Carbon::now()
-                                        && $this->discount->expire_at > \Carbon\Carbon::now()) {
-
-                                        return $variation->sale_price - ($this->discount->amount / 100 * $variation->sale_price) + ($this->tax / 100 * $variation->sale_price);
-
-                                    } elseif ($this->discount->condition === 'fixed_amount'
-                                        && $this->discount->start_at <= \Carbon\Carbon::now()
-                                        && $this->discount->expire_at > \Carbon\Carbon::now()) {
-
-                                        return $variation->sale_price - $this->discount->amount + ($this->tax / 100 * $variation->sale_price);
-
-                                    }
-
-                                    return $variation->sale_price + ($this->tax / 100 * $variation->sale_price);
-                                } else {
-
-                                    return $variation->sale_price + ($this->tax / 100 * $variation->sale_price);
-                                }
-                            }
-                        }
-                    }
-                    return $this->sale_price + ($this->tax / 100 * $this->sale_price);
-                }
-            }
-        } else {
-            if (isset($this->discount)) {
-                if ($this->discount->condition === 'percentage_of_product_price'
-                    && $this->discount->start_at <= \Carbon\Carbon::now()
-                    && $this->discount->expire_at > \Carbon\Carbon::now()) {
-
-                    return $this->sale_price - ($this->discount->amount / 100 * $this->sale_price) + ($this->tax / 100 * $this->sale_price);
-
-                } elseif ($this->discount->condition === 'fixed_amount'
-                    && $this->discount->start_at <= \Carbon\Carbon::now()
-                    && $this->discount->expire_at > \Carbon\Carbon::now()) {
-
-                    return $this->sale_price - $this->discount->amount + ($this->tax / 100 * $this->sale_price);
-
-                }
-            }
-
-            return $this->sale_price + ($this->tax / 100 * $this->sale_price);
+        if ($this->available_discount()) {
+            return $this->priceDiscount();
         }
+
+        return $this->calc_price();
+
 
     }
 
@@ -397,43 +325,40 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
             return $this->tax;
         }
 
-        if (!$this->taxable) {
+        if (! $this->taxable) {
             return 0;
         }
 
         return 8;
     }
 
-
-
-
-    public function calc_shippings($country) {
-        $shippings  = [];
+    public function calc_shippings($country)
+    {
+        $shippings = [];
         $country_id = $country->id;
-        $methods    = $this->methods()->whereHas('zone', function ($q) use ($country_id) {
+        $methods = $this->methods()->whereHas('zone', function ($q) use ($country_id) {
             $q->whereHas('countries', function ($query) use ($country_id) {
                 $query->where('id', $country_id);
-        });
+            });
         })->get();
         if (count($methods) <= 0) {
             // will get the default shipping method if has this country
             $defaultShipping = config('app.setting');
 
             if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
-                    $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
-                        $q->whereHas('countries', function ($query) use ($country_id) {
-                            $query->where('id', $country_id);
-                        });
-                    })->first();
-                    // push $defaultShipping to shippings array
+                $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
+                    $q->whereHas('countries', function ($query) use ($country_id) {
+                        $query->where('id', $country_id);
+                    });
+                })->first();
+                // push $defaultShipping to shippings array
 
-                    if ($isDefaultMethod !== null) {
-                        array_push($shippings, $this->calcShipping($isDefaultMethod, 1));
-                    } else {
-                        // if $defaultShipping empty remove this item from items array
-                        return trans('user.shipping_not_available_in') . $country->country_name;
-                    }
-
+                if ($isDefaultMethod !== null) {
+                    array_push($shippings, $this->calcShipping($isDefaultMethod, 1));
+                } else {
+                    // if $defaultShipping empty remove this item from items array
+                    return trans('user.shipping_not_available_in') . $country->country_name;
+                }
 
             }
             // if $defaultShipping empty remove this item from items array
@@ -442,15 +367,38 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
             }
         } else {
 
-            foreach($methods as $method) {
+            foreach ($methods as $method) {
                 array_push($shippings, $this->calcShipping($method, 1));
             }
         }
-        if(count($shippings) > 0) {
-            return  (min($shippings) == 0)?trans('user.free_shipping'): trans('user.+shipping:') . curr(min($shippings)) ;
+        if (count($shippings) > 0) {
+            return (min($shippings) == 0) ? trans('user.free_shipping') : trans('user.+shipping:') . curr(min($shippings));
 
         } else {
             return trans('user.shipping_not_available_in') . $country->country_name;
         }
+    }
+
+    public function getParentAttributes()
+    {
+        $id    = $this->id;
+        $array = [];
+        $vars  = $this->variations()->where('visible', 'visible')->with('attributes')
+            ->get();
+        foreach ($vars as $var) {
+            foreach ($var->attributes()->get() as $attribute) {
+                array_push($array, $attribute->id);
+            }
+        }
+        $families = Attribute_Family::whereHas('attributes', function ($query) use ($id, $array) {
+            $query->whereIn('id', $array)->whereHas('products', function ($q) use ($id) {
+                $q->where('id', $id);
+            });
+        })->with(['attributes' => function ($query) use ($id, $array) {
+            $query->whereIn('id', $array)->whereHas('products', function ($q) use ($id) {
+                $q->where('id', $id);
+            });
+        }])->get();
+        return $families;
     }
 }

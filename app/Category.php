@@ -10,10 +10,11 @@ use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use Spatie\Activitylog\Traits\LogsActivity;
+use TypiCMS\NestableTrait;
 
 class Category extends Model implements Searchable, Viewable
 {
-    use HasTranslations, Cachable, InteractsWithViews,LogsActivity;
+    use HasTranslations, Cachable, InteractsWithViews,LogsActivity, NestableTrait;
     protected $table = 'categories';
     protected $guarded = [];
     public $translatable = ['name', 'description', 'meta_tag',
@@ -51,18 +52,18 @@ class Category extends Model implements Searchable, Viewable
 
     public function parent() {
 
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class, 'parent_id', 'id');
 
     }
     public function categories() {
 
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Category::class, 'parent_id');
 
     }
 
 
     public function childrenCategories() {
-        return $this->hasMany(Category::class)->with('categories');
+        return $this->hasMany(Category::class, 'parent_id')->with('categories');
     }
 
     public function getSearchResult(): SearchResult

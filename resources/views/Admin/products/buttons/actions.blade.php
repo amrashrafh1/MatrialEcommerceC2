@@ -1,36 +1,50 @@
 <div class="actions">
     <div class="btn-group">
-        @if($product_type == 'variable')
-        <div class="mr-3">
-            <li class="list-unstyled">
-                <a href="{{ route('product_variations', $id)}}" class="btn btn-primary btn-sm"><i
-                        class="fe fe-plus"></i> {{trans('admin.Variations')}}</a>
-            </li>
-        </div>
-        @endif
-        @if($has_accessories == 'yes')
-        <div class="mr-3">
-            <li class="list-unstyled">
-                <a href="{{ route('add_accessories', $id)}}" class="btn  btn-primary btn-sm"><i class="fe fe-plus"></i>
-                    {{trans('admin.accessories')}}</a>
-            </li>
-        </div>
-        @endif
         <div class="pull-right">
             <a class="btn btn-default btn-outlines btn-circle btn-sm" href="javascript:;" data-toggle="dropdown"
                 data-hover="dropdown" data-close-others="true" aria-expanded="false">
                 <i class="fa fa-wrench"></i>
                 {{ trans('admin.actions') }}
                 <i class="fa fa-angle-down"></i>
+                <span class='badge bg-danger p-1 ml-1' style='font-size:14px;'>{{$model->getNotApprovedRatings($id, 'desc')->count()}}</span>
             </a>
             <ul class="dropdown-menu pull-right">
                 <li class='p-2'>
-                    <a href="{{ route('products.edit', $id)}}"><i class="fe fe-edit"></i> {{trans('admin.edit')}}</a>
+                    <a href="{{ route('products.edit', $id)}}"><i
+                        class="material-icons">
+                        edit
+                    </i> {{trans('admin.edit')}}</a>
                 </li>
                 <li class="divider"> </li>
                 <li class='p-2'>
                     <a href="{{ route('show_product', $slug)}}"><i class="fa fa-eye"></i> {{trans('admin.show')}}</a>
                 </li>
+                @if($product_type == 'variable')
+                <li class="list-unstyled">
+                    <a href="{{ route('product_variations', $id)}}"><i class="material-icons">
+                        list
+                    </i>
+                        {{trans('admin.Variations')}}</a>
+                </li>
+                @endif
+                @if($has_accessories == 'yes')
+                <li class="list-unstyled mt-3">
+                    <a href="{{ route('add_accessories', $id)}}">
+                        <i class="material-icons">
+                            store
+                        </i>
+                        {{trans('admin.accessories')}}</a>
+                </li>
+                @endif
+                @if($model->getNotApprovedRatings($id, 'desc')->count())
+                <li class="list-unstyled mt-3">
+                    <a href="{{ route('products.reviews', $id)}}">
+                        <i class="material-icons">
+                            edit_attributes
+                        </i>
+                        {{trans('admin.reviews')}}</a>
+                </li>
+                @endif
                 <li class='p-2'>
                     <a data-toggle="modal" data-target="#delete_record{{$id}}" href="#">
                         <i class="fa fa-trash"></i> {{trans('admin.delete')}}</a>

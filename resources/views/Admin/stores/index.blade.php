@@ -1,4 +1,4 @@
-@extends('Admin.layouts.app', ['activePage' => 'user-management', 'titlePage' => trans('admin.stores')])
+@extends('Admin.layouts.app', ['activePage' => 'stores-management', 'titlePage' => trans('admin.stores')])
 		@section('content')
 		<div class="container-fluid mt-6 pt-8">
 				<div class="col-md-12">
@@ -16,7 +16,7 @@
                                     <div class="table-responsive">
 										{!! Form::open([
 										"method" => "post",
-                                        "url" => [route('stores_destroy_all')],
+                                        "url" => [route('stores_destroy_all', $seller->id)],
                                         'id' => 'form_data'
 										]) !!}
 										{!! $dataTable->table(["class"=> "table  table-hover table-checkable dataTable no-footer"],true) !!}

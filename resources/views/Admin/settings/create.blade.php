@@ -139,7 +139,7 @@
                             <select multiple="multiple" name="country_id[]" class="form-control" style="height:100px;">
                                 @foreach(\App\Country::get() as $country)
                                 <option value="{{$country->id}}" @if(isset($rows))@if(in_array($country->id,
-                                    $rows->seller_countries()->pluck('country_id')->toArray()))selected="selected"@endif
+                                    $rows->seller_countries->pluck('country_id')->toArray()))selected="selected"@endif
                                     @endif>{{$country->country_name}}</option>
                                 @endforeach
                             </select>

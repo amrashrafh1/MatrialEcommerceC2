@@ -76,9 +76,9 @@ class SellerController extends Controller
             })->value(\DB::raw('SUM((sale_price * sold - purchase_price * sold) - ((sale_price * sold) * fees / 100) - coupon)'));
 
             return view('FrontEnd.sellers.dashboard', ['store' => $store,
-             'total_sales' => $total_sales,'total_sales_percent' => $total_sales_percent,
-             'total_orders' => $total_orders,'total_orders_percent' => $total_orders_percent,
-             'total_revenue'=>$total_revenue,'total_profit'=>$total_profit
+             'total_sales'   => $total_sales,   'total_sales_percent'  => $total_sales_percent,
+             'total_orders'  => $total_orders,  'total_orders_percent' => $total_orders_percent,
+             'total_revenue' => $total_revenue, 'total_profit'         => $total_profit
              ]);
         } else {
             return redirect()->route('home');
@@ -237,7 +237,8 @@ class SellerController extends Controller
      */
     public function edit($slug)
     {
-        $rows = Product::where('slug', $slug)->where('owner', 'for_seller')->where('user_id', auth()->user()->id)->first();
+        $rows = Product::where('slug', $slug)->where('owner', 'for_seller')
+        ->where('user_id', auth()->user()->id)->where('seller_id', session('store'))->first();
         if ($rows) {
             $validatorCategoryForm = \JsValidator::make([
                 'sku'            => 'sometimes|required|string|max:191|unique:products,sku,' . $rows->id,
@@ -269,8 +270,8 @@ class SellerController extends Controller
                 array_push($ids, $val->id);
             }
             $newAttributes = Attribute::whereNotIn('id', $ids)->select('name', 'id')->get();
-            $zones = Shipping_methods::select('name', 'id', 'zone_id', 'company_id')->with('zone:id,name')->with('shippingcompany:id,name')->get();
-            $methods = $rows->methods()->with('zone:id,name')->with('shippingcompany:id,name')->get();
+            $zones         = Shipping_methods::select('name', 'id', 'zone_id', 'company_id')->with('zone:id,name')->with('shippingcompany:id,name')->get();
+            $methods       = $rows->methods()->with('zone:id,name')->with('shippingcompany:id,name')->get();
 
         } else {
             return redirect()->route('seller_dashboard');

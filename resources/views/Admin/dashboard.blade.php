@@ -6,9 +6,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="card card-stats">
-                        <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-header card-header-danger card-header-icon">
                             <div class="card-icon">
                                 <i class="material-icons">content_copy</i>
                             </div>
@@ -24,16 +24,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="card card-stats">
                         <div class="card-header card-header-success card-header-icon">
                             <div class="card-icon">
                                 <i class="material-icons">store</i>
                             </div>
-                            <p class="card-category">@lang('admin.revenue')</p>
-                            <span style='color:black'>(@lang('admin.Today'))</span>
+                            <p class="card-category">@lang('admin.revenue') (@lang('admin.Today'))</p>
                             <h3 class="card-title">
-                                ${{App\Sold::whereDate('created_at', today())->value(\DB::raw('SUM(sale_price * sold - coupon)'))}}
+                                ${{$revenues_today}}
                             </h3>
                         </div>
                         <div class="card-footer">
@@ -43,34 +42,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="card card-stats">
-                        <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-header card-header-warning card-header-icon">
                             <div class="card-icon">
-                                <i class="material-icons">info_outline</i>
+                                <i class="fa fa-list"></i>
                             </div>
-                            <p class="card-category">@lang('admin.error')</p>
-                            <h3 class="card-title">75</h3>
+                            <p class="card-category">@lang('user.Total_Revenue')</p>
+                            <h3 class="card-title">
+                                {{$total_revenues}}
+                            </h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">local_offer</i> Tracked from Github
+                                <i class="material-icons">date_range</i> Last 24 Hours
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="card card-stats">
-                        <div class="card-header card-header-info card-header-icon">
+                        <div class="card-header card-header-warning card-header-icon">
                             <div class="card-icon">
-                                <i class="fa fa-twitter"></i>
+                                <i class="fa fa-list"></i>
                             </div>
-                            <p class="card-category">@lang('admin.Followers')</p>
-                            <h3 class="card-title">+245</h3>
+                            <p class="card-category">@lang('user.Total_Orders')</p>
+                            <h3 class="card-title">
+                                {{$total_orders}}
+                            </h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">update</i> Just Updated
+                                <i class="material-icons">date_range</i> Last 24 Hours
                             </div>
                         </div>
                     </div>
@@ -454,9 +457,9 @@
                       <td><a href="{{route('user.edit', $user->id)}}">{{$user->email}}</a></td>
                       <td>
                         @if($user->isOnline())
-                            @lang('admin.online')
+                            <span style='color:green'>@lang('admin.online')</span>
                         @else
-                            @lang('admin.offline')
+                            <span style='color:red'>@lang('admin.offline')</span>
                         @endif
                         </td>
                       <td>{{($user->last_login_at)?Carbon\Carbon::parse($user->last_login_at)->diffForHumans():''}}</td>

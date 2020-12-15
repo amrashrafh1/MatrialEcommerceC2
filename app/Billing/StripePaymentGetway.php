@@ -30,33 +30,34 @@ class StripePaymentGetway implements PaymentGetwayContract
 
         if (session()->get('items') !== null) {
             foreach (session()->get('items') as $cart) {
-                $cc = Cart::content()->find($cart['item']);
-                if($cc->buyable->product_type == 'variable') {
+                $cc           = Cart::content()->find($cart['item']);
+                $cart_product = $cc->getProduct();
+                if($cart_product->product_type == 'variable') {
                     if(check_stock($cc) < $cc->quantity) {
-                        if(check_stock($cc) <= 0 || $cc->buyable->in_stock == 'out_stock') {
-                            $slug = $cc->buyable->slug;
+                        if(check_stock($cc) <= 0 || $cart_product->in_stock == 'out_stock') {
+                            $slug = $cart_product->slug;
                             Cart::remove($cc->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
                             return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
                         } else {
-                            Cart::update($cc->id, $cc->buyable->stock);
+                            Cart::update($cc->id, $cart_product->stock);
                         }
                     }
                 } else {
-                    if($cc->buyable->stock < $cc->quantity) {
-                        if($cc->buyable->stock <= 0 || $cc->buyable->in_stock == 'out_stock') {
-                            $slug = $cc->buyable->slug;
+                    if($cart_product->stock < $cc->quantity) {
+                        if($cart_product->stock <= 0 || $cart_product->in_stock == 'out_stock') {
+                            $slug = $cart_product->slug;
                             Cart::remove($cc->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
                             return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
                         }
-                        Cart::update($cc->id, $cc->buyable->stock);
+                        Cart::update($cc->id, $cart_product->stock);
                     }
                 }
 
-                $calcShipping    = new Shipping(Shipping_methods::where('id',$cart['shipping'])->first(), $cc->quantity,$cc->price, $cc->buyable->weight);
+                $calcShipping    = new Shipping(Shipping_methods::where('id',$cart['shipping'])->first(), $cc->quantity,$cc->price, $cart_product->weight);
                 $shippingMethod  = $calcShipping->shippingMethod();
                 $this->shipping += $shippingMethod[0];
                 $shipping_name   = $shippingMethod[1];
@@ -66,7 +67,7 @@ class StripePaymentGetway implements PaymentGetwayContract
                 $this->subtotal += round($cc->price * $cc->quantity);
                 array_push($data['items'],
                     [
-                        'name'  => 'product name : ' . $cc->buyable->name,
+                        'name'  => 'product name : ' . $cart_product->name,
                         'price' => 'product price : ' . round($cc->price),
                         'qty'   => 'product quantity : ' . $cc->quantity,
                     ]);
@@ -80,32 +81,33 @@ class StripePaymentGetway implements PaymentGetwayContract
             }
         } else {
             foreach (Cart::content() as $index => $cart) {
-                if($cart->buyable->product_type == 'variable') {
+                $cart_product = $cart->getProduct();
+                if($cart_product->product_type == 'variable') {
                     if(check_stock($cart) < $cart->quantity) {
-                        if(check_stock($cart) <= 0 || $cart->buyable->in_stock == 'out_stock') {
-                            $slug = $cart->buyable->slug;
+                        if(check_stock($cart) <= 0 || $cart_product->in_stock == 'out_stock') {
+                            $slug = $cart_product->slug;
                             Cart::remove($cart->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
                             return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
                         } else {
-                            Cart::update($cart->id, $cart->buyable->stock);
+                            Cart::update($cart->id, $cart_product->stock);
                         }
                     }
                 } else {
-                    if($cart->buyable->stock < $cart->quantity) {
-                        if($cart->buyable->stock <= 0 || $cart->buyable->in_stock == 'out_stock') {
-                            $slug = $cart->buyable->slug;
+                    if($cart_product->stock < $cart->quantity) {
+                        if($cart_product->stock <= 0 || $cart_product->in_stock == 'out_stock') {
+                            $slug = $cart_product->slug;
                             Cart::remove($cart->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
                             return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
                         }
-                        Cart::update($cart->id, $cart->buyable->stock);
+                        Cart::update($cart->id, $cart_product->stock);
                     }
                 }
 
-                $calcShipping    = new Shipping($cart->buyable->methods->first(), $cart->quantity, $cart->price, $cart->buyable->weight);
+                $calcShipping    = new Shipping($cart_product->methods->first(), $cart->quantity, $cart->price, $cart_product->weight);
                 $shippingMethod  = $calcShipping->shippingMethod();
                 $this->shipping += $shippingMethod[0];
                 $shipping_name   = $shippingMethod[1];
@@ -115,7 +117,7 @@ class StripePaymentGetway implements PaymentGetwayContract
                 $this->subtotal += round($cart->price * $cart->quantity);
                 array_push($data['items'],
                     [
-                        'name'  . $index => 'product name : ' . $cart->buyable->name,
+                        'name'  . $index => 'product name : ' . $cart_product->name,
                         'price' . $index => 'product price : ' . curr($cart->price),
                         'qty'   . $index => 'product quantity : ' . $cart->quantity,
                     ]);

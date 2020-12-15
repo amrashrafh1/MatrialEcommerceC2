@@ -83,12 +83,20 @@
                     <br>
                     <div class="form-group row">
                         <div class="col-md-2">
-                            {!! Form::label('category_id',trans('admin.cat_id'),[' control-label']) !!}
+                            {!! Form::label('parent_id',trans('admin.cat_id'),[' control-label']) !!}
                         </div>
                         <div class="col-md-10">
-                            {!!
-                            Form::select('category_id',\App\Category::where('id', '!=', $rows->id)->pluck('name','id'),$rows->category_id,['class'=>'form-control','placeholder'=>trans('admin.select_cat_id')])
-                            !!}
+                            <select id=parent class="custom-select mt-15 @error('parent_id') is-invalid @enderror" name="parent_id">
+                                <option value="0">Select a parent category</option>
+                                @foreach($categories as $key => $category)
+                                    @if ($rows->parent_id == $key)
+                                        <option value="{{ $key }}" selected> {{ $category }} </option>
+                                    @else
+                                        <option value="{{ $key }}"> {{ $category }} </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            @error('parent_id') {{ $message }} @enderror
                         </div>
                     </div>
                     <br>

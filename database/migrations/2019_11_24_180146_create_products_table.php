@@ -53,7 +53,7 @@ class CreateProductsTable extends Migration
             /* Foregin Keys */
             $table->foreign('tradmark_id')->references('id')->on('tradmarks')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('seller_id')->references('id')->on('seller_infos')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });

@@ -19,10 +19,10 @@ class AddAccessories extends Component
     }
     public function render()
     {
-        $result = Product::where('id','!=',$this->product->id)->paginate(20);
+        $result = Product::where('id','!=',$this->product->id)->disableCache()->paginate(20);
         return view('livewire.products.add-accessories',['products' =>
-        Product::where('id','!=',$this->product->id)->where('name', 'like', '%'.$this->search.'%')->paginate(20),
-        'accessories' =>$this->product->accessories()->where('name', 'like', '%'.$this->searchHas.'%')->paginate(20)]);
+        Product::where('id','!=',$this->product->id)->where('name', 'like', '%'.$this->search.'%')->disableCache()->paginate(20),
+        'accessories' =>$this->product->accessories()->where('name', 'like', '%'.$this->searchHas.'%')->disableCache()->paginate(20)]);
     }
 
     public function updatingSearch(): void

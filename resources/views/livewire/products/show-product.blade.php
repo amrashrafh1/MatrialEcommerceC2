@@ -1,6 +1,6 @@
 @php
-$reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->id)->where('approved', 1)
-->count();
+$reviewCount            = $this->product->ratings()->where('approved',1)->count();
+$product_rating_average = $this->product->averageRating(null, true)[0];
 @endphp
 <div id="content" class="site-content" tabindex="-1">
     <div class="col-full">
@@ -170,10 +170,10 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 </div>
                                 <!-- .single-product-header -->
                                 <div class="single-product-meta">
-                                    @if(!empty($this->product->tradmark()->first()->logo))
+                                    @if(!empty($tradmark->logo))
                                     <div class="brand">
-                                        <a href="{{url('/brand/'. $this->product->tradmark()->first()->slug)}}">
-                                            <img alt="galaxy" src="{{Storage::url($this->product->tradmark()->first()->logo)}}">
+                                        <a href="{{url('/brand/'. $tradmark->slug)}}">
+                                            <img alt="galaxy" src="{{Storage::url($tradmark->logo)}}">
                                         </a>
                                     </div>
                                     @endif
@@ -187,19 +187,19 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                             <span class="sku">{{$this->product->sku}}</span>
                                         </span>
                                     </div>
-                                    @if($this->product->averageRating(null, true)[0] > 4.5 && $this->product->averageRating(null, true)[0] < 5)
+                                    @if($product_rating_average > 4.5 && $product_rating_average < 5)
                                     <div class="product-label">
                                         <div class="ribbon label green-label">
                                             <span>A+</span>
                                         </div>
                                     </div>
-                                    @elseif($this->product->averageRating(null, true)[0] == 5)
+                                    @elseif($product_rating_average == 5)
                                     <div class="product-label">
                                         <div class="ribbon label green-label">
                                             <span>A++</span>
                                         </div>
                                     </div>
-                                    @elseif($this->product->averageRating(null, true)[0] > 4 && $this->product->averageRating(null, true)[0] < 4.5)
+                                    @elseif($product_rating_average > 4 && $product_rating_average < 4.5)
                                     <div class="product-label">
                                         <div class="ribbon label green-label">
                                             <span>A</span>
@@ -211,18 +211,17 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                 <div class="rating-and-sharing-wrapper">
                                     <div class="woocommerce-product-rating">
                                         <div class="star-rating">
-                                            <span style="width:{{$this->product->averageRating(null, true)[0] * 2 * 10}}%">Rated
+                                            <span style="width:{{$product_rating_average * 2 * 10}}%">Rated
                                                 <strong class="rating">5.00</strong> out of 5 based on
                                                 <span class="rating">1</span> customer rating</span>
                                         </div>
-                                    <a rel="nofollow" class="woocommerce-review-link" href="#reviews">(<span class="count">{{DB::table('reviews')
-                                        ->where('reviewrateable_id', $this->product->id)->where('approved', 1)
+                                    <a rel="nofollow" class="woocommerce-review-link" href="#reviews">(<span class="count">{{$this->product->ratings()->where('approved',1)
                                         ->count()}})</span> @lang('user.customer_review'))</a>
                                     </div>
                                 </div>
                                 <!-- .rating-and-sharing-wrapper -->
                                 <div class="woocommerce-product-details__short-description mb-4" style="border-bottom: 1px solid #ebebeb;">
-                                    {!! $this->product->description !!}
+                                    {!! $this->product->short_description !!}
                                 </div>
                                 <div class="woocommerce-product-details__short-description">
                                     <h6 class="mb-2">@lang('user.tags:')</h6>
@@ -258,98 +257,7 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
                                         </li>
                                     </ul>
                                     <!-- /.ec-tabs -->
-                                    {!! Form::open(['url' => route('product_add_accessories'), 'method' => 'put']) !!}
-                                    <div class="accessories">
-                                        <div class="accessories-wrapper">
-                                            <div class="accessories-product columns-4">
-                                                <div class="products">
-                                                    @foreach($this->product->accessories()->where('visible','visible')->where('in_stock', 'in_stock')
-                                                    ->get() as $index => $accessory)
-                                                    <div class="product" id='{{$accessory->id}}' wire:ignore>
-                                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{route('show_product', $accessory->slug)}}">
-                                                            <img style="height:197px; width:224px;" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="{{Storage::url($accessory->image)}}">
-                                                            <span class="price">
-                                                                @if($accessory->available_discount())
-                                                                    <ins>
-                                                                        <span class="amount">{!! curr($accessory->priceDiscount()) !!}</span>
-                                                                    </ins>
-                                                                    <del>
-                                                                        <span class="amount">{!! curr($accessory->calc_price()) !!}</span>
-                                                                    </del>
-                                                                    @else
-                                                                    <ins>
-                                                                        <span class="amount">{!! curr($accessory->calc_price()) !!}</span>
-                                                                    </ins>
-                                                                @endif
-                                                            </span>
-                                                            <h2 class="woocommerce-loop-product__title">{{$accessory->name}}</h2>
-                                                        </a>
-                                                        @if($accessory->product_type === 'variable')
-                                                        @php
-                                                            $accessory_attributes = $accessory->attributes;
-                                                            $parents     = [];
-                                                            /* loop attributes and get parent who has this attributes [not all family] */
-                                                            foreach($accessory_attributes as $attr) {
-                                                                $id  = $attr->id;
-                                                                $ff  = \App\Attribute_Family::whereHas('attributes', function ($q) use ($id) {
-                                                                    $q->where('id', $id);
-                                                                })->first();
-
-                                                                if(!in_array($ff, $parents)) {
-                                                                    array_push($parents,$ff);
-                                                                }
-                                                            }
-                                                        @endphp
-                                                        @if(!empty($parents))
-                                                        @foreach($parents as $parent)
-                                                        <div class="checkbox accessory-checkbox">
-                                                            {{$parent->name}}
-                                                            <label>
-                                                            <select name="options[{{$accessory->id}}][]"  required data-show_option_none="yes" data-attribute_name="attributes">
-                                                                <option value="">Choose an option</option>
-                                                                @foreach($parent->attributes as $attri)
-                                                                @if($accessory->attributes->contains($attri->id))
-                                                                    <option value="{{$attri->id}}">{{$attri->name}}</option>
-                                                                @endif
-                                                                @endforeach
-                                                            </select>
-                                                            </label>
-                                                        </div>
-                                                        @endforeach
-                                                        @endif
-                                                        @endif
-                                                        <div class="checkbox accessory-checkbox">
-                                                            <label>
-                                                            <input name="accessories[]" wire:model='accessories' value="{{$accessory->id}}" type="checkbox" data-product-type="simple" data-product-id="185" data-price="997.00" class="product-check" checked=""> @lang('user.add')
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                                <!-- /.products -->
-                                            </div>
-                                            <!-- .row -->
-                                            <div class="accessories-product-total-price">
-                                                <div class="total-price">
-                                                    <span class="total-price-html price">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            {!! curr($this->total) !!}
-                                                        </span>
-                                                    </span>
-                                                    <!-- .total-price-html -->
-                                                    <span>@lang('user.Bundle_Price_for_Selected_items')</span>
-                                                </div>
-                                                <!-- .total-price -->
-                                                <div class="accessories-add-all-to-cart">
-                                                    <button class="button btn btn-primary add-all-to-cart" type="submit">@lang('user.Add_Bundle_to_cart')</button>
-                                                </div>
-                                                <!-- .accessories-add-all-to-cart -->
-                                            </div>
-                                            <!-- .accessories-product-total-price -->
-                                        </div>
-                                        <!-- .accessories-wrapper -->
-                                    </div>
-                                    {!! Form::close() !!}
+                                    @livewire('product-accessories', ['product' => $this->product])
                                     <!-- .accessories -->
                                 </div>
                                 <!-- .tab-content -->
@@ -483,93 +391,6 @@ $reviewCount = DB::table('reviews')->where('reviewrateable_id', $this->product->
     <!-- .col-full -->
 </div>
 
-
-@push('js')
-<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-<script>
-    @foreach($this->product->accessories()->select('sale_price', 'id','product_type')->get() as $accessory)
-
-    document.addEventListener('DOMContentLoaded', function () {
-        @if($accessory->available_discount())
-            @this.set('prices.{{$accessory->id}}', {{$accessory->priceDiscount()}});
-        @else
-            @this.set('prices.{{$accessory->id}}', {{$accessory->calc_price()}});
-        @endif
-    });
-
-
-
-    @if($accessory->product_type === 'variable')
-    var options{{$accessory->id}}    = [];
-    @if($accessory->available_discount())
-        var mainppss{{$accessory->id}} = '{!! curr($accessory->calc_price()) !!}';
-        var offerppss{{$accessory->id}} = '{!! curr($accessory->priceDiscount()) !!}';
-        var offer{{$accessory->id}} = '{!! curr($accessory->calc_price() - $accessory->priceDiscount()) !!}';
-    @else
-        var mainppss{{$accessory->id}} = '{!! curr($accessory->calc_price()) !!}';
-        var offerppss{{$accessory->id}} = '0';
-    @endif
-    function countSelected{{$accessory->id}} (e) {
-        var toReturn = true;
-        $('#{{$accessory->id}} select:visible').each(function (i) {
-            if (!$(this).val()) {
-                toReturn = false;
-            };
-        });
-        if (toReturn === true) {
-            options{{$accessory->id}} = [];
-            $.each($("#{{$accessory->id}} select"), function () {
-                if(jQuery.inArray($(this).val(), options{{$accessory->id}}) !== false) {
-                    options{{$accessory->id}}.push( parseInt($(this).val()) );
-                }
-            });
-
-            axios.post('{{route("get_data")}}', {
-                _token: '{{csrf_token()}}',
-                data  : options{{$accessory->id}},
-                ass   : '{{$accessory->id}}'
-            }).then(
-                (response) => {
-                    if(response.data['ppss'] == 0 || response.data == '') {
-                        if(offerppss{{$accessory->id}} == 0) {
-                            $('#{{$accessory->id}} ins .amount').text(mainppss{{$accessory->id}});
-                            @this.set('prices.{{$accessory->id}}', {{$accessory->sale_price}});
-
-                            } else {
-                        $('#{{$accessory->id}} ins .amount').text(offerppss{{$accessory->id}});
-                        $('#{{$accessory->id}} del .amount').text(mainppss{{$accessory->id}});
-                        @this.set('prices.{{$accessory->id}}', {{$accessory->priceDiscount()}});
-                        }
-                    } else {
-                        if(response.data['offerppss'] == 0) {
-                        $('#{{$accessory->id}} del .amount').text(response.data['ppss']);
-                        @this.set('prices.{{$accessory->id}}', response.data['ppssNormal']);
-                        } else {
-                            $('#{{$accessory->id}} ins .amount').text(response.data['offerppss']);
-                            $('#{{$accessory->id}} del .amount').text(response.data['ppss']);
-                            @this.set('prices.{{$accessory->id}}', response.data['offerppssNormal']);
-                        }
-                    }
-                },
-	        (error) => {
-                Swal.fire({
-                position: 'top-end',
-                icon: 'danger',
-                title: '{{trans("user.this_option_is_out_stock")}}',
-                showConfirmButton: true,
-                timer: 1500
-                });
-            }
-
-            )
-
-    };
-    };
-    $('#{{$accessory->id}} select').on('change', countSelected{{$accessory->id}});
-    @endif
-    @endforeach
-</script>
-@endpush
 
 
 @push('css')

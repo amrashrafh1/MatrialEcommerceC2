@@ -170,9 +170,7 @@
                                         <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
                                             <strong class="rating">5.00</strong> out of 5</span>
                                     </div>
-                                    <span class="review-count">({{DB::table('reviews')
-                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                ->count()}})</span>
+                                    <span class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
                                 </div>
                                 <!-- .techmarket-product-rating -->
                                 <span class="sku_wrapper">@lang('user.SKU:')
@@ -251,9 +249,7 @@
                                                             style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
                                                             <strong class="rating">5.00</strong> out of 5</span>
                                                     </div>
-                                                    <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                    <span class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
                                                 </div>
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
@@ -374,9 +370,7 @@
                                                             style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
                                                             <strong class="rating">5.00</strong> out of 5</span>
                                                     </div>
-                                                    <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                    <span class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
                                                 </div>
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
@@ -494,9 +488,7 @@
                                                             style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
                                                             <strong class="rating">5.00</strong> out of 5</span>
                                                     </div>
-                                                    <span class="review-count">({{DB::table('reviews')
-                                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                                ->count()}})</span>
+                                                    <span class="review-count">({{ $product->ratings()->where('approved',1)->count()}})</span>
                                                 </div>
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
@@ -710,7 +702,8 @@
                     <div class="container-fluid">
                         <div class="woocommerce columns-1">
                             <div class="products">
-                                @foreach(\App\Product::orderBy('id', 'DESC')->take(10)->get() as $latest)
+                                @foreach($latest_products as $latest)
+
                                 <div class="landscape-product-widget product">
                                     <a class="woocommerce-LoopProduct-link"
                                         href="{{route('show_product', $latest->slug)}}">
@@ -736,15 +729,7 @@
 
                                                 <!-- .price -->
                                                 <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 5.00 out of 5" class="star-rating">
-                                                        <span style="width:{{$latest->averageRating(null, true)[0] * 2 * 10}}%">
-                                                            <strong class="rating">5.00</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $latest->id)->where('approved', 1)
-                                                                ->count()}})</span>
-                                                </div>
+
                                                 <!-- .techmarket-product-rating -->
                                             </div>
                                             <!-- .media-body -->

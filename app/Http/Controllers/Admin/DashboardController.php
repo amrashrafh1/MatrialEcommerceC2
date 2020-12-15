@@ -8,6 +8,7 @@ use App\Charts\RevenuesChart;
 use App\Http\Controllers\Controller;
 use App\Sold;
 use App\User;
+use App\Order;
 use DB;
 class DashboardController extends Controller
 {
@@ -21,6 +22,9 @@ class DashboardController extends Controller
 
         /* chart class (profits Chart) */
         $profit_today   = Sold::whereDate('created_at',today())->value(DB::raw('SUM((sale_price * sold - purchase_price * sold)  - coupon)'));
+        $revenues_today = Sold::whereDate('created_at',today())->value(DB::raw('SUM((sale_price * sold)  - coupon)'));
+        $total_orders   = Order::count();
+        $total_revenues = Sold::value(DB::raw('SUM((sale_price * sold)  - coupon)'));
 
         $labels = ['7 days ago', '6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today'];
         $profits = new ProfitsChart;
@@ -31,13 +35,13 @@ class DashboardController extends Controller
         )->color('#26c6da')->backgroundColor('rgba(38, 198, 218, .1)');
 
         /* chart class (profits Chart) */
-        $profit_today   = Sold::whereDate('created_at',today())->value(DB::raw('SUM((sale_price * sold - purchase_price * sold)  - coupon)'));
+        $total_profits = Sold::value(DB::raw('SUM((sale_price * sold - purchase_price * sold)  - coupon)'));
 
         $labels = ['7 days ago', '6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today'];
         $revenues = new RevenuesChart;
         $revenues->labels(array_reverse($labels));
         $revenues->dataset('Revenues', 'line',
-        [Sold::whereDate('created_at',today())->value(DB::raw('SUM((sale_price * sold)  - coupon)'))
+        [$revenues_today
         , revenue_calc(1), revenue_calc(2), revenue_calc(3), revenue_calc(4), revenue_calc(4), revenue_calc(5),revenue_calc(6)]
         )->color('#ff9800')->backgroundColor('rgba(255, 152, 0, .1)');
 
@@ -60,10 +64,14 @@ class DashboardController extends Controller
         $admins = User::whereRoleIs(['superadministrator', 'administrator'])
         ->where('id', '!=', auth()->user()->id)->paginate(10);
 
+
+        $onlineUsersToday = User::whereDate('last_login_at', today())->count();
         $salesIncrease = getPercentageChange(($salesYesterday)?$salesYesterday:1, $salesToday);
 
             return view('Admin.dashboard', ['chart' => $chart, 'disk_total_space' => $disk_total_space,
-              'disk_free_space' => $disk_free_space, 'sales'         => $sales,         'profits'          => $profits, 'revenues' => $revenues
-            , 'sold'            => $sold,            'salesIncrease' => $salesIncrease, 'admins' => $admins]);
+                'disk_free_space'  => $disk_free_space,  'sales'          => $sales,         'profits' => $profits, 'revenues' => $revenues
+              , 'sold'             => $sold,             'salesIncrease'  => $salesIncrease, 'admins'  => $admins,
+                'onlineUsersToday' => $onlineUsersToday, 'revenues_today' => $revenues_today,
+                'total_revenues' => $total_revenues, 'total_orders' => $total_orders]);
     }
 }

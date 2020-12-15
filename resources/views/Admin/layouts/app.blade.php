@@ -43,6 +43,7 @@
     @livewireStyles
     @livewireScripts
     @endif
+
     <style>
         .notification{
     position: relative;
@@ -334,7 +335,8 @@
             });
 
         window.livewire.afterDomUpdate(() => {
-            @if(Route::current()->getName() != 'attribute_families.index' && Route::current()->getName() != 'dashboard')
+            @if(Route::current()->getName() != 'attribute_families.index' && Route::current()->getName() != 'dashboard'
+            && Route::current()->getName() != 'product_variations')
             Swal.fire({
             position: 'top-end',
             icon: 'success',
