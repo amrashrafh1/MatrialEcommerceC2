@@ -210,24 +210,44 @@
                             $('.product-actions-wrapper ins .amount').text(mainppss);
                             $('span.sku').text(sku);
                             $('p.stock').text(stock);
+                            if(stock <= 0) {
+                            $('p.stock').addClass('text-danger').removeClass('in-stock');
+                            } else {
+                                $('p.stock').addClass('in-stock').removeClass('text-danger');
+                            }
                         } else {
                         $('.product-actions-wrapper ins .amount').text(offerppss);
                         $('.product-actions-wrapper del .amount').text(mainppss);
                         $('.onsale .woocommerce-Price-amount').text(offer);
                         $('span.sku').text(sku);
                         $('p.stock').text(stock);
+                        if(stock <= 0) {
+                            $('p.stock').addClass('text-danger').removeClass('in-stock');
+                            } else {
+                                $('p.stock').addClass('in-stock').removeClass('text-danger');
+                            }
                         }
                     } else {
                         if(response.data['offerppss'] == 0) {
                         $('.product-actions-wrapper del .amount').text(response.data['ppss']);
                         $('span.sku').text(response.data['sku']);
                         $('p.stock').text(response.data['stock']);
+                        if(response.data['stock'] <= 0) {
+                            $('p.stock').addClass('text-danger').removeClass('in-stock');
+                        } else {
+                            $('p.stock').addClass('in-stock').removeClass('text-danger');
+                        }
                         } else {
                             $('.product-actions-wrapper ins .amount').text(response.data['offerppss']);
                             $('.product-actions-wrapper del .amount').text(response.data['ppss']);
                             $('.onsale .woocommerce-Price-amount').text(response.data['offer']);
                             $('span.sku').text(response.data['sku']);
                             $('p.stock').text(response.data['stock']);
+                            if(response.data['stock'] <= 0) {
+                            $('p.stock').addClass('text-danger').removeClass('in-stock');
+                            } else {
+                                $('p.stock').addClass('in-stock').removeClass('text-danger');
+                            }
                         }
                     }
             },
@@ -244,12 +264,22 @@
                             $('.product-actions-wrapper ins .amount').text(mainppss);
                             $('span.sku').text(sku);
                             $('p.stock').text(stock);
+                            if(stock <= 0) {
+                            $('p.stock').addClass('text-danger').removeClass('in-stock');
+                            } else {
+                                $('p.stock').addClass('in-stock').removeClass('text-danger');
+                            }
                         } else {
                         $('.product-actions-wrapper ins .amount').text(offerppss);
                         $('.product-actions-wrapper del .amount').text(mainppss);
                         $('.onsale .woocommerce-Price-amount').text(offer);
                         $('span.sku').text(sku);
                         $('p.stock').text(stock);
+                        if(stock <= 0) {
+                            $('p.stock').addClass('text-danger').removeClass('in-stock');
+                            } else {
+                                $('p.stock').addClass('in-stock').removeClass('text-danger');
+                            }
                         }
             }
             )

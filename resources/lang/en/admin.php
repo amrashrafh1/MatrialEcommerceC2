@@ -440,6 +440,8 @@ return array (
     "Online_users_today"                                             => "Online users today",
     "create_variations_from_all_attributes"                          => "Create variations from all attributes",
     "create_variations"                                              => "Create variations",
+    "add_variations"                                                 => "Add variations",
+    "edit_variations"                                                => "Edit variations",
     "variations_was_created_successfuly"                             => "Variations was created successfuly",
 
 );

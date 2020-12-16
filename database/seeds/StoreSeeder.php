@@ -71,7 +71,7 @@ class StoreSeeder extends Seeder
         ]);
 
         \App\SellerInfo::create([
-            'approved'    => rand(0,1),
+            'approved'    => 1,
             'type'        => rand(0,1),
             'business'    => Str::random(100),
             'name'        => 'Beta market',

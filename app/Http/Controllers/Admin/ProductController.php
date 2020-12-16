@@ -369,6 +369,7 @@ class ProductController extends Controller
         if (!empty($request['gallery'])) {
             multiple_uploads($request['gallery'], $this->path, $product, 600, 350);
         }
+
         Alert::success(trans('admin.updated'), trans('admin.updated_record'));
         return redirect(aurl('/products'));
     }

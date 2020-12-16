@@ -111,17 +111,16 @@ class ProductController extends Controller
         $variation = $variations->orderBy('id','desc')->first();
 
         if ($variation) {
-            $price = ($variation->sale_price) ? $variation->calc_price() : $product->calc_price();
             $sale_price = $variation->calc_price();
-            $sale = $variation->priceDiscount();
+            $sale       = $variation->priceDiscount();
             return [
                 'offerppss'       => (intval($sale) == 0) ? 0 : curr($sale),
                 'offerppssNormal' => (intval($sale) == 0) ? 0 : $sale,
                 'ppss'            => (intval($sale_price) == 0) ? 0 : curr($sale_price),
                 'ppssNormal'      => (intval($sale_price) == 0) ? 0 : $sale_price,
                 'offer'           => (intval($sale) == 0) ? 0 : curr($sale_price - $sale),
-                'sku'             => ($variation->sku) ? $variation->sku : $product->sku,
-                'stock'           => ($variation->stock) ? $variation->stock . ' ' . trans('user.' . $variation->in_stock) : $product->stock . ' ' . trans('user.' . $product->in_stock),
+                'sku'             => $variation->sku,
+                'stock'           => ($variation->stock && $variation->in_stock == 'in_stock') ? $variation->stock . ' ' . trans('user.' . $variation->in_stock):trans('user.out_stock'),
             ];
         }
         return response()->json(['message' => 'Not Found!'], 404);
@@ -166,7 +165,7 @@ class ProductController extends Controller
                     Alert::success(trans('admin.added'), trans('admin.success_record'));
                     return redirect()->route('show_product', $product->slug);
                 }
-                Alert::warning(trans('admin.added'), trans('user.product_is_out_of_stock'));
+                Alert::warning(trans('user.product_is_out_of_stock'), trans('user.product_is_out_of_stock'));
                 return redirect()->route('show_product', $product->slug);
             } else {
                 \Cart::add($product, $data['quantity']);
@@ -190,10 +189,10 @@ class ProductController extends Controller
     {
         $data = $this->validate(request(), [
             'accessories.*' => 'required',
-            'options.*' => 'required',
+            'options.*'     => 'required',
         ], [], [
             'accessories' => trans('admin.accessories'),
-            'options' => trans('admin.options'),
+            'options'     => trans('admin.options'),
         ]);
         if (isset($data['accessories'])) {
             $counter = 0;
@@ -202,30 +201,38 @@ class ProductController extends Controller
                 $opts = [];
                 $product = Product::where('id', $accessories)->first();
                 if ($product) {
-
-                    if (isset($data['options'][$product->id])) {
-                        $opts = [];
-                        $attributes = Attribute::whereIn('id', $data['options'][$product->id])->get();
-
-                        if ($attributes) {
-
+                    if ($product->isVariable()) {
+                        $attributes = $data['options'][$product->id];
+                        $variations = $product->variations()->where('visible', 'visible')
+                        ->where('in_stock', 'in_stock');
+                        foreach ($attributes as $attribute) {
+                            $variations->whereHas('attributes', function ($query) use ($attribute) {
+                                $query->where('id', $attribute);
+                            });
+                        }
+                        $result = $variations->orderBy('id','desc')->first();
+                        if ($result) {
+                            $opts = [];
+                            $attributes = Attribute::whereIn('id', $data['options'][$product->id])->get();
                             foreach ($attributes as $attr) {
                                 $family = Attribute_Family::where('id', $attr->family_id)->first();
                                 if ($family) {
-                                    array_push($opts, [$family->name => $attr->name]);
+                                    array_push($opts, [$family->name => $attr->id]);
                                 }
                             }
+                            $cart = \Cart::add($result, 1, \Arr::collapse($opts));
+                            Alert::success(trans('admin.added'), trans('admin.success_record'));
+
+
                         }
+                        Alert::warning(trans('user.product_is_out_of_stock'), trans('user.product_is_out_of_stock'));
+
+                    } else {
+                        \Cart::add($product, 1);
+                        Alert::success(trans('admin.added'), trans('admin.success_record'));
                     }
 
-                    \Cart::add($product, 1, \Arr::collapse($opts));
-                    $opts = [];
-                    Alert::success(trans('admin.added'), trans('admin.success_record'));
-                } else {
-                    \Cart::add($product, 1);
-
                 }
-
             }
         }
         return redirect()->back();
