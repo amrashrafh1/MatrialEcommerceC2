@@ -20,7 +20,7 @@
                                             <th>@lang('user.Product')</th>
                                             @foreach($compare as $product)
                                             <td>
-                                                <a class="product" href="{{route('show_product', $product->slug)}}">
+                                                <a class="product" href="{{route('show_product', $product->slug)}}" target="_blank">
                                                     <div class="product-image">
                                                         <div class="image">
                                                             <img style="width:300px;" height="300px;" alt=""

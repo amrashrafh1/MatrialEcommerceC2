@@ -38,11 +38,12 @@ class CartPage extends Component
         $this->subTotal = 0;
         $this->shipping = 0;
 
-        $stores = [];
+        $stores         = [];
+        $unknown_stores = [];
         foreach(Cart::content() as $cart) {
             $cart_product = $cart->getProduct();
             if(!in_array($cart_product->store, $stores)) {
-                array_push($stores, $cart_product->store);
+                (!blank($cart_product->store))?array_push($stores, $cart_product->store):array_push($unknown_stores, $cart);
             }
         }
         // check if items not empty
@@ -75,7 +76,7 @@ class CartPage extends Component
         }
         // calc total (subtotal + shipping cost)
         $this->total = $this->subTotal + $this->shipping;
-        return view('livewire.cart-page', ['stores' => $stores]);
+        return view('livewire.cart-page', ['stores' => $stores, 'unknown_stores' => $unknown_stores]);
     }
 
     // change cart quantity
@@ -139,7 +140,7 @@ class CartPage extends Component
             $cart_product = $cart->getProduct();
             $country_id   = $this->country;
             // get all method for this product where has this country
-            $method_countries = $cart_product->methods()->whereHas('zone', function ($q) use ($country_id) {
+            $method_countries = $cart_product->methods()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                 $q->whereHas('countries', function ($query) use ($country_id) {
                     $query->where('id', $country_id);
                 });
@@ -150,7 +151,7 @@ class CartPage extends Component
                 $defaultShipping = Setting::orderBy('id', 'desc')->first();
                 if ($defaultShipping->default_shipping == 1) {
                     if ($defaultShipping->shipping !== null) {
-                        $isDefaultMethod = $defaultShipping->shipping()->whereHas('zone', function ($q) use ($country_id) {
+                        $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                             $q->whereHas('countries', function ($query) use ($country_id) {
                                 $query->where('id', $country_id);
                             });
@@ -245,7 +246,7 @@ class CartPage extends Component
                     $cart_product = $cart->getProduct();
 
                     // get all method for this product where has this country
-                    $method_countries = $cart_product->methods()->whereHas('zone', function ($q) use ($country_id) {
+                    $method_countries = $cart_product->methods()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                         $q->whereHas('countries', function ($query) use ($country_id) {
                             $query->where('id', $country_id);
                         });
@@ -257,7 +258,7 @@ class CartPage extends Component
                         $defaultShipping = Setting::orderBy('id', 'desc')->first();
                         if ($defaultShipping->default_shipping == 1) {
                             if ($defaultShipping->shipping !== null) {
-                                $isDefaultMethod = $defaultShipping->shipping()->whereHas('zone', function ($q) use ($country_id) {
+                                $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                                     $q->whereHas('countries', function ($query) use ($country_id) {
                                         $query->where('id', $country_id);
                                     });

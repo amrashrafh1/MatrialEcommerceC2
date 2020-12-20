@@ -336,7 +336,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
     {
         $shippings = [];
         $country_id = $country->id;
-        $methods = $this->methods()->whereHas('zone', function ($q) use ($country_id) {
+        $methods = $this->methods()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
             $q->whereHas('countries', function ($query) use ($country_id) {
                 $query->where('id', $country_id);
             });
@@ -346,6 +346,7 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
             $defaultShipping = config('app.setting');
 
             if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
+
                 $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                     $q->whereHas('countries', function ($query) use ($country_id) {
                         $query->where('id', $country_id);

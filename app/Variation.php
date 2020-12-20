@@ -45,15 +45,15 @@ class Variation extends Model implements Buyable, Taxable
 
             if ($this->product->discount->condition === 'percentage_of_product_price') {
 
-                return $this->sale_price - ($this->product->discount->amount / 100 * $this->sale_price);
+                return $this->calc_price() - ($this->product->discount->amount / 100 * $this->calc_price());
 
             } elseif ($this->product->discount->condition === 'fixed_amount') {
 
-                return $this->sale_price - $this->product->discount->amount;
+                return $this->calc_price() - $this->product->discount->amount;
 
             }
         }
-        return $this->sale_price;
+        return $this->calc_price();
     }
 
     public function calc_price()
@@ -106,34 +106,13 @@ class Variation extends Model implements Buyable, Taxable
     }
 
 
-    public function getSKUAttribute($value)
-    {
-        if ($this->exists) {
-            return !empty($value) ? $value : $this->product->sku;
-        }
-        return null;
-    }
-    public function getSalePriceAttribute($value)
+
+    /* public function getSalePriceAttribute($value)
     {
         if ($this->exists) {
             return !empty($value) ? $value : $this->product->sale_price;
         }
         return null;
-    }
-    public function getPurchasePriceAttribute($value)
-    {
-        if ($this->exists) {
-            return !empty($value) ? $value : $this->product->purchase_price;
-        }
-        return null;
-    }
-
-    public function getStockAttribute($value)
-    {
-        if ($this->exists) {
-            return !empty($value) ? $value : $this->product->stock;
-        }
-        return null;
-    }
+    } */
 
 }

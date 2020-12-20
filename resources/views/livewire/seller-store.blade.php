@@ -123,7 +123,7 @@
                                              </div>
                                             <!-- .yith-wcwl-add-to-wishlist -->
                                             <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-                                                href="{{route('show_product', $product->slug)}}">
+                                                href="{{route('show_product', $product->slug)}}" target="_blank">
                                                 <img width="224" height="197" alt=""
                                                     class="attachment-shop_catalog size-shop_catalog wp-post-image"
                                                     src="{{Storage::url($product->image)}}">
@@ -163,7 +163,7 @@
                                             <!-- .woocommerce-product-details__short-description -->
                                             @if($product->IsVariable())
                                             <a class="button product_type_simple add_to_cart_button"
-                                                href='{{route('show_product',$product->slug)}}'
+                                                href='{{route('show_product',$product->slug)}}' target="_blank"
                                                 rel="nofollow">@lang('user.Add_to_cart')</a>
 
                                             @if($compare !== null)

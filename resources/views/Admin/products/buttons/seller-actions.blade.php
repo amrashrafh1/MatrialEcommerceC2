@@ -41,7 +41,7 @@
                 </li>
                 <li class="divider"> </li>
                 <li>
-                    <a href="{{ route('show_product', $slug)}}"><i class="fa fa-eye"></i> {{trans('admin.show')}}</a>
+                    <a href="{{ route('show_product', $slug)}}" target="_blank"><i class="fa fa-eye"></i> {{trans('admin.show')}}</a>
                 </li>
                 <li>
                     <a data-toggle="modal" data-target="#delete_record{{$id}}" href="#">

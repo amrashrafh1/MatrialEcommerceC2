@@ -128,7 +128,7 @@
                                             <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
                                         </div>
                                         <!-- .yith-wcwl-add-to-wishlist -->
-                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{route('show_product', $product->slug)}}">
+                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{route('show_product', $product->slug)}}" target="_blank">
                                             <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="{{Storage::url($product->image)}}">
                                             <span class="price">
                                                 @if(isset($product->discount))
@@ -165,7 +165,7 @@
                                         </div>
                                         <!-- .woocommerce-product-details__short-description -->
                                         @if($product->IsVariable())
-                                            <a class="button product_type_simple add_to_cart_button" href='{{route('show_product',$product->slug)}}'
+                                            <a class="button product_type_simple add_to_cart_button" href='{{route('show_product',$product->slug)}}' target="_blank"
                                                 rel="nofollow">Add to cart</a>
                                             <a class="add-to-compare-link" href="compare.html">Add to compare</a>
                                             @else
@@ -183,7 +183,7 @@
                                             <a href="wishlist.html" rel="nofollow" class="add_to_wishlist"> Add to Wishlist</a>
                                         </div>
                                         <!-- .yith-wcwl-add-to-wishlist -->
-                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{route('show_product', $product->slug)}}">
+                                        <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{route('show_product', $product->slug)}}" target="_blank">
                                             <img width="224" height="197" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="{{Storage::url($product->image)}}">
                                             <span class="price">
                                                 @if(isset($product->discount))
@@ -220,7 +220,7 @@
                                         </div>
                                         <!-- .woocommerce-product-details__short-description -->
                                         @if($product->IsVariable())
-                                            <a class="button product_type_simple add_to_cart_button" href='{{route('show_product',$product->slug)}}'
+                                            <a class="button product_type_simple add_to_cart_button" href='{{route('show_product',$product->slug)}}' target="_blank"
                                                 rel="nofollow">Add to cart</a>
                                             <a class="add-to-compare-link" href="compare.html">Add to compare</a>
                                             @else
@@ -1500,7 +1500,7 @@
                                     <div class="products">
                                         @foreach(\App\Product::orderBy('id', 'DESC')->take(10)->get() as $latest)
                                         <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="{{route('show_product', $latest->slug)}}">
+                                            <a class="woocommerce-LoopProduct-link" href="{{route('show_product', $latest->slug)}}" target="_blank">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="{{Storage::url($latest->image)}}" alt="">
                                                     <div class="media-body">

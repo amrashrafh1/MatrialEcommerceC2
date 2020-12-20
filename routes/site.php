@@ -54,20 +54,14 @@ Route::get('/cart', function () {
 })->name('show_cart');
 
 // checkout page
-Route::get('/checkout', function (Request $request) {
-    $payment = '';
-    if($request->payment === 'stripe') {
-        $payment = 'stripe';
-    } elseif($request->payment === 'paypal') {
-        $payment = 'paypal';
-    }
-    return view('FrontEnd.checkout', ['payment' => $payment]);
-})->name('show_checkout');
+Route::get('/checkout', 'CheckoutController')->name('show_checkout');
 
 // Payment
 Route::post('/payment/{payment}','FrontEnd\payment\BillingController@payment')->name('payment');
 
-Route::get('cancel', 'FrontEnd\BillingController@cancel')->name('payment.cancel');
+Route::get('cancel', 'FrontEnd\payment\BillingController@cancel')->name('payment.cancel');
+
+Route::get('fail/{message?}', 'FrontEnd\payment\BillingController@fail_page')->name('fail_page');
 
 Route::get('payment/success', 'FrontEnd\payment\BillingController@success')->name('payment.success');
 

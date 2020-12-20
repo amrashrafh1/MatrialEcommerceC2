@@ -1,14 +1,11 @@
 <?php
 
 use App\Product;
+use App\Shipping_methods;
 use App\Sold;
 use App\Tradmark;
 use App\User;
-use App\Setting;
-use App\Country;
 use Illuminate\Support\Facades\DB;
-use App\Shipping_methods;
-
 // /Admin url
 
 if (!function_exists('aurl')) {
@@ -175,15 +172,15 @@ if (!function_exists('seller_sales_charts')) {
 
             $solds = [
                 Sold::whereDate('created_at', today())
-                ->whereHas('product', function ($query) use ($seller_id) {
-                    $query->where('seller_id', $seller_id);
-                })->sum('sold'),
+                    ->whereHas('product', function ($query) use ($seller_id) {
+                        $query->where('seller_id', $seller_id);
+                    })->sum('sold'),
             ];
             for ($i = 1; $i <= $day; $i++) {
                 array_push($solds, Sold::whereDate('created_at', today()->subDays($i))
-                ->whereHas('product', function ($query) use ($seller_id) {
-                    $query->where('seller_id', $seller_id);
-                })->sum('sold'));
+                        ->whereHas('product', function ($query) use ($seller_id) {
+                            $query->where('seller_id', $seller_id);
+                        })->sum('sold'));
             }
         } elseif ($period == 'months') {
             $solds = [
@@ -457,25 +454,10 @@ if (!function_exists('sortProductsDiscount')) {
     }
 }
 
-if (!function_exists('check_stock')) {
-    function check_stock($cart)
-    {
-        $cart_product = $cart->getProduct();
-        if($cart->buyable->stock) {
-            return $cart->buyable->stock;
-        }
-        return $cart_product->stock;
-    }
-}
-
 if (!function_exists('get_purchase_price')) {
     function get_purchase_price($cart)
     {
-        $cart_product = $cart->getProduct();
-        if($cart->buyable->purchase_price) {
-            return $cart->buyable->purchase_price;
-        }
-        return $cart_product->purchase_price;
+        return $cart->buyable->purchase_price;
     }
 }
 
@@ -483,7 +465,7 @@ if (!function_exists('profit_calc')) {
     function profit_calc($days)
     {
         return intval(Sold::whereDate('created_at', today()->subDays($days))
-        ->value(DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)')));
+                ->value(DB::raw('SUM((sale_price * sold - purchase_price * sold) - coupon)')));
     }
 }
 
@@ -491,7 +473,7 @@ if (!function_exists('revenue_calc')) {
     function revenue_calc($days)
     {
         return intval(Sold::whereDate('created_at', today()->subDays($days))
-        ->value(DB::raw('SUM((sale_price * sold )  - coupon)')));
+                ->value(DB::raw('SUM((sale_price * sold )  - coupon)')));
     }
 }
 if (!function_exists('sales_calc')) {
@@ -598,78 +580,90 @@ if (!function_exists('tradmark_not_exist')) {
     }
 }
 
+if (!function_exists('quantity_based_per_order')) {
+    function quantity_based_per_order(Shipping_methods $method, $qty)
+    {
+        $rates = $method->rates;
+        foreach ($rates as $rate) {
+            if ($qty >= $rate->from && $qty <= $rate->to) {
+                return $rate->value;
+            }
+            ;
+        }
+        return 0;
+    }
+}
+if (!function_exists('weight_based_per_order')) {
+    function weight_based_per_order($weight, Shipping_methods $method, $qty)
+    {
+        $rates = $method->rates;
+        foreach ($rates as $rate) {
+            if (($weight * $qty) >= $rate->from && ($weight * $qty) <= $rate->to) {
+                return $rate->value;
+            }
+            ;
+        }
+        return 0;
+    }
+}
 
-if(!function_exists('product_shipping')) {
-    function product_shipping(Product $product) {
-       /*  $shippings  = [];
-        $country_id = (session('country'))?session('country'):1;
-        $country    = DB::table('countries')->where('id', $country_id)->first();
+if (!function_exists('carts_content')) {
+    function carts_content()
+    {
+        $carts = [];
+        if (session()->get('items') !== null) {
+            foreach (session()->get('items') as $cart) {
+                array_push($carts, ['cart' => \Cart::content()->find($cart['item']), 'shipping' => Shipping_methods::findOrfail($cart['shipping'])]);
+            }
+            return collect($carts);
+        }
+        foreach (\Cart::content() as $cart) {
+            array_push($carts, ['cart' => $cart, 'shipping' => get_shipping($cart->getProduct())]);
+        }
 
-        $methods    = $product->methods()->whereHas('zone', function ($q) use ($country_id) {
+        return collect($carts);
+    }
+}
+
+if (!function_exists('get_shipping')) {
+    function get_shipping($product)
+    {
+        $country_id = (session('country')) ? session('country') : 1;
+        $country = DB::table('countries')->where('id', $country_id)->first();
+
+        $method = $product->methods()->where('status', 0)
+        ->whereHas('zone', function ($q) use ($country_id) {
             $q->whereHas('countries', function ($query) use ($country_id) {
                 $query->where('id', $country_id);
-        });
-        })->get();
-        if (count($methods) <= 0) {
+            });
+        })->first();
+        if (blank($method)) {
             // will get the default shipping method if has this country
             $defaultShipping = config('app.setting');
             if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
 
-                    $isDefaultMethod = $defaultShipping->shipping()->whereHas('zone', function ($q) use ($country_id) {
-                        $q->whereHas('countries', function ($query) use ($country_id) {
-                            $query->where('id', $country_id);
-                        });
-                    })->first();
-                    // push $defaultShipping to shippings array
-                    if ($isDefaultMethod !== null) {
-                        array_push($shippings, $product->calcShipping($isDefaultMethod, 1));
-                    } else {
-                        // if $defaultShipping empty remove this item from items array
-                        return trans('user.shipping_not_available_in') . $country->country_name;
-                    }
+                $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)
+                ->whereHas('zone', function ($q) use ($country_id) {
+                    $q->whereHas('countries', function ($query) use ($country_id) {
+                        $query->where('id', $country_id);
+                    });
+                })->first();
+                // push $defaultShipping to shippings array
+                if ($isDefaultMethod !== null) {
 
+                    return $isDefaultMethod;
+
+                } else {
+                    // if $defaultShipping empty remove this item from items array
+                    return null;
+                }
 
             }
             // if $defaultShipping empty remove this item from items array
             if ($defaultShipping->default_shipping != 1 || $defaultShipping->shipping == null) {
-                return trans('user.shipping_not_available_in') . $country->country_name;
-            }
-        } else {
-
-            foreach($methods as $method) {
-                array_push($shippings, $product->calcShipping($method, 1));
+                return null;
             }
         }
-        if(count($shippings) > 0) {
-            return  (min($shippings) == 0)?trans('user.free_shipping'): trans('user.+shipping:') . curr(min($shippings)) ;
-
-        } else {
-            return trans('user.shipping_not_available_in') . $country->country_name;
-        } */
-        return 0;
+        return $method;
     }
-
-    if(!function_exists('quantity_based_per_order')) {
-        function quantity_based_per_order(Shipping_methods $method, $qty) {
-            $rates = $method->rates;
-           foreach($rates as $rate) {
-                if($qty >= $rate->from && $qty <= $rate->to){
-                    return $rate->value;
-                };
-        }
-        return 0;
-        }
-    }
-    if(!function_exists('weight_based_per_order')) {
-        function weight_based_per_order($weight, Shipping_methods $method, $qty) {
-            $rates = $method->rates;
-           foreach($rates as $rate) {
-                if(($weight * $qty) >= $rate->from && ($weight * $qty) <= $rate->to){
-                    return $rate->value;
-                };
-        }
-        return 0;
-        }
-    }
-
 }

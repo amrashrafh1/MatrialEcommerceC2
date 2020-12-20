@@ -6,7 +6,7 @@
                 @foreach($accesso as $index => $accessory)
                 <div class="product" id='{{$accessory->slug}}'>
                     <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-                        href="{{route('show_product', $accessory->slug)}}">
+                        href="{{route('show_product', $accessory->slug)}}" target="_blank">
                         <img alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image"
                             src="{{Storage::url($accessory->image)}}">
                         <span class="price">

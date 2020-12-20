@@ -124,7 +124,7 @@
                                     </a> </div>
                                         <!-- .yith-wcwl-add-to-wishlist -->
                                         <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-                                            href="{{route('show_product', $product->slug)}}">
+                                            href="{{route('show_product', $product->slug)}}" target="_blank">
                                             <img width="224" height="197" alt=""
                                                 class="attachment-shop_catalog size-shop_catalog wp-post-image"
                                                 src="{{Storage::url($product->image)}}">
@@ -168,7 +168,7 @@
                                         @if($product->IsVariable())
                                         <a class="button product_type_simple add_to_cart_button"
                                             href='{{route('show_product',$product->slug)}}'
-                                            rel="nofollow">@lang('user.Add_to_cart')</a>
+                                            rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
 
                                         @if($compare !== null)
                                         @if(!in_array($product->id, $compare))
@@ -226,7 +226,7 @@
                                                     <!-- .yith-wcwl-add-to-wishlist -->
                                                     <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
                                                         href="{{route('show_product', $product->slug)}}">
-                                                        <h2 class="woocommerce-loop-product__title">{{$product->name}}
+                                                        <h2 class="woocommerce-loop-product__title" target="_blank">{{$product->name}}
                                                         </h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
@@ -285,7 +285,7 @@
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
                                                         href='{{route('show_product',$product->slug)}}'
-                                                        rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                        rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
 
                                                     @if($compare !== null)
                                                     @if(!in_array($product->id, $compare))
@@ -351,7 +351,7 @@
                                                     </div>
                                                     <!-- .yith-wcwl-add-to-wishlist -->
                                                     <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-                                                        href="{{route('show_product', $product->slug)}}">
+                                                        href="{{route('show_product', $product->slug)}}" target="_blank">
                                                         <h2 class="woocommerce-loop-product__title">{{$product->name}}
                                                         </h2>
                                                         <div class="techmarket-product-rating">
@@ -408,7 +408,7 @@
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
                                                         href='{{route('show_product',$product->slug)}}'
-                                                        rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                        rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
 
                                                     @if($compare !== null)
                                                     @if(!in_array($product->id, $compare))
@@ -519,7 +519,7 @@
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
                                                         href='{{route('show_product',$product->slug)}}'
-                                                        rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                        rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
 
                                                     @if($compare !== null)
                                                     @if(!in_array($product->id, $compare))
@@ -664,7 +664,7 @@
                                     <div class="products">
                                         @foreach(\App\Product::orderBy('id', 'DESC')->take(10)->get() as $latest)
                                         <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="{{route('show_product', $latest->slug)}}">
+                                            <a class="woocommerce-LoopProduct-link" href="{{route('show_product', $latest->slug)}}" target="_blank">
                                                 <div class="media">
                                                     <img class="wp-post-image" src="{{Storage::url($latest->image)}}" alt="">
                                                     <div class="media-body">

@@ -54,7 +54,7 @@
                                 <!-- .banner -->
                                 @if($randomProduct)
                                 <div class="banner text-in-left">
-                                    <a href="{{route('show_product', $randomProduct->slug)}}">
+                                    <a href="{{route('show_product', $randomProduct->slug)}}" target="_blank">
                                         <div style="background-size: cover; background-position: center center; background-image: url( {{Storage::url($randomProduct->image)}} ); height: 256px;" class="banner-bg">
                                             <div class="caption">
                                                 <div class="banner-info">

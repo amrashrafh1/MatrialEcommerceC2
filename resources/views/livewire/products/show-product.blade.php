@@ -155,9 +155,9 @@ $product_rating_average = $this->product->averageRating(null, true)[0];
                                         {{$numberFormat->format($product->discount->buy_x_quantity)}}
                                         @lang('user.get')
                                         {{$numberFormat->format($product->discount->y_quantity)}}
-                                        <a style='color:blue;' href='{{$url}}'>
+                                        <a style='color:blue;' href='{{$url}}' target="_blank">
                                             {{$product->discount->productY->name}}</a> @lang('user.free')</h5>
-                                        <div class='col-md-4'><a href='{{$url}}'>
+                                        <div class='col-md-4'><a href='{{$url}}' target="_blank">
                                         <img src='{{Storage::url($product->discount->productY->image)}}'></div>
                                     </a>
                                 </div>

@@ -444,71 +444,36 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach(carts_content() as $cart)
+                                                @php
+                                                $cart_product = $cart['cart']->getProduct();
+                                                $findSHipping = ($cart['shipping']) ? $cart['shipping'] :\App\Shipping_methods::where('id', $cart['shipping'])->first();
+                                                if($findSHipping !== null) {
+                                                    $this->shippings +=
+                                                    $cart_product->calcShipping($findSHipping,
+                                                    $cart['cart']->quantity);
+                                                } else {
+                                                    $defaultShipping = $setting;
+                                                    if($defaultShipping->default_shipping == 1) {
+                                                        $this->shippings +=
+                                                        $cart_product->calcShipping($defaultShipping->shipping,
+                                                        $cart['cart']->quantity);
+                                                    }
+                                                }
 
-                                                @if(session()->get('items') !== null)
-                                                @foreach(session()->get('items') as $cart)
-                                                @php
-                                                $cc           = Cart::content()->find($cart['item']);
-                                                $cart_product = $cc->getProduct();
-                                                $findSHipping = \App\Shipping_methods::where('id', $cart['shipping'])->first();
-                                                if($findSHipping !== null) {
-                                                    $this->shippings +=
-                                                    $cart_product->calcShipping($findSHipping,
-                                                    $cc->quantity);
-                                                } else {
-                                                    $defaultShipping = \App\Setting::orderBy('id','desc')->first();
-                                                    if($defaultShipping->default_shipping == 1) {
-                                                        $this->shippings +=
-                                                        $cart_product->calcShipping($defaultShipping->shipping,
-                                                        $cc->quantity);
-                                                    }
-                                                }
-                                                $this->subtotal += $cc->price * $cc->quantity;
+                                                $this->subtotal += $cart['cart']->price * $cart['cart']->quantity;
                                                 @endphp
                                                 <tr class="cart_item">
                                                     <td class="product-name">
-                                                        <strong class="product-quantity">{{intval($cc->quantity)}}
-                                                            ×</strong> {!! curr($cc->price) !!}" {{$cc->buyable->name}}
+                                                        <strong class="product-quantity">{{intval($cart['cart']->quantity)}}
+                                                            ×</strong> {!! curr($cart['cart']->price) !!}" {{$cart['cart']->buyable->name}}
                                                     </td>
                                                     <td class="product-total">
                                                         <span class="woocommerce-Price-amount amount">
-                                                            {!! curr($cc->price * $cc->quantity) !!}</span>
+                                                            {!! curr($cart['cart']->price * $cart['cart']->quantity) !!}</span>
                                                     </td>
                                                 </tr>
                                                 @endforeach
-                                                @elseif(Cart::content()->isEmpty())
-                                                @else
-                                                @foreach(Cart::content() as $cart)
-                                                @php
-                                                $cart_product = $cart->getProduct();
-                                                $findSHipping = $cart_product->methods->first();
-                                                if($findSHipping !== null) {
-                                                    $this->shippings +=
-                                                    $cart_product->calcShipping($findSHipping,
-                                                    $cart->quantity);
-                                                } else {
-                                                    $defaultShipping = \App\Setting::orderBy('id','desc')->first();
-                                                    if($defaultShipping->default_shipping == 1) {
-                                                        $this->shippings +=
-                                                        $cart_product->calcShipping($defaultShipping->shipping,
-                                                        $cart->quantity);
-                                                    }
-                                                }
-                                                $this->subtotal += $cart->price * $cart->quantity;
-                                                @endphp
-                                                <tr class="cart_item">
-                                                    <td class="product-name">
-                                                        <strong class="product-quantity">{{intval($cart->quantity)}}
-                                                            ×</strong> {!! curr($cart->price) !!}"
-                                                        {{$cart_product->name}}
-                                                    </td>
-                                                    <td class="product-total">
-                                                        <span class="woocommerce-Price-amount amount">
-                                                            {!! curr($cart->price * $cart->quantity) !!}</span>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                                @endif
                                             </tbody>
                                             <tfoot>
                                                 <tr class="cart-subtotal">
@@ -652,7 +617,7 @@
   <script src="https://js.stripe.com/v3/"></script>
   <script>
 
-  var stripe = Stripe('pk_test_7Jhph2iY4AnOx3zXz1dLAcJP00k3I2hjjO');
+  var stripe = Stripe('pk_test_u6snBjmD2e0hFj5aQC5c4Ec300uI7omnec');
 
   // Create an instance of Elements.
   var elements = stripe.elements();

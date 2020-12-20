@@ -125,7 +125,7 @@
                 <li class="replies">
                     <img src="{{Storage::url(auth()->user()->image)}}" alt="" />
                     <p style="overflow-wrap: break-word;">
-                        <a href='{{route('show_product', $message->product->slug)}}'>
+                        <a href='{{route('show_product', $message->product->slug)}}' target="_blank">
                             <img src='{{Storage::url($message->product->image)}}' class='image'>
                             <br />
                             <span style='font-size:16px; color:black'>{{$message->product->name}}</span>
@@ -162,7 +162,7 @@
                 <li class="sent">
                     <img src="{{Storage::url($conv_user->image)}}" alt="" />
                     <p style="overflow-wrap: break-word; background:none"><a
-                            href='{{route('show_product', $message->product->slug)}}'>
+                            href='{{route('show_product', $message->product->slug)}}' target="_blank">
                             <img src='{{Storage::url($message->product->image)}}' style='height:200px; width:200px;
                             border-radius:10%; margin-bottom:15px;
                                 '>

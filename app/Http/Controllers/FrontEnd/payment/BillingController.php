@@ -87,4 +87,18 @@ class BillingController extends Controller
         $paymentGetway = new PaypalPaymentGetway();
         return $paymentGetway->success($request);
     }
+
+
+
+    public  function fail_page($message = null) {
+        if($message && is_string($message)) {
+            return view('FrontEnd.fail_page', ['message' => $message]);
+        }
+        return view('FrontEnd.fail_page');
+    }
+
+    public function cancel()
+    {
+        return view('FrontEnd.fail_page');
+    }
 }

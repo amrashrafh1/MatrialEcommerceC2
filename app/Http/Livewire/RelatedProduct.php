@@ -7,12 +7,15 @@ use App\Product;
 class RelatedProduct extends Component
 {
     public $product;
-    public $ralated = [];
-    public function mount($product, $tags) {
-        $this->product = $product;
-        $this->related = Product::withAllTags($tags->pluck('name'))
-        ->where('id', '!=', $this->product->id)
-        ->select('id','slug','product_type','image','name','tax','sale_price')->take(20)->get();
+    public $related = [];
+    public function mount($product = null, $tags = null) {
+        if($product) {
+            $this->product = $product;
+            $this->related = Product::withAllTags($tags->pluck('name'))
+            ->where('id', '!=', $this->product->id)
+            ->select('id','slug','product_type','image','name','tax','sale_price')->take(20)->get();
+        }
+
     }
 
     public function render()

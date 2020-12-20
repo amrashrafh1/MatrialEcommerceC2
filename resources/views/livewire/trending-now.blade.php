@@ -29,7 +29,7 @@
                                                         @endauth>
                                                         </a>
                                         </div>
-                                        <a href="{{route('show_product', $product->slug)}}" class="woocommerce-LoopProduct-link">
+                                        <a href="{{route('show_product', $product->slug)}}" target="_blank" class="woocommerce-LoopProduct-link">
                                             <img src="{{Storage::url($product->image)}}"
                                              style="height:197px;width:224px;" class="wp-post-image" alt="" >
                                             <span class="price">
@@ -54,7 +54,7 @@
                                         <div class="hover-area">
                                             @if($product->IsVariable())
                                             <a class="button add_to_cart_button"
-                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                href='{{route('show_product', $product->slug)}}' target="_blank" rel="nofollow">@lang('user.Add_to_cart')</a>
                                                 @if($compare !== null)
                                                     @if(!in_array($product->id,$compare))
                                                     <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>
@@ -105,7 +105,7 @@
                                                         @endauth>
                                                         </a>
                                         </div>
-                                        <a href="{{route('show_product', $product->slug)}}" class="woocommerce-LoopProduct-link">
+                                        <a href="{{route('show_product', $product->slug)}}" target="_blank" class="woocommerce-LoopProduct-link">
                                             <img src="{{Storage::url($product->image)}}"
                                              style="height:197px;width:224px;" class="wp-post-image" alt="">
                                             <span class="price">
@@ -131,7 +131,7 @@
                                         <div class="hover-area">
                                             @if($product->IsVariable())
                                             <a class="button add_to_cart_button"
-                                                href='{{route('show_product', $product->slug)}}' rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                href='{{route('show_product', $product->slug)}}' target="_blank" rel="nofollow">@lang('user.Add_to_cart')</a>
                                                 @if($compare !== null)
                                                     @if(!in_array($product->id,$compare))
                                                     <a class="add-to-compare-link comp" wire:click='compare({{$product->id}})' style="cursor:pointer">@lang('user.Add_to_compare')</a>

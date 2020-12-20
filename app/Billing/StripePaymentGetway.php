@@ -2,146 +2,99 @@
 
 namespace App\Billing;
 
-use App\Shipping_methods;
-use App\Setting;
-use App\Order;
-use Str;
-use Cart;
 use Alert;
-use Illuminate\Http\Request;
 use App\Orders\OrderDetails;
-use Cartalyst\Stripe\Stripe;
 use App\Shippings\Shipping;
+use Cart;
+use App\Attribute;
+use Cartalyst\Stripe\Stripe;
 
 class StripePaymentGetway implements PaymentGetwayContract
 {
     public $shippings_names = [];
-    public $shipping        = 0;
-    public $subtotal        = 0;
-    public $coupons         = 0;
-    public $qty             = 0;
+    public $shipping = 0;
+    public $subtotal = 0;
+    public $coupons = 0;
+    public $qty = 0;
 
+    public function charge($validate = null, $token = null)
+    {
 
-    public function charge($validate = null,$token = null) {
-
-        $data             = [];
-        $data['items']    = [];
+        $data = [];
+        $data['items'] = [];
         $data['shipping'] = [];
-
-        if (session()->get('items') !== null) {
-            foreach (session()->get('items') as $cart) {
-                $cc           = Cart::content()->find($cart['item']);
-                $cart_product = $cc->getProduct();
-                if($cart_product->product_type == 'variable') {
-                    if(check_stock($cc) < $cc->quantity) {
-                        if(check_stock($cc) <= 0 || $cart_product->in_stock == 'out_stock') {
+        try {
+            foreach (carts_content() as $cart) {
+                $cart_product = $cart['cart']->getProduct();
+                if ($cart_product->isVariable()) {
+                    if ($cart['cart']->buyable->stock < $cart['cart']->quantity) {
+                        if ($cart['cart']->buyable->stock <= 0 || $cart['cart']->buyable->in_stock == 'out_stock') {
                             $slug = $cart_product->slug;
-                            Cart::remove($cc->id);
+                            Cart::remove($cart['cart']->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
-                            return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
+                            return redirect()->route('show_product', $slug)->with('out_stock', trans('user.this_product_is_out_of_stock'));
                         } else {
-                            Cart::update($cc->id, $cart_product->stock);
+                            Cart::update($cart['cart']->id, $cart['cart']->quantity);
                         }
                     }
                 } else {
-                    if($cart_product->stock < $cc->quantity) {
-                        if($cart_product->stock <= 0 || $cart_product->in_stock == 'out_stock') {
+                    if ($cart['cart']->buyable->stock < $cart['cart']->quantity) {
+                        if ($cart['cart']->buyable->stock <= 0 || $cart['cart']->buyable->in_stock == 'out_stock') {
                             $slug = $cart_product->slug;
-                            Cart::remove($cc->id);
+                            Cart::remove($cart['cart']->id);
                             session()->forget('items');
                             Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
-                            return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
+                            return redirect()->route('show_product', $slug)->with('out_stock', trans('user.this_product_is_out_of_stock'));
                         }
-                        Cart::update($cc->id, $cart_product->stock);
+                        Cart::update($cart['cart']->id, $cart['cart']->quantity);
+                    }
+                }
+                // shipping
+                $calcShipping    = new Shipping($cart['shipping'], $cart['cart']->quantity, $cart['cart']->price, $cart_product->weight);
+                $shippingMethod  = $calcShipping->shippingMethod();
+                $this->shipping += $this->format_currency($shippingMethod[0]);
+                $shipping_name   = $shippingMethod[1];
+
+                $this->qty      += $cart['cart']->quantity;
+                $this->subtotal += $this->format_currency($cart['cart']->price * $cart['cart']->quantity);
+                $options         = [];
+
+                if ($cart_product->IsVariable()) {
+                    foreach ($cart['cart']->options as $key => $val) {
+                        $attribute = Attribute::where('id', $val)->first();
+                        if ($attribute) {
+                            array_push($options, $attribute->attribute_family->name . ' : ' . $attribute->name);
+                        }
                     }
                 }
 
-                $calcShipping    = new Shipping(Shipping_methods::where('id',$cart['shipping'])->first(), $cc->quantity,$cc->price, $cart_product->weight);
-                $shippingMethod  = $calcShipping->shippingMethod();
-                $this->shipping += $shippingMethod[0];
-                $shipping_name   = $shippingMethod[1];
-
-                $this->qty      += $cc->quantity;
-               // $this->shipping += round($ship);
-                $this->subtotal += round($cc->price * $cc->quantity);
                 array_push($data['items'],
                     [
-                        'name'  => 'product name : ' . $cart_product->name,
-                        'price' => 'product price : ' . round($cc->price),
-                        'qty'   => 'product quantity : ' . $cc->quantity,
+                        'name'    => 'product name : ' . $cart_product->name,
+                        'price'   => 'product price : ' . $this->format_currency($cart['cart']->price),
+                        'options' => 'product options : ' . implode('  ---  ', $options),
+                        'qty'     => 'product quantity : ' . $cart['cart']->quantity,
                     ]);
                 array_push($data['shipping'],
                     [
-                        'name' => 'shipping_method: ' . $shipping_name, 'price' => 'Price: ' . round($shippingMethod[0]),
+                        'name' => 'shipping_method: ' . $shipping_name, 'price' => 'Price: ' . $this->format_currency($shippingMethod[0]),
                         'desc' => 'shipping method: ' . $shipping_name, 'qty' => 1,
                     ]);
                 array_push($this->shippings_names, $shipping_name);
 
             }
-        } else {
-            foreach (Cart::content() as $index => $cart) {
-                $cart_product = $cart->getProduct();
-                if($cart_product->product_type == 'variable') {
-                    if(check_stock($cart) < $cart->quantity) {
-                        if(check_stock($cart) <= 0 || $cart_product->in_stock == 'out_stock') {
-                            $slug = $cart_product->slug;
-                            Cart::remove($cart->id);
-                            session()->forget('items');
-                            Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
-                            return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
-                        } else {
-                            Cart::update($cart->id, $cart_product->stock);
-                        }
-                    }
-                } else {
-                    if($cart_product->stock < $cart->quantity) {
-                        if($cart_product->stock <= 0 || $cart_product->in_stock == 'out_stock') {
-                            $slug = $cart_product->slug;
-                            Cart::remove($cart->id);
-                            session()->forget('items');
-                            Alert::warning(trans('user.Alert'), trans('user.this_product_is_out_of_stock'));
-                            return redirect()->route('show_product',$slug)->with('out_stock',trans('user.this_product_is_out_of_stock'));
-                        }
-                        Cart::update($cart->id, $cart_product->stock);
-                    }
-                }
 
-                $calcShipping    = new Shipping($cart_product->methods->first(), $cart->quantity, $cart->price, $cart_product->weight);
-                $shippingMethod  = $calcShipping->shippingMethod();
-                $this->shipping += $shippingMethod[0];
-                $shipping_name   = $shippingMethod[1];
+        $data['total'] = $this->subtotal + $this->shipping - $this->format_currency($this->discount());
 
-                $this->qty      += $cart->quantity;
-                //$this->shipping += round($ship);
-                $this->subtotal += round($cart->price * $cart->quantity);
-                array_push($data['items'],
-                    [
-                        'name'  . $index => 'product name : ' . $cart_product->name,
-                        'price' . $index => 'product price : ' . curr($cart->price),
-                        'qty'   . $index => 'product quantity : ' . $cart->quantity,
-                    ]);
-                array_push($data['shipping'],
-                    [
-                        'name' => 'shipping_method: ' . $shipping_name, 'price' => 'cost: ' . round($shippingMethod[0]),
-                        'desc' => 'shipping method: ' . $shipping_name, 'qty' => 1,
-                    ]);
-                array_push($this->shippings_names, $shipping_name);
-
-            }
-        }
-
-
-        $data['total'] = round($this->subtotal + $this->shipping - $this->discount());
-        //dd($this->coupons);
         $stripe = Stripe::make(env('STRIPE_SECRET_KEY'));
         $charge = $stripe->charges()->create([
-            'currency' => 'USD',
+            'currency' => currency()->getUserCurrency(),
             'amount'   => $data['total'],
             'source'   => $token,
             'metadata' => [
-                'products'  => implode('-------', \Arr::collapse($data['items'])),
-                'shippings' => implode('-------', \Arr::collapse($data['shipping'])),
+                'products' => implode('    ---    ', \Arr::collapse($data['items'])),
+                'shippings' => implode('    ---    ', \Arr::collapse($data['shipping'])),
             ],
             'receipt_email' => $validate['billing_email'],
         ]);
@@ -149,14 +102,8 @@ class StripePaymentGetway implements PaymentGetwayContract
         $orderDetails = new OrderDetails();
         $orderDetails->store($validate);
         try {
-            if (session()->get('items') !== null) {
-                foreach (session()->get('items') as $cart) {
-                    Cart::remove($cart['shipping']);
-                }
-            } else {
-                foreach (Cart::content() as $cart) {
-                    Cart::remove($cart->id);
-                }
+            foreach (carts_content() as $cart) {
+                Cart::remove($cart['cart']->id);
             }
             session()->forget('items');
         } catch (\Exeption $e) {
@@ -165,9 +112,15 @@ class StripePaymentGetway implements PaymentGetwayContract
         session()->forget('coupon');
         return redirect()->route('success_page');
 
+    } catch(\Exception $e) {
+
+        return redirect()->route('fail_page',  $e->getMessage());
     }
 
-    public function discount() {
+    }
+
+    public function discount()
+    {
 
         if (session()->get('coupon') !== null) {
             foreach (session()->get('coupon') as $coupon) {
@@ -181,4 +134,7 @@ class StripePaymentGetway implements PaymentGetwayContract
         return 0;
     }
 
+    protected function format_currency($price) {
+        return number_format(currency(floatVal($price), 'USD', strip_tags(currency()->getUserCurrency()), false), 2, '.', '');
+    }
 }

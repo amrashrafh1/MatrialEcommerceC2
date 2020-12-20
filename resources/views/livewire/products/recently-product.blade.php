@@ -9,7 +9,7 @@
                 <div class="products">
                     @foreach($recently_viewed as $product)
                     <div class="landscape-product product">
-                        <a class="woocommerce-LoopProduct-link" href="{{route('show_product',$product->slug)}}">
+                        <a class="woocommerce-LoopProduct-link" href="{{route('show_product',$product->slug)}}" target="_blank">
                             <div class="media">
                                 <img class="wp-post-image" src="{{Storage::url($product->image)}}" alt="">
                                 <div class="media-body">

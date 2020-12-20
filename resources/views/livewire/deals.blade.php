@@ -18,7 +18,7 @@
                                 <div class="products">
                                     <div class="sale-product-with-timer product">
                                         <a class="woocommerce-LoopProduct-link"
-                                            href="{{route('show_product',$random->product->slug)}}">
+                                            href="{{route('show_product',$random->product->slug)}}" target="_blank">
                                             <div class="sale-product-with-timer-header">
                                                 <div class="price-and-title">
                                                     <span class="price">
@@ -105,7 +105,7 @@
                                             @endauth>
                                             </a> </div>
                                         <a href="{{route('show_product',$discount->product->slug)}}"
-                                            class="woocommerce-LoopProduct-link">
+                                            class="woocommerce-LoopProduct-link" target="_blank">
                                             <span class="onsale">
                                                 <span class="woocommerce-Price-amount amount">
                                                     {!! curr($discount->product->calc_price() - $discount->price())
@@ -131,7 +131,7 @@
                                             @if($discount->product->IsVariable())
                                             <a class="button add_to_cart_button"
                                                 href='{{route('show_product', $discount->product->slug)}}'
-                                                rel="nofollow">@lang('user.Add_to_cart')</a>
+                                                rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
                                             @if($compare !== null)
                                             @if(!in_array($discount->product->id,$compare))
                                             <a class="add-to-compare-link comp"
@@ -178,7 +178,7 @@
                                             @auth wire:click='wishlists({{$discount->product->id}})' @else href='{{route('login')}}'
                                             @endauth>
                                             </a> </div>
-                                        <a href="{{route('show_product', $discount->product->slug)}}"
+                                        <a href="{{route('show_product', $discount->product->slug)}}" target="_blank"
                                             class="woocommerce-LoopProduct-link">
                                             <span class="onsale">
                                                 <span class="woocommerce-Price-amount amount">
@@ -205,7 +205,7 @@
                                         <div class="hover-area">
                                             @if($discount->product->IsVariable())
                                             <a class="button add_to_cart_button"
-                                                href='{{route('show_product',$discount->product->slug)}}'
+                                                href='{{route('show_product',$discount->product->slug)}}' target="_blank"
                                                 rel="nofollow">@lang('user.Add_to_cart')</a>
                                             @if($compare !== null)
                                             @if(!in_array($discount->product->id,$compare))

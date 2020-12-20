@@ -35,7 +35,7 @@
         @forelse($tags as $tag)
         <div class='search-product' style="padding :10px 0 10px; margin:  10px 0; width:100%;">
             @if(!blank($this->slug))
-                <a href="{{route('show_product', $tag->slug)}}" class="row" style="padding-left :20px;">
+                <a href="{{route('show_product', $tag->slug)}}" target="_blank" class="row" style="padding-left :20px;">
                     <div class="col-md-3">
                     <img src='{{Storage::url($tag->image)}}' width='90' height='90'>
                     </div>

@@ -22,7 +22,7 @@
                             <li class="woocommerce-mini-cart-item mini_cart_item">
                                 <a href="#" class="remove" wire:click='removeCart({{$cart->id}})'
                                     aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-                                <a href="{{route('show_product',$cart_product->slug)}}">
+                                <a href="{{route('show_product',$cart_product->slug)}}" target="_blank">
                                     <img src="{{ Storage::url($cart_product->image) }}"
                                         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image"
                                         alt="">{{ $cart_product->name }}&nbsp;
@@ -44,7 +44,7 @@
                             <li class="woocommerce-mini-cart-item mini_cart_item">
                                 <a href="#" class="remove" wire:click='removeCart({{$cart->id}})'
                                     aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-                                <a href="{{route('show_product',$cart_product->slug)}}">
+                                <a href="{{route('show_product',$cart_product->slug)}}" target="_blank">
                                     <img src="{{ Storage::url($cart_product->image) }}"
                                         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image"
                                         alt="">{{ $cart_product->name }}&nbsp;
@@ -64,7 +64,7 @@
                                 {!! curr(Cart::subTotal()) !!}</span>
                         </p>
                         <p class="woocommerce-mini-cart__buttons buttons">
-                            <a href="{{route('show_cart')}}" class="button wc-forward">@lang('user.View-cart')</a>
+                            <a href="{{route('show_cart')}}" class="button wc-forward">@lang('user.View_Shopping_Cart')</a>
                             <a href="{{route('show_checkout')}}"
                                 class="button checkout wc-forward">@lang('user.Checkout')</a>
                         </p>
@@ -78,19 +78,22 @@
     </li>
 </ul>
 <!-- .site-header-cart -->
-
+<!-- Modal -->
 @push('js')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        //console.log('asdasd');
+
         window.livewire.on('cartAdded', function () {
-            Swal.fire({
+            /* Swal.fire({
                 position: 'top-end',
                 icon: 'success',
                 title: '{{trans("admin.added")}}',
                 showConfirmButton: true,
                 timer: 1500
-            });
+            }); */
+            $("#exampleModalCenter").modal('show');
+            $("p.cart-count").text("{{trans('user.A_new_item_has_been_added_to_your_Shopping_Cart._You_now_have_items_in_your_Shopping_Cart.',
+                    ['number' => count($carts)])}}");
         })
     })
 

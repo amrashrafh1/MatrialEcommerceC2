@@ -267,6 +267,29 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
 </footer>
 <!-- .site-footer -->
 </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class='cart-count'><i class='fa fa-check-circle' style='color: green;'></i>
+                    @lang('user.A_new_item_has_been_added_to_your_Shopping_Cart._You_now_have_items_in_your_Shopping_Cart.',
+                    ['number' => count(Cart::content())])</p>
+                <a href="{{route('show_cart')}}" class="btn btn-default button-modal-cart"
+                    data-dismiss="modal">@lang('user.View_Shopping_Cart')</a>
+                <button type="button" class="button-modal-cart2"
+                    data-dismiss="modal">@lang('user.Continue_Shopping')</button>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="app"></div>
 @auth
@@ -282,6 +305,25 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
 <style>
     .change_color {
         color:red;
+    }
+
+    .button-modal-cart {
+        border-radius: 4px;
+        padding      : 0 32px;
+        height       : 32px;
+        line-height  : 30px;
+        font-size    : 14px;
+        border-width : 1px;
+        border       : 1px solid #0063D1;
+    }
+    .button-modal-cart2 {
+        border-radius: 4px;
+        padding      : 0 32px;
+        height       : 32px;
+        line-height  : 30px;
+        font-size    : 14px;
+        border-width : 1px;
+        color        : #fff;
     }
 </style>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery.min.js"></script>
@@ -352,6 +394,11 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
 
         $(this).text("@lang('user.already_added')");
     });
+    /* $( document ).ready(function() {
+        $('.slick-track').attr('style','');
+        $('.slick-track').css({'opacity': '1', 'width': '5572px', 'transform': 'translate3d(-1592px, 0px, 0px)'});
+    }); */
+
 </script>
 @endpush
 @stack('js')

@@ -49,14 +49,14 @@
                                                 </div>
                                             </td>
                                             <td class="product-thumbnail" style='margin-left:20px;'>
-                                                <a href="{{route('show_product',$product->slug)}}">
+                                                <a href="{{route('show_product',$product->slug)}}" target="_blank">
                                                     <img alt="" class="wp-post-image"
                                                         src="{{Storage::url($product->image)}}" style="width: 180px; height:180px;">
                                                 </a>
                                             </td>
                                             <td class="product-name">
                                                 <a
-                                                    href="{{route('show_product',$product->slug)}}">{{$product->name}}</a>
+                                                    href="{{route('show_product',$product->slug)}}" target="_blank">{{$product->name}}</a>
                                             </td>
                                             <td class="product-price">
                                                 @if(isset($product->discount))
@@ -107,7 +107,7 @@
                                             <td class="product-add-to-cart">
                                             <td>
                                                 @if($product->IsVariable())
-                                                <a class="button add_to_cart_button" href='{{route('show_product', $product->slug)}}'
+                                                <a class="button add_to_cart_button" href='{{route('show_product', $product->slug)}}' target="_blank"
                                                     rel="nofollow">Add to cart</a>
                                                 @else
                                                 <a class="button add_to_cart_button text-white" wire:click='addCart({{$product->id}})'
