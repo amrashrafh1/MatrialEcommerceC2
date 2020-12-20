@@ -25,19 +25,20 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header" role="tab" id="product_variation_heading{{$index}}">
-                    <div class='pull-left'>
+                    <div class='pull-right'>
                         <button class="btn btn-danger" wire:click.prevent='delete_variation({{$variation->id}})' data-toggle="tooltip"
                             data-placement="top" title="@lang('admin.delete')"><i
-                                class="fa fa-trash fa-2x"></i></button>
+                                class="fa fa-trash"></i></button>
                     </div>
-                    <a data-toggle="collapse" data-parent="#accordionEx" href="#product_variation_variations{{$index}}"
-                        aria-expanded="true" aria-controls="product_variation_variations{{$index}}">
-                        <h5 class="mb-0">
-
+                    <h5 class="mb-0">
+                            <a  class='open_close' data-toggle="collapse" data-parent="#accordionEx" href="#product_variation_variations{{$index}}"
+                                aria-expanded="true" aria-controls="product_variation_variations{{$index}}">
+                            open  <i class="fas fa-angle-up rotate-icon"></i>
+                            </a>
                             <div class="row">
                                 @foreach($family as $indx => $fam)
                                 <div class="form-group col-3">
-                                    <h3>{{$fam->name}}</h3>
+                                    <h4>{{$fam->name}}</h4>
                                     <select name="variations[]" class="form-control" required>
                                         <option value="">@lang('admin.empty')</option>
                                         @foreach($fam->attributes as $attr)
@@ -48,10 +49,7 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <i class="fas fa-angle-down rotate-icon"></i>
                         </h5>
-                    </a>
-
                 </div>
                 <!-- Card body -->
                 <div id="product_variation_variations{{$index}}" class="collapse show" role="tabpanel" aria-labelledby="product_variation_heading{{$index}}"
@@ -145,10 +143,12 @@
                             data-placement="top" title="@lang('admin.delete')"><i
                                 class="fa fa-trash fa-2x"></i></button>
                     </div>
-                    <a data-toggle="collapse" data-parent="#accordionEx" href="#variations{{$index}}"
-                        aria-expanded="true" aria-controls="variations{{$index}}">
-                        <h5 class="mb-0">
+                    <h5 class="mb-0">
+                            <a data-toggle="collapse" data-parent="#accordionEx" href="#variations{{$index}}"
+                                aria-expanded="true" aria-controls="variations{{$index}}">
+                                click here <i class="fas fa-angle-up rotate-icon"></i>
 
+                            </a>
                             <div class="row">
                                 @foreach($family as $indx => $fam)
                                 <div class="form-group col-3">
@@ -163,10 +163,7 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <i class="fas fa-angle-down rotate-icon"></i>
                         </h5>
-                    </a>
-
                 </div>
                 <!-- Card body -->
                 <div id="variations{{$index}}" class="collapse show" role="tabpanel" aria-labelledby="heading{{$index}}"
@@ -250,3 +247,17 @@
         <input type="submit" class="btn btn-success" value="@lang('admin.save')">
     </form>
 </div>
+
+@push('js')
+<script>
+    $('a.open_close').click(function(){
+    $(this).find('i').toggleClass('fa-angle-down fa-angle-up');
+
+    if ($(this).text() === "{{trans('admin.open')}}") {
+        $(this).text("{{trans('admin.close')}}");
+    } else {
+        $(this).text("{{trans('admin.open')}}");
+    }
+});
+</script>
+@endpush

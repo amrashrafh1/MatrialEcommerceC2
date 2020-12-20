@@ -5,7 +5,7 @@
     <li class="animate-dropdown dropdown ">
         <a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
             <i class="tm tm-shopping-bag"></i>
-            <span class="count">{{ count($carts) }}</span>
+            <span class="count cart_count">{{ count($carts) }}</span>
             <span class="amount">
                 <span class="price-label">@lang('user.your_cart')</span>{!! curr(Cart::subTotal()) !!}</span>
         </a>
@@ -82,18 +82,8 @@
 @push('js')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
         window.livewire.on('cartAdded', function () {
-            /* Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: '{{trans("admin.added")}}',
-                showConfirmButton: true,
-                timer: 1500
-            }); */
             $("#exampleModalCenter").modal('show');
-            $("p.cart-count").text("{{trans('user.A_new_item_has_been_added_to_your_Shopping_Cart._You_now_have_items_in_your_Shopping_Cart.',
-                    ['number' => count($carts)])}}");
         })
     })
 

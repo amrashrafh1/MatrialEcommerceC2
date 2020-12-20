@@ -32,7 +32,7 @@
                         aria-expanded="true" aria-controls="variations{{$index}}">
                         <h5 class="mb-0">
 
-                            <div class="row">
+                            <div class="row" id='select-box'>
                                 @foreach($family as $indx => $fam)
                                 <div class="form-group col-3">
                                     <h3>{{$fam->name}}</h3>
@@ -133,3 +133,11 @@
         <input type="submit" class="btn btn-success" value="@lang('admin.save')">
     </form>
 </div>
+
+@push('js')
+<script>
+    $('#accordionEx').collapse({
+    toggle: false
+    })
+</script>
+@endpush

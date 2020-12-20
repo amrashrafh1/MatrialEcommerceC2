@@ -277,9 +277,9 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
                 </button>
             </div>
             <div class="modal-body">
-                <p class='cart-count'><i class='fa fa-check-circle' style='color: green;'></i>
-                    @lang('user.A_new_item_has_been_added_to_your_Shopping_Cart._You_now_have_items_in_your_Shopping_Cart.',
-                    ['number' => count(Cart::content())])</p>
+                <p ><i class='fa fa-check-circle' style='color: green;'></i>
+                    <span class='cart-count'>@lang('user.A_new_item_has_been_added_to_your_Shopping_Cart.')</span>
+                </p>
                 <a href="{{route('show_cart')}}" class="btn btn-default button-modal-cart"
                     data-dismiss="modal">@lang('user.View_Shopping_Cart')</a>
                 <button type="button" class="button-modal-cart2"
