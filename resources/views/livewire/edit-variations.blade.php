@@ -33,7 +33,7 @@
                     <h5 class="mb-0">
                             <a  class='open_close' data-toggle="collapse" data-parent="#accordionEx" href="#product_variation_variations{{$index}}"
                                 aria-expanded="true" aria-controls="product_variation_variations{{$index}}">
-                            open  <i class="fas fa-angle-up rotate-icon"></i>
+                            <span> close </span>  <i class="fas fa-angle-up rotate-icon"></i>
                             </a>
                             <div class="row">
                                 @foreach($family as $indx => $fam)
@@ -138,15 +138,15 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header" role="tab" id="heading{{$index}}">
-                    <div class='pull-left'>
+                    <div class='pull-right'>
                         <button class="btn btn-danger" wire:click.prevent='deleteRaw({{$index}})' data-toggle="tooltip"
                             data-placement="top" title="@lang('admin.delete')"><i
-                                class="fa fa-trash fa-2x"></i></button>
+                                class="fa fa-trash"></i></button>
                     </div>
                     <h5 class="mb-0">
-                            <a data-toggle="collapse" data-parent="#accordionEx" href="#variations{{$index}}"
+                            <a class='open_close' data-toggle="collapse" data-parent="#accordionEx" href="#variations{{$index}}"
                                 aria-expanded="true" aria-controls="variations{{$index}}">
-                                click here <i class="fas fa-angle-up rotate-icon"></i>
+                                <span> close </span>  <i class="fas fa-angle-up rotate-icon"></i>
 
                             </a>
                             <div class="row">
@@ -253,10 +253,10 @@
     $('a.open_close').click(function(){
     $(this).find('i').toggleClass('fa-angle-down fa-angle-up');
 
-    if ($(this).text() === "{{trans('admin.open')}}") {
-        $(this).text("{{trans('admin.close')}}");
+    if ($(this).find('span').text() === "{{trans('admin.open')}}") {
+        $(this).find('span').text("{{trans('admin.close')}}");
     } else {
-        $(this).text("{{trans('admin.open')}}");
+        $(this).find('span').text("{{trans('admin.open')}}");
     }
 });
 </script>

@@ -30,7 +30,7 @@ class Variations extends Component
             });
         }])->get();
         return view('livewire.variations', ['product' => $this->product,
-         'family' => $this->families
+        'family' => $this->families
         ,'variations' => $this->variations]);
     }
 
@@ -76,8 +76,7 @@ class Variations extends Component
     }
 
     public function addRaw() {
-        array_push($this->variations, $this->families->pluck('name'));
-        return;
+        array_push($this->variations, $this->families->pluck('name')->toArray());
     }
 
     public function deleteRaw($index) {

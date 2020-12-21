@@ -768,7 +768,6 @@
         if(listProducts){
             @this.set('tab', listProducts.replace('#', ''));
         } else {
-            console.log('asd');
             @this.set('tab', 'grid-extended');
         }
     });
