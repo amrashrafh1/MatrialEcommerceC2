@@ -23,18 +23,8 @@ class Shop extends Component
     public $PageNumber = 1;
     public $tab        = '';
 
-    public function mount($category = [])
-    {
-        if ($category) {
-            $this->category = $category;
-        } else {
-            $this->category = [];
-        }
-    }
-
     public function render()
     {
-        $pros = [];
 
         if ($this->category) {
 
@@ -97,8 +87,7 @@ class Shop extends Component
         $latest_products = Product::orderBy('id', 'DESC')->take(10)->get();
 
         return view('livewire.shop', [
-            'products' => $products,
-            'pros'     => $pros,     'categories' => $categories,
+            'products' => $products,    'categories' => $categories,
             'brands'   => $brands,   'attributes' => $attributes, 'family' => $family,
              'tab' => $this->tab, 'latest_products' => $latest_products]);
     }

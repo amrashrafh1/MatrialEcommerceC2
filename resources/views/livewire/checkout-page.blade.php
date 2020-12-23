@@ -466,7 +466,7 @@
                                                 <tr class="cart_item">
                                                     <td class="product-name">
                                                         <strong class="product-quantity">{{intval($cart['cart']->quantity)}}
-                                                            ×</strong> {!! curr($cart['cart']->price) !!}" {{$cart['cart']->buyable->name}}
+                                                            ×</strong> {!! curr($cart['cart']->price) !!}" {{$cart_product->name}}
                                                     </td>
                                                     <td class="product-total">
                                                         <span class="woocommerce-Price-amount amount">

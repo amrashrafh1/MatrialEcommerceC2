@@ -43,7 +43,7 @@ Route::get('/product/{slug}', 'FrontEnd\ProductController@show')->name('show_pro
 Route::post('/get/variations/data', 'FrontEnd\ProductController@get_data')->name('get_data');
 
 // Category page
-Route::get('/category/{slug}', 'FrontEnd\ShopController@index')->name('show_category');
+Route::get('/category/{slug}', 'FrontEnd\CategoryController')->name('show_category');
 
 // Super deal page (discount page)
 Route::get('/super-deal', 'FrontEnd\SuperDealController@index')->name('show_superdeal');
@@ -93,19 +93,7 @@ Route::get('/wishlists', function () {
 })->name('show_wishlists')->middleware('auth');
 
 // Shop Page
-Route::get('/shop', function () {
-    $setting             = Setting::latest('id')->first();
-
-    SEOTools::setTitle($setting?$setting->sitename:config('app.name'));
-    SEOTools::setDescription($setting?$setting->meta_description:config('app.name'));
-    SEOTools::opengraph()->setUrl(url('/'));
-    SEOTools::setCanonical(url('/'));
-    SEOTools::opengraph()->addProperty('type', 'site');
-    SEOTools::twitter()->setSite($setting?$setting->twitter:'');
-    SEOTools::jsonLd()->addImage($setting?\Storage::url($setting->image):'');
-
-    return view('FrontEnd.shop');
-})->name('shop');
+Route::get('/shop', 'FrontEnd\ShopController')->name('shop');
 
 
 /*

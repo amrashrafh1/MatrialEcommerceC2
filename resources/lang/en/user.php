@@ -406,7 +406,8 @@ return [
     'Try_again'                                                                               => 'Try again',
     'Continue_Shopping'                                                                       => 'Continue Shopping',
     'View_Shopping_Cart'                                                                      => 'View Shopping Cart',
+    'Best_Offers'                                                                             => 'Best Offers',
     'Download_our_new_app_today!_Dont_miss_our_mobile-only_offers_and_shop_with_Android_Play' => 'Download our new app today! Dont miss our mobile-only offers and shop with Android Play.',
-    'A_new_item_has_been_added_to_your_Shopping_Cart.'                                         => 'A new item has been added to your Shopping Cart.',
+    'A_new_item_has_been_added_to_your_Shopping_Cart.'                                        => 'A new item has been added to your Shopping Cart.',
 
 ];

@@ -19,7 +19,7 @@ $factory->define(Discount::class, function (Faker $faker) {
         'max_quantity'   => $faker->randomNumber(2),
         'buy_x_quantity' => $faker->randomNumber(2),
         'y_quantity'     => $faker->randomNumber(2),
-        'product_id'     => rand(1,10000),
-        'product_y'      => rand(1,10000)
+        'product_id'     => rand(1,2500),
+        'product_y'      => rand(1,2500)
     ];
 });
