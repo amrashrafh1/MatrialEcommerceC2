@@ -18,7 +18,6 @@
                             <div class="slider-block column-1-slider-block ">
                                 <div class="home-v2-slider home-slider">
                                     @foreach($sliders as $index => $slider)
-
                                     <div class="slider-1">
                                         <img src="{{Storage::url($slider->image)}}" alt="" style='left:46.4%;bottom:0'>
                                         <div class="caption">

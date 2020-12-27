@@ -57,7 +57,17 @@
                         </div>
                     </div>
                     <br>
-
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        {!! Form::label('subject',trans('admin.subject'),['control-label']) !!}
+                        </div>
+                        <div class="col-md-10">
+                            {!!
+                            Form::text('subject',old('subject', $rows->subject),['class'=>'form-control','placeholder'=>trans('admin.subject')])
+                            !!}
+                        </div>
+                    </div>
+                    <br>
                     <div class="form-group row">
                         <div class="col-md-2">
                             <label for="message" class=" control-label">@lang('admin.message')</label>

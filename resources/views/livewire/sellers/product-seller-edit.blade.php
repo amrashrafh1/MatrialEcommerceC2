@@ -251,7 +251,7 @@
             @endforeach
             <div class="form-group row">
                 <div class="col-md-3">
-                    <label for="category_id" class=" control-label">@lang('user.Category') <abbr title="required" class="required">*</abbr></label>
+                    <label for="category_id" class=" control-label">Category</label>
                 </div>
                 <div class="col-md-9">
                     <select id=category class="custom-select mt-15 @error('category_id') is-invalid @enderror" name="category_id">

@@ -140,6 +140,10 @@ class ProductsDatatable extends DataTable
                 'name'  => 'discount',
                 'data'  => 'discount',
                 'title' => trans('user.add_discount'),
+                'exportable' => false,
+                'printable'  => false,
+                'searchable' => false,
+                'orderable'  => false,
             ],
 
             [

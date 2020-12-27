@@ -5,9 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Files;
 use App\Product;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+
 class Message extends Model
 {
-    protected $table = 'messages';
+    use Cachable;
+    protected $table   = 'messages';
     protected $guarded = [];
 
     public function user()

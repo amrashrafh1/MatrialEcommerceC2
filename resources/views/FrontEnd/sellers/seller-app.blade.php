@@ -8,7 +8,7 @@
                 <a href="{{route('home')}}">@lang('user.Home')</a>
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
-                </span>{{auth()->user()->name}} @lang('user.dashboard')
+                </span>@lang('user.store_application')
             </nav>
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area" style="flex: 0 0 100%;

@@ -5,6 +5,7 @@ use App\Shipping_methods;
 use App\Sold;
 use App\Tradmark;
 use App\User;
+use App\ContactUs;
 use Illuminate\Support\Facades\DB;
 // /Admin url
 
@@ -479,7 +480,19 @@ if (!function_exists('revenue_calc')) {
 if (!function_exists('sales_calc')) {
     function sales_calc($days)
     {
+        if($days == 0) {
+            return Sold::whereDate('created_at', today())->sum('sold');
+        }
         return Sold::whereDate('created_at', today()->subDays($days))->sum('sold');
+    }
+}
+if (!function_exists('contact_us_messages')) {
+    function contact_us_messages($days)
+    {
+        if($days == 0) {
+            return ContactUs::whereDate('created_at', today())->count();
+        }
+        return ContactUs::whereDate('created_at', today()->subDays($days))->count();
     }
 }
 

@@ -35,11 +35,13 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style class="cp-pen-styles">
         body {
+            min-height: 100vh;
+            background: rgb(67, 95, 122,.3);
+        }
+        div.body {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            background: rgb(67, 95, 122,.3);
             font-family: "proxima-nova", "Source Sans Pro", sans-serif;
             font-size: 1em;
             letter-spacing: 0.1px;
@@ -858,12 +860,16 @@
     .modal-img {
         height:80%;
         width:80%;
-}
+    }
     .modal-img img{
         height:100%;
         width:100%;
-}
     }
+    .links {
+        display:block;
+        }
+    }
+
     #frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
         {{$direction == 'right'? 'margin: -2px -12px 0 -3px !important;':''}}
     }
@@ -871,8 +877,14 @@
 </head>
 
 <body>
+    <div class='links mb-2'>
+        <a href='{{route('home')}}' class='btn btn-outline-dark'><i class='fa fa-arrow-left'></i> @lang('user.Home')</a>
+        <a href='{{route('shop')}}' class='btn btn-outline-dark'><i class='fa fa-shopping-basket'></i> @lang('user.Shop')</a>
+    </div>
     <div id="app"></div>
-    @livewire('front-end.chat-bot', ['conv' => $conv])
+    <div class='body'>
+        @livewire('front-end.chat-bot', ['conv' => $conv])
+    </div>
 
     <script
     src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>

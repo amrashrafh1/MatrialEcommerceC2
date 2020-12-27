@@ -91,15 +91,15 @@
                                                         <input
                                                             class="woocommerce-form__input woocommerce-form__input-checkbox"
                                                             name="remember" {{ old('remember') ? 'checked' : '' }}
-                                                            type="checkbox" id="rememberme" /> {{ __('Remember Me') }}
+                                                            type="checkbox" id="rememberme" /> {{ trans('user.Remember_Me') }}
                                                     </label>
                                                     <input class="woocommerce-Button button" type="submit"
-                                                        value="Login" style='margin-left: 25px;'>
+                                                        value="@lang('user.login')" style='margin-{{$direction}}: 25px;'>
                                                 </p>
                                                 <p class="woocommerce-LostPassword lost_password">
                                                     @if (Route::has('password.request'))
                                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                        {{ __('Forgot Your Password?') }}
+                                                        {{ trans('user.Forgot_Your_Password?') }}
                                                     </a>
                                                     @endif
                                                 </p>
@@ -129,14 +129,14 @@
                                                         class="woocommerce-Input woocommerce-Input--text input-text @error('email') is-invalid @enderror">
                                                 </p>
                                                 <p class="form-row form-row-wide">
-                                                    <label for="reg_password">Password
+                                                    <label for="reg_password">@lang('user.password')
                                                         <span class="required">*</span>
                                                     </label>
                                                     <input type="password" id="reg_password" name="password"
                                                         class="woocommerce-Input woocommerce-Input--text input-text @error('password') is-invalid @enderror">
                                                 </p>
                                                 <p class="form-row form-row-wide">
-                                                    <label for="password-confirm">{{ __('Confirm Password') }}
+                                                    <label for="password-confirm">@lang('user.password_confirmation')
                                                         <span class="required">*</span>
                                                     </label>
                                                     <input type="password" id="password-confirm"
@@ -145,7 +145,7 @@
                                                 </p>
                                                 <p class="form-row">
                                                     <input type="submit" class="woocommerce-Button button"
-                                                        name="register" value="Register" />
+                                                        name="register" value="@lang('user.register')" />
                                                 </p>
                                                 <div class="register-benefits">
                                                     <h3>@lang('user.Sign_up_today_and_you_will_be_able_to_:')</h3>

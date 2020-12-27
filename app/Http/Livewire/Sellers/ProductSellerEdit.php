@@ -24,7 +24,8 @@ class ProductSellerEdit extends Component
         ->nest()
         ->setIndent('------')
         ->listsFlattened('name');
-        return view('livewire.sellers.product-seller-edit', ['data' => $zones]);
+
+        return view('livewire.sellers.product-seller-edit', ['data' => $zones, 'categories' => $categories]);
     }
 
     public function removeImage($id) {

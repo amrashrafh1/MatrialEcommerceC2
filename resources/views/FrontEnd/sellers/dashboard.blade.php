@@ -104,7 +104,7 @@
                                         <i class="fa fa-dollar-sign mr-2"></i>
                                         @lang('user.Total_Profit')
                                     </p>
-                                    <h2 class="text-success text-xxl mt-4">{{ $total_profit }}</h2>
+                                    <h2 class="text-success text-xxl mt-4">{{ ($total_profit)?$total_profit:0 }}</h2>
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6" style='border: 1px solid #e6e6e6;'>

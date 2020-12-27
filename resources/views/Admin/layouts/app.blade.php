@@ -50,14 +50,14 @@
 }
 
 .notification .badge {
-  position     : absolute;
-  top          : 1px;
-  right        : -10px;
-  padding      : 5px;
-  border-radius: 50%;
-  font-size    : 11px;
-  background   : red;
-  color        : white;
+  position      : absolute;
+  top           : 1px;
+  {{$direction =='right'?'left':'right'}}: -10px;
+  padding       : 5px;
+  border-radius : 50%;
+  font-size     : 11px;
+  background    : red;
+  color         : white;
 }
     </style>
 </head>

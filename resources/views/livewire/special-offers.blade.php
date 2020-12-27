@@ -106,6 +106,9 @@
                                                 <div class="media">
                                                     <div class="techmarket-product-gallery images techmarket-3-2-3-gallery">
                                                         <figure class="techmarket-wc-product-gallery__wrapper" data-ride="tm-slick-carousel" data-wrap=".techmarket-wc-product-gallery__wrapper" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;.techmarket-3-2-3-gallery .techmarket-wc-product-gallery-thumbnails__wrapper&quot;}">
+                                                            <figure class="techmarket-wc-product-gallery__image" data-thumb="{{Storage::url($product->image)}}">
+                                                                <img width="600" height="600" title="" alt="" class="wp-post-image1" src="{{Storage::url($product->image)}}">
+                                                            </figure>
                                                             @foreach($product->gallery as $image)
                                                             <figure class="techmarket-wc-product-gallery__image" data-thumb="{{Storage::url($image->file)}}">
                                                                 <img width="600" height="600" title="" alt="" class="wp-post-image1" src="{{Storage::url($image->file)}}">
@@ -114,6 +117,9 @@
 
                                                         </figure>
                                                         <figure class="techmarket-wc-product-gallery-thumbnails__wrapper" data-ride="tm-slick-carousel" data-wrap=".techmarket-wc-product-gallery-thumbnails__wrapper" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;vertical&quot;:true,&quot;verticalSwiping&quot;:true,&quot;focusOnSelect&quot;:true,&quot;touchMove&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-up\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-down\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;asNavFor&quot;:&quot;.techmarket-3-2-3-gallery .techmarket-wc-product-gallery__wrapper&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:767,&quot;settings&quot;:{&quot;vertical&quot;:false,&quot;verticalSwiping&quot;:false,&quot;slidesToShow&quot;:1}}]}">
+                                                            <figure class="techmarket-wc-product-gallery__image">
+                                                                <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" src="{{Storage::url($product->image)}}">
+                                                            </figure>
                                                             @foreach($product->gallery as $image)
                                                             <figure class="techmarket-wc-product-gallery__image">
                                                                 <img width="180" height="180" title="" alt="" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" src="{{Storage::url($image->file)}}">

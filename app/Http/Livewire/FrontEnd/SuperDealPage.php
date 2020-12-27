@@ -71,13 +71,14 @@ class SuperDealPage extends Component
                 }
             }
             /* SortBy */
-                $products = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+                $products        = sortProductsDiscount($this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+                $latest_products = Product::orderBy('id', 'DESC')->take(10)->get();
 
 
         return view('livewire.shop', ['products' => $products,
-            'pros' => $pros, 'categories' => $categories,
+            'pros'   => $pros,   'categories' => $categories,
             'brands' => $brands, 'attributes' => $attributes,
-             'family' => $family,'tab' => $this->tab]);
+            'family' => $family, 'tab'        => $this->tab,  'latest_products' => $latest_products]);
     }
 
     public function updatingPageNumber(): void

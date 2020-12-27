@@ -33,7 +33,6 @@
                                         <a href="{{route('show_product',$product->slug)}}"
                                             class="woocommerce-LoopProduct-link">
                                             @if($product->available_discount())
-                                            @if($product->discount->condition != 'buy_x_and_get_y_free')
                                             <span class="onsale">
                                                 <span class="woocommerce-Price-amount amount">
                                                     <ins>
@@ -42,7 +41,6 @@
                                                     </ins>
                                                 </span>
                                             </span>
-                                            @endif
                                             @endif
                                             <img src="{{Storage::url($product->image)}}" width="224" height="197"
                                                 class="wp-post-image" alt="">

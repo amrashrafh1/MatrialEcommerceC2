@@ -344,8 +344,9 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         if (count($methods) <= 0) {
             // will get the default shipping method if has this country
             $defaultShipping = config('app.setting');
+            if($defaultShipping) {
 
-            if ($defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
+            if ($defaultShipping && $defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
 
                 $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                     $q->whereHas('countries', function ($query) use ($country_id) {
@@ -363,8 +364,9 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
 
             }
             // if $defaultShipping empty remove this item from items array
-            if ($defaultShipping->default_shipping != 1 || $defaultShipping->shipping == null) {
-                return trans('user.shipping_not_available_in') . $country->country_name;
+                if ($defaultShipping->default_shipping != 1 || $defaultShipping->shipping == null) {
+                    return trans('user.shipping_not_available_in') . $country->country_name;
+                }
             }
         } else {
 

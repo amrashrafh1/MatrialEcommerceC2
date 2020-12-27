@@ -39,7 +39,7 @@ $marketplace = [
                     <p>{{ trans('admin.dashboard') }}</p>
                 </a>
             </li>
-            <li class="nav-item{{ in_array($activePage, $marketplace) ? ' collapsed' : '' }} list-group">
+            <li class="nav-item{{ in_array($activePage, $marketplace) ? ' collapsed' : '' }} pr-0 list-group">
                 <a href="#sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#main-menu"><i
                         class="material-icons">
                         shopping_basket
@@ -109,7 +109,7 @@ $marketplace = [
                     <p>{{ trans('admin.attribute_families') }}</p>
                 </a>
             </li>
-            <li class="nav-item{{ in_array($activePage, $shipping_page) ? '' : 'collapsed' }} list-group">
+            <li class="nav-item{{ in_array($activePage, $shipping_page) ? '' : 'collapsed' }} pr-0 list-group">
                 <a href="#sub-menu4" class="list-group-item" data-toggle="collapse" data-parent="#main-menu">
                     <i class="material-icons">
                         local_shipping
@@ -141,7 +141,7 @@ $marketplace = [
                     </p>
                 </a>
             </li>
-            <li class="nav-item{{ in_array($activePage, $discount_page) ? ' collapsed' : '' }} list-group">
+            <li class="nav-item{{ in_array($activePage, $discount_page) ? ' collapsed' : '' }} pr-0 list-group">
                 <a href="#sub-menu3" class="list-group-item" data-toggle="collapse" data-parent="#main-menu">
                     <i class="material-icons">
                         local_offer
@@ -176,7 +176,7 @@ $marketplace = [
                     <p>{{ trans('admin.advertizments') }}</p>
                 </a>
             </li>
-            <li class="nav-item{{ in_array($activePage, $activities) ? ' collapsed' : '' }} list-group">
+            <li class="nav-item{{ in_array($activePage, $activities) ? ' collapsed' : '' }} pr-0 list-group">
                 <a href="#sub-menu2" class="list-group-item" data-toggle="collapse" data-parent="#main-menu">
                     <i class="fas fa-tasks"></i>
                     @lang('admin.logs')<span class="caret"></span></a>
@@ -191,7 +191,7 @@ $marketplace = [
                     data-parent="#sub-menu2">@lang('admin.activities')</a>
             </li>
 
-            <li class="nav-item{{ in_array($activePage, $cms_array) ? ' collapsed' : '' }} list-group">
+            <li class="nav-item{{ in_array($activePage, $cms_array) ? ' collapsed' : '' }} pr-0 list-group">
                 <a href="#sub-menu1" class="list-group-item" data-toggle="collapse" data-parent="#main-menu">
                     <i class="fas fa-tasks"></i>
                     @lang('admin.cms')<span class="caret"></span></a>
@@ -289,42 +289,14 @@ $marketplace = [
                     <p>{{ trans('admin.languages') }}</p>
                 </a>
             </li>
-            {{-- <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
-            <a class="nav-link" href="{{ route('table') }}">
-                <i class="material-icons">content_paste</i>
-                <p>{{ __('Table List') }}</p>
-            </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('typography') }}">
-                    <i class="material-icons">library_books</i>
-                    <p>{{ __('Typography') }}</p>
-                </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('icons') }}">
-                    <i class="material-icons">bubble_chart</i>
-                    <p>{{ __('Icons') }}</p>
-                </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('map') }}">
-                    <i class="material-icons">location_ons</i>
-                    <p>{{ __('Maps') }}</p>
-                </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('notifications') }}">
-                    <i class="material-icons">notifications</i>
-                    <p>{{ __('NewNotification') }}</p>
-                </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'language' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('language') }}">
-                    <i class="material-icons">language</i>
-                    <p>{{ __('RTL Support') }}</p>
-                </a>
-            </li> --}}
         </ul>
     </div>
 </div>
+@if($direction == 'right')
+<style>
+    .caret {
+        right: auto !important;
+        left : 0 !important;
+    }
+</style>
+@endif

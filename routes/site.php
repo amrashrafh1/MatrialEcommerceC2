@@ -211,7 +211,7 @@ Route::get('/seller/store/{slug}', 'FrontEnd\SellerProfileController@show_seller
 
 
 /* Chat (Seller & Customer) */
-Route::get('/chat', 'FrontEnd\ChatController@seller')
+Route::get('/chat', 'FrontEnd\ChatController@chat')
 ->middleware(['auth','verified'])->name('show_chat');
 /* Route::get('/chat/asd', 'FrontEnd\ChatController@chat')->middleware(['auth','verified'])->name('chat');
  */

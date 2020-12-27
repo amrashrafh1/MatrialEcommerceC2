@@ -690,7 +690,7 @@
         });
 
 
-	    $('.home-slider').slick({
+	    /* $('.home-slider').slick({
 			dots: true,
 			infinite: true,
 			speed: 300,
@@ -701,10 +701,9 @@
 			autoplaySpeed: 3000,
 			fade: true,
 			lazyLoad: 'progressive',
-			cssEase: 'linear'
-
-
-	    });
+            cssEase: 'linear',
+            rtl: true
+	    }); */
 
 
        	$('.home-slider').on('afterChange', function(event, slick, currentSlide){

@@ -2,20 +2,20 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 use App\Product;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Translatable\HasTranslations;
 
 class Tradmark extends Model
 {
-    use HasTranslations,LogsActivity;
+    use HasTranslations, LogsActivity;
 
     protected $table = 'tradmarks';
     protected $fillable = [
         'name',
         'logo',
-        'slug'
+        'slug',
     ];
     public $translatable = ['name'];
 
@@ -23,91 +23,64 @@ class Tradmark extends Model
 
     protected static $logUnguarded = true;
 
-    public function getDescriptionForEvent(string $eventName) :string
+    public function getDescriptionForEvent(string $eventName): string
     {
         return "tradmarks-{$eventName}";
     }
-    public function products () {
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 
     public function productsSortBy($sort)
     {
-        if($sort === 'price-asc') {
+        if ($sort === 'price-asc') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)->orderBy('sale_price','asc');
-        } elseif($sort === 'price-desc') {
+                ->where('approved', 1)->orderBy('sale_price', 'asc');
+        } elseif ($sort === 'price-desc') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)->orderBy('sale_price','desc');
-        }elseif($sort === 'newness') {
+                ->where('approved', 1)->orderBy('sale_price', 'desc');
+        } elseif ($sort === 'newness') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)->orderBy('id','desc');
-        }elseif($sort === 'popularity') {
+                ->where('approved', 1)->orderBy('id', 'desc');
+        } elseif ($sort === 'popularity') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)->orderByUniqueViews();
+                ->where('approved', 1)->orderByUniqueViews();
         } else {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)->withCount(['ratings as average_rating' => function ($query) {
+                ->where('approved', 1)->withCount(['ratings as average_rating' => function ($query) {
                 $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
             }])->orderByDesc('average_rating');
         }
 
-    }//end of products
+    } //end of products
 
     public function discountProductsSortBy($sort)
     {
-        if($sort === 'price-asc') {
-            return $this->hasMany(Product::class)->where('visible', 'visible')
+        $query = $this->hasMany(Product::class)->where('visible', 'visible')
             ->where('approved', 1)
             ->whereHas('discount', function ($d) {
                 $d->where('condition', 'percentage_of_product_price')
-                ->orWhere('condition', 'fixed_amount')
-                ->where('start_at', '<=',\Carbon\Carbon::now())
-                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
-            })->orderBy('sale_price','asc');
+                    ->orWhere('condition', 'fixed_amount')
+                    ->where('start_at', '<=', \Carbon\Carbon::now())
+                    ->where('expire_at', '>', \Carbon\Carbon::now())->orderBy('id', 'desc');
+            });
+            if ($sort === 'price-asc') {
+            return $query->orderBy('sale_price', 'asc');
 
-        } elseif($sort === 'price-desc') {
-            return $this->hasMany(Product::class)
-            ->where('visible', 'visible')
-            ->where('approved', 1)
-            ->whereHas('discount', function ($d) {
-                $d->where('condition', 'percentage_of_product_price')
-                ->orWhere('condition', 'fixed_amount')
-                ->where('start_at', '<=',\Carbon\Carbon::now())
-                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
-            })->orderBy('sale_price','desc');
+        } elseif ($sort === 'price-desc') {
+            return $query->orderBy('sale_price', 'desc');
 
+        } elseif ($sort === 'newness') {
+            return $query->orderBy('id', 'desc');
 
-        }elseif($sort === 'newness') {
-            return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)
-            ->whereHas('discount', function ($d) {
-                $d->where('condition', 'percentage_of_product_price')
-                ->orWhere('condition', 'fixed_amount')
-                ->where('start_at', '<=',\Carbon\Carbon::now())
-                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
-            })
-            ->orderBy('id','desc');
-
-        } elseif($sort === 'popularity') {
-            return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)->whereHas('discount', function ($d) {
-                $d->where('condition', 'percentage_of_product_price')
-                ->orWhere('condition', 'fixed_amount')
-                ->where('start_at', '<=',\Carbon\Carbon::now())
-                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
-            })->orderByUniqueViews();
-        }  else {
-            return $this->hasMany(Product::class)->where('visible', 'visible')
-            ->where('approved', 1)
-            ->whereHas('discount', function ($d) {
-                $d->where('condition', 'percentage_of_product_price')
-                ->orWhere('condition', 'fixed_amount')
-                ->where('start_at', '<=',\Carbon\Carbon::now())
-                ->where('expire_at', '>',\Carbon\Carbon::now())->orderBy('id', 'desc');
-            })
-            ->orderBy('id','desc');
+        } elseif ($sort === 'popularity') {
+            return $query->orderByUniqueViews();
+        } else {
+            return $query->withCount(['ratings as average_rating' => function ($query) {
+                $query->where('approved', 1)->select(\DB::raw('coalesce(avg(rating),0)'));
+            }])->orderByDesc('average_rating');
         }
 
-    }//end of products
+    } //end of products
 }

@@ -4,9 +4,11 @@ namespace App;
 
 use App\Message;
 use Illuminate\Database\Eloquent\Model;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 class Conversation extends Model
 {
+    use Cachable;
     protected $table = 'conversations';
     protected $guarded = [];
 

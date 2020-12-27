@@ -325,6 +325,16 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
         border-width : 1px;
         color        : #fff;
     }
+    .list-view-large .onsale, .list-view .onsale {
+        right: auto !important;
+        left: -61px !important;
+    }
+    @media (max-width: 1200px) {
+    .list-view-large .onsale, .list-view .onsale {
+        right: 0 !important;
+        left: auto !important;
+    }
+    }
 </style>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery.min.js"></script>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/tether.min.js"></script>
@@ -364,6 +374,20 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
         mainColor:'#0063D1',
         bubbleBackground: '#0063D1'
     };
+    $('.home-slider').slick({
+			dots: true,
+			infinite: true,
+			speed: 300,
+			slidesToShow: 1,
+			autoplay: true,
+			pauseOnHover: false,
+			arrows: false,
+			autoplaySpeed: 3000,
+			fade: true,
+			lazyLoad: 'progressive',
+            cssEase: 'linear',
+            {{$direction == 'right'?'rtl: true':''}}
+	    });
 </script>
 @role('seller')
 @else

@@ -32,7 +32,7 @@
                             </div>
                             <p class="card-category">@lang('admin.revenue') (@lang('admin.Today'))</p>
                             <h3 class="card-title">
-                                ${{$revenues_today}}
+                                ${{$revenues_today?$revenues_today:0}}
                             </h3>
                         </div>
                         <div class="card-footer">
@@ -50,7 +50,7 @@
                             </div>
                             <p class="card-category">@lang('user.Total_Revenue')</p>
                             <h3 class="card-title">
-                                {{$total_revenues}}
+                                ${{$total_revenues?$total_revenues:0}}
                             </h3>
                         </div>
                         <div class="card-footer">
@@ -157,7 +157,7 @@
                         <div class="ct-chart" id="websiteViewsChart"></div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Email Subscriptions</h4>
+                        <h4 class="card-title">@lang('admin.Contact_us_Messages')</h4>
                         <p class="card-category">Last Campaign Performance</p>
                     </div>
                     <div class="card-footer">
@@ -494,8 +494,8 @@
         /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
         dataDailySalesChart = {
-            labels: ["@lang('admin.Today')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
-                "@lang('admin.4d')", "@lang('admin.5d')", "@lang('admin.6d')", "@lang('admin.7d')"
+            labels: ["@lang('admin.T')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
+                "@lang('admin.4d')", "@lang('admin.5d')", "@lang('admin.6d')"
             ],
             series: [
                 @json($sales),
@@ -507,7 +507,7 @@
                 tension: 0
             }),
             low: 0,
-            high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            high: {{max($max_sold) + 50}}, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
             chartPadding: {
                 top: 0,
                 right: 0,
@@ -517,8 +517,45 @@
         }
 
         var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+        //var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
 
-        var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
+        var dataWebsiteViewsChart = {
+        labels: ["@lang('admin.T')", "@lang('admin.1d')", "@lang('admin.2d')", "@lang('admin.3d')",
+            "@lang('admin.4d')", "@lang('admin.5d')", "@lang('admin.6d')"
+        ],
+        series: [
+          @json($contact_us_messages)
+
+        ]
+      };
+      var optionsWebsiteViewsChart = {
+        axisX: {
+          showGrid: false
+        },
+        low: 0,
+        high: {{max($max_contact_us) + 50}},
+        chartPadding: {
+          top: 0,
+          right: 5,
+          bottom: 0,
+          left: 0
+        }
+      };
+      var responsiveOptions = [
+        ['screen and (max-width: 640px)', {
+          seriesBarDistance: 5,
+          axisX: {
+            labelInterpolationFnc: function(value) {
+              return value[0];
+            }
+          }
+        }]
+      ];
+      var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+
+      //start animation for the Emails Subscription Chart
+        md.startAnimationForBarChart(websiteViewsChart);
+
     }
 
 </script>

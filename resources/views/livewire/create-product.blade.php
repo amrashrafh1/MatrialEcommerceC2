@@ -267,7 +267,7 @@
                     </div>
                     <div class="col-md-9">
                         <select id=category class="custom-select mt-15 @error('category_id') is-invalid @enderror" name="category_id">
-                            <option value="0">Select a parent category</option>
+                            <option value="0">@lang('user.Select_a_parent_category')</option>
                             @foreach($categories as $key => $category)
                                 ||<option value="{{ $key }}"> {{ $category }} </option>
                             @endforeach

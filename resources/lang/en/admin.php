@@ -2,6 +2,7 @@
 
 return array (
     '1_Hour_ago'                                                     => '1 Hour ago',
+    'T'                                                              => 'Tdy',
     '1d'                                                             => '1 d',
     '2d'                                                             => '2 d',
     '2days_ago'                                                      => '2 Days ago',
@@ -443,5 +444,6 @@ return array (
     "add_variations"                                                 => "Add variations",
     "edit_variations"                                                => "Edit variations",
     "variations_was_created_successfuly"                             => "Variations was created successfuly",
+    "Contact_us_Messages"                                            => "Contact us (Messages)",
 
 );

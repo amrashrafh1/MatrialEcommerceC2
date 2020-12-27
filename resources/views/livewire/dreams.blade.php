@@ -23,6 +23,16 @@
 
                                     </div>
                                     <a href="{{route('show_product', $product->slug)}}" target="_blank" class="woocommerce-LoopProduct-link">
+                                        @if($product->available_discount())
+                                            <span class="onsale">
+                                                <span class="woocommerce-Price-amount amount">
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price() -
+                                                            $product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                </span>
+                                            </span>
+                                            @endif
                                         <img src="{{Storage::url($product->image)}}" width="224"
                                             height="197" class="wp-post-image" alt="">
                                         <span class="price">

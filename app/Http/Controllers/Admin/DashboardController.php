@@ -48,9 +48,12 @@ class DashboardController extends Controller
 
         /*  Sales Chart  */
         $salesToday     = Sold::whereDate('created_at', today())->sum('sold');
-        $salesYesterday = sales_calc(1);
+        $salesYesterday = sales_calc(0);
         $sales          = [$salesToday
-            , $salesYesterday, sales_calc(2), sales_calc(3), sales_calc(4), sales_calc(4), sales_calc(5), sales_calc(6)];
+            , $salesYesterday, sales_calc(1), sales_calc(2), sales_calc(3), sales_calc(4), sales_calc(5), sales_calc(6)];
+
+        $contact_us_messages          = [contact_us_messages(0)
+            , $salesYesterday, contact_us_messages(1), contact_us_messages(2), contact_us_messages(3), contact_us_messages(4), contact_us_messages(5), contact_us_messages(6)];
 
 
         /* Used Space */
@@ -68,10 +71,18 @@ class DashboardController extends Controller
         $onlineUsersToday = User::whereDate('last_login_at', today())->count();
         $salesIncrease = getPercentageChange(($salesYesterday)?$salesYesterday:1, $salesToday);
 
-            return view('Admin.dashboard', ['chart' => $chart, 'disk_total_space' => $disk_total_space,
-                'disk_free_space'  => $disk_free_space,  'sales'          => $sales,         'profits' => $profits, 'revenues' => $revenues
-              , 'sold'             => $sold,             'salesIncrease'  => $salesIncrease, 'admins'  => $admins,
-                'onlineUsersToday' => $onlineUsersToday, 'revenues_today' => $revenues_today,
-                'total_revenues' => $total_revenues, 'total_orders' => $total_orders]);
+
+        $max_contact_us = \App\ContactUs::select(\DB::raw('DAY(created_at) as day, COUNT(id) as messages'))
+        ->groupBy(\DB::raw('DAY(created_at)'))->pluck('messages')->toArray();
+
+        $max_sold = \App\Sold::select(\DB::raw('DAY(created_at) as day, COUNT(sold) as sold'))
+        ->groupBy(\DB::raw('DAY(created_at)'))->pluck('sold')->toArray();
+
+        return view('Admin.dashboard', ['chart' => $chart, 'disk_total_space' => $disk_total_space,
+                    'disk_free_space'     => $disk_free_space,     'sales'          => $sales,          'profits'  => $profits, 'revenues' => $revenues
+                  , 'sold'                => $sold,                'salesIncrease'  => $salesIncrease,  'admins'   => $admins,
+                    'onlineUsersToday'    => $onlineUsersToday,    'revenues_today' => $revenues_today,
+                    'total_revenues'      => $total_revenues,      'total_orders'   => $total_orders
+                  , 'contact_us_messages' => $contact_us_messages, 'max_contact_us' => ($max_contact_us)?$max_contact_us:[0], 'max_sold' => ($max_sold)?$max_sold:[0]]);
     }
 }
