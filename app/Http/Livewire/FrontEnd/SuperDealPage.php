@@ -108,7 +108,32 @@ class SuperDealPage extends Component
             }
         }
     }
+    public function wishlists($id) {
+        if(Auth::check()) {
+            if(auth()->user()->wishlists()->disableCache()->pluck('product_id')->contains($id)) {
+                auth()->user()->wishlists()->disableCache()->detach($id);
+                $this->emit('wishlistAdded');
+            } else {
+                auth()->user()->wishlists()->disableCache()->attach($id);
+                $this->emit('wishlistAdded');
 
+            }
+        }
+    }
+    public function compare($id) {
+        if(session()->get('compare') !== null) {
+            if(!in_array($id,session()->get('compare'))) {
+                $this->emit('compareAdded');
+                session()->push('compare', $id);
+            } else {
+                return ;
+            }
+        } else {
+            $this->emit('compareAdded');
+            session()->push('compare', $id);
+        }
+
+    }
     public function hydrate()
     {
         app()->setLocale(session('locale'));

@@ -82,31 +82,6 @@
                             <option value="variable">Variable</option>
                         </select> </div>
                 </div>
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="name" class=" control-label">Name in {{$properties['name']}}</label>
-                    </div>
-                    <div class="col-md-9">
-
-                        <input type="text" @if($localeCode === 'en') @keyup="changeSlug" @endif
-                            name="name_{{$localeCode}}" class="form-control"
-                            placeholder="Name in {{$properties['name']}}"
-                            value="{{$this->rows->getTranslation('name', $localeCode)}}"
-                            {{($localeCode === 'en') ? 'required':''}}>
-                    </div>
-                </div>
-                @endforeach
-                <br />
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="name" class="control-label">Slug</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="slug" class="form-control" placeholder="Slug" v-model="slug">
-                    </div>
-                </div>
-                <br />
                 <div class="form-group row">
                     <div class="col-md-3">
                         <label for="sku" class=" control-label">Sku</label>
@@ -240,65 +215,20 @@
                         value="{{$this->rows->sale_price}}">
                 </div>
             </div>
-            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            <div class="form-group row">
-                <div class="col-md-3">
-                    <label for="short_description" class=" control-label">Short Description in
-                        {{$properties['name']}}</label>
-                </div>
-                <div class="col-md-9">
-                    <textarea name="short_description_{{$localeCode}}" class="form-control"
-                        placeholder="short description in  {{$properties['name']}}"
-                        id="short_description_{{$localeCode}}">{!! $this->rows->short_description !!}</textarea>
-                </div>
-            </div>
-            @endforeach
-            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-
-            <div class="form-group row">
-                <div class="col-md-3">
-                    <label for="description" class=" control-label">Description in
-                        {{$properties['name']}}</label>
-                </div>
-                <div class="col-md-9">
-                    <textarea name="description_{{$localeCode}}" class="form-control"
-                        placeholder="description in  {{$properties['name']}}"
-                        id="description_{{$localeCode}}">{!! $this->rows->description !!}</textarea>
-                </div>
-            </div>
-            @endforeach
-            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            <div class="form-group row">
-                <div class="col-md-3">
-                    <label for="description" class=" control-label">Tags in
-                        {{$properties['name']}}</label>
-                </div>
-                @php
-                $tags = [];
-                foreach($this->rows->tags()->select('name')->get() as $tag) {
-                $value = $tag->translate('name', $localeCode);
-                array_push($tags, $value);
-                }
-                @endphp
-                <div class="col-md-9">
-                    <input type="text" name="tags_{{$localeCode}}" placeholder="Tags in {{$properties['name']}}"
-                        value='{{(!empty($this->rows->tags))?implode(',', $tags):''}}' data-role="tagsinput">
-                </div>
-            </div>
-            @endforeach
             <div class="form-group row">
                 <div class="col-md-3">
                     <label for="category_id" class=" control-label">Category</label>
                 </div>
                 <div class="col-md-9">
-                    <select id=category class="custom-select mt-15 @error('category_id') is-invalid @enderror" name="category_id">
+                    <select id=category class="custom-select mt-15 @error('category_id') is-invalid @enderror"
+                        name="category_id">
                         <option value="0">Select a parent category</option>
                         @foreach($categories as $key => $category)
-                            @if ($rows->category_id == $key)
-                                <option value="{{ $key }}" selected> {{ $category }} </option>
-                            @else
-                                <option value="{{ $key }}"> {{ $category }} </option>
-                            @endif
+                        @if ($rows->category_id == $key)
+                        <option value="{{ $key }}" selected> {{ $category }} </option>
+                        @else
+                        <option value="{{ $key }}"> {{ $category }} </option>
+                        @endif
                         @endforeach
                     </select>
                     @error('category_id') {{ $message }} @enderror
@@ -362,26 +292,44 @@
         </div>
         <div class="tab-pane fade" id="attributes" v-show="variant == 'simple'" role="tabpanel"
             aria-labelledby="attributes-tab">
-            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            <div class="form-group row">
-                <div class="col-md-3">
-                    <label for="size_{{$localeCode}}" class=" control-label">size in {{$properties['name']}}</label>
+            <nav>
+                <div class="nav nav-tabs" id="myTab" role="tablist">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a style='color:#000 !important;' class="nav-link @if($localeCode == 'en') active show @endif"
+                        id="{{$localeCode}}-tab" data-toggle="tab" href="#{{$localeCode}}" role="tab"
+                        aria-controls="{{$localeCode}}" aria-selected="true">{{$localeCode}}</a>
+                    @endforeach
                 </div>
-                <div class="col-md-9">
-                    <input type="text" name="size_{{$localeCode}}" class="form-control"
-                        placeholder="size in {{$properties['name']}}" value="{{$this->rows->size}}">
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                <div class="tab-pane fade @if($localeCode == 'en') show active @endif" id="{{$localeCode}}"
+                    role="tabpanel" aria-labelledby="{{$localeCode}}-tab">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="size_{{$localeCode}}"
+                                class=" control-label">@lang('user.size_in_'.$properties['name'])</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="size_{{$localeCode}}" class="form-control"
+                                placeholder="@lang('user.size_in_'.$properties['name'])"
+                                value="{{old('size_'.$localeCode, $this->rows->getTranslation('size', $localeCode))}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="color_{{$localeCode}}"
+                                class=" control-label">@lang('user.color_in_'.$properties['name'])</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="color_{{$localeCode}}" class="form-control"
+                                placeholder="@lang('user.color_in_'.$properties['name'])"
+                                value="{{old('color_'.$localeCode, $this->rows->getTranslation('color', $localeCode))}}">
+                        </div>
+                    </div>
                 </div>
+                @endforeach
             </div>
-            <div class="form-group row">
-                <div class="col-md-3">
-                    <label for="color_{{$localeCode}}" class=" control-label">color</label>
-                </div>
-                <div class="col-md-9">
-                    <input type="text" name="color_{{$localeCode}}" class="form-control"
-                        placeholder="color in {{$properties['name']}}" value="{{$this->rows->color}}">
-                </div>
-            </div>
-            @endforeach
         </div>
         <div class="tab-pane fade" id="variable" v-show="variant == 'variable'" role="tabpanel"
             aria-labelledby="variable-tab">
@@ -472,10 +420,12 @@
                         <div class="form-group">
                             <div class="col-md-12 row" id='list_0'>
                                 <div class='col m-1'>
-                                    <input type='text' value='{{old('key.'.$index,key($value))}}' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'>
+                                    <input type='text' value='{{old('key.'.$index,key($value))}}' name='key[]'
+                                        placeholder='{{trans('admin.key')}}' class='form-control'>
                                 </div>
                                 <div class='col m-1'>
-                                    <input type='text' value='{{old('value.'.$index,$value[key($value)])}}' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'>
+                                    <input type='text' value='{{old('value.'.$index,$value[key($value)])}}'
+                                        name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'>
                                 </div>
                             </div>
                         </div>
@@ -515,194 +465,279 @@
             </div>
         </div>
         <div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
-            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
-                <div class="col-md-3">
-                    <label for="meta_tag_{{$localeCode}}" class=" control-label">@lang('user.meta_tag_'.$properties['name'])
-                        </label>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a style='color:#000 !important;' class="nav-item nav-link @if($localeCode == 'en') active show @endif" id="nav-{{$localeCode}}-tab" data-toggle="tab" href="#nav-{{$localeCode}}" role="tab" aria-controls="nav-{{$localeCode}}" aria-selected="true">{{$localeCode}}
+                    </a>
+                    @endforeach
                 </div>
-                <div class="col-md-9">
-                    <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
-                        placeholder="@lang('user.meta_tag_'.$properties['name'])"
-                        value="{{(!empty($this->rows->meta_tag))?$this->rows->getTranslation('meta_tag', $localeCode):''}}">
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                <div class="tab-pane fade @if($localeCode == 'en') show active @endif" id="nav-{{$localeCode}}" role="tabpanel" aria-labelledby="nav-{{$localeCode}}-tab">
+                    <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                        <div class="col-md-3">
+                            <label for="name" class=" control-label">@lang('user.Name_in_'.$properties['name'])
+                                @if($localeCode == 'en') <abbr title="required"
+                                    class="required">*</abbr>@endif</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" @keyup="changeSlug" name="name_{{$localeCode}}" class="form-control"
+                                placeholder="@lang('user.Name_in_'.$properties['name'])"
+                                value="{{old('name_'. $localeCode, $this->rows->getTranslation('name', $localeCode))}}" {{($localeCode === 'en') ? 'required':''}}>
+                        </div>
+                    </div>
+                    @if($localeCode === 'en')
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="name" class=" control-label">@lang('user.slug') <abbr title="required"
+                                    class="required">*</abbr></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="slug" class="form-control" placeholder="@lang('user.slug')"
+                                v-model="slug" required>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="short_description"
+                                class=" control-label">@lang('user.Short_Description_in_'.
+                                $properties['name']) @if($localeCode == 'en') <abbr title="required"
+                                    class="required">*</abbr>@endif</label>
+                        </div>
+                        <div class="col-md-9">
+                            <textarea name="short_description_{{$localeCode}}" class="form-control" placeholder="@lang('user.Short_Description_in_'.
+                                $properties['name'])"
+                                id="short_description_{{$localeCode}}">{!! old('short_description_'.$localeCode, $this->rows->getTranslation('short_description', $localeCode)) !!}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="description" class=" control-label">@lang('user.Description_in_'.
+                                $properties['name']) @if($localeCode == 'en') <abbr title="required"
+                                    class="required">*</abbr>@endif</label>
+                        </div>
+                        <div class="col-md-9">
+                            <textarea name="description_{{$localeCode}}" class="form-control" placeholder="@lang('user.Description_in_'.
+                                $properties['name'])"
+                                id="description_{{$localeCode}}">{!! old('description_'.$localeCode,$this->rows->getTranslation('description', $localeCode)) !!}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="description" class=" control-label">@lang('user.Tags_in_'.
+                                $properties['name'])</label>
+                        </div>
+                        @php
+                        $tags = [];
+                        foreach($this->rows->tags()->select('name')->get() as $tag) {
+                        $value = $tag->translate('name', $localeCode);
+                        array_push($tags, $value);
+                        }
+                        @endphp
+                        <div class="col-md-9">
+                            <input type="text" name="tags_{{$localeCode}}" placeholder="@lang('user.Tags_in_'.
+                            $properties['name'])"
+                                value='{{(!empty($this->rows->tags))?implode(',', $tags):''}}' data-role="tagsinput">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="meta_tag_{{$localeCode}}"
+                                class=" control-label">@lang('user.meta_tag_'.$properties['name'])
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
+                                placeholder="@lang('user.meta_tag_'.$properties['name'])"
+                                value="{{old('meta_tag_'.$localeCode,$this->rows->getTranslation('meta_tag', $localeCode))}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="meta_description_{{$localeCode}}"
+                                class=" control-label">@lang('user.meta_description_'.$properties['name'])
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="meta_description_{{$localeCode}}" class="form-control mb-4"
+                                placeholder="@lang('user.meta_description_'.$properties['name'])"
+                                value="{{old('meta_description_'.$localeCode,$this->rows->getTranslation('meta_description', $localeCode))}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="meta_keyword_{{$localeCode}}"
+                                class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" name="meta_keyword_{{$localeCode}}" value="{{old('meta_keyword_'.$localeCode,$this->rows->getTranslation('meta_keyword', $localeCode))}}" data-role="tagsinput">
+                        </div>
+                    </div>
                 </div>
+                @endforeach
             </div>
-            <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
-                <div class="col-md-3">
-                    <label for="meta_description_{{$localeCode}}" class=" control-label">@lang('user.meta_description_'.$properties['name'])</label>
-                </div>
-                <div class="col-md-9">
-                    <input type="text" name="meta_description" class="form-control mb-4"
-                        placeholder="@lang('user.meta_description_'.$properties['name'])"
-                        value="{{(!empty($this->rows->meta_description))?$this->rows->getTranslation('meta_description', $localeCode):''}}">
-                </div>
-            </div>
-            <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
-                <div class="col-md-3">
-                    <label for="meta_keyword_{{$localeCode}}" class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
-                        </label>
-                </div>
-                <div class="col-md-9">
-                    <input type="text" name="meta_keyword_{{$localeCode}}"
-                        value="{{(!empty($this->rows->meta_keyword))?$this->rows->getTranslation('meta_keyword', $localeCode):''}}"
-                        data-role="tagsinput">
-                </div>
-            </div>
-            @endforeach
         </div>
-    </div>
-    <div class="form-actions">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-offset-3 col-md-9">
-                        <input type="submit" class="btn btn-success" value="@lang('admin.save')">
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" class="btn btn-success" value='@lang('user.submit')'>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        {!! Form::close() !!}
     </div>
-    {!! Form::close() !!}
-</div>
-@push('js')
-<link href="{{url('/')}}/css/dropify.css" rel="stylesheet" type="text/css" />
-<link href="{{url('/')}}/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
-<script src="{{url('/')}}/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="{{url('/')}}/js/dropify.min.js"></script>
-<script>
-    var edit = new Vue({
-        el: '#edit-product',
-        data: {
-            variant: '{{old("product_type",$this->rows->product_type)}}',
-            variables: 'custom',
-            chractersVariable: [],
-            Variables: [],
-            attributesFamily: '',
-            selectedTags: [],
-            selectedValue: [],
-            slug: '{{old("slug",$this->rows->slug)}}',
-            owner: '{{old("owner",$this->rows->owner)}}',
-            section: '{{old("section",$this->rows->section)}}',
-            visible: '{{old("visible",$this->rows->visible)}}',
-            in_stock: '{{old("in_stock",$this->rows->in_stock)}}',
-            has_accessories: '{{old("has_accessories",$this->rows->has_accessories)}}',
-        },
-        computed: {
-
-        },
-        methods: {
-            variations({
-                target
-            }) {
-                this.variant = target.value;
+    @push('js')
+    <link href="{{url('/')}}/css/dropify.css" rel="stylesheet" type="text/css" />
+    <link href="{{url('/')}}/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <script src="{{url('/')}}/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="{{url('/')}}/js/dropify.min.js"></script>
+    <script>
+        var edit = new Vue({
+            el: '#edit-product',
+            data: {
+                variant: '{{old("product_type",$this->rows->product_type)}}',
+                variables: 'custom',
+                chractersVariable: [],
+                Variables: [],
+                attributesFamily: '',
+                selectedTags: [],
+                selectedValue: [],
+                slug: '{{old("slug",$this->rows->slug)}}',
+                owner: '{{old("owner",$this->rows->owner)}}',
+                section: '{{old("section",$this->rows->section)}}',
+                visible: '{{old("visible",$this->rows->visible)}}',
+                in_stock: '{{old("in_stock",$this->rows->in_stock)}}',
+                has_accessories: '{{old("has_accessories",$this->rows->has_accessories)}}',
             },
-            deleteVariableRow(e, index) {
-                e.preventDefault();
-                this.Variables.splice(index, 1)
-                this.chractersVariable.splice(index, 1)
-            },
-            countVariableChracter({
-                target
-            }, index) {
-                this.chractersVariable[index]['count'] = 191 - target.value.length;
-            },
-            SaveAttributes(e) {
-                e.preventDefault();
+            computed: {
 
             },
-            addRow(e) {
-                e.preventDefault();
-                this.inputs.push({
-                    one: ''
-                });
-            },
-            deleteRow(e, index) {
-                e.preventDefault();
-                this.inputs.splice(index, 1)
-            },
-            filterTags({
-                target
-            }, index) {
-                this.selectedTags.push({
-                    [index]: target.value
-                });
-            },
-            changeSlug({
-                target
-            }) {
-                this.slug = target.value.split(' ').join('-')
+            methods: {
+                variations({
+                    target
+                }) {
+                    this.variant = target.value;
+                },
+                deleteVariableRow(e, index) {
+                    e.preventDefault();
+                    this.Variables.splice(index, 1)
+                    this.chractersVariable.splice(index, 1)
+                },
+                countVariableChracter({
+                    target
+                }, index) {
+                    this.chractersVariable[index]['count'] = 191 - target.value.length;
+                },
+                SaveAttributes(e) {
+                    e.preventDefault();
+
+                },
+                addRow(e) {
+                    e.preventDefault();
+                    this.inputs.push({
+                        one: ''
+                    });
+                },
+                deleteRow(e, index) {
+                    e.preventDefault();
+                    this.inputs.splice(index, 1)
+                },
+                filterTags({
+                    target
+                }, index) {
+                    this.selectedTags.push({
+                        [index]: target.value
+                    });
+                },
+                changeSlug({
+                    target
+                }) {
+                    this.slug = target.value.split(' ').join('-')
+                }
             }
-        }
-    });
-
-</script>
-<script>
-    $('.dropify-single').dropify({
-        messages: {
-            'default': 'Drag and drop a file here or click',
-            'replace': 'Drag and drop or click to replace',
-            'remove': 'Remove',
-            'error': 'Ooops, something wrong appended.'
-        },
-        error: {
-            'fileSize': 'The file size is too big (2M max).'
-        }
-    });
-    $('.dropify-multi').dropify({
-        messages: {
-            'default': 'Drag and drop a file here or click',
-            'replace': 'Drag and drop or click to replace',
-            'remove': 'Remove',
-            'error': 'Ooops, something wrong appended.'
-        },
-        error: {
-            'fileSize': 'The file size is too big (2M max).'
-        }
-    });
-    $(".mcs-horizontal-example").mCustomScrollbar({
-        axis: "x",
-        theme: "dark-3",
-        advanced: {
-            autoExpandHorizontalScroll: true
-        }
-    });
-    document.addEventListener("livewire:load", function (event) {
-        window.livewire.beforeDomUpdate(() => {
-            // Add your custom JavaScript here.
         });
 
-        window.livewire.afterDomUpdate(() => {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: '{{trans("admin.updated_record")}}',
-                showConfirmButton: true,
-                timer: 1500
+    </script>
+    <script>
+        $('.dropify-single').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong appended.'
+            },
+            error: {
+                'fileSize': 'The file size is too big (2M max).'
+            }
+        });
+        $('.dropify-multi').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong appended.'
+            },
+            error: {
+                'fileSize': 'The file size is too big (2M max).'
+            }
+        });
+        $(".mcs-horizontal-example").mCustomScrollbar({
+            axis: "x",
+            theme: "dark-3",
+            advanced: {
+                autoExpandHorizontalScroll: true
+            }
+        });
+        document.addEventListener("livewire:load", function (event) {
+            window.livewire.beforeDomUpdate(() => {
+                // Add your custom JavaScript here.
+            });
+
+            window.livewire.afterDomUpdate(() => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: '{{trans("admin.updated_record")}}',
+                    showConfirmButton: true,
+                    timer: 1500
+                });
             });
         });
-    });
 
-</script>
-<script type="text/javascript" src="{{ asset('/js/add-input-area.min.js')}}"></script>
-<script>
-$(document).ready(function() {
-	var max_fields      = 20; //maximum input boxes allowed
-	var wrapper   		= $("#list"); //Fields wrapper
-	var add_button      = $(".list_add"); //Add button ID
+    </script>
+    <script type="text/javascript" src="{{ asset('/js/add-input-area.min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            var max_fields = 20; //maximum input boxes allowed
+            var wrapper = $("#list"); //Fields wrapper
+            var add_button = $(".list_add"); //Add button ID
 
-	var x = 1; //initlal text box count
-	$(add_button).click(function(e){ //on add input button click
-		e.preventDefault();
-		if(x < max_fields){ //max input box allowed
-			x++; //text box increment
-			$(wrapper).append("<li class='list_var'><div class='form-group'><div class='col-md-12 row' id='list_0'><div class='col m-1'><input type='text' value='' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'></div><div class='col m-1'><input type='text' value='' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'></div></div></div><button class='list_del btn btn-danger'><i class='fa fa-trash'></i></button></li>"); //add input box
-		}
-	});
+            var x = 1; //initlal text box count
+            $(add_button).click(function (e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append(
+                        "<li class='list_var'><div class='form-group'><div class='col-md-12 row' id='list_0'><div class='col m-1'><input type='text' value='' name='key[]' placeholder='{{trans('admin.key')}}' class='form-control'></div><div class='col m-1'><input type='text' value='' name='value[]' placeholder='{{trans('admin.value')}}' class='form-control'></div></div></div><button class='list_del btn btn-danger'><i class='fa fa-trash'></i></button></li>"
+                    ); //add input box
+                }
+            });
 
-	$(wrapper).on("click",".list_del", function(e){ //user click on remove text
-		e.preventDefault(); $(this).parent('li').remove(); x--;
-	})
-});
-</script>
-@livewireAssets
-@endpush
+            $(wrapper).on("click", ".list_del", function (e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('li').remove();
+                x--;
+            })
+        });
+
+    </script>
+    @livewireAssets
+    @endpush

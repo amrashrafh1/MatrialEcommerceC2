@@ -5,6 +5,7 @@ namespace App\Http\Livewire\FrontEnd;
 use App\Conversation;
 use App\Events\SendMesseges;
 use App\Events\StatusEvent;
+use App\Events\IsReaded;
 use App\Message;
 use App\User;
 use Livewire\Component;
@@ -12,40 +13,18 @@ use Livewire\Component;
 class ChatBot extends Component
 {
 
-    public $message, $conv,$conv_id,$faxonly, $status,$contacts = [], $paginate_var = 15, $user_id,$chat_update = false;
+    public $conv,$conv_id, $status,$contacts = [], $paginate_var = 15, $user_id,$chat_update = false;
 
-    public function chatUpdated()
-    {
-        $this->chat_update = true;
+    protected  $listeners = ['chatUpdated' => 'chatUpdated'];
+
+    public function chatUpdated() {
+        $this->chat_update = !$this->chat_update;
     }
-
     public function mount(Conversation $conv)
     {
         $this->conv    = $conv;
         $this->conv_id = $conv->id;
         $this->user_id = ($conv->user_1 != auth()->user()->id)?$conv->user_1:$conv->user_2;
-    }
-
-    public function sendMesseges()
-    {
-        if(empty(trim($this->message))){
-            return;
-        }
-        if ($this->faxonly) {
-            return $this->formResponse();
-        }
-        $data = $this->validate([
-            'message' => 'required|string|min:1|max:255',
-        ]);
-        $message = $this->conv->messages()->create([
-            'message' => $data['message'],
-            'm_to'    => $this->user_id,
-            'm_from'  => auth()->user()->id,
-        ]);
-        $this->message = '';
-
-        return broadcast(new SendMesseges($message, $this->conv_id))->toOthers();
-
     }
 
     public function render()
@@ -56,15 +35,27 @@ class ChatBot extends Component
             // get user->id
             $auth_id = auth()->user()->id;
 
-            // update is read
-            $conversation->messages()->where('m_to', $auth_id)->update(['is_read'=> 1]);
-
             // get messages count for
             $messages_count = $conversation->messages->count();
-            $messages = $conversation->messages()
+            $messages       = $conversation->messages()->with('gallery')
             ->skip($messages_count - $this->paginate_var)
             ->take($this->paginate_var)
             ->get();
+
+
+            // update is read
+            /* $conversation->messages()->where('m_to', $auth_id)->where('is_read', 0)
+            ->skip($messages_count - $this->paginate_var)
+            ->take($this->paginate_var)->update(['is_read'=> 1]); */
+
+            $conversation->messages()->where('m_to', $auth_id)->where('is_read', 0)
+            ->skip($messages_count - $this->paginate_var)
+            ->take($this->paginate_var)->chunk(15, function($msg) {
+                foreach($msg as $m) {
+                    $m->update(['is_read' => 1]);
+                    IsReaded::dispatch($m->id);
+                }
+            });
 
             $contacts_message = Conversation::where('user_1', $auth_id)->orWhere('user_2', $auth_id)->get();
 
@@ -110,7 +101,7 @@ class ChatBot extends Component
 
     public function loadMore()
     {
-        $this->paginate_var = $this->paginate_var + 15;
+        $this->paginate_var += 15;
     }
 
     public function changeStatus($status = null)
@@ -120,10 +111,10 @@ class ChatBot extends Component
             $user = User::where('id', $this->user_id)->first();
             if ($user) {
                 // dd('asd');
-                return broadcast(new StatusEvent($user, $status))->toOthers();
+                return broadcast(new StatusEvent($user,$this->conv_id->id,$status))->toOthers();
             }
         }
-        return broadcast(new StatusEvent(auth()->user()))->toOthers();
+        return broadcast(new StatusEvent(auth()->user(),$this->conv_id))->toOthers();
 
     }
 

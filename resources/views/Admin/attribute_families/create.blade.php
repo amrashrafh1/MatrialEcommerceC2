@@ -26,22 +26,43 @@
                             {!!
                             Form::open(['url'=>route('attribute_families.store'),'id'=>'users','files'=>true,'class'=>'form-horizontal
                             form-row-seperated']) !!}
-                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            @php
-                            array_push($ids,$localeCode);
-                            @endphp
-                            <div class="form-group row">
-                                <div class="col-md-2">
-                                    {!! Form::label('name',trans('admin.name') .' ('. $properties['native'] . ')',['class'=>'control-label']) !!}
+                            <div class="card card-nav-tabs card-plain">
+                                <div class="card-header card-header-info">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                            <li class="nav-item">
+                                                <a class="nav-link @if($localeCode == 'en') active show @endif"
+                                                    href="#{{$localeCode}}" data-toggle="tab">{{$localeCode}}</a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    {!!
-                                    Form::text('name_'.$localeCode,old('name'),['class'=>'form-control name_'.$localeCode,'placeholder'=>trans('admin.name') .' ('. $properties['native'] . ')'])
-                                    !!}
+                                <div class="card-body">
+                                    <div class="tab-content text-center">
+                                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                        <div class="tab-pane @if($localeCode == 'en') active show @endif" id="{{$localeCode}}">
+                                            <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                                                <div class="col-md-3">
+                                                    <label for="name"
+                                                        class=" control-label">@lang('user.Name_in_'.$properties['name'])
+                                                        @if($localeCode == 'en') <abbr title="required"
+                                                            class="required">*</abbr>@endif</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input type="text" name="name_{{$localeCode}}"
+                                                        class="form-control name_{{$localeCode}}"
+                                                        placeholder="@lang('user.Name_in_'.$properties['name'])"
+                                                        value="{{old('name_'. $localeCode)}}"
+                                                        {{($localeCode === 'en') ? 'required':''}}>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                            <br>
-                            @endforeach
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -60,17 +81,4 @@
                 </div>
     </div>
 </div>
-@push('js')
-<script>
-    <?php foreach($ids as $i) { ?>
-    $('.name_{{$i}}').on('keyup', function () {
-        $('.slug_{{$i}}').val('/'+$(this).val());
-    })
-    <?php } ?>
-    $('.name_en').on('keyup', function () {
-        $('.slug').val($(this).val());
-    });
-
-</script>
-@endpush
 @stop

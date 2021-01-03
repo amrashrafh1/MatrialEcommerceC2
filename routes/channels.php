@@ -21,6 +21,10 @@ Broadcast::channel('home', function ($message) {
 Broadcast::channel('chat.{conv_id}', function ($message, $conv_id) {
     return $message;
 });
+
+Broadcast::channel('is-readed', function ($message_id) {
+    return $message_id;
+});
 /* Broadcast::channel('status-offline', function ($user) {
     return $user->id;
 });
@@ -35,5 +39,9 @@ Broadcast::channel('new-seller', function ($message) {
     return $message;
 });
 Broadcast::channel('new-order', function ($message) {
+    return $message;
+});
+
+Broadcast::channel('new-message.{id}', function ($message) {
     return $message;
 });

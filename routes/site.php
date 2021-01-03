@@ -17,7 +17,9 @@ use App\Setting;
 
 Route::put('/product/variation/add/cart/{slug}', 'FrontEnd\ProductController@add_cart')->name('product_variation_add_cart');
 Route::put('/product/add/accesssories', 'FrontEnd\ProductController@add_accesssories_cart')->name('product_add_accessories');
-Route::post('/chat/upload/photots/{id}', 'FrontEnd\ChatController@sendMessage')->name('sendMessage')->middleware('image-sanitize');
+Route::post('/chat/upload/photots/{id}', 'FrontEnd\ChatController@sendImages')->name('sendImages')->middleware('image-sanitize');
+Route::post('/chat/message/{id}', 'FrontEnd\ChatController@sendMessage')->name('sendMessage');
+Route::post('/chat/message/isreaded/{id}', 'FrontEnd\ChatController@is_readed')->name('is_readed');
 
 Route::group(
     [

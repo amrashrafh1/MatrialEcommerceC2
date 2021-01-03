@@ -9,8 +9,8 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\User;
-class StatusEvent implements ShouldBroadcastNow
+
+class NewMessageNotify implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,21 +19,13 @@ class StatusEvent implements ShouldBroadcastNow
      *
      * @return void
      */
-    public $data =  [];
-    public function __construct(User $user,$conv_id, $status = null)
+
+    public $message;
+    public $user_id;
+    public function __construct($message, $user_id)
     {
-        if($status) {
-            $user->chat_status = $status;
-            $user->save();
-        }
-
-        $this->data = [
-            'status'     => $user->chat_status,
-            'conv_id'    => intval($conv_id),
-            'statusText' => trans('user.'.$user->chat_status),
-        ];
-        $this->dontBroadcastToCurrentUser();
-
+        $this->message = $message;
+        $this->user_id = $user_id;
     }
 
     /**
@@ -43,6 +35,6 @@ class StatusEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('status');
+        return new PrivateChannel('new-message.'. $this->user_id);
     }
 }

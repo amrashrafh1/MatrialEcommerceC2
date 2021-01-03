@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{LaravelLocalization::setLocale()}}" itemscope="itemscope" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<html lang="{{LaravelLocalization::setLocale()}}" itemscope="itemscope"
+    dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
     <meta charset='UTF-8'>
@@ -36,8 +37,9 @@
     <style class="cp-pen-styles">
         body {
             min-height: 100vh;
-            background: rgb(67, 95, 122,.3);
+            background: rgb(67, 95, 122, .3);
         }
+
         div.body {
             display: flex;
             align-items: center;
@@ -832,65 +834,341 @@
         #frame .content .message-input .wrap button:focus {
             outline: none;
         }
+
         .image {
-            height:120px !important; width:120px!important;
-            border-radius:0!important;
-             margin-bottom:0!important;
-            cursor:pointer;
+            height: 120px !important;
+            width: 120px !important;
+            border-radius: 0 !important;
+            margin-bottom: 0 !important;
+            cursor: pointer;
         }
+
         .modal-overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        opacity: 0.6;
-        top: 0px;
-        left: 0px;
-        z-index:999;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0.6;
+            top: 0px;
+            left: 0px;
+            z-index: 999;
 
-}
-.modal-img {
-    position: absolute;
-    background-color: white;
-    margin:auto;
-    z-index:1000;
+        }
 
+        .modal-img {
+            position: fixed;
+            background-color: white;
+            top: 0;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @media screen and (max-width: 735px) {
+            .modal-img {
+                height: 80%;
+                width: 80%;
+            }
+
+            .modal-img img {
+                height: 100%;
+                width: 100%;
+            }
+
+            .links {
+                display: block;
+            }
+        }
+
+        #frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
+                {
+                    {
+                    $direction=='right'? 'margin: -2px -12px 0 -3px !important;': ''
+                }
+            }
+        }
+
+        /*Huge thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
+        /* .spinner {
+  margin: 100px auto 0;
+  width: 70px;
+  text-align: center;
 }
-    @media screen and (max-width: 735px) {
-    .modal-img {
-        height:80%;
-        width:80%;
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #e6e6e6;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+} */
+        .dot-falling {
+            position: relative;
+            left: -9999px;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e6e6e6;
+            color: #e6e6e6;
+            box-shadow: 9999px 0 0 0#e6e6e6;
+            animation: dotFalling 1s infinite linear;
+            animation-delay: .1s;
+        }
+
+        .dot-falling::before,
+        .dot-falling::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 0;
+        }
+
+        .dot-falling::before {
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e6e6e6;
+            color: #e6e6e6;
+            animation: dotFallingBefore 1s infinite linear;
+            animation-delay: 0s;
+        }
+
+        .dot-falling::after {
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e6e6e6;
+            color: #e6e6e6;
+            animation: dotFallingAfter 1s infinite linear;
+            animation-delay: .2s;
+        }
+
+        @keyframes dotFalling {
+            0% {
+                box-shadow: 9999px -15px 0 0 rgba(152, 128, 255, 0);
+            }
+
+            25%,
+            50%,
+            75% {
+                box-shadow: 9999px 0 0 0#e6e6e6;
+            }
+
+            100% {
+                box-shadow: 9999px 15px 0 0 rgba(152, 128, 255, 0);
+            }
+        }
+
+        @keyframes dotFallingBefore {
+            0% {
+                box-shadow: 9984px -15px 0 0 rgba(152, 128, 255, 0);
+            }
+
+            25%,
+            50%,
+            75% {
+                box-shadow: 9984px 0 0 0#e6e6e6;
+            }
+
+            100% {
+                box-shadow: 9984px 15px 0 0 rgba(152, 128, 255, 0);
+            }
+        }
+
+        @keyframes dotFallingAfter {
+            0% {
+                box-shadow: 10014px -15px 0 0 rgba(152, 128, 255, 0);
+            }
+
+            25%,
+            50%,
+            75% {
+                box-shadow: 10014px 0 0 0#e6e6e6;
+            }
+
+            100% {
+                box-shadow: 10014px 15px 0 0 rgba(152, 128, 255, 0);
+            }
+        }
+        #loading {
+        position     : absolute;
+        width        : 100%;
+        height       : 100%;
+        background   : #EEEEEE;
+        opacity      : 0.8;
+        top          : 0;
+        bottom       : 0;
+        right        : {{$direction === 'right'? '-50%':''}};
+        left         : 50%;
+        -ms-transform: translateX(-50%) -webkit-transform: translateX(-50%);
+        transform    : translateX(-50%)
     }
-    .modal-img img{
-        height:100%;
-        width:100%;
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        margin: 20% auto;
+
     }
-    .links {
-        display:block;
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
         }
     }
-
-    #frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
-        {{$direction == 'right'? 'margin: -2px -12px 0 -3px !important;':''}}
+    .contact-profile .online {
+        color:green;
+    }
+    .contact-profile .offline {
+        color:#95a5a6;
+    }
+    .contact-profile .away {
+        color:#f1c40f;
+    }
+    .contact-profile .busy {
+        color:#e74c3c;
     }
     </style>
 </head>
 
 <body>
+    @php
+        $user_id = ($conv->user_1 != auth()->user()->id)?$conv->user_1:$conv->user_2;
+    @endphp
     <div class='links mb-2'>
         <a href='{{route('home')}}' class='btn btn-outline-dark'><i class='fa fa-arrow-left'></i> @lang('user.Home')</a>
-        <a href='{{route('shop')}}' class='btn btn-outline-dark'><i class='fa fa-shopping-basket'></i> @lang('user.Shop')</a>
+        <a href='{{route('shop')}}' class='btn btn-outline-dark'><i class='fa fa-shopping-basket'></i>
+            @lang('user.Shop')</a>
     </div>
     <div id="app"></div>
     <div class='body'>
         @livewire('front-end.chat-bot', ['conv' => $conv])
+        <audio id="chat_sound" controls class='d-none'>
+            <source src="{{url('/')}}/mp3/facebook-messenger-tone-wapking-fm-mp3-17015-19072-43455.mp3" type="audio/mp3"
+                preload="auto">
+            <source src="notification.ogg" type="audio/ogg" preload="auto">
+            Your browser isn't invited for super fun audio time.
+        </audio>
     </div>
 
     <script
-    src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>
+        src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'>
     </script>
- @livewireScripts
- @stack('js')
+
+    @livewireScripts
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+
+    <script>
+        //var cTime = moment().format();
+        $('.timeCounter').each(function ($key, $value) {
+            $(this).text(moment($(this).data('time')).startOf('second').fromNow());
+        });
+        setInterval(() => {
+            $('.timeCounter').each(function ($key, $value) {
+                $(this).text(moment($(this).data('time')).startOf('second').fromNow());
+            });
+        }, 5000);
+
+        $('#imageContainer img').each(function (index) {
+            if ($(this).attr('onclick') != null) {
+                if ($(this).attr('onclick').indexOf("runThis()") == -1) {
+                    $(this).click(function () {
+                        $(this).attr('onclick');
+                        var src = $(this).attr("src");
+                        ShowLargeImage(src);
+                    });
+                }
+            } else {
+                $(this).click(function () {
+                    var src = $(this).attr("src");
+                    ShowLargeImage(src);
+                });
+            }
+        });
+
+        $('body').on('click', '.modal-overlay', function () {
+            $('.modal-overlay, .modal-img').remove();
+        });
+
+        function ShowLargeImage(imagePath) {
+            $('body').append('<div class="modal-overlay"></div><div class="modal-img"><img src="' + imagePath.replace(
+                "small", "large") + '" /></div>');
+        }
+
+
+        function uploadedSuccess(images, replay = true) {
+            if (images) {
+                $now = Date.now();
+                // append image
+                $img =
+                    `<li class="${(replay)? 'replies': 'sent'}"><img src="${(replay)? '{{Storage::url(auth()->user()->image)}}': '{{Storage::url(App\User::findOrFail($user_id)->image)}}'}" alt="" /><p style="overflow-wrap: break-word;" id="imageContainer">`;
+                for (i = 1; i <= images.length; i++) {
+                    $img += `<img alt="" class="image" src="${images[i - 1]}"  wire:ignore />`;
+                }
+                $img += '<br /> <span class="timeCounter" style="font-size:12px;float:right;" data-time="' + $now +
+                    '"></span></p></li>';
+                $($img).appendTo($('.messages ul'));
+                // show images when click;
+                $('#imageContainer img').each(function (index) {
+                    if ($(this).attr('onclick') != null) {
+                        if ($(this).attr('onclick').indexOf("runThis()") == -1) {
+                            $(this).click(function () {
+                                $(this).attr('onclick');
+                                var src = $(this).attr("src");
+                                ShowLargeImage(src);
+                            });
+                        }
+                    } else {
+                        $(this).click(function () {
+                            var src = $(this).attr("src");
+                            ShowLargeImage(src);
+                        });
+                    }
+                });
+            }
+        }
+
+    </script>
+    @stack('js')
 </body>
 
 </html>

@@ -21,6 +21,9 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->string('image');
             $table->integer('commentable')->unsigned()->default(0);
+            $table->string('meta_tag')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->string('meta_description')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

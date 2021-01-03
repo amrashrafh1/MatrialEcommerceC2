@@ -243,14 +243,14 @@ $country   = \DB::table('countries')->where('id', session('country'))->first();
                     <i class="tm tm-departments-thin"></i>
                     <span>@lang('user.All_Departments')</span>
                 </button>
-                <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown {{$isHomePage}}">
+                <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown text-{{$direction}} {{$isHomePage}}">
                     @foreach ($categories as $category)
                     @if(count($category->categories))
                     <li class="yamm-tfw menu-item menu-item-has-children animate-dropdown dropdown-submenu">
                         <a title="{{ $category->name }}" data-toggle="dropdown" class="dropdown-toggle"
                             aria-haspopup="true" href="#">{{ $category->name }} @if(!empty($category->categories)) <span
                                 class="caret"></span> @endif</a>
-                        <ul role="menu" class=" dropdown-menu">
+                        <ul role="menu" class=" dropdown-menu text-{{$direction}}">
                             <li class="menu-item menu-item-object-static_block animate-dropdown">
                                 <div class="yamm-content">
                                     <div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
@@ -268,7 +268,7 @@ $country   = \DB::table('countries')->where('id', session('country'))->first();
                                             <div class="kc-col-container">
                                                 <div class="kc_text_block">
                                                     <!--categories -->
-                                                    <ul>
+                                                    <ul class='text-{{$direction}}'>
                                                         <li class="nav-title">{{ $category->name }}</li>
                                                         <li><a href="{{ route('show_category',$category->slug) }}">@lang('user.all')
                                                                 {{ $category->name }}</a></li>
@@ -460,7 +460,7 @@ $country   = \DB::table('countries')->where('id', session('country'))->first();
                         <li class="compare">
                             <a href="{{route('show_chat', ['memberTypeTo'=>'chat', 'seq'=>'asd'])}}" class="has-icon">
                                 <i class="tm tm-call-us-footer"></i>
-                                <span class="count">@auth {{auth()->user()->unReadedMessages->count()}}@else 0
+                                <span class="count messages_count">@auth {{auth()->user()->unReadedMessages->count()}}@else 0
                                     @endif</span>
                             </a>
                         </li>
@@ -512,7 +512,7 @@ $country   = \DB::table('countries')->where('id', session('country'))->first();
                         </button>
                         <div class="handheld-navigation-menu">
                             <span class="tmhm-close">@lang('user.Close')</span>
-                            <ul id="menu-departments-menu-1" class="nav">
+                            <ul id="menu-departments-menu-1" class="nav text-{{$direction}}">
                                 @foreach($categories as $category)
                                 @if(count($category->categories) == 0) <li class="highlight menu-item animate-dropdown">
                                     <a title="{{$category->name}}"

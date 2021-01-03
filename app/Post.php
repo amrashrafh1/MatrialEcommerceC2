@@ -25,8 +25,9 @@ class Post extends Model implements Searchable
         'publish_at',
         'user_id',
         'commentable',
-        'slug'
-
+        'slug',
+        'meta_tag',
+        'meta_description', 'meta_keyword'
     ];
     public $translatable = ['title','content'];
 

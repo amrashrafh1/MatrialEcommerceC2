@@ -52,7 +52,11 @@
 .notification .badge {
   position      : absolute;
   top           : 1px;
-  {{$direction =='right'?'left':'right'}}: -10px;
+  @if($direction =='right')
+    left: -10px;
+  @else
+    right: -10px;
+  @endif
   padding       : 5px;
   border-radius : 50%;
   font-size     : 11px;
@@ -135,7 +139,7 @@
         </div>
     </div>
         <!-- 2. AddChat widget -->
-        <div id="addchat_app"
+    <div id="addchat_app"
         data-baseurl="{{ url('') }}"
         data-csrfname="{{ 'X-CSRF-Token' }}"
         data-csrftoken="{{ csrf_token() }}"

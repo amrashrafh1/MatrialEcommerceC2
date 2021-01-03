@@ -57,19 +57,43 @@
                     {!! Form::open(['url'=>route('attribute_families.update',
                     $rows->id),'method'=>'put','id'=>'users','files'=>true,'class'=>'form-horizontal
                     form-row-seperated']) !!}
-                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            {!! Form::label('name',trans('admin.name') .' ('. $properties['native'] . ')',['class'=>'control-label']) !!}
+                    <div class="card card-nav-tabs card-plain">
+                        <div class="card-header card-header-info">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li class="nav-item">
+                                        <a class="nav-link @if($localeCode == 'en') active show @endif"
+                                            href="#{{$localeCode}}" data-toggle="tab">{{$localeCode}}</a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            {!!
-                            Form::text('name_'.$localeCode,\App\Attribute_Family::where('id', $rows->id)->first()->getTranslation('name', $localeCode),['class'=>'form-control name_'.$localeCode,'placeholder'=>trans('admin.name') .' ('. $properties['native'] . ')'])
-                            !!}
+                        <div class="card-body">
+                            <div class="tab-content text-center">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <div class="tab-pane @if($localeCode == 'en') active show @endif" id="{{$localeCode}}">
+                                    <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                                        <div class="col-md-3">
+                                            <label for="name"
+                                                class=" control-label">@lang('user.Name_in_'.$properties['name'])
+                                                @if($localeCode == 'en') <abbr title="required"
+                                                    class="required">*</abbr>@endif</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" name="name_{{$localeCode}}"
+                                                class="form-control name_{{$localeCode}}"
+                                                placeholder="@lang('user.Name_in_'.$properties['name'])"
+                                                value="{{old('name_'. $localeCode, $rows->getTranslation('name', $localeCode))}}"
+                                                {{($localeCode === 'en') ? 'required':''}}>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                    <br>
-                    @endforeach
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-12">

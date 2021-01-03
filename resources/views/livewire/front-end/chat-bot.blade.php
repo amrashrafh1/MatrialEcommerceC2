@@ -23,10 +23,10 @@
                             <p>@lang('user.online')</p>
                         </li>
                         <li id="status-away" class="chat_status "><span class="status-circle"></span>
-                            <p>@lang('user.Away')</p>
+                            <p>@lang('user.away')</p>
                         </li>
                         <li id="status-busy" class="chat_status "><span class="status-circle"></span>
-                            <p>@lang('user.Busy')</p>
+                            <p>@lang('user.busy')</p>
                         </li>
                         <li id="status-offline" class="chat_status ">
                             <span class="status-circle"></span>
@@ -40,14 +40,13 @@
 
         <div id="contacts" wire:ignore>
             <ul>
-
                 @foreach($this->contacts as $contact)
                 @php
-                $cont           = \App\Conversation::find($contact);
-                $user_id        = ($cont->user_1 != auth()->user()->id)?$cont->user_1:$cont->user_2;
-                $user           = \App\User::where('id', $user_id)->first();
-                $messages_count = $conv->messages->where('m_from', '!=', auth()->user()->id)->where('is_read',
-                '0')->count();
+                $cont                = \App\Conversation::find($contact);
+                $user_id             = ($cont->user_1 != auth()->user()->id)?$cont->user_1:$cont->user_2;
+                $user                = \App\User::where('id', $user_id)->first();
+                $auth_messages_count = $conv->messages()->where('m_to', auth()->user()->id)->where('is_read',
+                0)->count();
                 @endphp
                 <li class="contact contact{{$cont->id}} {{($cont->id === $this->conv->id)?'active':''}}">
                     <a href='
@@ -66,13 +65,13 @@
                                     @endphp
                                     {{($mess)?(count($mess->gallery) > 0)?'':'':''}}</p>
                             </div>
-                            @if($messages_count)
+                            @if($auth_messages_count)
                                 <p style='position: absolute;
                                 background: red;
-                                padding: 7px;
+                                padding: 5px;
                                 top: 0;
                                 right: 0;
-                                border-radius: 40%;'>{{$messages_count}}</p>
+                                border-radius: 40%;'>{{$auth_messages_count}}</p>
                             @endif
                         </div>
                     </a>
@@ -81,13 +80,12 @@
             </ul>
         </div>
     </div>
-
     <div class="content">
         <div class="contact-profile" wire:ignore>
             <img src="{{Storage::url($conv_user->image)}}" alt="" />
             <p>{{$conv_user->name}}</p>
-            <span class='connected'
-                style='margin-left:30%; color:#3ca73c; overflow:{{$conv_user->chat_status == 'online'?'visible':'hidden'}};'>@lang('user.'.$conv_user->chat_status)</span>
+            <span class='connected' id='connected'
+                style='margin-left:30%;'>@lang('user.'.$conv_user->chat_status)</span>
         </div>
         @if($messages_count > $this->paginate_var)
         <div class='position-relative p-3'>
@@ -102,7 +100,7 @@
                 @foreach($messeges as $message)
                 @if($message->m_from === auth()->user()->id)
                 @if(empty($message->product_id))
-                <li class="replies">
+                <li class="replies {{$message->id}}">
                     <img src="{{Storage::url(auth()->user()->image)}}" alt="" />
                     <p style="overflow-wrap: break-word;" id='imageContainer'>
                         @if(count($message->gallery) > 0)
@@ -112,8 +110,8 @@
                         @else
                         {{$message->message}}
                         @endif
-                        <br /> <span
-                            style="font-size:12px; float:right;">{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                        <br /> <span class="timeCounter"
+                            style="font-size:12px; float:right;" data-time="{{ \Carbon\Carbon::parse($message->created_at)->toIso8601String() }}"></span>
                         @if($message->is_read)
                         <br />
                         <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -122,19 +120,20 @@
                     </p>
                 </li>
                 @else
-                <li class="replies">
+                <li class="replies {{$message->id}}">
                     <img src="{{Storage::url(auth()->user()->image)}}" alt="" />
-                    <p style="overflow-wrap: break-word;">
-                        <a href='{{route('show_product', $message->product->slug)}}' target="_blank">
-                            <img src='{{Storage::url($message->product->image)}}' class='image'>
-                            <br />
+                    <p style="overflow-wrap: break-word;"><a
+                        href='{{route('show_product', $message->product->slug)}}' target="_blank">
+                        <img src='{{Storage::url($message->product->image)}}' style='height:200px; width:200px;
+                        border-radius:10%; margin-bottom:15px;
+                            '>
+                        <br />
                             <span style='font-size:16px; color:black'>{{$message->product->name}}</span>
                         </a>
                         <br />
-                        <span style="font-size:12px; float:right;
-                            padding: 5px;
-                            border-radius: 10%;"
-                            wire:poll.120000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                        <span class="timeCounter" style="font-size:12px; float:right;
+                        padding: 5px;
+                        border-radius: 10%;" data-time="{{ \Carbon\Carbon::parse($message->created_at)->toIso8601String() }}" ></span>
                         @if($message->is_read)
                         <br />
                         <span style=' float:right'><i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -154,41 +153,46 @@
                         @endforeach
                         @else
                         {{$message->message}}
-                        @endif <br /> <span style="font-size:12px;float:right;"
-                            wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                        @endif <br /> <span class="timeCounter" style="font-size:12px;float:right;" data-time="{{ \Carbon\Carbon::parse($message->created_at)->toIso8601String() }}"></span>
                     </p>
                 </li>
                 @else
                 <li class="sent">
                     <img src="{{Storage::url($conv_user->image)}}" alt="" />
-                    <p style="overflow-wrap: break-word; background:none"><a
+                    <p style="overflow-wrap: break-word;"><a
                             href='{{route('show_product', $message->product->slug)}}' target="_blank">
                             <img src='{{Storage::url($message->product->image)}}' style='height:200px; width:200px;
                             border-radius:10%; margin-bottom:15px;
                                 '>
                             <br />
-                            <span style='font-size:16px; color:black'>{{$message->product->name}}</span>
-                        </a><br /> <span style="font-size:12px; float:right;
+                            <span style='font-size:16px; color:#fff'>{{$message->product->name}}</span>
+                        </a><br /> <span class="timeCounter" style="font-size:12px; float:right;
                             padding: 5px;
-                            border-radius: 10%;"
-                            wire:poll.60000ms>{{ \Carbon\Carbon::parse($message->created_at)->diffForhumans() }}</span>
+                            border-radius: 10%;" data-time="{{ \Carbon\Carbon::parse($message->created_at)->toIso8601String() }}"></span>
                     </p>
                 </li>
                 @endif
                 @endif
                 @endforeach
+                <li class="sent typing" style='display:none;'><img src="{{Storage::url($conv_user->image)}}" alt="" /><div style="background: #435f7a;color: #f5f5f5; overflow-wrap: break-word;    display: inline-block;
+                    padding: 25px 30px;border-radius: 20px;max-width: 205px;line-height: 130%;">
+                <div class="col-12"><div class="snippet" data-title=".dot-falling"><div class="stage"><div class="dot-falling"></div>
+                 </div></div></div></div></li>
+                 <div id="loading" wire:loading>
+                    <div class="loader"></div>
+                </div>
             </ul>
         </div>
         <div class="message-input">
             <div class="wrap">
-                <form wire:submit.prevent='sendMesseges' class='submit_form' enctype="multipart/form-data">
-                    <input type="text" name='message' autocomplete='off' wire:model.lazy='message'
+                <form class='submit_form' enctype="multipart/form-data">
+                    <input type="text" name='message' autocomplete='off' class='typefield'
                         placeholder="@lang('user.Write_your_message...')" id='message' style='width:80%;' />
                     <input type="file" id="image-upload" name="image_upload[]" style='display:none'
                         enctype="multipart/form-data" multiple>
                     <div class="form-group" style="display: none;">
                         <label for="faxonly">Fax Only
-                            <input type="checkbox" name="faxonly" id="faxonly" wire:model.lazy='faxonly'/>
+                            <input type="text" name="faxonly" id="faxonly"/>
                         </label>
                     </div>
                     <i class="fa fa-paperclip attachment" aria-hidden="true" style='margin-right: 35px;'
@@ -199,6 +203,7 @@
                 </form>
 
             </div>
+            <input type='hidden' wire:model='paginate_var' id='paginate_var'>
         </div>
     </div>
 </div>
@@ -206,9 +211,15 @@
 @push('js')
 <script src='{{url('/')}}/js/app.js'></script>
 <script>
-    $(".messages").animate({
-        scrollTop: $(document).height() + 10000000
-    }, "fast");
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#messages').animate({
+       scrollTop: $('#messages')[0].scrollHeight}, "slow");
 
     $("#profile-img").click(function () {
         $("#status-options").addClass("active");
@@ -244,195 +255,187 @@
 
         $("#status-options").removeClass("active");
     });
+    let channel = Echo.join(`chat.{{$this->conv_id}}`)
 
     function newMessage() {
-        message = $(".message-input input").val();
+
+        message = $(".message-input #message").val();
         if ($.trim(message) == '') {
             return false;
         }
-        $('<li class="replies"><img src="{{Storage::url(auth()->user()->image)}}" alt="" /><p>' +
-            message +
-            '<br /> <span style="font-size:12px; float:right;"></span></p></li>').appendTo($('.messages ul'));
-        $('.message-input input').val(null);
-        $('.contact.active .preview').html('<span>You: </span>' + message);
-        $(".messages").animate({
-            scrollTop: $(document).height() + 10000000
-        }, "fast");
+        $now = Date.now();
+        event.preventDefault();
+        var faxonly      = $('#faxonly').val();
+
+        $.ajax({
+            method: 'POST',
+            url: '{{route("sendMessage", $this->conv->id)}}',
+            dataType: "json",
+            data: {message: message, faxonly:faxonly},
+            success: function (message) {
+                $('<li class="replies  ' + message.id + '"><img src="{{Storage::url(auth()->user()->image)}}" alt="" /><p>' +
+                    message.message +
+                    '<br /> <span class="timeCounter" style="font-size:12px;float:right;" data-time="'+ $now +'"></span></p></li>').appendTo($('.messages ul'));
+                $('.message-input #message').val(null);
+                setTimeout( () => {
+                    channel.whisper('typing', {
+                        typing : false
+                    })
+                }, 300)
+                $('.contact.active .preview').html('<span>You: </span>' + message.message);
+                $('#messages').animate({
+                scrollTop: $('#messages')[0].scrollHeight}, "fast");
+            },
+            error: function () {
+                $('<li class="replies"><p class="text-danger"><i class="fa fa-exclamation-circle"></i> {{trans("user.failed_to_send_message")}}</p></li>').appendTo($('.messages ul'));
+                $('.message-input #message').val(null);
+                $('#messages').animate({
+       scrollTop: $('#messages')[0].scrollHeight}, "slow");
+            }
+        })
     };
+
+    $('.message-input #message').keydown(function() {
+    if(!$(this).val()) {
+        setTimeout( () => {
+            channel.whisper('typing', {
+                typing : false
+            })
+        }, 300)
+    } else {
+
+        setTimeout( () => {
+            channel.whisper('typing', {
+                typing : true
+            })
+        }, 300)
+    }
+    });
+    $('.message-input #message').keyup(function() {
+        if(!$(this).val()) {
+            setTimeout( () => {
+                channel.whisper('typing', {
+                    typing : false
+                })
+            }, 300)
+        }
+    });
 
     $('.submit').click(function () {
         newMessage();
     });
-    Echo.join(`chat.{{$this->conv->id}}`)
-        .here((user) => {})
+    channel.here((user) => {
+        var index = user[0]['email'] == '{{auth()->user()->email}}' ? 1 : 0;
+            $('#connected').removeClass().addClass(user[index]['chat_status']).text(user[index]['chat_status']);
+            $('.contact{{$this->conv_id}}').find('span').removeClass().addClass(user[index]['chat_status']);
+        })
         .joining((user) => {
+            $('#connected').removeClass().addClass(user['chat_status']).text(user['chat_status']);
+            $('.contact{{$this->conv_id}}').find('span').removeClass().addClass(user['chat_status']);
 
-            @this.call('changeStatus', 'online');
-            $('.connected').show();
-            $('.contact{{$this->conv->id}} .contact-status').addClass('online');
-            $('.contact{{$this->conv->id}} .contact-status').removeClass('away');
-            $('.contact{{$this->conv->id}} .contact-status').removeClass('offline');
-            $('.contact{{$this->conv->id}} .contact-status').removeClass('busy');
+        }).listenForWhisper('typing', (e) => {
+            e.typing ? '' : $('.typing').appendTo($('.messages ul'));
+            e.typing ? $('.typing').fadeIn() : $('.typing').fadeOut()
+            $(".messages").animate({
+                    scrollTop: $(document).height() + 10000000
+            }, "fast");
         })
         .leaving((user) => {
-            $('.connected').hide();
-            @this.call('changeStatus', 'offline');
-            $('.contact{{$this->conv->id}} .contact-status').removeClass('online');
-            $('.contact{{$this->conv->id}} .contact-status').removeClass('away');
-            $('.contact{{$this->conv->id}} .contact-status').removeClass('busy');
-            $('.contact{{$this->conv->id}} .contact-status').addClass('offline');
-
+            $('#connected').removeClass().addClass('offline').text("@lang('user.Offline')");
+            $('.contact{{$this->conv_id}}').find('span').removeClass().addClass('offline');
         })
         .listen('SendMesseges', (e) => {
-
-            @this.call('readMessage', e.message.id);
 
             message = e.message.message;
             if ($.trim(message) == '') {
                 return false;
             }
+            var sound_notification = $("#chat_sound")[0];
+            sound_notification.play();
 
+            $now = Date.now();
+
+            $('.typing').fadeOut();
+
+        if(e.gallery.length > 0) {
+            uploadedSuccess(e.gallery, false);
+        } else {
             $('<li class="sent"><img src="{{Storage::url($conv_user->image)}}" alt="" /><p>' +
                 message +
-                '<br /> <span style="font-size:12px;float:right;"></span></p></li>').appendTo($('.messages ul'));
+                '<br /> <span class="timeCounter" style="font-size:12px;float:right;" data-time="'+ $now +'"></span></span></p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
-            $(".messages").animate({
-                scrollTop: $(document).height() + 10000000
-            }, "fast");
+        }
+        var faxonly      = $('#faxonly').val();
+
+        $.ajax({
+            method: 'POST',
+            url: '{{url("/chat/message/isreaded/")}}/'+ e.message.id,
+            dataType: "json",
+            data: {is_readed:1, faxonly:faxonly},
         });
-
-
+        $('#messages').animate({
+            scrollTop: $('#messages')[0].scrollHeight}, "slow");
+        });
 
     $('#contacts').on('click', 'li', function () {
         $('#contacts li.active').removeClass('active');
         $(this).addClass('active');
     });
     $('#messages').scroll(function () {
-        var top = $('#messages').scrollTop();
+        var top    = $(this).scrollTop();
         if (top == 0) {
             @this.call('loadMore');
-        }
-    });
-    $(document).ready(function () {
-        $('.chat_status').on('click', function (e) {
-            localStorage.setItem('chat_status', $(this).attr('id').replace('status-', ''));
-            @this.call('changeStatus');
-        });
-        var chat_status = localStorage.getItem('chat_status');
-        if (chat_status) {
-            $('#status-' + chat_status).addClass('active');
-            $('#status-' + chat_status).siblings().removeClass('active');
+            $paginate_var = $('#paginate_var').val();
+            $('#messages').scrollTop($('#messages')[0].scrollHeight *  (15 / $paginate_var))
         }
     });
 
     /*  change status event  */
     Echo.private(`status`)
         .listen('StatusEvent', (e) => {
-            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('online');
-            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('away');
-            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('offline');
-            $('.contact' + e.data['user_id'] + ' .contact-status').removeClass('busy');
-            $('.contact' + e.data['user_id'] + ' .contact-status').addClass(e.data['status']);
-            //console.log(e.data['status']);
-        });
+        $('.contact' + e.data['conv_id']).find('span').removeClass().addClass(e.data['status'])
+        $('#connected').removeClass().addClass(e.data['status']).text(e.data['statusText']);
+    });
 
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+    Echo.private(`is-readed`)
+        .listen('IsReaded', (e) => {
+        $('#messages ul li.' + e['message_id'] + ' p').append("<br /><span style=' float:right'><i class='fa fa-check-circle' aria-hidden='true'></i></span>");
+        $('#messages').animate({
+            scrollTop: $('#messages')[0].scrollHeight}, "fast");
     });
 
     $('#image-upload').change(function () {
         event.preventDefault();
         let image_upload = new FormData();
-        let TotalImages = $('#image-upload')[0].files.length; //Total Images
-        let images = $('#image-upload')[0];
-        //let message = $('#message').val();
+        let TotalImages  = $('#image-upload')[0].files.length;  //Total Images
+        let images       = $('#image-upload')[0];
 
         for (let i = 0; i < TotalImages; i++) {
             image_upload.append('images[]', images.files[i]);
         }
-        // image_upload.append('message', message);
+       // var faxonly      = $('#faxonly').val();
 
         $.ajax({
             method: 'POST',
-            url: '{{route("sendMessage", $this->conv->id)}}',
+            url: '{{route("sendImages", $this->conv->id)}}',
             data: image_upload,
             contentType: false,
             processData: false,
             success: function (images) {
-
-                /* if ($.trim(images) == '') {
-                    return false;
-                }
-                var i;
-                for (i = 0; i < images.length; ++i) {
-                console.log(images[i]);
-                $('<li class="replies"><p style="overflow-wrap: break-word; margin-right:25px;" id="imageContainer"><img src="'+images[i]+'" class="image" alt="" />'+
-                    '<br /> <span style="font-size:12px; float:right;"></span></p></li>').appendTo($('.messages ul'));
-                $('.message-input input').val(null);
-                $(".messages").animate({
-                    scrollTop: $(document).height() + 10000000
-                }, "fast");
-                } */
-
-                window.livewire.emit('chatUpdated');
+                uploadedSuccess(images['images']);
+                $('#messages').animate({
+                    scrollTop: $('#messages')[0].scrollHeight}, "slow");
             },
             error: function () {
-                console.log(`Failed`)
+                $('<li class="replies"><p class="text-danger"><i class="fa fa-exclamation-circle"></i> {{trans("user.failed_to_send_image")}}</p></li>').appendTo($('.messages ul'));
+                $('.message-input #message').val(null);
+                $('#messages').animate({
+       scrollTop: $('#messages')[0].scrollHeight}, "slow");
             }
         })
 
     });
-
-
-    // function for time
-    /* function get_time() {
-        t = new Date().getSeconds();
-        if(t > 86400) {
-        return Math.floor(t / 86400) + ' days ago';
-        } else if(t > 3600) {
-            return Math.floor(t / 3600) + ' hours ago';
-        } else if(t > 60) {
-            return Math.floor(t / 60) + ' minutes ago';
-        } else {
-            return t + ' seconds ago';
-        }
-    } */
-
-    $('#imageContainer img').each(function (index) {
-        if ($(this).attr('onclick') != null) {
-            if ($(this).attr('onclick').indexOf("runThis()") == -1) {
-                $(this).click(function () {
-                    $(this).attr('onclick');
-                    var src = $(this).attr("src");
-                    ShowLargeImage(src);
-                });
-            }
-        } else {
-            $(this).click(function () {
-                var src = $(this).attr("src");
-                ShowLargeImage(src);
-            });
-        }
-    });
-
-    $('body').on('click', '.modal-overlay', function () {
-        $('.modal-overlay, .modal-img').remove();
-    });
-
-    function ShowLargeImage(imagePath) {
-        console.log('zoomed');
-        $('body').append('<div class="modal-overlay"></div><div class="modal-img"><img src="' + imagePath.replace(
-            "small", "large") + '" /></div>');
-    }
-
-    /* window.livewire.on('scroll', function()  {
-          $('#messages').animate({
-              scrollTop: $('#messages')[0].scrollHeight}, "slow");
-    }) */
 
 </script>
 @endpush

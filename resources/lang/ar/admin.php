@@ -34,6 +34,7 @@ return array (
   'Show more' => 'أظهر المزيد',
   'Sidebar_Filters' => 'مرشحات الشريط الجانبي',
   'Subtotal' => 'المجموع الفرعي',
+  'T' => 'اليوم',
   'Today' => 'اليوم',
   'Trending_Now' => 'تتجه الآن',
   'USD' => 'دولار أمريكي',

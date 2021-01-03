@@ -280,8 +280,7 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
                 <p ><i class='fa fa-check-circle' style='color: green;'></i>
                     <span class='cart-count'>@lang('user.A_new_item_has_been_added_to_your_Shopping_Cart.')</span>
                 </p>
-                <a href="{{route('show_cart')}}" class="btn btn-default button-modal-cart"
-                    data-dismiss="modal">@lang('user.View_Shopping_Cart')</a>
+                <a href="{{route('show_cart')}}" class="btn btn-default button-modal-cart">@lang('user.View_Shopping_Cart')</a>
                 <button type="button" class="button-modal-cart2"
                     data-dismiss="modal">@lang('user.Continue_Shopping')</button>
                 <br />
@@ -289,7 +288,10 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
         </div>
     </div>
 </div>
-
+<div class="alert alert-success message-alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    @lang('user.new_message')
+</div>
 
 <div id="app"></div>
 @auth
@@ -334,6 +336,32 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
         right: 0 !important;
         left: auto !important;
     }
+    }
+    /* The alert message box */
+    .message-alert {
+        display:none;
+        padding:10px 25px;
+        position:fixed;
+        top:100px;
+        right:0;
+        z-index:9999999;
+    }
+
+    /* The close button */
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+        color: black;
     }
 </style>
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/jquery.min.js"></script>
@@ -397,31 +425,19 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
 
 @push('js')
 <script>
-
-    /* Echo.private(`cartupdate`)
-    .listen('cartEvent', (e) => {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: e.message,
-            showConfirmButton: true,
-            timer: 1500
-            });
-    }); */
-    /* $('.change_color').on('click', function () {
-        $(this).css('color', )
-    }); */
+    @auth
+    Echo.private(`new-message.{{auth()->user()->id}}`)
+    .listen('NewMessageNotify', (e) => {
+        $('.messages_count').text(parseInt($('.messages_count').text()) + 1);
+        $('.message-alert').slideDown("fast");
+    });
+    @endauth
     $('.wish').click(function(){
         $(this).toggleClass('change_color');
     });
     $('a.comp').click(function(){
-
         $(this).text("@lang('user.already_added')");
     });
-    /* $( document ).ready(function() {
-        $('.slick-track').attr('style','');
-        $('.slick-track').css({'opacity': '1', 'width': '5572px', 'transform': 'translate3d(-1592px, 0px, 0px)'});
-    }); */
 
 </script>
 @endpush

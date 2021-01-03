@@ -36,4 +36,9 @@ class CartHeader extends Component
         }
     }
 
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
+    }
 }

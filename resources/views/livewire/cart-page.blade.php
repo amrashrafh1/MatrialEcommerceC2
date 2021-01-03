@@ -77,7 +77,7 @@
                                                         'seq'            => Crypt::encrypt($store->seller->id),
                                                         ])}}'
                                                         class='ml-5'>
-                                                    <i class='fa fa-envelope-o'></i> @lang('contact')
+                                                    <i class='fa fa-envelope-o'></i> @lang('user.contact')
                                                     </a>
                                                     @endif
                                                 </div>

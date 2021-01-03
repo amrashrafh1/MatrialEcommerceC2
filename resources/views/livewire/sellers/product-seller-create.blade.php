@@ -79,29 +79,7 @@
                                 <option value="variable">@lang('user.variable')</option>
                             </select> </div>
                     </div>
-                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    <div class="form-group row ">
-                        <div class="col-md-3">
-                            <label for="name" class=" control-label">@lang('user.Name_in_'.$properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" @keyup="changeSlug" name="name_{{$localeCode}}" class="form-control"
-                                placeholder="@lang('user.Name_in_'.$properties['name'])" value="{{old('name_'. $localeCode)}}"
-                                {{($localeCode === 'en') ? 'required':''}}>
-                        </div>
-                    </div>
-                    @endforeach
-                    <br />
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <label for="name" class=" control-label">@lang('user.slug') <abbr title="required" class="required">*</abbr></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" name="slug" class="form-control" placeholder="@lang('user.slug')" v-model="slug"
-                                required>
-                        </div>
-                    </div>
-                    <br />
+
                     <div class="form-group row">
                         <div class="col-md-3">
                             <label for="sku" class=" control-label">@lang('user.SKU') <abbr title="required" class="required">*</abbr></label>
@@ -181,49 +159,6 @@
                             placeholder="@lang('user.Regular_price')" value="{{old('sale_price')}}" required>
                     </div>
                 </div>
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="short_description" class=" control-label">@lang('user.Short_Description_in_'.
-                            $properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
-                    </div>
-                    <div class="col-md-9">
-                        <textarea name="short_description_{{$localeCode}}" class="form-control"
-                            placeholder="@lang('user.Short_Description_in_'.
-                            $properties['name'])"
-                            id="short_description_{{$localeCode}}">{!! old('short_description_'.$localeCode) !!}</textarea>
-                    </div>
-                </div>
-                @endforeach
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="description" class=" control-label">@lang('user.Description_in_'.
-                            $properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
-                    </div>
-                    <div class="col-md-9">
-                        <textarea name="description_{{$localeCode}}" class="form-control"
-                            placeholder="@lang('user.Description_in_'.
-                            $properties['name'])"
-                            id="description_{{$localeCode}}">{!! old('description_'.$localeCode) !!}</textarea>
-                    </div>
-                </div>
-                @endforeach
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="description" class=" control-label">@lang('user.Tags_in_'.
-                            $properties['name']) @if($localeCode == 'en') <abbr title="required" class="required">*</abbr>@endif</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="tags_{{$localeCode}}" placeholder="@lang('user.Tags_in_'.
-                        $properties['name'])"
-                            style='width:50%;' data-role="tagsinput">
-                    </div>
-                </div>
-                @endforeach
                 <div class="form-group row">
                     <div class="col-md-3">
                         <label for="category_id" class=" control-label">@lang('user.Category') <abbr title="required" class="required">*</abbr></label>
@@ -276,26 +211,44 @@
             </div>
             <div class="tab-pane fade" id="attributes" v-show="variant == 'simple'" role="tabpanel"
                 aria-labelledby="attributes-tab">
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="size_{{$localeCode}}" class=" control-label">@lang('user.size_in_'.$properties['name'])</label>
+                <nav>
+                    <div class="nav nav-tabs" id="myTab" role="tablist">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <a style='color:#000 !important;' class="nav-link @if($localeCode == 'en') active show @endif"
+                            id="{{$localeCode}}-tab" data-toggle="tab" href="#{{$localeCode}}" role="tab"
+                            aria-controls="{{$localeCode}}" aria-selected="true">{{$localeCode}}</a>
+                        @endforeach
                     </div>
-                    <div class="col-md-9">
-                        <input type="text" name="size_{{$localeCode}}" class="form-control"
-                            placeholder="@lang('user.size_in_'.$properties['name'])" value="{{old('size_'.$localeCode)}}">
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <div class="tab-pane fade @if($localeCode == 'en') show active @endif" id="{{$localeCode}}"
+                        role="tabpanel" aria-labelledby="{{$localeCode}}-tab">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="size_{{$localeCode}}"
+                                    class=" control-label">@lang('user.size_in_'.$properties['name'])</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="size_{{$localeCode}}" class="form-control"
+                                    placeholder="@lang('user.size_in_'.$properties['name'])"
+                                    value="{{old('size_'.$localeCode)}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="color_{{$localeCode}}"
+                                    class=" control-label">@lang('user.color_in_'.$properties['name'])</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="color_{{$localeCode}}" class="form-control"
+                                    placeholder="@lang('user.color_in_'.$properties['name'])"
+                                    value="{{old('color_'.$localeCode)}}">
+                            </div>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="color_{{$localeCode}}" class=" control-label">@lang('user.color_in_'.$properties['name'])</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="color_{{$localeCode}}" class="form-control"
-                            placeholder="@lang('user.color_in_'.$properties['name'])" value="{{old('color_'.$localeCode)}}">
-                    </div>
-                </div>
-                @endforeach
             </div>
             <div class="tab-pane fade" id="variable" v-show="variant == 'variable'" role="tabpanel"
                 aria-labelledby="variable-tab">
@@ -408,39 +361,125 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="meta_title_{{$localeCode}}" class=" control-label">@lang('user.meta_title_'.$properties['name'])
-                            </label>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <a style='color:#000 !important;' class="nav-item nav-link @if($localeCode == 'en') active show @endif" id="nav-{{$localeCode}}-tab" data-toggle="tab" href="#nav-{{$localeCode}}" role="tab" aria-controls="nav-{{$localeCode}}" aria-selected="true">{{$localeCode}}
+                        </a>
+                        @endforeach
                     </div>
-                    <div class="col-md-9">
-                        <input type="text" name="meta_title_{{$localeCode}}" class="form-control mb-4"
-                            placeholder="@lang('user.meta_title_'.$properties['name'])" value="{{old('meta_title_'.$localeCode)}}">
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <div class="tab-pane fade @if($localeCode == 'en') show active @endif" id="nav-{{$localeCode}}" role="tabpanel" aria-labelledby="nav-{{$localeCode}}-tab">
+                        <div class="form-group row {{($localeCode === 'en') ? 'required':''}}">
+                            <div class="col-md-3">
+                                <label for="name" class=" control-label">@lang('user.Name_in_'.$properties['name'])
+                                    @if($localeCode == 'en') <abbr title="required"
+                                        class="required">*</abbr>@endif</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" @keyup="changeSlug" name="name_{{$localeCode}}" class="form-control"
+                                    placeholder="@lang('user.Name_in_'.$properties['name'])"
+                                    value="{{old('name_'. $localeCode)}}" {{($localeCode === 'en') ? 'required':''}}>
+                            </div>
+                        </div>
+                        @if($localeCode === 'en')
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="name" class=" control-label">@lang('user.slug') <abbr title="required"
+                                        class="required">*</abbr></label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="slug" class="form-control" placeholder="@lang('user.slug')"
+                                    v-model="slug" required>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="short_description"
+                                    class=" control-label">@lang('user.Short_Description_in_'.
+                                    $properties['name']) @if($localeCode == 'en') <abbr title="required"
+                                        class="required">*</abbr>@endif</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea name="short_description_{{$localeCode}}" class="form-control" placeholder="@lang('user.Short_Description_in_'.
+                                    $properties['name'])"
+                                    id="short_description_{{$localeCode}}">{!! old('short_description_'.$localeCode) !!}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="description" class=" control-label">@lang('user.Description_in_'.
+                                    $properties['name']) @if($localeCode == 'en') <abbr title="required"
+                                        class="required">*</abbr>@endif</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea name="description_{{$localeCode}}" class="form-control" placeholder="@lang('user.Description_in_'.
+                                    $properties['name'])"
+                                    id="description_{{$localeCode}}">{!! old('description_'.$localeCode) !!}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="description" class=" control-label">@lang('user.Tags_in_'.
+                                    $properties['name']) @if($localeCode == 'en') <abbr title="required"
+                                        class="required">*</abbr>@endif</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="tags_{{$localeCode}}" placeholder="@lang('user.Tags_in_'.
+                                $properties['name'])" style='width:50%;' data-role="tagsinput">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="meta_tag_{{$localeCode}}"
+                                    class=" control-label">@lang('user.meta_tag_'.$properties['name'])
+                                </label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="meta_tag_{{$localeCode}}" class="form-control mb-4"
+                                    placeholder="@lang('user.meta_tag_'.$properties['name'])"
+                                    value="{{old('meta_tag_'.$localeCode)}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="meta_description_{{$localeCode}}"
+                                    class=" control-label">@lang('user.meta_description_'.$properties['name'])
+                                </label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="meta_description_{{$localeCode}}" class="form-control mb-4"
+                                    placeholder="@lang('user.meta_description_'.$properties['name'])"
+                                    value="{{old('meta_description_'.$localeCode)}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="meta_keyword_{{$localeCode}}"
+                                    class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
+                                </label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="meta_keyword_{{$localeCode}}" value="" data-role="tagsinput">
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" class="btn btn-success" value='@lang('user.submit')'>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="meta_description_{{$localeCode}}"
-                            class=" control-label">@lang('user.meta_description_'.$properties['name'])
-                            </label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="meta_description" class="form-control mb-4"
-                            placeholder="@lang('user.meta_description_'.$properties['name'])"
-                            value="{{old('meta_description_'.$localeCode)}}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <label for="keywords_{{$localeCode}}" class=" control-label">@lang('user.meta_keywords_'.$properties['name'])
-                            </label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="keywords" value="" data-role="tagsinput">
-                    </div>
-                </div>
-                @endforeach
             </div>
         </div>
         <div class="form-actions mt-4">

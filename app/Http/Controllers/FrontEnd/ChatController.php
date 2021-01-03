@@ -4,11 +4,15 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Conversation;
 use App\Events\SendMesseges;
+use App\Events\NewMessageNotify;
 use App\Events\StatusEvent;
+use App\Events\IsReaded;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\User;
+use App\Message;
 use Crypt;
+use Storage;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -77,23 +81,25 @@ class ChatController extends Controller
 
     } */
 
-    public function sendMessage(Request $request, $id)
+    public function sendImages(Request $request, $id)
     {
-        //return $request->all();
         $data = $this->validate(request(), [
-            // 'message'  => 'sometimes|nullable|string|min:1|max:255',
             'images.*' => 'required|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
+            //'faxonly'  => 'sometimes|nullable|string',
         ], [], [
-            // 'message'  => trans('user.message'),
             'images.*' => trans('user.images'),
+            //'faxonly'  => trans('user.faxonly'),
         ]);
         // get conversation
+
+        /* if ($data['faxonly']  != null) {
+            return $this->formResponse();
+        } */
         $conv = Conversation::where('id', $id)->first();
         if ($conv) {
 
             // get the user id
             $user_id = ($conv->user_1 != auth()->user()->id) ? $conv->user_1 : $conv->user_2;
-
             if ($data['images'] && $user_id) {
                 $message = $conv->messages()->create([
                     'message' => 'images only',
@@ -103,21 +109,93 @@ class ChatController extends Controller
                 multiple_uploads($data['images'], 'messages', $message);
 
                 broadcast(new SendMesseges($message, $conv->id))->toOthers();
+                event(new NewMessageNotify(trans('user.new_message'), $user_id));
 
-                return 'success';
+                $images = [];
+                if(!blank($message->gallery)) {
+                    foreach($message->gallery as $file) {
+                        array_push($images, Storage::url($file->file));
+                    }
+                }
+                return response()->json(['images' => $images], 200);
             }
         }
+        return response()->json(['message' => 'Not Found!'], 404);
+
+    }
+
+
+    public function is_readed(Request $request, $id)
+    {
+        //return $request->all();
+        $data = $this->validate(request(), [
+            'is_readed' => 'required|boolean',
+            'faxonly'   => 'sometimes|nullable|string',
+        ], [], [
+            'is_readed' => trans('user.is_readed'),
+            'faxonly'   => trans('user.faxonly'),
+        ]);
+        // get conversation
+        if ($data['faxonly']  != null) {
+            return $this->formResponse();
+        }
+        $message = Message::where('id', $id)->first();
+
+        if ($message) {
+
+            // get the user id
+            IsReaded::dispatch($id);
+            return response()->json(['success' => 'success'], 200);
+        }
+        return response()->json(['message' => 'Not Found!'], 404);
+
+    }
+    public function sendMessage(Request $request, $id)
+    {
+        $data = $this->validate(request(), [
+            'message' => 'required|string',
+            'faxonly' => 'sometimes|nullable|string',
+        ], [], [
+            'message' => trans('user.message'),
+            'faxonly' => trans('user.faxonly'),
+        ]);
+        if ($data['faxonly']  != null) {
+            return $this->formResponse();
+        }
+        // get conversation
+        $conv = Conversation::where('id', $id)->first();
+        if ($conv) {
+
+            // get the user id
+            $user_id = ($conv->user_1 != auth()->user()->id) ? $conv->user_1 : $conv->user_2;
+
+            if ($data['message'] && $user_id) {
+                $message = $conv->messages()->create([
+                    'message' => $data['message'],
+                    'm_to'    => $user_id,
+                    'm_from'  => auth()->user()->id,
+                ]);
+                broadcast(new SendMesseges($message, $conv->id))->toOthers();
+                event(new NewMessageNotify(trans('user.new_message'), $user_id));
+
+                return response()->json(['message' => $message->message, 'id' => $message->id], 200);
+            }
+        }
+        return response()->json(['message' => 'Not Found!'], 404);
+
     }
 
     public function getConversation($auth_id, $seq) {
         $conversation = Conversation::where('user_1', $auth_id)
             ->where('user_2', $seq)
-            ->orWhere('user_1', $seq)->where('user_2', $auth_id)->orderBy('id', 'desc')
-            ->firstOrCreate([
-                'user_1' => $auth_id,
-                'user_2' => $seq,
-        ]);
-
+            ->orWhere('user_1', $seq)->where('user_2', $auth_id)->with('messages')->orderBy('id', 'desc')
+            ->first();
+            if(!$conversation) {
+                Conversation::create([
+                    'user_1' => $auth_id,
+                    'user_2' => $seq,
+            ]);
+        }
         return $conversation;
     }
 
@@ -125,17 +203,17 @@ class ChatController extends Controller
         $auth_id      = auth()->user()->id;
         $user_id      = Crypt::decrypt($seq);
         $conversation = $this->getConversation($auth_id, $user_id);
-        event(new StatusEvent(auth()->user()));
+        event(new StatusEvent(auth()->user(),$conversation->id));
         return view('FrontEnd.chat', ['conv' => $conversation]);
     }
     public function toChat() {
         $auth_id      = auth()->user()->id;
         $conversation = Conversation::where('user_1', $auth_id)
-        ->orWhere('user_2', $auth_id)
+        ->orWhere('user_2', $auth_id)->with('messages')
         ->orderBy('id', 'desc')->first();
 
         if($conversation) {
-            event(new StatusEvent(auth()->user()));
+            event(new StatusEvent(auth()->user(),$conversation->id));
             return view('FrontEnd.chat', ['conv' => $conversation]);
         } else {return redirect()->route('home');}
     }
@@ -158,8 +236,13 @@ class ChatController extends Controller
                     'conv_id'    => $conversation->id
                 ]);
             }
-            event(new StatusEvent(auth()->user()));
+            event(new StatusEvent(auth()->user(),$conversation->id));
             return view('FrontEnd.chat', ['conv' => $conversation]);
         } else {return redirect()->route('home');}
+    }
+
+    protected function formResponse()
+    {
+        return response()->json(['message' => 'Not Found!'], 404);
     }
 }

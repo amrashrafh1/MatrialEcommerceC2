@@ -26,8 +26,7 @@ class SendMesseges implements ShouldBroadcastNow
      *
      * @var \App\Message
      */
-    public $message;
-    public $conv_id;
+    public $message,$conv_id,$gallery = [];
 
     /**
      * Create a new event instance.
@@ -36,7 +35,11 @@ class SendMesseges implements ShouldBroadcastNow
      */
     public function __construct(Message $message, $conv_id)
     {
-
+        if(!blank($message->gallery)) {
+            foreach($message->gallery as $file) {
+                array_push($this->gallery, \Storage::url($file->file));
+            }
+        }
         $this->message   = $message;
         $this->conv_id   = $conv_id;
         $this->dontBroadcastToCurrentUser();

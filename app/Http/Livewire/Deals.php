@@ -61,4 +61,10 @@ class Deals extends Component
         }
 
     }
+
+
+    public function hydrate()
+    {
+        app()->setLocale(session('locale'));
+    }
 }

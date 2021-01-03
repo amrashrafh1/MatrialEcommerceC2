@@ -20,7 +20,7 @@
                     @lang('user.chat')
                     </span>
                     <i class="fa fa-envelope fa-2x" style='color:#3265B0; padding-right:.1rem'></i>
-                    <span class="badge" style="{{($direction === 'right')?'right: 140px;':''}};
+                    <span class="badge messages_count" style="{{($direction === 'right')?'right: 140px;':''}};
                     background: red;color: #fff;border-radius: 50%;margin-bottom: 12px;">
                     @auth {{auth()->user()->unReadedMessages->count()}}@else 0 @endif</span>
                 </a>

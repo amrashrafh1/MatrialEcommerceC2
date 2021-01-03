@@ -96,7 +96,7 @@
                                 <div class="col-md-10">
                                     {!!
                                     Form::select('country_id',\App\Country::whereIn('id',
-                                    $setting->seller_countries->pluck('country_id'))->pluck('country_name','id'), $store->country->id,['class'=>'form-control','placeholder'=>trans('user.country'),
+                                    $setting->seller_countries->pluck('id'))->pluck('country_name','id'), $store->country_id,['class'=>'form-control','placeholder'=>trans('user.country'),
                                      'required' => 'required'])
                                     !!}
                                 </div>

@@ -9,6 +9,7 @@ use App\Product;
 use App\Sold;
 use App\Tradmark;
 use Livewire\Component;
+use Auth;
 use Livewire\WithPagination;
 
 class ProductCategory extends Component
