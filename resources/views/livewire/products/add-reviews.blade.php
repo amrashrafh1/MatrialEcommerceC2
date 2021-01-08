@@ -2,11 +2,11 @@
 <div class="techmarket-advanced-reviews" id="reviews">
     <div class="advanced-review row">
         <div class="advanced-review-rating">
-            <h2 class="based-title">@lang('user.Review') ({{$this->product->getApprovedRatings($this->product->id, 'desc')->count()}})</h2>
+            <h2 class="based-title">@lang('user.Review') ({{$this->item->getApprovedRatings($this->item->id, 'desc')->count()}})</h2>
             <div class="avg-rating">
-                <span class="avg-rating-number">{{$this->product->averageRating(1, true)[0]}}</span>
+                <span class="avg-rating-number">{{$this->item->ratings->avg('rating')}}</span>
                 <div title="Rated 5.0 out of 5" class="star-rating">
-                    <span style="width:{{$this->product->averageRating(null, true)[0] * 2 * 10}}%"></span>
+                    <span style="width:{{$this->item->ratings->avg('rating') * 2 * 10}}%"></span>
                 </div>
             </div>
             <!-- /.avg-rating -->
@@ -15,8 +15,7 @@
                     <div title="Rated 5 out of 5" class="star-rating">
                         <span style="width:100%"></span>
                     </div>
-                    <div class="rating-count">{{$product->ratings()->where('approved',1)
-                        ->where('rating', 5)->count()}}</div>
+                    <div class="rating-count">{{$item->ratings->where('rating', 5)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:100%"></span>
                     </div>
@@ -25,8 +24,7 @@
                     <div title="Rated 4 out of 5" class="star-rating">
                         <span style="width:80%"></span>
                     </div>
-                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
-                        ->where('rating', 4)->count()}}</div>
+                    <div class="rating-count zero">{{$item->ratings->where('rating', 4)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>
                     </div>
@@ -35,8 +33,7 @@
                     <div title="Rated 3 out of 5" class="star-rating">
                         <span style="width:60%"></span>
                     </div>
-                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
-                        ->where('rating', 3)->count()}}</div>
+                    <div class="rating-count zero">{{$item->ratings->where('rating', 3)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>
                     </div>
@@ -45,8 +42,7 @@
                     <div title="Rated 2 out of 5" class="star-rating">
                         <span style="width:40%"></span>
                     </div>
-                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
-                        ->where('rating', 2)->count()}}</div>
+                    <div class="rating-count zero">{{$item->ratings->where('rating', 2)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>
                     </div>
@@ -55,8 +51,7 @@
                     <div title="Rated 1 out of 5" class="star-rating">
                         <span style="width:20%"></span>
                     </div>
-                    <div class="rating-count zero">{{$product->ratings()->where('approved',1)
-                        ->where('rating', 1)->count()}}</div>
+                    <div class="rating-count zero">{{$item->ratings->where('rating', 1)->count()}}</div>
                     <div class="rating-percentage-bar">
                         <span class="rating-percentage" style="width:0%"></span>
                     </div>
@@ -135,7 +130,7 @@
     <!-- /.advanced-review -->
     <div id="comments">
         <ol class="commentlist">
-            @foreach($this->product->getRecentRatings($this->product->id, 10, 'desc') as $rating)
+            @foreach($this->item->getRecentRatings($this->item->id, 10, 'desc') as $rating)
             <li id="li-comment-{{$rating->id}}" class="comment byuser comment-author-admin bypostauthor even thread-even depth-1">
                 <div class="comment_container" id="comment-{{$rating->id}}">
                     <div class="comment-text">

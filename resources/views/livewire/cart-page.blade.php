@@ -84,6 +84,11 @@
 
                                             </div>
                                             <div class='card-body'>
+                                                @if(!empty(session('select')))
+                                            <div class="alert alert-danger" id='error-message'>
+                                                {{ session('select') }}
+                                            </div>
+                                        @endif
                                                 <table class="shop_table shop_table_responsive cart">
                                                     <thead>
                                                         <tr>
@@ -226,13 +231,6 @@
                                                             </tr>
                                                             @endif
                                                             @endforeach
-
-                                                            @if(!empty(session()->get('select')))
-                                                            <div class="alert alert-danger">
-                                                                {{ session()->get('select') }}
-                                                            </div>
-                                                            @endif
-
                                                     </tbody>
                                                 </table>
                                             </div>

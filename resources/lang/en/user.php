@@ -143,7 +143,7 @@ return [
     'Login_to_leave_review'                                                                                                                                                                       => 'Login to leave review',
     'mobile'                                                                                                                                                                                      => 'Mobile',
     'monthly'                                                                                                                                                                                     => 'monthly',
-    'my_followed'                                                                                                                                                                                 => 'My followed',
+    'im_following'                                                                                                                                                                                  => 'Im following..',
     'name'                                                                                                                                                                                        => 'Name',
     'New_Arrivals'                                                                                                                                                                                => 'New Arrivals',
     'Notes_about_your_order,_e.g._special_notes_for_delivery.'                                                                                                                                    => 'Notes about your order, e.g. special notes for delivery.',
@@ -423,5 +423,6 @@ return [
     'failed_to_send_message'                                                                  => 'failed to send message',
     'failed_to_send_image'                                                                    => 'failed to send image',
     'new_message'                                                                             => 'You have a new message',
+    'store_reviews'                                                                            => 'Store reviews',
 
 ];

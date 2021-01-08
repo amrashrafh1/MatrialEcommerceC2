@@ -49,7 +49,10 @@
                                                     </ins>
                                                 @endif
                                         </span>
-                                        <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                        @php
+                                        $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                    @endphp
+                                    <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                         <!-- /.price -->
                                         <h2 class="woocommerce-loop-product__title">{!! $product->name !!}</h2>

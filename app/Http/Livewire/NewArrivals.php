@@ -14,7 +14,7 @@ class NewArrivals extends Component
     public function render()
     {
         $products = Product::IsApproved()->where('section','hot_new_arrivals')
-        ->select('id','slug','product_type','image','name','sale_price')
+        ->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
         ->with(['discount', 'methods'])->latest()->take(20)->get();
 
 
@@ -22,14 +22,14 @@ class NewArrivals extends Component
         ->whereHas('products', function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->where('section','hot_new_arrivals')
-            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
-            ->take(20);
+            ->select('id','slug','product_type','visible','category_id','approved','section','image','name','sale_price');
         })
         ->with(['products'=> function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->where('section','hot_new_arrivals')
-            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
-            ->take(20);
+            ->with(['discount', 'methods'])
+            ->select('id','slug','product_type','visible','category_id','approved','section','image','name','sale_price')
+            ->latest()->limit(20);
         }])
         ->take(4)->get();
 

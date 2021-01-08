@@ -21,9 +21,9 @@ class HomeController extends Controller
     {
 
         $catalog       = Category::where('status', 1)->orderByViews()->get();
-        $adzs          = Adz::available()->inRandomOrder('id')->get();
-        $randomProduct = Product::with('discount')->isApproved()->orderBy('id','desc')->first();
-        $sliders       = Slider::isActive()->get();
+        $adzs          = Adz::available()->inRandomOrder('id')->limit(4)->get();
+        $randomProduct = Product::isApproved()->with('discount')->orderBy('id','desc')->first();
+        $sliders       = Slider::isActive()->limit(25)->get();
         $setting       = Setting::latest('id')->first();
 
         SEOTools::setTitle($setting?$setting->sitename:config('app.name'));

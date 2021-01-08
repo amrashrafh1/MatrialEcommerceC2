@@ -168,7 +168,7 @@
                                                             class="country_to_state country_select select2-hidden-accessible"
                                                             id="billing_country" name="billing_country" tabindex="-1"
                                                             aria-hidden="true">
-                                                            @foreach(\App\Country::all() as $country)
+                                                            @foreach($countries as $country)
                                                             <option value="{{$country->id}}"
                                                                 {{(Auth::check() && auth()->user()->country_id === $country->id)?'selected':''}}>
                                                                 {{$country->country_name}}</option>
@@ -334,7 +334,7 @@
                                                             class="country_to_state country_select select2-hidden-accessible"
                                                             id="shipping_country" name="shipping_country" tabindex="-1"
                                                             aria-hidden="true" value='{{old('shipping_country')}}'>
-                                                            @foreach(\App\Country::all() as $country)
+                                                            @foreach($countries as $country)
                                                             <option value="{{$country->id}}">{{$country->country_name}}
                                                             </option>
                                                             @endforeach

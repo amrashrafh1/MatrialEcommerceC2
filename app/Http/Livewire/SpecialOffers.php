@@ -13,42 +13,26 @@ class SpecialOffers extends Component
 {
     public function render()
     {
-        $categories = Category::where('status', 1)->select('name', 'id', 'slug')
+        $SpecialOffersCategories = Category::where('status', 1)->select('name', 'id', 'slug')
         ->whereHas('products', function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->whereHas('discount', function ($d) {
-                $d->where([
-                ['condition', 'percentage_of_product_price'],['daily', 'special_offers'],
-                ['start_at', '<=', \Carbon\Carbon::now()],
-                ['expire_at', '>', \Carbon\Carbon::now()]])
-
-                ->orWhere([
-
-                ['condition', 'fixed_amount'],['daily', 'special_offers'],
-                ['start_at', '<=', \Carbon\Carbon::now()],
-                ['expire_at', '>', \Carbon\Carbon::now()]])->take(9);
+                $d->DiscountAvailable();
             });
         })
         ->with(['products'=> function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
-
             ->whereHas('discount', function ($d) {
-                $d->where([
-                ['condition', 'percentage_of_product_price'],['daily', 'special_offers'],
-                ['start_at', '<=', \Carbon\Carbon::now()],
-                 ['expire_at', '>', \Carbon\Carbon::now()]])
-
-                ->orWhere([
-
-                ['condition', 'fixed_amount'],['daily', 'special_offers'],
-                ['start_at', '<=', \Carbon\Carbon::now()],
-                ['expire_at', '>', \Carbon\Carbon::now()]])->take(9);
-            });
+                $d->DiscountAvailable();
+            })
+            ->select('id','slug','product_type','visible','category_id','approved','section','image','name','sale_price')
+            ->with(['gallery', 'discount','ratings'=> function ($query) {
+                $query->where('approved', 1);
+            }])->limit(9);
         }])
         ->take(7)->get();
 
-
-        return view('livewire.special-offers', ['categories' => $categories]);
+        return view('livewire.special-offers', ['SpecialOffersCategories' => $SpecialOffersCategories]);
     }
 
     public function addCart($id)

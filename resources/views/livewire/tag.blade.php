@@ -147,12 +147,10 @@
                                         <div class="techmarket-product-rating">
                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                 <span
-                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                     <strong class="rating">5.00</strong> out of 5</span>
                                             </div>
-                                            <span class="review-count">({{DB::table('reviews')
-                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                ->count()}})</span>
+                                            <span class="review-count">({{$product->ratings->count()}})</span>
                                         </div>
                                         <!-- .techmarket-product-rating -->
                                         <span class="sku_wrapper">@lang('user.SKU:')
@@ -228,12 +226,10 @@
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
-                                                            <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                            <span class="review-count">({{$product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
@@ -352,12 +348,10 @@
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
-                                                            <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                            <span class="review-count">({{$product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
@@ -473,12 +467,10 @@
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
-                                                            <span class="review-count">({{DB::table('reviews')
-                                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                                ->count()}})</span>
+                                                            <span class="review-count">({{$product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->

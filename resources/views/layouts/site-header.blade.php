@@ -1,7 +1,3 @@
-@php
-$countries = \DB::table('countries')->get();
-$country   = \DB::table('countries')->where('id', session('country'))->first();
-@endphp
 <header id="masthead" class="site-header header-v1" style="background-image: none; ">
     <div class="col-full desktop-only">
         <div class="techmarket-sticky-wrap">

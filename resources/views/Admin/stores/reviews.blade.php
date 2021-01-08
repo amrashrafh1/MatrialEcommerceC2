@@ -1,4 +1,4 @@
-@extends('Admin.layouts.app', ['activePage' => 'product-management', 'titlePage' => trans('admin.stores')])
+@extends('Admin.layouts.app', ['activePage' => 'seller-management', 'titlePage' => trans('admin.stores')])
 @section('content')
 <div class="container-fluid pt-8">
     <div class="col-md-12">
@@ -10,7 +10,7 @@
                     <span class="caption-subject bold uppercase font-dark">{{$title}}</span>
                 </div>
                 <div class="actions">
-                    <a href="{{aurl('/products')}}" class="btn btn-circle btn-icon-only btn-default"
+                    <a href="{{route('seller.stores.index', $store->seller->id)}}" class="btn btn-circle btn-icon-only btn-default"
                         tooltip="{{trans('admin.show_all')}}" title="{{trans('admin.show_all')}}">
                         <i class="fa fa-list"></i>
                     </a>
@@ -19,7 +19,7 @@
             <div class="card-body form" id="element">
                 <div id="comments">
                     <ul class="commentlist">
-                @forelse($product->getAllRatings($product->id, 'desc') as $rating)
+                @forelse($store->getAllRatings($store->id, 'desc') as $rating)
                     <li id="li-comment-{{$rating->id}}" class="comment byuser comment-author-admin bypostauthor even thread-even depth-1">
                         <div class="comment_container" id="comment-{{$rating->id}}">
                             <div class="comment-text">
@@ -36,7 +36,7 @@
                                     <time datetime="2017-06-21T08:05:40+00:00" itemprop="datePublished" class="woocommerce-review__published-date">{{\Carbon\Carbon::createFromTimeStamp(strtotime($rating->created_at))->diffForHumans()}}</time>
                                     @if(!$rating->approved)
                                     <div class='ml-5'>
-                                        <a class='btn btn-primary' href='{{route('products.reviews.approve', $rating->id)}}'>@lang('admin.accept')</a>
+                                        <a class='btn btn-primary' href='{{route('store.reviews.approve', $rating->id)}}'>@lang('admin.accept')</a>
                                     </div>
                                     @else
                                     <div class='ml-5'>

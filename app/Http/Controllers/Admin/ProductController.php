@@ -570,7 +570,7 @@ class ProductController extends Controller
 
     public function reviews_approve($id)
     {
-        $product = DB::table('reviews')->where('id', $id);
+        $product = DB::table('reviews')->where('id', $id)->where('reviewrateable_type', 'App\Product');
         if ($product) {
             //dd($product);
             $product->update(['approved' => 1]);

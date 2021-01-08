@@ -7,16 +7,14 @@
                         <span> @lang('user.Special_Offers')</span>
                     </h2>
                     <ul role="tablist" class="nav justify-content-center">
-                        @foreach($categories as $index => $category)
-                        @if(!empty($category->products))
+                        @foreach($SpecialOffersCategories as $index => $category)
                         <li class="nav-item"><a class="nav-link {{($index == 0)?'active':''}}" href="#tabs{{$category->id}}" data-toggle="tab">{!!$category->name!!}</a></li>
-                        @endif
                         @endforeach
                     </ul>
                 </header>
                 <!-- .section-header -->
                 <div class="tab-content">
-                    @foreach($categories as $index => $category)
+                    @foreach($SpecialOffersCategories as $index => $category)
                     <div id="tabs{{$category->id}}" class="tab-pane {{($index == 0)?'active':''}}" role="tabpanel">
                         <div class="product-cards-3-2-3-with-featured-product">
                             <div class="row">
@@ -52,12 +50,10 @@
                                                             </div>
                                                             <div class="techmarket-product-rating">
                                                                 <div title="Rated 5.00 out of 5" class="star-rating">
-                                                                    <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    <span style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                         <strong class="rating">5.00</strong> out of 5</span>
                                                                 </div>
-                                                                <span class="review-count">({{DB::table('reviews')
-                                                                            ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                            ->count()}})</span>
+                                                                <span class="review-count">({{$product->ratings->count()}})</span>
                                                             </div>
                                                             <!-- .techmarket-product-rating -->
                                                         </a>
@@ -143,12 +139,10 @@
                                                             </div>
                                                             <div class="techmarket-product-rating">
                                                                 <div title="Rated 5.00 out of 5" class="star-rating">
-                                                                    <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    <span style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                         <strong class="rating">5.00</strong> out of 5</span>
                                                                 </div>
-                                                                <span class="review-count">({{DB::table('reviews')
-                                                                            ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                            ->count()}})</span>
+                                                                <span class="review-count">({{$product->ratings->count()}})</span>
                                                             </div>
                                                         </a>
                                                         <div class="woocommerce-product-details__short-description">
@@ -206,12 +200,10 @@
                                                             </div>
                                                             <div class="techmarket-product-rating">
                                                                 <div title="Rated 5.00 out of 5" class="star-rating">
-                                                                    <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    <span style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                         <strong class="rating">5.00</strong> out of 5</span>
                                                                 </div>
-                                                                <span class="review-count">({{DB::table('reviews')
-                                                                            ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                            ->count()}})</span>
+                                                                <span class="review-count">({{$product->ratings->count()}})</span>
                                                             </div>
                                                             <!-- .techmarket-product-rating -->
                                                         </a>

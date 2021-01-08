@@ -91,9 +91,91 @@
                                     placeholder="@lang('user.address')"
                                     value="{{ old('address', auth()->user()->address) }}"
                                     required />
-                                @if ($errors->has('email'))
-                                <span id="email-error" class="error text-danger"
-                                    for="input-email">{{ $errors->first('email') }}</span>
+                                @if ($errors->has('address'))
+                                <span id="address-error" class="error text-danger"
+                                    for="input-address">{{ $errors->first('address') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <label
+                            class="col-sm-2 col-form-label">@lang('user.country')</label>
+                        <div class="col-sm-7">
+                            <div
+                                class="form-group{{ $errors->has('country_id') ? ' has-danger' : '' }}">
+                                <select class="form-control{{ $errors->has('country_id') ? ' is-invalid' : '' }}"
+                                name='country_id'
+                                value='{{ old('country_id', auth()->user()->country_id) }}'
+                                required>
+                                    @foreach($countries as $country)
+                                        <option value='{{$country->id}}'>{{$country->country_name}}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('country_id'))
+                                <span id="country_id-error" class="error text-danger"
+                                    for="input-country_id">{{ $errors->first('country_id') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <label
+                            class="col-sm-2 col-form-label">@lang('user.city')</label>
+                        <div class="col-sm-7">
+                            <div
+                                class="form-group{{ $errors->has('city') ? ' has-danger' : '' }}">
+                                <input
+                                    class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}"
+                                    name="city" id="input-city" type="text"
+                                    placeholder="@lang('user.city')"
+                                    value="{{ old('city', auth()->user()->city) }}"
+                                    required />
+                                @if ($errors->has('city'))
+                                <span id="city-error" class="error text-danger"
+                                    for="input-city">{{ $errors->first('city') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <label
+                            class="col-sm-2 col-form-label">@lang('user.state')</label>
+                        <div class="col-sm-7">
+                            <div
+                                class="form-group{{ $errors->has('state') ? ' has-danger' : '' }}">
+                                <input
+                                    class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}"
+                                    name="state" id="input-state" type="text"
+                                    placeholder="@lang('user.state')"
+                                    value="{{ old('state', auth()->user()->state) }}"
+                                     />
+                                @if ($errors->has('state'))
+                                <span id="state-error" class="error text-danger"
+                                    for="input-state">{{ $errors->first('state') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <label
+                            class="col-sm-2 col-form-label">@lang('user.Postcode_ZIP')</label>
+                        <div class="col-sm-7">
+                            <div
+                                class="form-group{{ $errors->has('postcode') ? ' has-danger' : '' }}">
+                                <input
+                                    class="form-control{{ $errors->has('postcode') ? ' is-invalid' : '' }}"
+                                    name="postcode" id="input-postcode" type="text"
+                                    placeholder="@lang('user.Postcode_ZIP')"
+                                    value="{{ old('postcode', auth()->user()->postcode) }}"
+                                    required />
+                                @if ($errors->has('postcode'))
+                                <span id="postcode-error" class="error text-danger"
+                                    for="input-postcode">{{ $errors->first('postcode') }}</span>
                                 @endif
                             </div>
                         </div>

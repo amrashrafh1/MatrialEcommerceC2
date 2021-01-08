@@ -29,7 +29,9 @@ class SellerStore extends Component
     {
         $products = $this->store->products()->isApproved()
         ->select('name','approved','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-        ->with('discount', 'ratings', 'methods')->disableCache()->paginate(20);
+        ->with(['discount', 'ratings' => function($q) {
+            $q->where('approved', 1);
+        }, 'methods'])->disableCache()->paginate(20);
 
         return view('livewire.seller-store', ['seller' => $this->store, 'products' => $products]);
     }

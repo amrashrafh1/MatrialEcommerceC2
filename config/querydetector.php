@@ -5,7 +5,7 @@ return [
      * Enable or disable the query detection.
      * If this is set to "null", the app.debug config value will be used.
      */
-    'enabled' => env('QUERY_DETECTOR_ENABLED', false),
+    'enabled' => env('QUERY_DETECTOR_ENABLED', true),
 
     /*
      * Threshold level for the N+1 query detection. If a relation query will be
@@ -56,7 +56,8 @@ return [
      * \BeyondCode\QueryDetector\Outputs\Log::class
      */
     'output' => [
-        \BeyondCode\QueryDetector\Outputs\Alert::class,
+       // \BeyondCode\QueryDetector\Outputs\Alert::class,
         \BeyondCode\QueryDetector\Outputs\Log::class,
-    ]
+        \BeyondCode\QueryDetector\Outputs\Debugbar::class
+        ]
 ];

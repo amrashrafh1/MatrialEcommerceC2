@@ -10,7 +10,7 @@
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
                 </span>
-                @if(count($products) > 0)
+                @if(!$products->isEmpty())
                 {{$products->currentPage()}}
                 @endif
             </nav>
@@ -96,22 +96,13 @@
                             <input type="hidden" value="right-sidebar" name="shop_layout">
                         </form>
                         <!-- .woocommerce-ordering -->
-                        {{-- @if(count($pros) > 0)
-                        <nav class="techmarket-advanced-pagination">
-                            <div class="form-adv-pagination">
-                                <input type="number" wire:model='PageNumber' name="goTo"
-                                value="{{$pros->currentPage()}}"
-                        required class="form-control" step="1" max="{{$pros->lastPage()}}" min="1" id="goto-page">
-                    </div> of {{$pros->lastPage()}}<a href="#" class="next page-numbers">→</a>
-                    </nav>
-                    @else --}}
                     <nav class="techmarket-advanced-pagination">
                         <div class="form-adv-pagination">
 
                             <input type="number" wire:model='PageNumber' name="goTo"
-                                value="{{($products)?$products->currentPage():''}}" required class="form-control"
-                                step="1" max="{{($products)?$products->lastPage():''}}" min="1" size="2" id="goto-page">
-                        </div> of {{($products)?$products->lastPage():''}}<a href="#" class="next page-numbers">→</a>
+                                value="{{(!$products->isEmpty())?$products->currentPage():''}}" required class="form-control"
+                                step="1" max="{{(!$products->isEmpty())?$products->lastPage():''}}" min="1" size="2" id="goto-page">
+                        </div> of {{(!$products->isEmpty())?$products->lastPage():''}}<a href="#" class="next page-numbers">→</a>
                     </nav>
                     {{-- @endif --}}
                     <!-- .techmarket-advanced-pagination -->
@@ -161,12 +152,10 @@
                                 <!-- .woocommerce-LoopProduct-link -->
                                 <div class="techmarket-product-rating">
                                     <div title="Rated 5.00 out of 5" class="star-rating">
-                                        <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                        <span style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                             <strong class="rating">5.00</strong> out of 5</span>
                                     </div>
-                                    <span class="review-count">({{DB::table('reviews')
-                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                ->count()}})</span>
+                                    <span class="review-count">({{$product->ratings->count()}})</span>
                                 </div>
                                 <!-- .techmarket-product-rating -->
                                 <span class="sku_wrapper">@lang('user.SKU:')
@@ -242,12 +231,10 @@
                                                 <div class="techmarket-product-rating">
                                                     <div title="Rated 5.00 out of 5" class="star-rating">
                                                         <span
-                                                            style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                            style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                             <strong class="rating">5.00</strong> out of 5</span>
                                                     </div>
-                                                    <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                    <span class="review-count">({{$product->ratings->count()}})</span>
                                                 </div>
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
@@ -363,12 +350,10 @@
                                                 <div class="techmarket-product-rating">
                                                     <div title="Rated 5.00 out of 5" class="star-rating">
                                                         <span
-                                                            style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                            style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                             <strong class="rating">5.00</strong> out of 5</span>
                                                     </div>
-                                                    <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                    <span class="review-count">({{$product->ratings->count()}})</span>
                                                 </div>
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
@@ -481,12 +466,10 @@
                                                 <div class="techmarket-product-rating">
                                                     <div title="Rated 5.00 out of 5" class="star-rating">
                                                         <span
-                                                            style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                            style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                             <strong class="rating">5.00</strong> out of 5</span>
                                                     </div>
-                                                    <span class="review-count">({{DB::table('reviews')
-                                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                                ->count()}})</span>
+                                                    <span class="review-count">({{$product->ratings->count()}})</span>
                                                 </div>
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
@@ -578,13 +561,13 @@
                 </form>
                 <!-- .form-techmarket-wc-ppp -->
                 <p class="woocommerce-result-count">
-                    @if(count($products) > 0)
+                    @if(!$products->isEmpty())
                     Showing {{$products->firstItem()}}&ndash;{{$products->lastItem()}} of {{$products->total()}} results
                     @endif
                 </p>
                 <!-- .woocommerce-result-count -->
                 <nav class="woocommerce-pagination">
-                    @if(count($products) > 0)
+                    @if(!$products->isEmpty())
                     {{ $products->links() }}
                     @endif
                 </nav>
@@ -616,16 +599,6 @@
             <!-- .product-categories -->
         </div>
         <div id="techmarket_products_filter-3" class="widget widget_techmarket_products_filter">
-            {{-- <span class="gamma widget-title">Filters</span>
-                    <div class="widget woocommerce widget_price_filter" id="woocommerce_price_filter-2">
-                        <p>
-                            <span class="gamma widget-title">Filter by price</span>
-                            <div class="price_slider_amount">
-                                <input id="amount" type="text" placeholder="Min price" data-min="6" value="33" name="min_price" style="display: none;">
-                                <button class="button" type="submit">Filter</button>
-                            </div>
-                            <div id="slider-range" class="price_slider"></div>
-                    </div> --}}
             <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-2" wire:ignore>
                 <span class="gamma widget-title">@lang('user.Brands')</span>
                 <ul>
@@ -635,8 +608,7 @@
                         <input type="radio" class="custom-control-input" wire:model='assId' value="{{$brand->id}}"
                             id="customRadio{{$brand->id}}">
                         <label class="custom-control-label" for="customRadio{{$brand->id}}">
-                            {{$brand->name}}
-                            ({{$brand->products->where('visible', 'visible')->where('approved', 1)->count()}})
+                            {{$brand->name}} ({{$brand->products_count}})
                         </label>
                     </div>
                     @endforeach
@@ -696,13 +668,6 @@
                                                 </span>
                                                 <!-- .price -->
                                                 <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
-                                                <div class="techmarket-product-rating">
-                                                    <div title="Rated 0 out of 5" class="star-rating">
-                                                        <span style="width:0%">
-                                                            <strong class="rating">0</strong> out of 5</span>
-                                                    </div>
-                                                    <span class="review-count">(0)</span>
-                                                </div>
                                                 <!-- .techmarket-product-rating -->
                                             </div>
                                             <!-- .media-body -->
@@ -732,15 +697,18 @@
 </div>
 @push('js')
 <script>
-    $('.list-products a.nav-link').on('show.bs.tab', function(e) {
-        localStorage.setItem('listProducts',  $(e.target).attr('href'));
+    $('.list-products a.nav-link').on('show.bs.tab', function (e) {
+        localStorage.setItem('listProducts', $(e.target).attr('href'));
     });
-    document.addEventListener("livewire:load", function(event) {
-        var listProducts = localStorage.getItem('listProducts').replace('#', '');
+    document.addEventListener("livewire:load", function (event) {
+        var listProducts = localStorage.getItem('listProducts');
 
-        if(listProducts){
-            @this.set('tab', listProducts);
+        if (listProducts) {
+            @this.set('tab', listProducts.replace('#', ''));
+        } else {
+            @this.set('tab', 'grid-extended');
         }
     });
+
 </script>
 @endpush

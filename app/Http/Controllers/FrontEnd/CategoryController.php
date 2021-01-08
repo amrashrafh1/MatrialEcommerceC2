@@ -12,10 +12,12 @@ class CategoryController extends Controller
 {
 
     public function __invoke($slug) {
-        $category = Category::where('slug', $slug)->with('products')->first();
+        $category = Category::where('slug', $slug)->with(['categories' => function ($q) {
+            $q->where('status', 1);
+        }])->first();
 
         if($category) {
-            $setting             = Setting::latest('id')->first();
+            $setting             = config('app.setting');
             SEOTools::setTitle($category->name);
             SEOTools::setDescription($category->meta_description);
             SEOTools::opengraph()->setUrl(route('show_category', $category->slug));

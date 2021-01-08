@@ -32,8 +32,9 @@ class SmallMonitorSearch extends Component
             if(!blank($this->slug)) {
                 $store = SellerInfo::where('slug', $this->slug)->with(['products' => function ($query) {
                     $query->where('visible', 'visible')->where('approved',1);
-                }])->first();
-                $tags = $store->products()->where('name', 'LIKE', '%'.$data['smallSearch']. '%')->paginate(10);
+                }, 'discount'])->first();
+                $tags = $store->products()->where('name', 'LIKE', '%'.$data['smallSearch']. '%')
+                ->with('discount')->paginate(10);
             } else {
             $tags = \Spatie\Tags\Tag::Containing($data['smallSearch'], $lang)->paginate(10);
             }

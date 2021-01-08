@@ -10,26 +10,13 @@
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
                 </span>
+                @if(!$products->isEmpty())
                 {{$products->currentPage()}}
+                @endif
             </nav>
             <!-- .woocommerce-breadcrumb -->
             <div id="primary" class="content-area">
                 <main id="main" class="site-main">
-                    <div class="shop-archive-header" wire:ignore>
-                        <div class="jumbotron">
-                            <div class="jumbotron-img">
-                                <img width="416" height="283" alt="" src="{{Storage::url($this->cms->image)}}" class="jumbo-image alignright">
-                            </div>
-                            <div class="jumbotron-caption">
-                                <h3 class="jumbo-title">{{$this->cms->menuTitle}}</h3>
-                                <p class="jumbo-subtitle">
-                                    {!! $this->cms->content !!}
-                                </p>
-                            </div>
-                            <!-- .jumbotron-caption -->
-                        </div>
-                        <!-- .jumbotron -->
-                    </div>
                     <!-- .shop-archive-header -->
                     <div class="shop-control-bar">
                         <div class="handheld-sidebar-toggle">
@@ -43,13 +30,15 @@
                         <ul role="tablist" class="shop-view-switcher nav nav-tabs">
                             <li class="nav-item list-products">
                                 <a href="#grid-extended" title="Grid Extended View" data-toggle="tab"
-                                    class="nav-link {{ $tab == 'grid-extended' ? 'active' : '' }}" wire:click="$set('tab', 'grid-extended')">
+                                    class="nav-link {{ $tab == 'grid-extended' ? 'active' : '' }}"
+                                    wire:click="$set('tab', 'grid-extended')">
                                     <i class="tm tm-grid"></i>
                                 </a>
                             </li>
                             <li class="nav-item list-products">
                                 <a href="#list-view-large" title="List View Large" data-toggle="tab" class="nav-link
-                                {{ $tab == 'list-view-large' ? 'active' : '' }}" wire:click="$set('tab', 'list-view-large')">
+                                {{ $tab == 'list-view-large' ? 'active' : '' }}"
+                                    wire:click="$set('tab', 'list-view-large')">
                                     <i class="tm tm-listing-large"></i>
                                 </a>
                             </li>
@@ -61,7 +50,8 @@
                             </li>
                             <li class="nav-item list-products">
                                 <a href="#list-view-small" title="List View Small" data-toggle="tab" class="nav-link
-                                {{ $tab == 'list-view-small' ? 'active' : '' }}" wire:click="$set('tab', 'list-view-small')">
+                                {{ $tab == 'list-view-small' ? 'active' : '' }}"
+                                    wire:click="$set('tab', 'list-view-small')">
                                     <i class="tm tm-listing-small"></i>
                                 </a>
                             </li>
@@ -91,24 +81,26 @@
                             <input type="hidden" value="right-sidebar" name="shop_layout">
                         </form>
                         <!-- .woocommerce-ordering -->
-
                         <nav class="techmarket-advanced-pagination">
                             <div class="form-adv-pagination">
 
                                 <input type="number" wire:model='PageNumber' name="goTo"
-                                value="{{$products->currentPage()}}"
-                                required class="form-control" step="1" max="{{$products->lastPage()}}" min="1" size="2" id="goto-page">
-                            </div> of {{$products->lastPage()}}<a href="#" class="next page-numbers">→</a>
+                                    value="{{(!$products->isEmpty())?$products->currentPage():''}}" required class="form-control"
+                                    step="1" max="{{(!$products->isEmpty())?$products->lastPage():''}}" min="1" size="2"
+                                    id="goto-page">
+                            </div> of {{(!$products->isEmpty())?$products->lastPage():''}}<a href="#"
+                                class="next page-numbers">→</a>
                         </nav>
+                        {{-- @endif --}}
                         <!-- .techmarket-advanced-pagination -->
                     </div>
                     <!-- .shop-control-bar -->
                     <div class="tab-content" style='position:relative;'>
                         <div id="shop-loading" wire:loading>
-                            <div class="loader" ></div>
+                            <div class="loader"></div>
                         </div>
                         <!-- .tab-pane -->
-                        @if($tab ===  'grid-extended')
+                        @if($tab === 'grid-extended')
                         <div id="grid-extended" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-4">
                                 <div class="products">
@@ -118,13 +110,23 @@
                                     @foreach($products as $product)
                                     <div class="product {{($count%4 == 1)?'first':''}} {{($count%4 == 0)?'last':''}}">
                                         <div class="yith-wcwl-add-to-wishlist">
-                                            <a class='add_to_wishlist'
-                                    @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
-                                    @endauth>
-                                    </a> </div>
+                                            <a class='add_to_wishlist' @auth wire:click='wishlists({{$product->id}})'
+                                                @else href='{{route('login')}}' @endauth>
+                                            </a>
+                                        </div>
                                         <!-- .yith-wcwl-add-to-wishlist -->
                                         <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
                                             href="{{route('show_product', $product->slug)}}" target="_blank">
+                                            @if($product->available_discount())
+                                            <span class="onsale">
+                                                <span class="woocommerce-Price-amount amount">
+                                                    <ins>
+                                                        <span class="amount">{!! curr($product->calc_price() -
+                                                            $product->priceDiscount()) !!}</span>
+                                                    </ins>
+                                                </span>
+                                            </span>
+                                            @endif
                                             <img width="224" height="197" alt=""
                                                 class="attachment-shop_catalog size-shop_catalog wp-post-image"
                                                 src="{{Storage::url($product->image)}}">
@@ -142,7 +144,10 @@
                                                 </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                            @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                             <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                         </a>
@@ -150,12 +155,11 @@
                                         <div class="techmarket-product-rating">
                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                 <span
-                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                     <strong class="rating">5.00</strong> out of 5</span>
                                             </div>
-                                            <span class="review-count">({{DB::table('reviews')
-                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                ->count()}})</span>
+                                            <span
+                                                class="review-count">({{$product->ratings->count()}})</span>
                                         </div>
                                         <!-- .techmarket-product-rating -->
                                         <span class="sku_wrapper">@lang('user.SKU:')
@@ -167,8 +171,8 @@
                                         <!-- .woocommerce-product-details__short-description -->
                                         @if($product->IsVariable())
                                         <a class="button product_type_simple add_to_cart_button"
-                                            href='{{route('show_product',$product->slug)}}'
-                                            rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
+                                            href='{{route('show_product',$product->slug)}}' target="_blank"
+                                            rel="nofollow">@lang('user.Add_to_cart')</a>
 
                                         @if($compare !== null)
                                         @if(!in_array($product->id, $compare))
@@ -205,7 +209,7 @@
                             <!-- .woocommerce -->
                         </div>
                         <!-- .tab-pane -->
-                        @elseif($tab ===  'list-view-large')
+                        @elseif($tab === 'list-view-large')
                         <div id="list-view-large" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-1">
                                 <div class="products">
@@ -218,30 +222,41 @@
                                             <div class="media-body">
                                                 <div class="product-info">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a class='add_to_wishlist'
-                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
-                                                        @endauth>
+                                                        <a class='add_to_wishlist' @auth
+                                                            wire:click='wishlists({{$product->id}})' @else
+                                                            href='{{route('login')}}' @endauth>
                                                         </a>
                                                     </div>
                                                     <!-- .yith-wcwl-add-to-wishlist -->
                                                     <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-                                                        href="{{route('show_product', $product->slug)}}">
-                                                        <h2 class="woocommerce-loop-product__title" target="_blank">{{$product->name}}
+                                                        href="{{route('show_product', $product->slug)}}"
+                                                        target="_blank">
+                                                        @if($product->available_discount())
+                                                        <span class="onsale">
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                <ins>
+                                                                    <span class="amount">{!! curr($product->calc_price()
+                                                                        -
+                                                                        $product->priceDiscount()) !!}</span>
+                                                                </ins>
+                                                            </span>
+                                                        </span>
+                                                        @endif
+                                                        <h2 class="woocommerce-loop-product__title">{{$product->name}}
                                                         </h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
-                                                            <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                            <span
+                                                                class="review-count">({{$product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
                                                     <div class="brand">
-                                                        <a href="#">
+                                                        <a href="{{route('brand',$product->tradmark->slug)}}">
                                                             <img alt="galaxy"
                                                                 src="{{Storage::url($product->tradmark->logo)}}">
                                                         </a>
@@ -279,13 +294,16 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <!-- .price -->
-                                                    <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
+                                                    <!-- .price -->
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
-                                                        href='{{route('show_product',$product->slug)}}'
-                                                        rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
+                                                        href='{{route('show_product',$product->slug)}}' target="_blank"
+                                                        rel="nofollow">@lang('user.Add_to_cart')</a>
 
                                                     @if($compare !== null)
                                                     @if(!in_array($product->id, $compare))
@@ -331,7 +349,7 @@
                             <!-- .woocommerce -->
                         </div>
                         <!-- .tab-pane -->
-                        @elseif($tab ===  'list-view')
+                        @elseif($tab === 'list-view')
                         <div id="list-view" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-1">
                                 <div class="products">
@@ -344,30 +362,41 @@
                                             <div class="media-body">
                                                 <div class="product-info">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a class='add_to_wishlist'
-                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
-                                                        @endauth>
+                                                        <a class='add_to_wishlist' @auth
+                                                            wire:click='wishlists({{$product->id}})' @else
+                                                            href='{{route('login')}}' @endauth>
                                                         </a>
                                                     </div>
                                                     <!-- .yith-wcwl-add-to-wishlist -->
                                                     <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
-                                                        href="{{route('show_product', $product->slug)}}" target="_blank">
+                                                        href="{{route('show_product', $product->slug)}}"
+                                                        target="_blank">
+                                                        @if($product->available_discount())
+                                                        <span class="onsale">
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                <ins>
+                                                                    <span class="amount">{!! curr($product->calc_price()
+                                                                        -
+                                                                        $product->priceDiscount()) !!}</span>
+                                                                </ins>
+                                                            </span>
+                                                        </span>
+                                                        @endif
                                                         <h2 class="woocommerce-loop-product__title">{{$product->name}}
                                                         </h2>
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
-                                                            <span class="review-count">({{DB::table('reviews')
-                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                ->count()}})</span>
+                                                            <span
+                                                                class="review-count">({{$product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
                                                     <div class="brand">
-                                                        <a href="#">
+                                                        <a href="{{route('brand', $product->tradmark->slug)}}">
                                                             <img alt="galaxy"
                                                                 src="{{Storage::url($product->tradmark->logo)}}">
                                                         </a>
@@ -402,13 +431,16 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
-                                                        href='{{route('show_product',$product->slug)}}'
-                                                        rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
+                                                        href='{{route('show_product',$product->slug)}}' target="_blank"
+                                                        rel="nofollow">@lang('user.Add_to_cart')</a>
 
                                                     @if($compare !== null)
                                                     @if(!in_array($product->id, $compare))
@@ -454,7 +486,7 @@
                             <!-- .woocommerce -->
                         </div>
                         <!-- .tab-pane -->
-                        @elseif($tab ===  'list-view-small')
+                        @elseif($tab === 'list-view-small')
                         <div id="list-view-small" class="tab-pane active" role="tabpanel">
                             <div class="woocommerce columns-1">
                                 <div class="products">
@@ -467,9 +499,9 @@
                                             <div class="media-body">
                                                 <div class="product-info">
                                                     <div class="yith-wcwl-add-to-wishlist">
-                                                        <a class='add_to_wishlist'
-                                                        @auth wire:click='wishlists({{$product->id}})' @else href='{{route('login')}}'
-                                                        @endauth>
+                                                        <a class='add_to_wishlist' @auth
+                                                            wire:click='wishlists({{$product->id}})' @else
+                                                            href='{{route('login')}}' @endauth>
                                                         </a>
                                                     </div>
                                                     <!-- .yith-wcwl-add-to-wishlist -->
@@ -480,12 +512,11 @@
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
-                                                            <span class="review-count">({{DB::table('reviews')
-                                                                                ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                                                                ->count()}})</span>
+                                                            <span
+                                                                class="review-count">({{ $product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
@@ -513,13 +544,16 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
                                                     <a class="button product_type_simple add_to_cart_button"
-                                                        href='{{route('show_product',$product->slug)}}'
-                                                        rel="nofollow" target="_blank">@lang('user.Add_to_cart')</a>
+                                                        href='{{route('show_product',$product->slug)}}' target="_blank"
+                                                        rel="nofollow">@lang('user.Add_to_cart')</a>
 
                                                     @if($compare !== null)
                                                     @if(!in_array($product->id, $compare))
@@ -581,11 +615,16 @@
                         </form>
                         <!-- .form-techmarket-wc-ppp -->
                         <p class="woocommerce-result-count">
-                            Showing {{$products->firstItem()}}&ndash;{{$products->lastItem()}} of {{$products->total()}} results
+                            @if(!$products->isEmpty())
+                            Showing {{$products->firstItem()}}&ndash;{{$products->lastItem()}} of {{$products->total()}}
+                            results
+                            @endif
                         </p>
                         <!-- .woocommerce-result-count -->
                         <nav class="woocommerce-pagination">
+                            @if(!$products->isEmpty())
                             {{ $products->links() }}
+                            @endif
                         </nav>
                         <!-- .woocommerce-pagination -->
                     </div>
@@ -595,142 +634,157 @@
             </div>
             <!-- #primary -->
             <div id="secondary" class="widget-area shop-sidebar" role="complementary" wire:ignore>
-                <div class="widget woocommerce widget_product_categories techmarket_widget_product_categories" id="techmarket_product_categories_widget-2">
-                    <ul class="product-categories ">
-                        <li class="product_cat">
-                            <span>@lang('user.Browse_Categories')</span>
-                            <ul>
-                                @foreach($categories as $category)
-                                <li class="cat-item">
-                                    <a href="{{route('show_category', $category->slug)}}">
-                                        <span class="{{(count($category->categories) > 0)?'child-indicator':'no-child'}}"></span>{{$category->name}}</a>
-                                </li>
-                                @endforeach
-                            </ul>
+            <div id="techmarket_product_categories_widget-2"
+                class="widget woocommerce widget_product_categories techmarket_widget_product_categories">
+                <ul class="product-categories category-single">
+                    <li class="product_cat">
+                        <ul class="show-all-cat">
+                            <li class="product_cat">
+                                <span class="show-all-cat-dropdown">@lang('user.Show_All_Categories')</span>
+                                <ul>
+                                    @foreach($categories as $category)
+                                    <li class="cat-item"><a
+                                            href="{{route('show_category',$category->slug)}}">{{$category->name}}</a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- .product-categories -->
+            </div>
+            <div id="techmarket_products_filter-3" class="widget widget_techmarket_products_filter">
+                {{-- <span class="gamma widget-title">Filters</span>
+                    <div class="widget woocommerce widget_price_filter" id="woocommerce_price_filter-2">
+                        <p>
+                            <span class="gamma widget-title">Filter by price</span>
+                            <div class="price_slider_amount">
+                                <input id="amount" type="text" placeholder="Min price" data-min="6" value="33" name="min_price" style="display: none;">
+                                <button class="button" type="submit">Filter</button>
+                            </div>
+                            <div id="slider-range" class="price_slider"></div>
+                    </div> --}}
+                <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-0"
+                    wire:ignore>
+                    <span class="gamma widget-title">@lang('user.Brands')</span>
+                    <ul>
+                        @foreach($brands as $brand)
+                        <li class="wc-layered-nav-term custom-control custom-radio custom-control-block mb-2">
+                            <input type="radio" class="custom-control-input" wire:model='assId' value="{{$brand->id}}"
+                                id="customRadio{{$brand->id}}">
+                            <label class="custom-control-label" for="customRadio{{$brand->id}}">
+                                {{$brand->name}} ({{$brand->products_count}})
+                            </label>
                         </li>
+                        @endforeach
                     </ul>
                 </div>
-                <div id="techmarket_products_filter-3" class="widget widget_techmarket_products_filter">
-                    <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-2" wire:ignore>
-                        <span class="gamma widget-title">@lang('user.Brands')</span>
-                        <ul>
-
-                            @foreach($brands as $brand)
-                            <div class="custom-control custom-radio custom-control-block mb-2">
-                                <input type="radio" class="custom-control-input"
-                                wire:model='assId' value="{{$brand->id}}" id="customRadio{{$brand->id}}">
-                            <label class="custom-control-label" for="customRadio{{$brand->id}}">
-                                @php
-                                    if($this->cms->type == 'categories') {
-                                        $brandCount = $brand->products->where('visible','visible')->whereIn('category_id', $this->cms->categories->pluck('id'))->count();
-
-                                    } else {
-                                        $brandCount = $brand->products->where('visible','visible')->whereIn('id', $this->cms->products->pluck('id'))->count();
-                                    }
-                                @endphp
-                                {{$brand->name}} ({{$brandCount}})
-                            </label>
-                            </div>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <!-- .woocommerce widget_layered_nav -->
-                    <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-3" wire:ignore>
-                        @foreach($family as $fam)
-                        <span class="gamma widget-title">{{$fam->name}}</span>
-                        <ul>
-                            @foreach($fam->attributes()->whereIn('id',$attributes->pluck('id'))->get() as $attribute)
-                            <div class="custom-control custom-checkbox">
+                <!-- .woocommerce widget_layered_nav -->
+                @foreach($family as $index => $fam)
+                <div class="widget woocommerce widget_layered_nav maxlist-more"
+                    id="woocommerce_layered_nav-{{$index + 1}}" wire:ignore>
+                    <span class="gamma widget-title">{{$fam->name}}</span>
+                    <ul>
+                        @foreach($fam->attributes()->whereIn('id',$attributes->pluck('id'))->get() as $attribute)
+                        <li class="wc-layered-nav-term custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" wire:model='ass_attrs'
-                            name="attributes[]" value="{{$attribute->id}}" id="customCheck{{$attribute->id}}">
-                                <label class="custom-control-label" for="customCheck{{$attribute->id}}">{{$attribute->name}}</label>
-                            </div>
-                            @endforeach
-                        </ul>
+                                name="attributes[]" value="{{$attribute->id}}" id="customCheck{{$attribute->id}}">
+                            <label class="custom-control-label"
+                                for="customCheck{{$attribute->id}}">{{$attribute->name}}</label>
+                        </li>
                         @endforeach
-                    </div>
-                    <!-- .woocommerce widget_layered_nav -->
+                    </ul>
                 </div>
-                <div class="widget widget_techmarket_products_carousel_widget" wire:ignore>
-                    <section id="single-sidebar-carousel" class="section-products-carousel">
-                        <header class="section-header">
-                            <h2 class="section-title">@lang('user.Latest_Products')</h2>
-                            <nav class="custom-slick-nav"></nav>
-                        </header>
-                        <!-- .section-header -->
-                        <div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;rows&quot;:2,&quot;slidesPerRow&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#single-sidebar-carousel .custom-slick-nav&quot;}">
-                            <div class="container-fluid">
-                                <div class="woocommerce columns-1">
-                                    <div class="products">
-                                        @foreach(\App\Product::orderBy('id', 'DESC')->take(10)->get() as $latest)
-                                        <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link" href="{{route('show_product', $latest->slug)}}" target="_blank">
-                                                <div class="media">
-                                                    <img class="wp-post-image" src="{{Storage::url($latest->image)}}" alt="">
-                                                    <div class="media-body">
-                                                        <span class="price">
-                                                            @if($latest->available_discount())
-                                                                <ins>
-                                                                    <span class="amount">{!! curr($latest->priceDiscount()) !!}</span>
-                                                                </ins>
-                                                                <del>
-                                                                    <span class="amount">{!! curr($latest->calc_price()) !!}</span>
-                                                                </del>
-                                                                @else
-                                                                <ins>
-                                                                    <span class="amount">{!! curr($latest->calc_price()) !!}</span>
-                                                                </ins>
-                                                            @endif
-                                                        </span>
-                                                        <!-- .price -->
-                                                        <span class='product_shipping'>{{$latest->calc_shippings($country)}}</span>
-                                                        <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
-                                                        <div class="techmarket-product-rating">
-                                                            <div title="Rated 0 out of 5" class="star-rating">
-                                                                <span style="width:0%">
-                                                                    <strong class="rating">0</strong> out of 5</span>
-                                                            </div>
-                                                            <span class="review-count">(0)</span>
-                                                        </div>
-                                                        <!-- .techmarket-product-rating -->
-                                                    </div>
-                                                    <!-- .media-body -->
-                                                </div>
-                                                <!-- .media -->
-                                            </a>
-                                            <!-- .woocommerce-LoopProduct-link -->
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    <!-- .products -->
-                                </div>
-                                <!-- .woocommerce -->
-                            </div>
-                            <!-- .container-fluid -->
-                        </div>
-                        <!-- .products-carousel -->
-                    </section>
-                    <!-- .section-products-carousel -->
-                </div>
-                <!-- .widget_techmarket_products_carousel_widget -->
+                @endforeach
+                <!-- .woocommerce widget_layered_nav -->
             </div>
-        </div>
-        <!-- .row -->
-    </div>
-    <!-- .col-full -->
-</div>
+            <div class="widget widget_techmarket_products_carousel_widget" wire:ignore>
+                <section id="single-sidebar-carousel" class="section-products-carousel">
+                    <header class="section-header">
+                        <h2 class="section-title">@lang('user.Latest_Products')</h2>
+                        <nav class="custom-slick-nav"></nav>
+                    </header>
+                    <!-- .section-header -->
+                    <div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products"
+                        data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;rows&quot;:2,&quot;slidesPerRow&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-{{$direction == 'right'?'right':'left'}}\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-{{$direction == 'right'?'left':'right'}}\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#single-sidebar-carousel .custom-slick-nav&quot;}">
+                        <div class="container-fluid">
+                            <div class="woocommerce columns-1">
+                                <div class="products">
+                                    @foreach($latest_products as $latest)
+                                    <div class="landscape-product-widget product">
+                                        <a class="woocommerce-LoopProduct-link"
+                                            href="{{route('show_product', $latest->slug)}}" target="_blank">
+                                            <div class="media">
+                                                <img class="wp-post-image" src="{{Storage::url($latest->image)}}"
+                                                    alt="">
+                                                <div class="media-body">
+                                                    <span class="price">
+                                                        @if($latest->available_discount())
+                                                        <ins>
+                                                            <span class="amount">{!! curr($latest->priceDiscount())
+                                                                !!}</span>
+                                                        </ins>
+                                                        <del>
+                                                            <span class="amount">{!! curr($latest->calc_price())
+                                                                !!}</span>
+                                                        </del>
+                                                        @else
+                                                        <ins>
+                                                            <span class="amount">{!! curr($latest->calc_price())
+                                                                !!}</span>
+                                                        </ins>
+                                                        @endif
+                                                    </span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $latest->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$latest->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
+                                                    <!-- .price -->
+                                                    <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
+
+                                                    <!-- .techmarket-product-rating -->
+                                                </div>
+                                                <!-- .media-body -->
+                                            </div>
+                                            <!-- .media -->
+                                        </a>
+                                        <!-- .woocommerce-LoopProduct-link -->
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <!-- .products -->
+                            </div>
+                            <!-- .woocommerce -->
+                        </div>
+                        <!-- .container-fluid -->
+                    </div>
+                    <!-- .products-carousel -->
+                </section>
+                <!-- .section-products-carousel -->
+            </div>
+            <!-- .widget_techmarket_products_carousel_widget -->
+        </div>
+    </div>
+    <!-- .row -->
+</div>
+<!-- .col-full -->
+</div>
 @push('js')
 <script>
-    $('.list-products a.nav-link').on('show.bs.tab', function(e) {
-        localStorage.setItem('listProducts',  $(e.target).attr('href'));
+    $('.list-products a.nav-link').on('show.bs.tab', function (e) {
+        localStorage.setItem('listProducts', $(e.target).attr('href'));
     });
-    document.addEventListener("livewire:load", function(event) {
-        var listProducts = localStorage.getItem('listProducts').replace('#', '');
+    document.addEventListener("livewire:load", function (event) {
+        var listProducts = localStorage.getItem('listProducts');
 
-        if(listProducts){
-            @this.set('tab', listProducts);
+        if (listProducts) {
+            @this.set('tab', listProducts.replace('#', ''));
+        } else {
+            @this.set('tab', 'grid-extended');
         }
     });
+
 </script>
 @endpush

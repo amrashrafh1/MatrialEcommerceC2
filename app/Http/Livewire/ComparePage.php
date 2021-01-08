@@ -12,7 +12,9 @@ class ComparePage extends Component
     public function render()
     {
         if(session()->get('compare') !== null) {
-            $compare = Product::whereIn('id', session()->get('compare'))->get();
+            $compare = Product::whereIn('id', session()->get('compare'))->with('ratings', function ($q) {
+                $q->where('approved',1);
+            })->get();
         } else {
             $compare = collect();
         }

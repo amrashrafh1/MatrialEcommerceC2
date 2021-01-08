@@ -358,7 +358,6 @@ if (!function_exists('shop_sort')) {
         if ($tradmark) {
             return $products = tradmark_exist(($cat_id) ? $cat_id : null, ($prods) ? $prods : null, $tradmark, $attributes, $sort, $perpage);
         } else {
-
             // if $attributes not null
             return $products = tradmark_not_exist(($cat_id) ? $cat_id : null, ($prods) ? $prods : null, $attributes, $sort, $perpage);
         }
@@ -372,44 +371,21 @@ if (!function_exists('brand_sort')) {
         $pros = [];
         $tradmark = Tradmark::where('id', $brand)->first();
         if ($tradmark) {
-            if ($attributes && is_array($attributes)) {
+            if ($attributes && count($attributes) > 0) {
                 return $products = $tradmark->productsSortBy($sort)
                 //->where('tradmark_id', $brand_id)
                     ->whereHas('attributes', function ($q) use ($attributes) {
                         $q->whereIn('id', $attributes);
                     })
-                //->select('name', 'image', 'tax', 'short_description', 'tradmark_id', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
+                    //->select('name', 'image', 'tax', 'short_description', 'category_id','tradmark_id','sale_price', 'sku', 'id', 'slug', 'product_type')->with(['ratings', 'discount', 'methods'])
                     ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
             } else {
                 return $products = $tradmark->productsSortBy($sort)
-                //->where('tradmark_id', $brand_id)
-                // ->select('name', 'image', 'tax', 'short_description', 'tradmark_id', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-
                     ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
             }
             // if not $tradmark exist
-        } else {
-
-            // if $attributes not null
-
-            if ($attributes && is_array($attributes)) {
-                return $products = Product::IsApproved()
-                    ->where('tradmark_id', $brand_id)
-                    ->productsSortBy($sort)
-                    ->whereHas('attributes', function ($q) use ($attributes) {
-                        $q->whereIn('id', $attributes);
-                    })
-                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-
-                // if $attributes null
-            } else {
-                return $products = Product::IsApproved()
-                    ->where('tradmark_id', $brand_id)
-                    ->productsSortBy($sort)
-                    ->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-            }
         }
+        return redirect()->route('shop');
     }
 }
 
@@ -420,7 +396,7 @@ if (!function_exists('sortProductsDiscount')) {
         $pros = [];
         $tradmark = Tradmark::where('id', $brand)->first();
         if ($tradmark) {
-            if ($attributes && is_array($attributes)) {
+            if ($attributes && count($attributes) > 0) {
                 return $products = $tradmark->discountProductsSortBy($sort)
                     ->whereHas('attributes', function ($q) use ($attributes) {
                         $q->whereIn('id', $attributes);
@@ -437,7 +413,7 @@ if (!function_exists('sortProductsDiscount')) {
 
             // if $attributes not null
 
-            if ($attributes && is_array($attributes)) {
+            if ($attributes && count($attributes) > 0) {
                 return $products = Product::hasDiscount()
                     ->productsSortBy($sort)
                     ->whereHas('attributes', function ($q) use ($attributes) {
@@ -508,12 +484,12 @@ if (!function_exists('getPercentageChange')) {
 if (!function_exists('tradmark_exist')) {
     function tradmark_exist($cat_id = null, $prods = null, $tradmark = null, $attributes = [], $sort, $perpage)
     {
-        if ($attributes && is_array($attributes)) {
+        if ($attributes && count($attributes) > 0) {
             $query = $tradmark->productsSortBy($sort);
             if ($cat_id) {
-                if (is_array($cat_id)) {
+                if (count($cat_id) > 1 ) {
                     $query->whereIn('category_id', $cat_id);
-                } else {
+                } elseif(count($cat_id) == 1 ) {
                     $query->where('category_id', $cat_id);
                 }
             }
@@ -524,27 +500,26 @@ if (!function_exists('tradmark_exist')) {
             ;
             return $query->whereHas('attributes', function ($q) use ($attributes) {
                 $q->whereIn('id', $attributes);
-            })
-            //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-                ->with(['ratings', 'discount', 'methods'])->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
-
-            return $query;
+            })->with(['ratings'=> function ($query) {
+                $query->where('approved', 1);
+            }, 'discount', 'methods'])->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
         } else {
             $query = $tradmark->productsSortBy($sort);
             if ($cat_id) {
-                if (is_array($cat_id)) {
+                if (count($cat_id) > 1 ) {
                     $query->whereIn('category_id', $cat_id);
-                } else {
+                } elseif(count($cat_id) == 1 ) {
                     $query->where('category_id', $cat_id);
                 }
             }
-            ;
+
             if ($prods) {
                 $query->whereIn('id', $prods);
             }
-            ;
-            //->select('name', 'image', 'tax', 'short_description', 'sale_price', 'sku', 'id', 'slug', 'product_type')
-            return $query->with(['ratings', 'discount', 'methods'])->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
+
+            return $query->with(['ratings'=> function ($query) {
+                $query->where('approved', 1);
+            }, 'discount', 'methods'])->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
         }
     }
 }
@@ -554,20 +529,21 @@ if (!function_exists('tradmark_not_exist')) {
     {
 
         // if $attributes not null
-        if ($attributes && is_array($attributes)) {
-            $query = Product::with(['ratings', 'discount', 'methods'])->IsApproved()->productsSortBy($sort);
+        if ($attributes && count($attributes) > 0) {
+            $query = Product::with(['ratings'=> function ($query) {
+                $query->where('approved', 1);
+            }, 'discount', 'methods'])->IsApproved()->productsSortBy($sort);
             if ($cat_id) {
-                if (is_array($cat_id)) {
+                if (count($cat_id) > 1 ) {
                     $query->whereIn('category_id', $cat_id);
-                } else {
+                } elseif(count($cat_id) == 1 ) {
                     $query->where('category_id', $cat_id);
                 }
             }
             ;
             if ($prods) {
                 $query->whereIn('id', $prods);
-            }
-            ;
+            };
             return $query->whereHas('attributes', function ($q) use ($attributes) {
                 $q->whereIn('id', $attributes);
             })->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
@@ -575,19 +551,20 @@ if (!function_exists('tradmark_not_exist')) {
         } else {
             // if $attributes null
 
-            $query = Product::with(['ratings', 'discount', 'methods'])->IsApproved()->productsSortBy($sort);
+            $query = Product::with(['ratings'=> function ($query) {
+                $query->where('approved', 1);
+            }, 'discount', 'methods'])->IsApproved()->productsSortBy($sort);
             if ($cat_id) {
-                if (is_array($cat_id)) {
+                if (count($cat_id) > 1 ) {
                     $query->whereIn('category_id', $cat_id);
-                } else {
+                } elseif(count($cat_id) == 1 ) {
                     $query->where('category_id', $cat_id);
                 }
-            }
-            ;
+            };
             if ($prods) {
                 $query->whereIn('id', $prods);
-            }
-            ;
+            };
+
             return $query->disableCache()->paginate((is_numeric($perpage)) ? $perpage : 20);
         }
     }

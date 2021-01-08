@@ -22,6 +22,7 @@ class ChatBot extends Component
     }
     public function mount(Conversation $conv)
     {
+
         $this->conv    = $conv;
         $this->conv_id = $conv->id;
         $this->user_id = ($conv->user_1 != auth()->user()->id)?$conv->user_1:$conv->user_2;
@@ -29,6 +30,7 @@ class ChatBot extends Component
 
     public function render()
     {
+
         // messages
         $conversation = $this->conv;
         if ($conversation) {
@@ -44,9 +46,6 @@ class ChatBot extends Component
 
 
             // update is read
-            /* $conversation->messages()->where('m_to', $auth_id)->where('is_read', 0)
-            ->skip($messages_count - $this->paginate_var)
-            ->take($this->paginate_var)->update(['is_read'=> 1]); */
 
             $conversation->messages()->where('m_to', $auth_id)->where('is_read', 0)
             ->skip($messages_count - $this->paginate_var)
@@ -65,7 +64,7 @@ class ChatBot extends Component
                 }
             }
         }
-        $conv_user = User::find($this->user_id);
+        $conv_user     = User::find($this->user_id);
         $this->messege = '';
         return view('livewire.front-end.chat-bot', ['messeges' => $messages, 'messages_count' => $messages_count
         ,'conv_user' => $conv_user]);
@@ -126,6 +125,7 @@ class ChatBot extends Component
     protected function formResponse()
     {
         return redirect()->route('home');
-           // ->withSuccess(trans('user.Your_form_has_been_submitted'));
     }
+
+
 }

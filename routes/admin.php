@@ -93,6 +93,8 @@ Route::group(
             ]);
 
             Route::resource('seller.stores', 'Admin\StoreController', ['except' => ['show', 'edit', 'update']]);
+            Route::get('store/reviews/{id}', 'Admin\StoreController@reviews')->name('store.reviews');
+            Route::get('store/reviews/approve/{id}', 'Admin\StoreController@reviews_approve')->name('store.reviews.approve');
 
             Route::post('/stores/multi_delete', 'Admin\StoreController@destory_all')->name('stores_destroy_all');
 

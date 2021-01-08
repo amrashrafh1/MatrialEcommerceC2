@@ -27,7 +27,7 @@
                             <a class="nav-link" id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders"
                                 role="tab" aria-controls="v-pills-orders" aria-selected="false">@lang('user.orders')</a>
                             <a class="nav-link" id="v-pills-my_followed-tab" data-toggle="pill" href="#v-pills-my_followed"
-                                role="tab" aria-controls="v-pills-my_followed" aria-selected="false">@lang('user.my_followed')</a>
+                                role="tab" aria-controls="v-pills-my_followed" aria-selected="false">@lang('user.im_following')</a>
 
                         </div>
                         <div class="tab-content col-md-9" id="v-pills-tabContent">

@@ -18,19 +18,21 @@ class HandPicked extends Component
         ->with(['products'=> function ($query) {
             $query->where('visible', 'visible')->where('approved', 1)->where('owner', 'for_seller')
             ->select('id','slug','product_type','user_id','seller_id','owner','image','name','sale_price')
-            ->orderBy('id', 'desc')->take(20);
+            ->orderBy('id', 'desc')
+            ->with(['discount', 'methods'])->limit(20);
         }])
         ->inRandomOrder()->take(4)->get():[];
 
-        $products = Product::IsApproved()->with('discount')
+        $products = Product::IsApproved()->with(['discount', 'methods'])
         ->select('id','slug','image','product_type','name','sale_price')->inRandomOrder()->take(20)->get();
 
 
         $latest_products = Category::where('status',1)->where('parent_id', NULL)->inRandomOrder()->select('name', 'id', 'slug')
         ->with(['products'=> function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
-            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
-            ->orderBy('id','desc')->take(20);
+            ->select('id','slug','product_type','category_id','visible','approved','image','name','sale_price')
+            ->with(['discount', 'methods'])
+            ->orderBy('id','desc')->with('discount')->take(20);
         }])
         ->take(4)->get();
         return view('livewire.hand-picked', ['handpicked' => $handpicked, 'stores' => $stores, 'latest_products'

@@ -31,12 +31,10 @@
                                     <h2 class="woocommerce-loop-product__title">{{$product->name}}</h2>
                                     <div class="techmarket-product-rating">
                                         <div title="Rated 0 out of 5" class="star-rating">
-                                            <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                            <span style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                 <strong class="rating">0</strong> out of 5</span>
                                         </div>
-                                        <span class="review-count">({{DB::table('reviews')
-                                        ->where('reviewrateable_id', $product->id)->where('approved', 1)
-                                        ->count()}})</span>
+                                        <span class="review-count">({{$product->ratings->count()}})</span>
                                     </div>
                                     <!-- .techmarket-product-rating -->
                                 </div>

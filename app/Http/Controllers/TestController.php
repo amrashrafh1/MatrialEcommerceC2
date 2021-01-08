@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Sold;
 use App\User;
 use App\Product;
+use App\Category;
+use App\Country;
+use App\Shipping_methods;
 use DB;
 use App\Jobs\DeleteCartItems;
 use App\Jobs\DestroyAllProducts;
@@ -23,7 +26,6 @@ class TestController extends Controller
     public function index() {
         $time_start = $this->microtime_float();
 
-         // get conversation
 
         $time_end = $this->microtime_float();
         $time     = $time_end - $time_start;
@@ -35,4 +37,5 @@ class TestController extends Controller
         list($usec, $sec) = explode(" ", microtime());
         return ((float)$usec + (float)$sec);
     }
+
 }

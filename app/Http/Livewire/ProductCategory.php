@@ -19,10 +19,10 @@ class ProductCategory extends Component
     public $PerPage = 20;
     public $sortBy = 'newness';
     public $assId;
-    public $category = [];
-    public $ass_attrs = [];
+    public $category   = [];
+    public $ass_attrs  = [];
     public $PageNumber = 1;
-    public $tab = '';
+    public $tab        = '';
 
     public function mount($category)
     {
@@ -37,18 +37,18 @@ class ProductCategory extends Component
             ->first();
         $cats_id = $this->getIds($cats_id);
 
-        $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
-        $brands = Tradmark::whereHas('products', function ($q) use ($cats_id) {
-            $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
-        })->with(['products' => function ($q) use ($cats_id) {
-            $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
+
+        $brands     = Tradmark::whereHas('products', function ($q) use ($cats_id) {
+            $q->whereIn('category_id', $cats_id)->isApproved();
+        })->withCount(['products' => function ($q) use ($cats_id) {
+            $q->whereIn('category_id', $cats_id)->isApproved();
         }])->inRandomOrder('id')->get();
 
         $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) use ($cats_id) {
             $q->whereIn('category_id', $cats_id)
                 ->where('visible', 'visible')->where('approved', 1)
-                ->select('name', 'approved', 'short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
-        })->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+                ->select('name', 'approved', 'short_description', 'image', 'category_id','sale_price', 'sku', 'id', 'slug', 'product_type');
+        })->disableCache()->get();
         $family = [];
         foreach ($attributes as $attr) {
             $id = $attr->id;
@@ -57,19 +57,21 @@ class ProductCategory extends Component
             }
         }
 
-        $latest_products = Product::orderBy('id', 'DESC')->take(10)->get();
-        $best_offers     = Product::HasDiscount()->orderBy('id', 'DESC')->take(20)->get();
-        $top_selling     = Product::addSelect(['sold' => Sold::selectRaw('sum(sold) as total')
+        $latest_products = Product::isApproved()->whereIn('category_id', $cats_id)
+        ->with(['discount', 'methods'])->take(10)->get();
+        $best_offers     = Product::isApproved()->whereIn('category_id', $cats_id)->HasDiscount()
+        ->with(['discount', 'methods'])->take(20)->get();
+        $top_selling     = Product::isApproved()->whereIn('category_id', $cats_id)->addSelect(['sold' => Sold::selectRaw('sum(sold) as total')
                 ->whereColumn('product_id', 'products.id')
                 ->groupBy('product_id'),
-        ])->orderBy('sold', 'DESC')->take(20)->get();
+        ])->with(['discount'])->orderBy('sold', 'DESC')->take(20)->get();
 
         $products = shop_sort($cats_id, null, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
         return view('livewire.product-category', [
-              'products'    => $products,    'categories'      => $categories,
-              'brands'      => $brands,      'attributes'      => $attributes, 'family' => $family,
-              'tab'         => $this->tab,   'latest_products' => $latest_products
-            , 'best_offers' => $best_offers, 'top_selling'     => $top_selling]);
+                'products'    => $products,    'brands'          => $brands,
+                'attributes'  => $attributes,  'family'          => $family,
+                'tab'         => $this->tab,   'latest_products' => $latest_products
+              , 'best_offers' => $best_offers, 'top_selling'     => $top_selling]);
     }
 
     public function updatingPageNumber(): void

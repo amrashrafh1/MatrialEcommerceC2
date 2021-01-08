@@ -35,29 +35,28 @@ class CMS extends Component
         if ($this->cms->type == 'categories') {
 
             $cat_id     = $this->cms->categories->pluck('id');
-            $categories = Category::where('status', 1)->whereIn('id',$cat_id)->inRandomOrder('id')->limit(20)->get();
+            $categories = Category::where('status', 1)->whereIn('id', $cat_id)->inRandomOrder('id')->limit(20)->get();
             $brands     = Tradmark::whereHas('products', function ($q) use ($cat_id) {
-                $q->whereIn('category_id', $cat_id);
-            })->inRandomOrder('id')->get();
+                $q->isApproved()->whereIn('category_id', $cat_id);
+            })->withCount(['products' =>  function ($q) use ($cat_id) {
+                $q->isApproved()->whereIn('category_id', $cat_id);
+            }])->inRandomOrder('id')->get();
 
-            $attributes = Attribute::whereHas('products', function ($q) use ($cat_id) {
+            $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) use ($cat_id) {
                 $q->whereIn('category_id', $cat_id)
-                    ->where('visible', 'visible')
-                    ->select('name','short_description','tax', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
-            })->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+                    ->isApproved()
+                    ->select('name','short_description','tax','category_id', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
+            })->disableCache()->get();
             $family = [];
             foreach ($attributes as $attr) {
                 $id = $attr->id;
-                $ff = Attribute_Family::whereHas('attributes', function ($q) use ($id) {
-                    $q->where('id', $id);
-                })->first();
-
-                if (!in_array($ff, $family)) {
-                    array_push($family, $ff);
+                if (!in_array($attr->attribute_family, $family)) {
+                    array_push($family, $attr->attribute_family);
                 }
             }
             /* SortBy */
             $products = shop_sort($cat_id, NULL,$this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+
         } else {
             /*
              *    _____ _                   _____
@@ -85,22 +84,17 @@ class CMS extends Component
                 }
             }
             /* SortBy */
-            /* if (is_numeric($this->assId) && $this->assId) {
-                $pros = sortProducts($this->assId, $this->cms->products->where('visible', 'visible')
-                ->pluck('id'),$this->ass_attrs, $this->sortBy, $this->PerPage);
-                $products = [];
-            } else { */
-
                 $products = shop_sort(NULL,$this->cms->products->where('visible', 'visible')
                 ->where('approved', 1)
                 ->pluck('id'),$this->assId,$this->ass_attrs, $this->sortBy, $this->PerPage);
-           /*  } */
 
         }
+        $latest_products = Product::with(['discount','methods'])->orderBy('id', 'DESC')->take(10)->get();
+
         return view('livewire.c-m-s', ['products' => $products,
             'pros' => $pros, 'categories' => $categories,
             'brands' => $brands, 'attributes' => $attributes, 'family' => $family,
-             'tab' => $this->tab]);
+             'tab' => $this->tab, 'latest_products' => $latest_products]);
     }
 
     public function updatingPageNumber(): void

@@ -29,6 +29,25 @@
                         <h6 class="mt-1 font-weight-light " style="color: #000;">
                             ({{$this->store->followers()->count()}}) @lang('user.followers')</h6>
                     </div>
+                    <div class="text-center" wire:ignore>
+                        <div class="rating-and-sharing-wrapper">
+                            <div class="woocommerce-product-rating">
+                                <div class="star-rating m-auto">
+                                    <span
+                                        style="width:{{$this->store->ratings->avg('rating') * 2 * 10}}%">Rated
+                                        <strong class="rating">5.00</strong> out
+                                        of 5 based on
+                                        <span class="rating">1</span> customer
+                                        rating</span>
+                                </div>
+                                <a rel="nofollow"
+                                    class="woocommerce-review-link"
+                                    href="#reviews">(<span
+                                        class="count">{{$this->store->ratings->count()}})</span>
+                                    @lang('user.customer_review')</a>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="card-body" wire:ignore>
@@ -104,6 +123,12 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class='card'>
+                                <div class='card-header'>@lang('user.store_reviews')</div>
+                                <div class='card-body'>
+                                    @livewire('products.add-reviews', ['item' => $this->store])
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade show active" id="tabs-icons-text-3" role="tabpanel"
                             aria-labelledby="tabs-icons-text-3-tab">
@@ -141,17 +166,20 @@
                                                     </ins>
                                                     @endif
                                                 </span>
-                                                <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                @php
+                                                $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                            @endphp
+                                            <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                                 <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                             </a>
                                             <!-- .woocommerce-LoopProduct-link -->
                                             <div class="techmarket-product-rating">
                                                 <div title="Rated 5.00 out of 5" class="star-rating">
-                                                    <span style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                    <span style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                         <strong class="rating">5.00</strong> out of 5</span>
                                                 </div>
-                                                <span class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
+                                                <span class="review-count">({{$product->ratings->count()}})</span>
                                             </div>
                                             <!-- .techmarket-product-rating -->
                                             <span class="sku_wrapper">@lang('user.SKU:')

@@ -237,6 +237,7 @@ return array (
     'reset_password'                                                 => 'Reset Password',
     'reset'                                                          => 'Reset',
     'reviews'                                                        => 'Reviews',
+    'review'                                                         => 'Review',
     'reward_USD'                                                     => 'reward (USD)',
     'reward'                                                         => 'reward',
     'roles'                                                          => 'Roles',

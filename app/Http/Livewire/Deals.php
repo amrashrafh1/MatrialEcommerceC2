@@ -14,21 +14,25 @@ class Deals extends Component
 
     public function render()
     {
-
-
         $discountProducts = Discount::discountAvailable()
         ->where('daily', 'daily_deals')
         ->whereHas('product' , function ($query) {
-            $query->where('visible', 'visible')->where('approved', 1)
-            ->select('id','slug','product_type','image','name','sale_price');
-        })->paginate(12);
+            $query->isApproved()
+            ->select('id','slug','product_type','visible','approved','image','name','sale_price');
+        })->with(['product'=> function($q) {
+            $q->isApproved()->with('discount')
+            ->select('id','slug','product_type','visible','approved','image','name','sale_price');
+        }])->paginate(12);
 
         $random = Discount::discountAvailable()
             ->where('daily', 'daily_deals')
             ->whereHas('product' , function ($query) {
-                $query->where('visible', 'visible')->where('approved', 1)
-                ->select('id','slug','product_type','image','name','sale_price');
-            })->first();
+                $query->isApproved()
+                ->select('id','slug','product_type','visible','approved','image','name','sale_price');
+            })->with(['product'=> function($q) {
+                $q->isApproved()->with('discount')
+                ->select('id','slug','product_type','visible','approved','image','name','sale_price');
+            }])->first();
 
         return view('livewire.deals', ['discountProducts' => $discountProducts, 'random' => $random,
         ]);

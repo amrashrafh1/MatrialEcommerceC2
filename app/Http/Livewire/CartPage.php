@@ -294,6 +294,12 @@ class CartPage extends Component
         }
     }
 
+    /* public function update_total()
+    {
+        return $refresh;
+    } */
+
+
     public function hydrate()
     {
         app()->setLocale(session('locale'));

@@ -31,21 +31,33 @@ class Tag extends Component
             if ($this->sortBy === 'newess') {
                 $products = Product::isApproved()->withAllTags([$tags], 'products')
                     ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->with(['ratings'=> function ($query) {
+                        $query->where('approved', 1);
+                    }, 'discount', 'method'])
                     ->orderBy('id', 'desc')
                     ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
             } elseif ($this->sortBy === 'price-asc') {
                 $products = Product::isApproved()->withAllTags([$tags], 'products')
                     ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->with(['ratings'=> function ($query) {
+                        $query->where('approved', 1);
+                    }, 'discount', 'method'])
                     ->orderBy('sale_price', 'asc')
                     ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
             } elseif ($this->sortBy === 'price-desc') {
                 $products = Product::isApproved()->withAllTags([$tags], 'products')
                     ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->with(['ratings'=> function ($query) {
+                        $query->where('approved', 1);
+                    }, 'discount', 'method'])
                     ->orderBy('sale_price', 'desc')
                     ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
             } else {
                 $products = Product::isApproved()->withAllTags([$tags], 'products')
                     ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                    ->with(['ratings'=> function ($query) {
+                        $query->where('approved', 1);
+                    }, 'discount', 'method'])
                     ->orderBy('id', 'desc')
                     ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
             }
@@ -56,21 +68,33 @@ class Tag extends Component
                 if ($this->sortBy === 'newess') {
                     $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
                         ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                        ->with(['ratings'=> function ($query) {
+                            $query->where('approved', 1);
+                        }, 'discount', 'method'])
                         ->orderBy('id', 'desc')
                         ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
                 } elseif ($this->sortBy === 'price-asc') {
                     $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
                         ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                        ->with(['ratings'=> function ($query) {
+                            $query->where('approved', 1);
+                        }, 'discount', 'method'])
                         ->orderBy('sale_price', 'asc')
                         ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
                 } elseif ($this->sortBy === 'price-desc') {
                     $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
                          ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
-                        ->orderBy('sale_price', 'desc')
+                         ->with(['ratings'=> function ($query) {
+                            $query->where('approved', 1);
+                        }, 'discount', 'method'])
+                         ->orderBy('sale_price', 'desc')
                         ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
                 } else {
                     $products = Product::isApproved()->withAllTags($tags->pluck('name')->toArray(), 'products')
                         ->select('name', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type', 'short_description', 'stock', 'tradmark_id')
+                        ->with(['ratings'=> function ($query) {
+                            $query->where('approved', 1);
+                        }, 'discount', 'method'])
                         ->orderBy('id', 'desc')
                         ->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
                 }

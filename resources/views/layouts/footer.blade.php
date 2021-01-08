@@ -294,6 +294,7 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
 </div>
 
 <div id="app"></div>
+@if(Route::current()->getName() == 'seller_dashboard')
 @auth
 @role('seller')
         <!-- 2. AddChat widget -->
@@ -304,6 +305,7 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
     ></div>
 @endrole
 @endauth
+@endif
 <style>
     .change_color {
         color:red;
@@ -385,6 +387,7 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
 <script type="text/javascript" src="{{url('/')}}/FrontEnd/js/scripts.js"></script>
 <script src="{{ asset('material') }}/js/plugins/sweetalert2.js"></script>
 <script src="{{ url('') }}/js/app.js"></script>
+@if(Route::current()->getName() == 'seller_dashboard')
 @auth
 @role('seller')
     <!-- 3. AddChat JS -->
@@ -394,7 +397,9 @@ $categories = \App\Category::where('status', 1)->where('parent_id', NULL)
     <script nomodule src="{{ asset('assets/addchat/js/addchat-legacy.min.js') }}"></script>
 @endrole
 @endauth
+@endif
 <script>
+
     var botmanWidget = {
       //  frameEndpoint: '/chatbox',
         aboutText: 'Hello I am Dhaval',

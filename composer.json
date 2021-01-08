@@ -47,6 +47,7 @@
         "spatie/laravel-tags": "^2.5",
         "spatie/laravel-translatable": "^4.2",
         "srmklive/paypal": "^1.6",
+        "staudenmeir/eloquent-eager-limit": "^1.0",
         "torann/currency": "^1.0",
         "torann/geoip": "^1.0",
         "treestoneit/shopping-cart": "^1.1",

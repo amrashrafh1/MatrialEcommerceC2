@@ -25,27 +25,17 @@ class Shop extends Component
 
     public function render()
     {
-
-        if ($this->category) {
-
-            $cat_id     = $this->category->id;
-            $cats_id    = Category::where('id', $cat_id)
-            ->with('categories.childrenCategories')
-            ->first();
-            $cats_id = $this->getIds($cats_id);
-
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
-            $brands     = Tradmark::whereHas('products', function ($q) use ($cats_id) {
-                $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
-            })->with(['products' =>  function ($q) use ($cats_id) {
-                $q->whereIn('category_id', $cats_id)->where('visible', 'visible')->where('approved', 1);
+            $brands     = Tradmark::whereHas('products', function ($q) {
+                $q->isApproved();
+            })->withCount(['products' =>  function ($q) {
+                $q->isApproved();
             }])->inRandomOrder('id')->get();
 
-            $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) use ($cats_id) {
-                    $q->whereIn('category_id', $cats_id)
-                    ->where('visible', 'visible')->where('approved', 1)
+            $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) {
+                    $q->where('visible', 'visible')->where('approved', 1)
                     ->select('name','approved','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
-            })->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+            })->disableCache()->get();
             $family = [];
             foreach ($attributes as $attr) {
                 $id = $attr->id;
@@ -53,38 +43,10 @@ class Shop extends Component
                     array_push($family, $attr->attribute_family);
                 }
             }
-            $products = shop_sort($cats_id,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
-        } else {
-            /*
-             *    _____ _                   _____
-             *   / ____| |                 |  __ \
-             *  | (___ | |__   ___  _ __   | |__) |_ _  __ _  ___
-             *   \___ \| '_ \ / _ \| '_ \  |  ___/ _` |/ _` |/ _ \
-             *   ____) | | | | (_) | |_) | | |  | (_| | (_| |  __/
-             *  |_____/|_| |_|\___/| .__/  |_|   \__,_|\__, |\___|
-             *                     | |                  __/ |
-             *                     |_|                 |___/
-             *
-             */
-            $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
-            $brands     = Tradmark::inRandomOrder('id')->get();
-            $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) {
-                $q->where('visible', 'visible')->where('approved', 1)
-                ->select('name','approved','short_description', 'image', 'sale_price', 'sku', 'id', 'slug', 'product_type');
-            })->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
-            $family     = [];
-            foreach ($attributes as $attr) {
-                $id = $attr->id;
-                if (!in_array($attr->attribute_family, $family)) {
-                    array_push($family, $attr->attribute_family);
-                }
-            }
             /* SortBy */
-            $products = shop_sort(NULL,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
-        }
+        $products = shop_sort(NULL,NULL, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
 
-
-        $latest_products = Product::orderBy('id', 'DESC')->take(10)->get();
+        $latest_products = Product::with(['discount','methods'])->orderBy('id', 'DESC')->take(10)->get();
 
         return view('livewire.shop', [
             'products' => $products,    'categories' => $categories,
@@ -152,7 +114,7 @@ class Shop extends Component
         app()->setLocale(session('locale'));
     }
 
-    public function getIds($cat)
+    /* public function getIds($cat)
     {
     $ids =  [$cat->id];
 
@@ -161,5 +123,5 @@ class Shop extends Component
         $ids = array_merge($ids, $this->getIds($child));
     }
     return $ids;
-    }
+    } */
 }

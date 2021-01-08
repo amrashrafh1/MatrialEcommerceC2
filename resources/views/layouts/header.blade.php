@@ -17,7 +17,7 @@
     @if(LaravelLocalization::getCurrentLocaleDirection() === 'rtl')
     <link rel="stylesheet" type="text/css" href="{{url('')}}/FrontEnd/css/style-rtl.min.css" media="all" />
     @else
-    <link rel="stylesheet" type="text/css" href="{{url('')}}/FrontEnd/css/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{url('')}}/FrontEnd/css/style.min.css" media="all" />
     @endif
     @auth
     @role('seller')
@@ -87,6 +87,12 @@
     font-size: 12px;
     line-height: 16px;
     color: #666;
+    }
+    @media (max-width: 767px) {
+        .handheld-header .custom-logo-link svg {
+            max-width:135px !important;
+            min-width: 135px !important;
+        }
     }
     </style>
 @stack('css')

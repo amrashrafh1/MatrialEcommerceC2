@@ -8,11 +8,11 @@ use Livewire\Component;
 class AddReviews extends Component
 {
 
-    public $product,$name, $email,$comment, $review,$message, $faxonly = false;
+    public $item,$name, $email,$comment, $review,$message, $faxonly = false;
 
-    public function mount($product)
+    public function mount($item)
     {
-        $this->product = $product;
+        $this->item = $item;
 
         if (\Auth::check()) {
             $this->name  = auth()->user()->name;
@@ -22,7 +22,7 @@ class AddReviews extends Component
 
     public function render()
     {
-        return view('livewire.products.add-reviews', ['product' => $this->product]);
+        return view('livewire.products.add-reviews', ['item' => $this->item]);
     }
 
     public function addReview()
@@ -43,7 +43,7 @@ class AddReviews extends Component
         ]);
         if (\Auth::check()) {
 
-                $rating = $this->product->rating([
+                $rating = $this->item->rating([
                     'title'                   => $data['name'],
                     'body'                    => $data['comment'],
                     'customer_service_rating' => $data['review'],

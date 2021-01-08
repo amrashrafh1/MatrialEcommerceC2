@@ -11,10 +11,16 @@ use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use TypiCMS\NestableTrait;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+use App\CustomRelationTrait;
 
 class Category extends Model implements Searchable, Viewable
 {
-    use HasTranslations, Cachable, InteractsWithViews,LogsActivity, NestableTrait;
+    use HasTranslations, Cachable, InteractsWithViews,LogsActivity, NestableTrait, HasEagerLimit;
+    use CustomRelationTrait {
+        CustomRelationTrait::newMorphToMany insteadof HasEagerLimit,Cachable;
+        CustomRelationTrait::newBelongsToMany insteadof HasEagerLimit,Cachable;
+    }
     protected $table = 'categories';
     protected $guarded = [];
     public $translatable = ['name', 'description', 'meta_tag',
@@ -32,9 +38,11 @@ class Category extends Model implements Searchable, Viewable
     }
     public function products()
     {
-        return $this->hasMany(Product::class)->orderBy('id','desc');
+        return $this->hasMany(Product::class)->orderBy('id', 'desc');
 
     }//end of products
+
+
     public function productsSortBy($sort)
     {
         if($sort === 'price-asc') {

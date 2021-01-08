@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use Spatie\Activitylog\Traits\LogsActivity;
-
-class SellerInfo extends Model implements Viewable
+use Codebyray\ReviewRateable\Contracts\ReviewRateable;
+use Codebyray\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
+class SellerInfo extends Model implements Viewable,ReviewRateable
 {
-    use InteractsWithViews,LogsActivity;
+    use InteractsWithViews,LogsActivity,ReviewRateableTrait;
 
     protected $table = 'seller_infos';
     protected $guarded = [];

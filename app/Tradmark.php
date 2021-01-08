@@ -36,16 +36,24 @@ class Tradmark extends Model
     {
         if ($sort === 'price-asc') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-                ->where('approved', 1)->orderBy('sale_price', 'asc');
+                ->where('approved', 1)->with(['methods', 'discount', 'ratings' => function ($q) {
+                    $q->where('approved', 1);
+                }])->orderBy('sale_price', 'asc');
         } elseif ($sort === 'price-desc') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-                ->where('approved', 1)->orderBy('sale_price', 'desc');
+                ->where('approved', 1)->with(['methods', 'discount', 'ratings' => function ($q) {
+                    $q->where('approved', 1);
+                }])->orderBy('sale_price', 'desc');
         } elseif ($sort === 'newness') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-                ->where('approved', 1)->orderBy('id', 'desc');
+                ->where('approved', 1)->with(['methods', 'discount', 'ratings' => function ($q) {
+                    $q->where('approved', 1);
+                }])->orderBy('id', 'desc');
         } elseif ($sort === 'popularity') {
             return $this->hasMany(Product::class)->where('visible', 'visible')
-                ->where('approved', 1)->orderByUniqueViews();
+                ->where('approved', 1)->with(['methods', 'discount', 'ratings' => function ($q) {
+                    $q->where('approved', 1);
+                }])->orderByUniqueViews();
         } else {
             return $this->hasMany(Product::class)->where('visible', 'visible')
                 ->where('approved', 1)->withCount(['ratings as average_rating' => function ($query) {

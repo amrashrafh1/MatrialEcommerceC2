@@ -40,25 +40,25 @@ class Brand extends Component
 
             $brand_id   = $this->brand->id;
             $categories = Category::where('status', 1)->inRandomOrder('id')->limit(20)->get();
-            $brands     = Tradmark::where('id', $brand_id)->get();
+            $brands     = Tradmark::where('id', $brand_id)->withCount(['products' =>  function ($q) {
+                $q->isApproved();
+            }])->get();
 
-            $attributes = Attribute::whereHas('products', function ($q) use ($brand_id) {
+            $attributes = Attribute::with('attribute_family')->whereHas('products', function ($q) use ($brand_id) {
                     $q->where('tradmark_id', $brand_id)
                     ->where('visible', 'visible')->where('approved', 1)
                     ->select('name','approved','short_description', 'image','tradmark_id', 'sale_price', 'sku', 'id', 'slug', 'product_type');
-            })->disableCache()->paginate((is_numeric($this->PerPage)) ? $this->PerPage : 20);
+            })->disableCache()->get();
             $family = [];
             foreach ($attributes as $attr) {
                 $id = $attr->id;
-                $ff = Attribute_Family::whereHas('attributes', function ($q) use ($id) {
-                    $q->where('id', $id);
-                })->first();
-
-                if (!in_array($ff, $family)) {
-                    array_push($family, $ff);
+                if (!in_array($attr->attribute_family, $family)) {
+                    array_push($family, $attr->attribute_family);
                 }
             }
             $products = brand_sort($brand_id, $this->assId, $this->ass_attrs, $this->sortBy, $this->PerPage);
+        } else {
+            return redirect()->route('shop');
         }
 
         return view('livewire.front-end.brand', [

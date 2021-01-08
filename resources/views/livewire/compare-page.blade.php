@@ -32,7 +32,7 @@
                                                         <h3 class="product-title">{{$product->name}}</h3>
                                                         <div class="star-rating">
                                                             <span
-                                                                style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">Rated
+                                                                style="width:{{$product->ratings->count() * 2 * 10}}%">Rated
                                                                 <strong class="rating">5.00</strong> out of 5</span>
                                                         </div>
                                                     </div>

@@ -12,7 +12,7 @@ class TrendingNow extends Component
     public function render()
     {
         // get top 20 trending now
-        $products = Product::isApproved()->where('section','trending_now')->with('discount')
+        $products = Product::isApproved()->where('section','trending_now')->with(['discount', 'methods'])
         ->select('id','slug','image','product_type','name','sale_price')->inRandomOrder()->take(20)->get();
 
         // get random trending now categories
@@ -20,14 +20,15 @@ class TrendingNow extends Component
         ->whereHas('products', function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->where('section','hot_new_arrivals')
-            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
-            ->take(20);
+            ->select('id','slug','product_type','category_id','visible','approved','section','image','name','sale_price')
+            ->limit(20);
         })
         ->with(['products'=> function ($q) {
             $q->where('visible', 'visible')->where('approved', 1)
             ->where('section','hot_new_arrivals')
-            //->select('id','slug','product_type','visible','approved','section','image','name','sale_price')
-            ->take(20);
+            ->select('id','slug','product_type','category_id','visible','approved','section','image','name','sale_price')
+            ->with(['discount', 'methods'])
+            ->limit(20);
         }])
         ->take(4)->get();
 

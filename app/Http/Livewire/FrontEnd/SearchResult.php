@@ -35,8 +35,8 @@ class SearchResult extends Component
             if(!blank($this->slug)) {
                 $store = SellerInfo::where('slug', $this->slug)->with(['products' => function ($query) {
                     $query->where('visible', 'visible')->where('approved',1);
-                }])->first();
-                $tags = $store->products()->where('name', 'LIKE', '%'.$data['search']. '%')->paginate(10);
+                }, 'products.discount'])->first();
+                $tags = $store->products()->where('name', 'LIKE', '%'.$data['search']. '%')->with('discount')->paginate(10);
             } else {
                 $tags = \Spatie\Tags\Tag::Containing($data['search'], $lang)->paginate(10);
             }

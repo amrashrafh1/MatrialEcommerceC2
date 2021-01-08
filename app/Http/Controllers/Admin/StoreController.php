@@ -147,4 +147,28 @@ class StoreController extends Controller
         Alert::success(trans('admin.deleted'), trans('admin.deleted'));
         return redirect()->route('seller.stores.index', $seller->id);
     }
+
+    public function reviews($id)
+    {
+        $store = SellerInfo::findOrFail($id);
+        if ($store) {
+            return view('Admin.stores.reviews', ['store' => $store,
+                'title' => $store->name . ' ' . trans('admin.reviews')]);
+        }
+        return redirect()->route('stores.index');
+
+    }
+
+    public function reviews_approve($id)
+    {
+        $store = \DB::table('reviews')->where('id', $id)->where('reviewrateable_type', 'App\SellerInfo');
+        if ($store) {
+            //dd($store);
+            $store->update(['approved' => 1]);
+        }
+        Alert::success(trans('admin.updated'), trans('admin.updated_record'));
+
+        return redirect()->back();
+
+    }
 }

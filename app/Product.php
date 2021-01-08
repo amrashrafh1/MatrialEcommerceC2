@@ -26,10 +26,14 @@ use Treestoneit\ShoppingCart\Buyable;
 use Treestoneit\ShoppingCart\BuyableTrait;
 use Treestoneit\ShoppingCart\Models\CartItem;
 use Treestoneit\ShoppingCart\Taxable;
-
+use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxable, Viewable
 {
-    use HasTranslations, LogsActivity, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews;
+    use HasTranslations, LogsActivity, BuyableTrait, ReviewRateableTrait, \Spatie\Tags\HasTags, Cachable, InteractsWithViews, HasEagerLimit;
+    use CustomRelationTrait {
+        CustomRelationTrait::newMorphToMany insteadof HasEagerLimit,Cachable;
+        CustomRelationTrait::newBelongsToMany insteadof HasEagerLimit,Cachable;
+    }
     protected $table = 'products';
     protected $guarded = [];
     protected $cachePrefix = "products-prefix";
@@ -332,44 +336,22 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         return 8;
     }
 
-    public function calc_shippings($country)
+    public function calc_shippings($methods = [], $setting_method = null, $country)
     {
-        $shippings = [];
-        $country_id = $country->id;
-        $methods = $this->methods()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
-            $q->whereHas('countries', function ($query) use ($country_id) {
-                $query->where('id', $country_id);
-            });
-        })->get();
+        $shippings  = [];
         if (count($methods) <= 0) {
-            // will get the default shipping method if has this country
-            $defaultShipping = config('app.setting');
-            if($defaultShipping) {
-
-            if ($defaultShipping && $defaultShipping->default_shipping == 1 && $defaultShipping->shipping !== null) {
-
-                $isDefaultMethod = $defaultShipping->shipping()->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
-                    $q->whereHas('countries', function ($query) use ($country_id) {
-                        $query->where('id', $country_id);
-                    });
-                })->first();
-                // push $defaultShipping to shippings array
-
-                if ($isDefaultMethod !== null) {
-                    array_push($shippings, $this->calcShipping($isDefaultMethod, 1));
-                } else {
-                    // if $defaultShipping empty remove this item from items array
-                    return trans('user.shipping_not_available_in') . $country->country_name;
-                }
-
-            }
-            // if $defaultShipping empty remove this item from items array
-                if ($defaultShipping->default_shipping != 1 || $defaultShipping->shipping == null) {
-                    return trans('user.shipping_not_available_in') . $country->country_name;
+            $setting = config('app.setting');
+            if($setting) {
+                if ($setting && $setting->default_shipping == 1 && $setting->shipping !== null) {
+                    if ($setting_method !== null) {
+                        array_push($shippings, $this->calcShipping($setting_method, 1));
+                    } else {
+                        // if $defaultShipping empty remove this item from items array
+                        return trans('user.shipping_not_available_in') . $country->country_name;
+                    }
                 }
             }
         } else {
-
             foreach ($methods as $method) {
                 array_push($shippings, $this->calcShipping($method, 1));
             }
@@ -404,4 +386,5 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         }])->get();
         return $families;
     }
+
 }

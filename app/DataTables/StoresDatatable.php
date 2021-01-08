@@ -17,8 +17,9 @@ class StoresDatatable extends DataTable
             ->addColumn('actions', 'Admin.stores.buttons.actions')
             ->addColumn('checkbox', 'Admin.stores.buttons.checkbox')
             ->addColumn('seller', 'Admin.stores.buttons.seller')
+            ->addColumn('review', 'Admin.stores.buttons.review')
             ->addColumn('approved', 'Admin.stores.buttons.approved')
-            ->rawColumns(['checkbox','approved','show_action','seller','actions','date']);
+            ->rawColumns(['checkbox','approved','show_action','review','seller','actions','date']);
     }
 
     public function query()
@@ -135,6 +136,11 @@ class StoresDatatable extends DataTable
                 'name'  => 'phone',
                 'data'  => 'phone1',
                 'title' => trans('admin.phone'),
+            ],
+            [
+                'name'  => 'review',
+                'data'  => 'review',
+                'title' => trans('admin.review'),
             ],
             [
                 'name'  => 'approved',

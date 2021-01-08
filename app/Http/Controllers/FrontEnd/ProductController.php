@@ -7,6 +7,7 @@ use App\Attribute_Family;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Setting;
+use App\SellerInfo;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -39,10 +40,6 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -53,16 +50,16 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->where('visible', 'visible')
-            ->with(['tradmark', 'ratings' => function ($query) {
+            ->with(['tradmark','category', 'ratings' => function ($query) {
                 $query->where('approved', 1);
-            }, 'store', 'discount', 'tags', 'accessories' => function ($query) {
+            }, 'store.followers', 'discount', 'tags', 'accessories' => function ($query) {
                 $query->where('visible', 'visible')->where('in_stock', 'in_stock');
             }, 'attributes', 'variations', 'variations.attributes'])->first();
 
         if ($product) {
             views($product)->record();
 
-            $setting = Setting::latest('id')->first();
+            $setting = config('app.setting');
             SEOTools::setTitle($product->name);
             SEOTools::setDescription($product->meta_description);
             SEOTools::opengraph()->setUrl(route('show_product', $product->slug));

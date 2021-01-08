@@ -9,12 +9,13 @@ use Livewire\Component;
 class ShowProduct extends Component
 {
     public $product;
-    public $total       = 0;
-    public $accessories = [];
-    public $prices      = [];
-    public $followers   = 0;
-    public $isFollow    = false;
-    public $isWishlist  = false;
+    public $total                 = 0;
+    public $accessories           = [];
+    public $prices                = [];
+    public $followers             = 0;
+    public $isFollow              = false;
+    public $isWishlist            = false;
+    public $store_followers_count = 0;
 
     public function mount($product)
     {
@@ -23,7 +24,6 @@ class ShowProduct extends Component
         if ($product->owner == 'for_seller') {
 
             if (Auth::check()) {
-
                 if (!auth()->user()->followee()->pluck('id')->contains((isset($this->product->store)) ? $this->product->store->id : [])) {
                     $this->isFollow = false;
                 } else {
@@ -35,13 +35,16 @@ class ShowProduct extends Component
                     $this->isWishlist = false;
                 }
             }
+        $this->store_followers_count = $this->product->store->followers->count();
+
         }
     }
 
     public function render()
     {
-        $tradmark    = $this->product->tradmark->first();
-        return view('livewire.products.show-product', ['tradmark' => $tradmark]);
+        $tradmark                    = $this->product->tradmark;
+        return view('livewire.products.show-product', ['tradmark' => $tradmark,
+        'store_followers_count' => $this->store_followers_count]);
     }
 
     public function follow()
@@ -50,9 +53,11 @@ class ShowProduct extends Component
             if (!auth()->user()->followee()->pluck('id')->contains($this->product->store->id)) {
                 $this->product->store->followers()->attach(auth()->user()->id);
                 $this->isFollow = true;
+                $this->store_followers_count = $this->product->store->followers->count() + 1;
             } else {
                 $this->product->store->followers()->detach(auth()->user()->id);
                 $this->isFollow = false;
+                $this->store_followers_count = $this->product->store->followers->count() - 1;
             }
         }
     }

@@ -25,9 +25,6 @@
                     @auth {{auth()->user()->unReadedMessages->count()}}@else 0 @endif</span>
                 </a>
             </li>
-            @php
-            $country = App\Country::where('id', session('country'))->first();
-            @endphp
             <li class="menu-item animate-dropdown" style='position:relative;'>
                 <a title="{{($country) ? $country->country_name : trans('user.select_country')}}"
                      data-toggle="dropdown" class="dropdown-toggle"
@@ -36,7 +33,7 @@
                                 <span class="caret"></span>
                             </a>
                 <ul role="menu" class=" dropdown-menu" style='overflow-y:scroll; height:250px;'>
-                    @foreach(App\Country::get() as  $country)
+                    @foreach(App\Country::select('country_name')->get() as  $country)
                     <li
                         class="menu-item menu-item-type-custom menu-item-object-custom menu-item-489 animate-dropdown">
                         <a title="{{ $country->country_name }}"

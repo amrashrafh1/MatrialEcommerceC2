@@ -10,7 +10,7 @@
                 <span class="delimiter">
                     <i class="tm tm-breadcrumbs-arrow-right"></i>
                 </span>
-                @if(count($products) > 0)
+                @if(!$products->isEmpty())
                 {{$products->currentPage()}}
                 @endif
             </nav>
@@ -103,10 +103,10 @@
                             <div class="form-adv-pagination">
 
                                 <input type="number" wire:model='PageNumber' name="goTo"
-                                    value="{{($products)?$products->currentPage():''}}" required class="form-control"
-                                    step="1" max="{{($products)?$products->lastPage():''}}" min="1" size="2"
+                                    value="{{(!$products->isEmpty())?$products->currentPage():''}}" required class="form-control"
+                                    step="1" max="{{(!$products->isEmpty())?$products->lastPage():''}}" min="1" size="2"
                                     id="goto-page">
-                            </div> of {{($products)?$products->lastPage():''}}<a href="#"
+                            </div> of {{(!$products->isEmpty())?$products->lastPage():''}}<a href="#"
                                 class="next page-numbers">→</a>
                         </nav>
                         {{-- @endif --}}
@@ -162,7 +162,10 @@
                                                 </ins>
                                                 @endif
                                             </span>
-                                            <span class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                            @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                             <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                         </a>
@@ -170,11 +173,11 @@
                                         <div class="techmarket-product-rating">
                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                 <span
-                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                     <strong class="rating">5.00</strong> out of 5</span>
                                             </div>
                                             <span
-                                                class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
+                                                class="review-count">({{$product->ratings->count()}})</span>
                                         </div>
                                         <!-- .techmarket-product-rating -->
                                         <span class="sku_wrapper">@lang('user.SKU:')
@@ -262,11 +265,11 @@
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
                                                             <span
-                                                                class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
+                                                                class="review-count">({{$product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
@@ -309,8 +312,10 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span
-                                                        class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
@@ -400,11 +405,11 @@
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
                                                             <span
-                                                                class="review-count">({{$product->ratings()->where('approved',1)->count()}})</span>
+                                                                class="review-count">({{$product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
@@ -444,8 +449,10 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span
-                                                        class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
@@ -523,11 +530,11 @@
                                                         <div class="techmarket-product-rating">
                                                             <div title="Rated 5.00 out of 5" class="star-rating">
                                                                 <span
-                                                                    style="width:{{$product->averageRating(null, true)[0] * 2 * 10}}%">
+                                                                    style="width:{{$product->ratings->avg('rating') * 2 * 10}}%">
                                                                     <strong class="rating">5.00</strong> out of 5</span>
                                                             </div>
                                                             <span
-                                                                class="review-count">({{ $product->ratings()->where('approved',1)->count()}})</span>
+                                                                class="review-count">({{ $product->ratings->count()}})</span>
                                                         </div>
                                                     </a>
                                                     <!-- .woocommerce-LoopProduct-link -->
@@ -555,8 +562,10 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span
-                                                        class='product_shipping'>{{$product->calc_shippings($country)}}</span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $product->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$product->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                                     <!-- .price -->
                                                     @if($product->IsVariable())
@@ -624,14 +633,14 @@
                         </form>
                         <!-- .form-techmarket-wc-ppp -->
                         <p class="woocommerce-result-count">
-                            @if(count($products) > 0)
+                            @if(!$products->isEmpty())
                             Showing {{$products->firstItem()}}&ndash;{{$products->lastItem()}} of {{$products->total()}}
                             results
                             @endif
                         </p>
                         <!-- .woocommerce-result-count -->
                         <nav class="woocommerce-pagination">
-                            @if(count($products) > 0)
+                            @if(!$products->isEmpty())
                             {{ $products->links() }}
                             @endif
                         </nav>
@@ -643,22 +652,6 @@
             </div>
             <!-- #primary -->
             <div id="secondary" class="widget-area shop-sidebar" role="complementary" wire:ignore>
-                {{-- <div class="widget woocommerce widget_product_categories techmarket_widget_product_categories" id="techmarket_product_categories_widget-2">
-                    <ul class="product-categories ">
-                        <li class="product_cat">
-                            <span>@lang('user.Browse_Categories')</span>
-                            <ul>
-                                @foreach($categories as $category)
-                                <li class="cat-item">
-                                    <a href="{{route('show_category', $category->slug)}}">
-                <span
-                    class="{{(count($category->categories) > 0)?'child-indicator':'no-child'}}"></span>{{$category->name}}</a>
-                </li>
-                @endforeach
-                </ul>
-                </li>
-                </ul>
-            </div> --}}
             <div id="techmarket_product_categories_widget-2"
                 class="widget woocommerce widget_product_categories techmarket_widget_product_categories">
                 <ul class="product-categories category-single">
@@ -706,12 +699,7 @@
                             <input type="radio" class="custom-control-input" wire:model='assId' value="{{$brand->id}}"
                                 id="customRadio{{$brand->id}}">
                             <label class="custom-control-label" for="customRadio{{$brand->id}}">
-                                {{$brand->name}}
-                                @if($this->category)
-                                ({{$brand->products()->IsApproved()->where('category_id', $this->category->id)->count()}})
-                                @else
-                                ({{$brand->products()->IsApproved()->count()}})
-                                @endif
+                                {{$brand->name}} ({{$brand->products_count}})
                             </label>
                         </li>
                         @endforeach
@@ -749,7 +737,6 @@
                             <div class="woocommerce columns-1">
                                 <div class="products">
                                     @foreach($latest_products as $latest)
-
                                     <div class="landscape-product-widget product">
                                         <a class="woocommerce-LoopProduct-link"
                                             href="{{route('show_product', $latest->slug)}}" target="_blank">
@@ -774,8 +761,10 @@
                                                         </ins>
                                                         @endif
                                                     </span>
-                                                    <span
-                                                        class='product_shipping'>{{$latest->calc_shippings($country)}}</span>
+                                                    @php
+                                                    $product_methods = $methods->whereIn('id', $latest->methods->pluck('id'));
+                                                @endphp
+                                                <span class='product_shipping'>{{$latest->calc_shippings(($product_methods)?$product_methods:[], $isDefaultMethod, $country)}}</span>
 
                                                     <!-- .price -->
                                                     <h2 class="woocommerce-loop-product__title">{{$latest->name}}</h2>
