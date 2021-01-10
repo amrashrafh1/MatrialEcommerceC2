@@ -15,7 +15,7 @@
                         <div class="entry-content">
                             <div class="woocommerce">
                                 <div class='card mb-3'>
-                                    <h2 class='card-header'>@lang('user.Shopping_Cart') ({{count(Cart::content())}})</h2>
+                                    <h2 class='card-header'>@lang('user.Shopping_Cart') ({{count($this->carts)}})</h2>
                                     <div class='card-body'>
                                         <div class='row'>
                                             <div class='col-md-6'>
@@ -103,41 +103,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach(Cart::content() as $cart)
+                                                        @foreach($this->carts as $cart)
                                                         @php
                                                             $cart_product = $cart->getProduct();
                                                         @endphp
                                                         @if($cart_product->store && $cart_product->store->id === $store->id)
-                                                        @php
-                                                        $country_id = $this->country;
-                                                        $isMethod   = [];
-                                                        if($country_id) {
-                                                        $isMethod = $cart_product->methods()->where('status', 0)->whereHas('zone', function ($query) use($country_id){
-                                                        $query->whereHas('countries', function ($q) use($country_id){
-                                                        $q->where('id', $country_id);
-                                                        });
-                                                        })->get();
-                                                        if(count($isMethod) <= 0) {
-                                                            $defaultShipping = $setting;
-                                                            if($defaultShipping->default_shipping == 1) {
-                                                            if($defaultShipping->shipping !== null) {
-                                                            $isDefaultMethod =
-                                                            $defaultShipping->shipping()->where('status', 0)->whereHas('zone',function ($q) use ($country_id){
-                                                            $q->whereHas('countries', function ($query) use ($country_id) {
-                                                            $query->where('id',$country_id);
-                                                            });
-                                                            })->first();
-
-                                                            }
-                                                            }
-                                                            }
-                                                            }
+                                                            @php
+                                                                $isMethod = $this->isMethod($cart_product);
                                                             @endphp
                                                             <tr>
                                                                 <td class="product-select">
                                                                     <li class="wc-layered-nav-term custom-control custom-checkbox">
                                                                         <input type="checkbox" name="item[]"  class="custom-control-input item_checkbox chb_check{{ $cart->id }}"
-                                                                        {{(count($isMethod) > 0 || !empty($isDefaultMethod))?'':'value="0" disabled'}}
+                                                                        {{(!blank($isMethod))?'':'value="0" disabled'}}
                                                                         value="{{ $cart->id }}" id="customCheck{{$cart->id}}" data-value='item_checkbox'>
                                                                         <label class="custom-control-label"
                                                                             for="customCheck{{$cart->id}}">{{$cart->name}}</label>
@@ -191,22 +169,13 @@
                                                                 </td>
                                                                 <td data-title="shipping" class="product-shipping">
                                                                     @if($this->country)
-                                                                    @if(count($isMethod) > 0)
+                                                                    @if(!blank($isMethod))
                                                                     <a onclick:prevent="#" class="text-primary"
                                                                         onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
                                                                         style="cursor: pointer;">@lang('user.shipping'):
                                                                         @if(isset($this->shippings[$cart->id]))
                                                                         {!!
                                                                         curr($cart_product->calcShipping(\App\Shipping_methods::find($this->shippings[$cart->id]),
-                                                                        $cart->quantity)) !!}
-                                                                        @endif
-                                                                    </a>
-                                                                    @elseif(!empty($isDefaultMethod))
-                                                                    <a onclick:prevent="#" class="text-primary"
-                                                                        onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
-                                                                        style="cursor: pointer;">@lang('user.shipping'):
-                                                                        @if(isset($this->shippings[$cart->id]))
-                                                                        {!! curr($cart_product->calcShipping($isDefaultMethod,
                                                                         $cart->quantity)) !!}
                                                                         @endif
                                                                     </a>
@@ -265,35 +234,13 @@
                                                             $cart_product = $cart->getProduct();
                                                         @endphp
                                                         @php
-                                                        $country_id = $this->country;
-                                                        $isMethod   = [];
-                                                        if($country_id) {
-                                                        $isMethod = $cart_product->methods()->where('status', 0)->whereHas('zone', function ($query) use($country_id){
-                                                        $query->whereHas('countries', function ($q) use($country_id){
-                                                        $q->where('id', $country_id);
-                                                        });
-                                                        })->get();
-                                                        if(count($isMethod) <= 0) {
-                                                            $defaultShipping = $setting;
-                                                            if($defaultShipping->default_shipping == 1) {
-                                                            if($defaultShipping->shipping !== null) {
-                                                            $isDefaultMethod =
-                                                            $defaultShipping->shipping()->where('status', 0)->whereHas('zone',function ($q) use ($country_id){
-                                                            $q->whereHas('countries', function ($query) use ($country_id) {
-                                                            $query->where('id',$country_id);
-                                                            });
-                                                            })->first();
-
-                                                            }
-                                                            }
-                                                            }
-                                                            }
-                                                            @endphp
+                                                        $isMethod   = $this->isMethod($cart_product);
+                                                        @endphp
                                                             <tr>
                                                                 <td class="product-select">
                                                                     <li class="wc-layered-nav-term custom-control custom-checkbox">
                                                                         <input type="checkbox" name="item[]"  class="custom-control-input item_checkbox chb_check{{ $cart->id }}"
-                                                                        {{(count($isMethod) > 0 || !empty($isDefaultMethod))?'':'value="0" disabled'}}
+                                                                        {{(!blank($isMethod) )?'':'value="0" disabled'}}
                                                                         value="{{ $cart->id }}" id="customCheck{{$cart->id}}" data-value='item_checkbox'>
                                                                         <label class="custom-control-label"
                                                                             for="customCheck{{$cart->id}}">{{$cart->name}}</label>
@@ -347,22 +294,13 @@
                                                                 </td>
                                                                 <td data-title="shipping" class="product-shipping">
                                                                     @if($this->country)
-                                                                    @if(count($isMethod) > 0)
+                                                                    @if(!blank($isMethod))
                                                                     <a onclick:prevent="#" class="text-primary"
                                                                         onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
                                                                         style="cursor: pointer;">@lang('user.shipping'):
                                                                         @if(isset($this->shippings[$cart->id]))
                                                                         {!!
                                                                         curr($cart_product->calcShipping(\App\Shipping_methods::find($this->shippings[$cart->id]),
-                                                                        $cart->quantity)) !!}
-                                                                        @endif
-                                                                    </a>
-                                                                    @elseif(!empty($isDefaultMethod))
-                                                                    <a onclick:prevent="#" class="text-primary"
-                                                                        onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
-                                                                        style="cursor: pointer;">@lang('user.shipping'):
-                                                                        @if(isset($this->shippings[$cart->id]))
-                                                                        {!! curr($cart_product->calcShipping($isDefaultMethod,
                                                                         $cart->quantity)) !!}
                                                                         @endif
                                                                     </a>
@@ -468,15 +406,13 @@
                                                             <p id="calc_shipping_country_field"
                                                                 class="form-row form-row-wide">
                                                                 <select rel="calc_shipping_state"
-                                                                    class="country_to_state" wire:model='country'
+                                                                    class="country_to_state"
                                                                     id="calc_shipping_country" style="width:100%;"
                                                                     name="calc_shipping_country">
                                                                     <option value="">@lang('user.select_country')
                                                                     </option>
-
-                                                                    @foreach(\App\Country::select('id',
-                                                                    'country_name')->get() as $country)
-                                                                    <option value="{{$country->id}}">
+                                                                    @foreach($countries as $country)
+                                                                    <option value="{{$country->id}}" {{($country->id  == $this->country)? 'selected' :''}}>
                                                                         {{$country->country_name}}</option>
                                                                     @endforeach
                                                                 </select>
@@ -547,7 +483,7 @@
         </div>
     </div>
     <!-- .col-full -->
-    @foreach(Cart::content() as $cart)
+    @foreach($this->carts as $cart)
     @php
     $cart_product = $cart->getProduct();
     @endphp
@@ -557,7 +493,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Shipping</h4>
+                    <h4 class="modal-title">@lang('user.shipping')</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -567,43 +503,31 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th></th>
+                                <th>Estimated Delivery</th>
                                 <th>@lang('user.cost')</th>
                                 <th>@lang('user.carrier')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php
-                            $country_id = $this->country;
-                            $method_countries = $cart_product->methods()->where('status', 0)->whereHas('zone',function ($q) use
-                            ($country_id){
-                            $q->whereHas('countries', function ($query) use ($country_id) {
-                            $query->where('id',$country_id);
-                            });
-                            })->get();
-                            //if(count($method_countries) <= 0) {
-                            $defaultShipping = $setting;
-                            if($defaultShipping->default_shipping == 1) {
-                                if($defaultShipping->shipping !== null) {
-                                    $default_method = $defaultShipping->shipping()->where('status', 0)->whereHas('zone',function ($q) use
-                                    ($country_id){
-                                    $q->whereHas('countries', function ($query) use ($country_id) {
-                                    $query->where('id',$country_id);
-                                    });
-                                    })->first();
-                                }
-
-                            }
-                                //}
+                                $isMethod = $this->isMethod($cart_product);
                             @endphp
 
-                                @if(count($method_countries) > 0)
-                                @foreach($method_countries as $method_index => $method)
+                                @if(!blank($isMethod))
+                                @foreach($isMethod as $method_index => $method)
                                 <tr>
+                                    <td>
+                                       {{$method_index + 1}}
+                                    </td>
                                     <td>
                                         <input type="radio" name="radio{{$cart->id}}" class="chb{{$cart->id}}"
                                             wire:click='$set("shippings.{{$cart->id}}", {{$method->id}})'
                                             value="{{$cart_product->calcShipping($method, $cart->quantity)}}"
                                             {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $cart_product->calcShipping($method, $cart->quantity))?'checked':''}} />
+                                    </td>
+                                    <td>
+1 day
                                     </td>
                                     <td>
                                         {!! curr($cart_product->calcShipping($method, $cart->quantity)) !!}
@@ -613,22 +537,6 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                @endif
-                                @if(!empty($default_method))
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="radio{{$cart->id}}" class="chb{{$cart->id}}"
-                                            wire:click='$set("shippings.{{$cart->id}}", {{$default_method->id}})'
-                                            value="{{$cart_product->calcShipping($default_method, $cart->quantity)}}"
-                                            {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $cart_product->calcShipping($default_method, $cart->quantity))?'checked':''}} />
-                                    </td>
-                                    <td>
-                                        {!! curr($cart_product->calcShipping($default_method, $cart->quantity)) !!}
-                                    </td>
-                                    <td>
-                                        {{$default_method->name}}
-                                    </td>
-                                </tr>
                                 @endif
                         </tbody>
                     </table>
@@ -687,7 +595,7 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        @foreach(Cart::content() as $indx => $cart)
+        @foreach($this->carts as $indx => $cart)
         if ($(".chb{{$cart->id}}").is(':checked')) {
             @this.set('shippings.{{$cart->id}}', $(".chb{{$cart->id}}").val());
         }
@@ -704,6 +612,7 @@
             }
         });
         @endforeach
+
     });
 
 </script>
@@ -744,4 +653,18 @@
             transform: rotate(360deg);
         }
     }
+    .custom-control-input:active~.custom-control-label::before {
+        color: #fff;
+        background-color: #b3d7ff;
+    }
+    .custom-control-label::before {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+    .custom-control-label::after {
+        width: 1.5rem;
+        height: 1.5rem;
+}
 </style>

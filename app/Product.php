@@ -387,4 +387,5 @@ class Product extends Model implements Searchable, Buyable, ReviewRateable, Taxa
         return $families;
     }
 
+
 }

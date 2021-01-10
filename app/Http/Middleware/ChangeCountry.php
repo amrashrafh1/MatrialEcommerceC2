@@ -18,7 +18,6 @@ class ChangeCountry
     public function handle(Request $request, Closure $next)
     {
        // session()->forget('country');
-
         if (!$request->get('country') &&
             !$request->getSession()->get('country')) {
 
@@ -30,6 +29,7 @@ class ChangeCountry
                     'country' => $country->id,
                 ]);
             }
+
         } elseif ($request->get('country')) {
 
             $country = \DB::table('countries')->where('country_name', 'LIKE', '%' . $request->get('country') . '%')->first();

@@ -48,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
                     $query->where('id', $country_id);
                 });
             })->get();
+
             $isDefaultMethod = $setting->shipping->where('status', 0)->whereHas('zone', function ($q) use ($country_id) {
                 $q->whereHas('countries', function ($query) use ($country_id) {
                     $query->where('id', $country_id);
