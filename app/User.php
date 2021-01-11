@@ -164,4 +164,24 @@ public function getDescriptionForEvent(string $eventName) :string
     {
         return Cache::has('user-is-online-'. $this->id);
     }
+    /**
+     * Return the shipping data for a user
+     *
+     * @return array
+     */
+    public function shippingAddress()
+    {
+        //$country =
+        return [
+            'name'    => $this->name .' ' . $this->last_name,
+            'company' => '',
+            'street1' => $this->address,
+            'city'    => $this->city,
+            'state'   => $this->state,
+            'zip'     => $this->postcode,
+            'country' => $this->country->alpha3Code,
+            'phone'   => $this->phone,
+            'email'   => $this->email,
+        ];
+    }
 }

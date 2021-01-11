@@ -5,8 +5,11 @@ namespace App\Http\Livewire;
 use App\Coupon;
 use App\Setting;
 use App\Shipping_methods;
+use App\User;
 use Cart;
 use Livewire\Component;
+use App\Services\Shipping;
+use Illuminate\Http\Request;
 
 class CartPage extends Component
 {
@@ -358,7 +361,30 @@ class CartPage extends Component
     }
 
 
+    public function validateShipping(User $user) {
+        // Try and validate the address
 
+        $shipping = new Shipping();
+        $validate = $shipping->validateAddress($user);
+        // Make sure it's not an invalid address this
+        // could also be moved to a custom validator rule
+        if ($validate->object_state == 'INVALID') {
+            return back()->withMessages($validate->messages);
+        }
+    }
+
+
+    public function changeShipping($formData, $id) {
+        $request = new Request($formData);
+
+        $validatedData = $request->validate([
+            'radio'. $id => 'required|numeric|min:1',
+        ], [], [
+            'radio'. $id => trans('admin.radio'),
+        ]);
+        $this->shippings[$id] = $validatedData['radio'. $id];
+
+    }
     /* public function shippingFromTo() {
         //add_filter ( 'woocommerce_cart_collaterals', 'lieferzeit');
 //function lieferzeit() {

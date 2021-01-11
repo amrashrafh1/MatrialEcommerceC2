@@ -54,13 +54,13 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate(request(), [
-            'title_en' => 'required|string|max:100',
-            'content_en' => 'required|min:3',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
+            'title_en'    => 'required|string|max:100',
+            'content_en'  => 'required|min:3',
+            'image'       => 'required|image|mimes:jpg,jpeg,png,gif,bmp|max:10000',
             'commentable' => 'sometimes|nullable',
-            'slug' => 'required|string|unique:posts',
-            'publish_at' => 'required|string',
-            'tags_en' => 'required|string',
+            'slug'        => 'required|string|unique:posts',
+            'publish_at'  => 'required|string',
+            'tags_en'     => 'required|string',
         ], [], [
             'title_en' => trans('admin.title_en'),
             'content_en' => trans('admin.content_en'),

@@ -85,21 +85,14 @@
                                             </div>
                                             <div class='card-body'>
                                                 @if(!empty(session('select')))
-                                            <div class="alert alert-danger" id='error-message'>
-                                                {{ session('select') }}
-                                            </div>
-                                        @endif
+                                                    <div class="alert alert-danger" id='error-message'>
+                                                        {{ session('select') }}
+                                                    </div>
+                                                @endif
                                                 <table class="shop_table shop_table_responsive cart">
                                                     <thead>
                                                         <tr>
-                                                            <th class="product-thumbnail"></th>
-                                                            <th class="product-select"></th>
-                                                            <th class="product-name">@lang('user.product')</th>
-                                                            <th class="product-price">@lang('user.price')</th>
-                                                            <th class="product-quantity">@lang('user.quantity')</th>
-                                                            <th class="product-shipping">@lang('user.shipping')</th>
-                                                            <th class="product-subtotal">@lang('user.total')</th>
-                                                            <th class="product-select"></th>
+                                                            <th class="product-product"></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -111,8 +104,93 @@
                                                             @php
                                                                 $isMethod = $this->isMethod($cart_product);
                                                             @endphp
-                                                            <tr>
-                                                                <td class="product-select">
+                                                            <tr class='row'>
+                                                                <td class='product-product'>
+                                                                    <li class="item list-unstyled">
+                                                                        <div class="item-main cf">
+
+                                                                          <div class="item-block ib-info cf">
+                                                                            <img class="product-img" src="http://fakeimg.pl/150/e5e5e5/adadad/?text=IMG" />
+                                                                            <div class="ib-info-meta">
+                                                                              <span class="title">Drink Up Nalgene Water Bottle</span>
+                                                                              <span class="itemno">#3498765</span>
+                                                                              <span class="styles">
+                                                                                <span><strong>Color</strong>: Neon Green</span>
+                                                                                <span><strong>Size</strong>: 32oz</span>
+                                                                                <span><strong>Warranty</strong>: 3 Years</span>
+                                                                                <span class="blue-link">Edit Details</span>
+                                                                              </span>
+                                                                            </div>
+                                                                          </div>
+                                                                          <div class="item-block ib-qty">
+                                                                            <input type="text" value="3" class="qty" />
+                                                                            <span class="price"><span>x</span> $25.00</span>
+                                                                          </div>
+                                                                          <div class="item-block ib-total-price">
+                                                                            <span class="tp-price">$75.00</span>
+                                                                            <span class="tp-remove"><i class="i-cancel-circle"></i></span>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="item-foot cf">
+                                                                          <div class="if-message"><p> Item/promo related messaging shows up here</p></div>
+                                                                          <div class="if-left"><span class="if-status">In Stock</span></div>
+                                                                          <div class="if-right"><span class="blue-link">Gift Options</span> | <span class="blue-link">Add to Registry</span> | <span class="blue-link">Add to Wishlist</span></div>
+                                                                        </div>
+                                                                      </li>
+                                                                </td>
+                                                                {{-- <td class="product-select col-1">
+                                                                    <li class="wc-layered-nav-term custom-control custom-checkbox">
+                                                                        <input type="checkbox" name="item[]"  class="custom-control-input item_checkbox chb_check{{ $cart->id }}"
+                                                                        {{(!blank($isMethod))?'':'value="0" disabled'}}
+                                                                        value="{{ $cart->id }}" id="customCheck{{$cart->id}}" data-value='item_checkbox'>
+                                                                        <label class="custom-control-label"
+                                                                            for="customCheck{{$cart->id}}">{{$cart->name}}</label>
+                                                                    </li>
+                                                                </td>
+                                                                <td class="product-image col-3">
+                                                                    <a href="{{route('show_product', $cart_product->slug)}}" target="_blank">
+                                                                        <img width="180" height="180" alt=""
+                                                                            class="wp-post-image"
+                                                                            src="{{Storage::url($cart_product->image)}}">
+                                                                    </a>
+                                                                </td>
+                                                                <td class="product-product col-6">
+                                                                    <li class="item">
+                                                                        <div class="item-main cf">
+                                                                          <div class="item-block ib-info cf">
+                                                                            <img class="product-img" src="http://fakeimg.pl/150/e5e5e5/adadad/?text=IMG" />
+                                                                            <div class="ib-info-meta">
+                                                                              <span class="title">Drink Up Nalgene Water Bottle</span>
+                                                                              <span class="itemno">#3498765</span>
+                                                                              <span class="styles">
+                                                                                <span><strong>Color</strong>: Neon Green</span>
+                                                                                <span><strong>Size</strong>: 32oz</span>
+                                                                                <span><strong>Warranty</strong>: 3 Years</span>
+                                                                                <span class="blue-link">Edit Details</span>
+                                                                              </span>
+                                                                            </div>
+                                                                          </div>
+                                                                          <div class="item-block ib-qty">
+                                                                            <input type="text" value="3" class="qty" />
+                                                                            <span class="price"><span>x</span> $25.00</span>
+                                                                          </div>
+                                                                          <div class="item-block ib-total-price">
+                                                                            <span class="tp-price">$75.00</span>
+                                                                            <span class="tp-remove"><i class="i-cancel-circle"></i></span>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="item-foot cf">
+                                                                          <div class="if-message"><p> Item/promo related messaging shows up here</p></div>
+                                                                          <div class="if-left"><span class="if-status">In Stock</span></div>
+                                                                          <div class="if-right"><span class="blue-link">Gift Options</span> | <span class="blue-link">Add to Registry</span> | <span class="blue-link">Add to Wishlist</span></div>
+                                                                        </div>
+                                                                      </li>
+                                                                </td>
+                                                                <td class="product-select col-2">
+                                                                    <a title="Remove this item" class="remove" href="#"
+                                                                    wire:click='removeCart({{$cart->id}})'></a>
+                                                                </td> --}}
+                                                                <{{-- td class="product-select">
                                                                     <li class="wc-layered-nav-term custom-control custom-checkbox">
                                                                         <input type="checkbox" name="item[]"  class="custom-control-input item_checkbox chb_check{{ $cart->id }}"
                                                                         {{(!blank($isMethod))?'':'value="0" disabled'}}
@@ -171,7 +249,7 @@
                                                                     @if($this->country)
                                                                     @if(!blank($isMethod))
                                                                     <a onclick:prevent="#" class="text-primary"
-                                                                        onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
+                                                                    data-toggle="modal" data-target="#shipping-methods{{$cart->id}}"
                                                                         style="cursor: pointer;">@lang('user.shipping'):
                                                                         @if(isset($this->shippings[$cart->id]))
                                                                         {!!
@@ -196,7 +274,7 @@
                                                                 <td data-title="remove" class="product-select">
                                                                     <a title="Remove this item" class="remove" href="#"
                                                                     wire:click='removeCart({{$cart->id}})'></a>
-                                                                </td>
+                                                                </td> --}}
                                                             </tr>
                                                             @endif
                                                             @endforeach
@@ -284,7 +362,7 @@
                                                                 </td>
                                                                 <td class="product-quantity" data-title="Quantity">
                                                                     <div class="quantity">
-                                                                        <label>Quantity</label>
+                                                                        <label>@lang('user.quantity')</label>
                                                                         <input type="number"
                                                                             name="cart[e2230b853516e7b05d79744fbd4c9c13][qty]"
                                                                             wire:change='changeCart($event.target.value, {{$cart->id}})'
@@ -296,7 +374,8 @@
                                                                     @if($this->country)
                                                                     @if(!blank($isMethod))
                                                                     <a onclick:prevent="#" class="text-primary"
-                                                                        onclick="document.getElementById('id{{$cart->id}}').style.display='block'"
+                                                                        data-toggle="modal" data-target="#shipping-methods{{$cart->id}}"
+                                                                        {{-- onclick="document.getElementById('id{{$cart->id}}').style.display='block'" --}}
                                                                         style="cursor: pointer;">@lang('user.shipping'):
                                                                         @if(isset($this->shippings[$cart->id]))
                                                                         {!!
@@ -428,7 +507,7 @@
                                                 <button
                                                     class="checkout-button button alt wc-forward {{($this->disabled)?'disabled':''}}"
                                                     {{($this->disabled)?'disabled':''}} wire:click='proceed_to_checkout'
-                                                    style='    width: 100%;'>
+                                                    style='width: 100%;'>
                                                     @lang('user.Proceed_to_checkout')</button>
 
                                                 <a class="back-to-shopping" href="{{route('shop')}}">@lang('user.Back_to_Shopping')</a>
@@ -487,10 +566,10 @@
     @php
     $cart_product = $cart->getProduct();
     @endphp
-    <div class="modal" id="id{{$cart->id}}">
+    <div class="modal fade bd-example-modal-lg" id="shipping-methods{{$cart->id}}" wire:ignore>
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
+                <form wire:submit.prevent='changeShipping(Object.fromEntries(new FormData($event.target)), {{$cart->id}})'>
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">@lang('user.shipping')</h4>
@@ -503,9 +582,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th></th>
-                                <th>Estimated Delivery</th>
+                                <th>@lang('user.Estimated_Delivery')</th>
                                 <th>@lang('user.cost')</th>
+                                <th>@lang('user.tracking')</th>
+                                <th>@lang('user.shipping_method')</th>
                                 <th>@lang('user.carrier')</th>
                             </tr>
                         </thead>
@@ -515,25 +595,33 @@
                             @endphp
 
                                 @if(!blank($isMethod))
-                                @foreach($isMethod as $method_index => $method)
+                                @foreach($isMethod as $method)
                                 <tr>
                                     <td>
-                                       {{$method_index + 1}}
+                                        <li class="wc-layered-nav-term custom-control custom-checkbox">
+                                            <input type="radio" name="radio{{$cart->id}}" class="custom-control-input item_checkboxRadio chb{{ $cart->id }}"
+                                            value="{{$method->id}}"
+                                            id="customRadio{{$method->id}}" data-value='item_checkboxRadio'
+                                            {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $method->id)?'checked':''}}>
+                                            <label class="custom-control-label"
+                                                for="customRadio{{$method->id}}">{{$cart->name}}</label>
+                                        </li>
+
                                     </td>
                                     <td>
-                                        <input type="radio" name="radio{{$cart->id}}" class="chb{{$cart->id}}"
-                                            wire:click='$set("shippings.{{$cart->id}}", {{$method->id}})'
-                                            value="{{$cart_product->calcShipping($method, $cart->quantity)}}"
-                                            {{(isset($this->shippings[$cart->id]) && $this->shippings[$cart->id] == $cart_product->calcShipping($method, $cart->quantity))?'checked':''}} />
+                                        1 day
                                     </td>
                                     <td>
-1 day
+                                        @lang('user.shipping') {!! curr($cart_product->calcShipping($method, $cart->quantity)) !!}
                                     </td>
                                     <td>
-                                        {!! curr($cart_product->calcShipping($method, $cart->quantity)) !!}
+                                        <i class='fa fa-check-circle fa-2x' style='color:#0063D1'></i>
                                     </td>
                                     <td>
                                         {{$method->name}}
+                                    </td>
+                                    <td>
+                                        {{$method->shippingcompany->name}}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -544,10 +632,12 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-success"
+                    >@lang('user.save')</button>
                     <button type="button" class="btn btn-danger"
-                        onclick="document.getElementById('id{{$cart->id}}').style.display='none'">Close</button>
+                    data-dismiss="modal">@lang('user.Close')</button>
                 </div>
-
+            </form>
             </div>
         </div>
     </div>
@@ -667,4 +757,168 @@
         width: 1.5rem;
         height: 1.5rem;
 }
+.item {
+	 border-bottom: 1px solid #ccc;
+	 margin-bottom: 10px;
+}
+ .item:last-child {
+	 border-bottom: none;
+	 padding-bottom: 0;
+	 margin-bottom: 0;
+}
+ .item .item-block {
+	 float: left;
+}
+ .item .item-block.ib-info {
+	 width: 60%;
+}
+ .item .item-block.ib-info img.product-img {
+	 float: left;
+	 display: block;
+	 width: 100px;
+	 margin-right: 15px;
+}
+ .item .item-block.ib-info .ib-info-meta {
+	 float: left;
+}
+ .item .item-block.ib-info span {
+	 display: block;
+	 margin-bottom: 3px;
+}
+ .item .item-block.ib-info span.title {
+	 font-size: 1em;
+}
+ .item .item-block.ib-info span.itemno {
+	 color: #888;
+	 font-size: 0.8em;
+}
+ .item .item-block.ib-info span.styles {
+	 border-left: 3px solid rgba(0, 0, 0, .1);
+	 padding-left: 5px;
+	 font-size: 0.8em;
+}
+ .item .item-block.ib-info span.styles strong {
+	 display: inline-block;
+	 min-width: 70px;
+}
+ .item .item-block.ib-info span.styles .blue-link {
+	 font-size: 0.8em;
+}
+ .item .item-block.ib-qty {
+	 width: 20%;
+	 text-align: right;
+}
+ .item .item-block.ib-qty input {
+	 text-align: center;
+	 font-size: 16px;
+	 border-radius: 0;
+	 outline: none;
+	 border: 1px solid #ccc;
+	 width: 50px;
+	 height: 40px;
+	 vertical-align: middle;
+	 color: #555;
+}
+ .item .item-block.ib-qty input:focus {
+	 border-color: #7bcde8;
+}
+ .item .item-block.ib-qty span.price {
+	 display: inline-block;
+	 color: #777;
+}
+ .item .item-block.ib-qty span.price > span {
+	 margin: 0 5px;
+}
+ .item .item-block.ib-total-price {
+	 width: 20%;
+	 text-align: right;
+	 padding-top: 6px;
+	 position: relative;
+}
+ .item .item-block.ib-total-price span {
+	 color: #555;
+}
+ .item .item-block.ib-total-price span.tp-price {
+	 font-size: 1.4em;
+	 font-weight: 900;
+}
+ .item .item-block.ib-total-price span.tp-remove {
+	 font-size: 14px;
+	 margin-left: 10px;
+	 position: relative;
+	 top: -2px;
+	 cursor: pointer;
+}
+ .item .item-block.ib-total-price span.tp-remove:hover {
+	 color: red;
+}
+ .item .item-foot {
+	 padding: 0 0 10px 0;
+	 margin-top: 10px;
+	 font-size: 0.7em;
+}
+ .item .item-foot i {
+	 position: relative;
+	 font-size: 12px;
+}
+ .item .item-foot .if-message {
+	 float: left;
+	 width: 100%;
+	 margin-bottom: 10px;
+	 color: #777;
+}
+ .item .item-foot .if-left {
+	 float: left;
+	 color: #ccc;
+	 font-size: 115%;
+	 text-transform: uppercase;
+}
+ .item .item-foot .if-right {
+	 float: right;
+	 color: #ccc;
+	 padding-top: 2px;
+	 text-transform: uppercase;
+}
+ .item .item-foot .if-status {
+	 font-weight: 900;
+	 color: #333;
+}
+ .item .bundle-block {
+	 padding: 0 0 10px 50px;
+	 position: relative;
+}
+ .item .bundle-block ul li {
+	 position: relative;
+	 display: block;
+	 width: 100%;
+	 margin-top: 10px;
+	 padding-top: 5px;
+}
+ .item .bundle-block ul li i.i-down-right-arrow {
+	 display: block;
+	 position: absolute;
+	 left: -30px;
+	 font-size: 12px;
+	 top: 50%;
+	 margin-top: -6px;
+	 color: #999;
+}
+ .item .bundle-block ul li img {
+	 width: 100%;
+	 max-width: 48px;
+	 display: block;
+	 float: left;
+	 margin-right: 15px;
+}
+ .item .bundle-block ul li span {
+	 display: block;
+}
+ .item .bundle-block ul li span.bundle-title {
+	 font-size: 0.85em;
+}
+ .item .bundle-block ul li span.bundle-itemno {
+	 color: #888;
+	 font-size: 0.7em;
+}
+
 </style>

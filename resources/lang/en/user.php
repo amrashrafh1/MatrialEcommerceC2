@@ -423,6 +423,9 @@ return [
     'failed_to_send_message'                                                                  => 'failed to send message',
     'failed_to_send_image'                                                                    => 'failed to send image',
     'new_message'                                                                             => 'You have a new message',
-    'store_reviews'                                                                            => 'Store reviews',
+    'store_reviews'                                                                           => 'Store reviews',
+    'tracking'                                                                                => 'Tracking',
+    'Estimated_Delivery'                                                                      => 'Estimated Delivery',
+    'shipping_method'                                                                         => 'Shipping method',
 
 ];

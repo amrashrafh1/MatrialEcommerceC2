@@ -42,6 +42,7 @@
         "pusher/pusher-php-server": "^4.1",
         "realrashid/sweet-alert": "^2.0",
         "santigarcor/laratrust": "5.2.*",
+        "shippo/shippo-php": "^1.4",
         "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-searchable": "^1.5",
         "spatie/laravel-tags": "^2.5",

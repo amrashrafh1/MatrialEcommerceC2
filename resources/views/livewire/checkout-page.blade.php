@@ -585,7 +585,7 @@
                                                     <div id="card-errors" role="alert"></div>
                                                 </div>
                                                 @endif
-                                                <input type="submit" value="@lang('user.buy')"
+                                                <input type="submit" wire:loading.attr="disabled" value="@lang('user.buy')"
                                                     class="button wc-forward text-center">
                                             </div>
 

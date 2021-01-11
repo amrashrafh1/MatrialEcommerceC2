@@ -148,47 +148,7 @@
     </div>
 
     <!--   Core JS Files   -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-        Echo.channel('home')
-            .listen('notificationEvent', (e) => {
-                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
-                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: e.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-        });
 
-
-        Echo.channel('new-seller')
-            .listen('NewSeller', (e) => {
-                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
-                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: e.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-        });
-        Echo.channel('new-order')
-            .listen('NewOrder', (e) => {
-                $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
-                $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: e.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-        });
-    </script>
     <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
     <script src="{{ asset('material') }}/js/core/popper.min.js"></script>
     <script src="{{ asset('material') }}/js/core/bootstrap-material-design.min.js"></script>
@@ -356,6 +316,47 @@
     });
     @endif
     </script>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script>
+            Echo.channel('home')
+                .listen('notificationEvent', (e) => {
+                    $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                    $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: e.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+            });
+
+
+            Echo.channel('new-seller')
+                .listen('NewSeller', (e) => {
+                    $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                    $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: e.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+            });
+            Echo.channel('new-order')
+                .listen('NewOrder', (e) => {
+                    $('#notificationMenu').append('<a class="dropdown-item" href="#">'+e.message+'</a>');
+                    $('#NotificationCounter').text(parseInt($('#NotificationCounter').text()) + 1);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: e.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+            });
+        </script>
     @stack('js')
 
 </body>

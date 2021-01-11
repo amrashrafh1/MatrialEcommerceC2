@@ -23,6 +23,7 @@ class CreateShippingCompaniesTable extends Migration
             $table->string('contact_name')->nullable();
             $table->string('address')->nullable();
             $table->string('mobile')->nullable();
+            $table->boolean('traking')->default(0);
             $table->string('icon')->nullable();
             $table->integer('country_id')->unsigned();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
